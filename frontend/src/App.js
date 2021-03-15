@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./home/container/Home";
 import Header from "./navbar/container/Header";
 import EmptyPage from "./common/EmptyPage";
+import './App.css';
 
 // const history = createBrowserHistory();
 
@@ -13,8 +14,8 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
+        <Header />
         <Provider store={store}>
-          <Header />
           <Switch>
             <Route exact path="/">
               <Home />
