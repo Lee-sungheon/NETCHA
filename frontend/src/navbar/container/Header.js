@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -18,8 +18,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: 'black',
+    backgroundColor: 'rgba(0, 0, 0, 0)',
     padding: '0 10px',
+    boxShadow: 'none',
   },
   title: {
     padding: theme.spacing(0, 0, 0, 1),
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: 'black',
+    backgroundColor: 'rgba(0, 0, 0, 0)',
     '&:hover': {
       backgroundColor: 'black',
     },
@@ -154,9 +155,25 @@ export default function Header() {
 
   const classes = useStyles();
 
+  useEffect(() => {
+    window.onscroll = function() {myFunction()};
+
+    const header = document.getElementById("header");
+    const sticky = 0;
+
+    function myFunction() {
+      if (window.pageYOffset > sticky) {
+        header.style.backgroundColor = 'rgba(0, 0, 0, 1)'
+      } else {
+        header.style.backgroundColor = 'rgba(0, 0, 0, 0)'
+      }
+    }
+  }, [])
+
+
   return (
     <div className={classes.root}>
-      <AppBar position="static" className={classes.root}>
+      <AppBar position="fixed" className={classes.root} id="header">
         <Toolbar>
           <Link to={'/'}>
             <img src={'../images/netcha.png'} style={{height: '52px', marginRight: '10px'}} alt="netcha" onClick={() => setActiveValue('홈')}/>
