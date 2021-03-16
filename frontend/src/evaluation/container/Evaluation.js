@@ -4,10 +4,12 @@ import GridList from '@material-ui/core/GridList';
 import MovieItem from '../component/MovieItem';
 import GridListTile from '@material-ui/core/GridListTile';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Typography from '@material-ui/core/Typography';
+
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
-    margin: 0,
+    marginTop: '8px',
     border: '1px solid white',
     height: 7,
     borderRadius: 5,
@@ -23,7 +25,8 @@ const BorderLinearProgress = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: '50px',
+    margin: '0 50px 50px 50px',
+    paddingTop: '130px',
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
@@ -31,18 +34,21 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'rgb(20, 21, 23)',
   },
   progressBox: {
-    width: '100%',
     position: 'fixed',
+    paddingTop: '20px',
     zIndex: 100,
     height: '100px',
-    textAlign: 'center',
-    backgroundColor: 'black',
+    width: '100%',
+    // backgroundColor: 'rgb(20, 21, 23)',
+    background: 'linear-gradient(to top, rgba(18, 18, 18, 0), rgba(18, 18, 18, 0.6) 10%, rgba(18, 18, 18, 0.8) 16%, rgb(18, 18, 18) 29%);',
+    
   },
   progressBar: {
-    display: 'block',
-    width: '50%',
+    position: 'absolute',
+    left: '30%',
+    width: '40%',
     justifyContent: 'center',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   gridList: {
     height: '100%',
@@ -52,6 +58,13 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
+  },
+  menu: {
+    padding: theme.spacing(0, 2),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
   },
 }));
 
@@ -82,8 +95,19 @@ export default function Evaluation() {
   return (
     <div>
       <div className={classes.progressBox}>
-        <h2 style={{color: 'white'}}>20</h2>
-        <h5 style={{color: 'white', marginBottom: '8px'}}>아하, 이런 스타일이시군요!</h5>
+        <Typography 
+          className={classes.menu} 
+          variant="h5"
+        >
+          20
+        </Typography>
+        <Typography 
+          className={classes.menu} 
+          variant="subtitle2" 
+          style={{ color: 'gray', fontWeight: 'bold'}}
+        >
+          아하, 이런 스타일이시군요!
+        </Typography>
         <div className={classes.progressBar}>
           <BorderLinearProgress variant="determinate" value={50} />
         </div>
@@ -91,8 +115,8 @@ export default function Evaluation() {
       <div className={classes.root}>
         <GridList cellHeight={'auto'} className={classes.gridList} cols={colsNum} spacing={35}>
           {tileData.map((tile) => (
-            <GridListTile key={tile.img}>
-              <MovieItem tile={tile} />
+            <GridListTile key={tile.title}>
+              <MovieItem tile={tile}/>
             </GridListTile>
           ))}
         </GridList>

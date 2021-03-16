@@ -3,7 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import PropTypes from 'prop-types';
+
+MovieItem.propTypes = {
+    tile: PropTypes.object,
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,6 +15,12 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     '& > * + *': {
       marginTop: theme.spacing(1),
+    },
+  },
+  itemBox: {
+    position: 'relative',
+    '&:hover': {
+      border: 'white 1px solid',
     },
   },
   customOverlay: {
@@ -50,7 +60,6 @@ export default function MovieItem({tile}) {
   const [ score, setScore ] = useState(5)
   let tmpScore = 5
   function setHover() {
-    console.log(isFinish)
     if (isFinish){
       setIsHover(true)
     } else {
@@ -63,27 +72,29 @@ export default function MovieItem({tile}) {
       tmpScore = v
     }
   }
-  function onClick() {
-    setIsFinish(true);
-    if (tmpScore === score){
-      setIsFinish(false)
+  function onClick(e) {
+    if (e.target.name !== 'size-large'){
+      setIsFinish(true);
+      if (tmpScore === score){
+        setIsFinish(false)
+      }
+      setScore(tmpScore);
     }
-    setScore(tmpScore);
   }
   return (
     <div
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={setHover}
-      style={isHover ? {border: '1px solid white', position: 'relative'} : {position: 'relative'}}
+      className={customClasses.itemBox}
     >
       <img 
         src={tile.img} 
         alt={tile.title} 
-        style={{width: '100%'}} 
+        style={{width: '100%'}}
       />
       <div 
         className={customClasses.customOverlay}
-        style={isHover ? {visibility: 'visible'} : {visibility: 'hidden'}}
+        style={isHover ? {display: 'block'} : {display: 'none'}}
       >
         <Typography 
           variant="subtitle1"
@@ -91,13 +102,12 @@ export default function MovieItem({tile}) {
         >
           {tile.title}
         </Typography>
-        <div className={customClasses.rating} >
+        <div className={customClasses.rating} onClick={onClick}>
           <Rating 
             name="size-large" 
-            size="large" 
+            size="large"
             precision={0.5} 
             onChangeActive={onChange}
-            onClick={onClick}
             value={score}
           />
         </div>
