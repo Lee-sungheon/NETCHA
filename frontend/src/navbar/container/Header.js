@@ -15,6 +15,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -154,7 +155,15 @@ export default function Header() {
 
   useEffect(() => {
     window.onscroll = function() {myFunction()};
-
+    const nowUrl = window.location.href.split('/')
+    const nowLocation = nowUrl[nowUrl.length-1]
+    if (nowLocation === 'eval') {
+      setActiveValue('평가하기');
+    } else if (nowLocation === 'myLike') {
+      setActiveValue('내가 찜한 콘텐츠')
+    } else {
+      setActiveValue('홈')
+    }
     const header = document.getElementById("header");
     const sticky = 0;
 
