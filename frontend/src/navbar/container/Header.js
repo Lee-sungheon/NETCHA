@@ -39,9 +39,6 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: 'rgba(0, 0, 0, 0)',
-    '&:hover': {
-      backgroundColor: 'black',
-    },
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
