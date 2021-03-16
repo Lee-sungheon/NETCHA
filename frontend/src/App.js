@@ -7,6 +7,7 @@ import Home from "./home/container/Home";
 import Header from "./navbar/container/Header";
 import EmptyPage from "./common/EmptyPage";
 import './App.css';
+import Evaluation from "./evaluation/container/Evaluation";
 
 // const history = createBrowserHistory();
 
@@ -19,6 +20,9 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Home />
+            </Route>
+            <Route exact path="/eval">
+              <Evaluation />
             </Route>
             <Route>
               <EmptyPage />
