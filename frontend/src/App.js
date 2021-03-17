@@ -9,6 +9,7 @@ import EmptyPage from "./common/EmptyPage";
 import "./App.css";
 import Evaluation from "./evaluation/container/Evaluation";
 import Account from "./User/container/Account";
+import Login from "./User/container/Login";
 
 // const history = createBrowserHistory();
 
@@ -27,6 +28,9 @@ function App() {
             </Route>
             <Route path="/account">
               <Account />
+            </Route>
+            <Route path="/login">
+              <Login />
             </Route>
             <Route>
               <EmptyPage />
