@@ -5,7 +5,6 @@ export default function useSizeElement() {
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
-    console.log(elementRef)
     if (elementRef.current.clientWidth) {
       setWidth(elementRef.current.clientWidth);
     }

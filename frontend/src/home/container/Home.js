@@ -16,7 +16,7 @@ export default function Home() {
   const classes = useStyles();
   return (
     <>
-      <div style={{width: '100%', height: '500px', color: 'white', textAlign: 'center', lineHeight: '500px'}}>배너 자리</div>
+      <div style={{width: '100%', height: '500px', color: 'white', textAlign: 'center', lineHeight: '500px', border: '5px white solid'}}>배너 자리</div>
       <div className={classes.root}>
         <div className={classes.root} id={'slider-1'}>
           <Slider title={'Netcha 인기 콘텐츠'} idx={`slider-1`}>
@@ -47,7 +47,7 @@ export default function Home() {
           </Slider>
         </div>
       </div>
-      <div style={{width: '100%', height: '300px', color: 'white', textAlign: 'center', lineHeight: '300px'}}>풋터 자리</div>
+      <div style={{width: '100%', height: '300px', color: 'white', textAlign: 'center', lineHeight: '300px', border: '5px white solid'}}>풋터 자리</div>
     </>
   );
 }
