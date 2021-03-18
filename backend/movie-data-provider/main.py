@@ -1,5 +1,47 @@
 import json
 import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+
+raw = requests.get("https://movie.naver.com/movie/running/current.nhn",
+                   headers = {"User-Agent" : "Mozilla/5.0"})
+
+html = BeautifulSoup(raw.text, 'html.parser')
+movies = html.select("dl.lst_dsc")
+
+def createPosterURL(movie_no):
+    base_url = 'https://www.kmdb.or.kr/db/kor/detail/movie/F/'
+    response = requests.get(base_url + movie_no)
+    if response.status_code == 200:
+        html = response.text
+        soup = BeautifulSoup(html, 'html.parser')
+        poster_span = soup.select_one("#fieldset > div.mProfile.type2 > div.mImg1 > span")['style']
+        poster_img_tag = poster_span.split(" ")[1]
+        poster_img_url = poster_img_tag.replace('url(', '').replace(')', '')
+        return poster_img_url.replace("'", "")
+    else:
+        return None
+
+def createImageURLs(movie_no):
+    base_url = 'https://www.kmdb.or.kr/db/kor/detail/movie/F/'
+    response = requests.get(base_url + movie_no)
+    if response.status_code == 200:
+        html = response.text
+        soup = BeautifulSoup(html, 'html.parser')
+        image_span_list = soup.select("#fieldset > div.result-block.mt2 > div.mList8 > ul > li > a > span > span")
+        image_url_list = []
+        for span in image_span_list:
+            image_span = span['style']
+            image_url_code = image_span.split(" ")[1]
+            image_url_src = image_url_code.replace('url(', '').replace(')', '')
+            image_url_list.append(image_url_src.replace("'", ""))
+        # 랜덤으로 하나 리턴
+        # return image_url_list[random.randrange(0,len(image_url_list))] if len(image_url_list) > 0 else None
+        # 모두리턴
+        return image_url_list if len(image_url_list) > 0 else None
+    else:
+        return None
+
 def getJsonData():
     with open('kmdb_json.json', 'r',encoding='UTF8') as f:
         return json.load(f)
@@ -14,6 +56,7 @@ def srcToDataFrame(src):
 def makeNewMovieDataSet(data):
     newMovieData=[]
     for line in data:
+        # 모든 영화 데이터를 왓짭만의 데이터셋으로 변환하는 loop
         movieRow=dict()
         movieRow['no']=line['COLUMN2']
         movieRow['title_kor']=line['COLUMN3']
@@ -36,6 +79,17 @@ def makeNewMovieDataSet(data):
             movieRow['keywords']=line['COLUMN22'].split(",")
         if line['COLUMN23'] is not None:
             movieRow['scenario']=line['COLUMN23'].split(",")
+        '''
+        # 원래 데이터베이스에 넣으려했으나 짧은 시간 요청많이하면 크롤링 막아져서 rest api 요청할때 한번 호출하는 방식으로 변경
+        # 화면용 이미지 URL
+        image_urls=createImageURLs(line['COLUMN2'])
+        # 포스터
+        poster_url=createPosterURL(line['COLUMN2'])
+        if poster_url is not None:
+            movieRow['poster_url']=poster_url
+        if image_urls is not None:
+            movieRow['image_urls']=image_urls
+        '''
         newMovieData.append(movieRow)
     return newMovieData
 
