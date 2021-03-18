@@ -31,8 +31,7 @@ const Item = ({ movie }) => (
                 image={movie.image}
                 className='image-style'
               />
-              <CardContent
-                className="show-card-content">
+              <CardContent className="show-card-content">
                   <div style={{width:'100%', position: 'relative'}}>
                     <PlayArrowIcon className='play-button'/>
                     <AddIcon className='common-button'/>

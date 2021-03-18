@@ -8,8 +8,8 @@ import Header from "./navbar/container/Header";
 import EmptyPage from "./common/EmptyPage";
 import "./App.css";
 import Evaluation from "./evaluation/container/Evaluation";
-import Account from "./User/container/Account";
-import Login from "./User/container/Login";
+import Account from "./user/container/Account";
+import Login from "./user/container/Login";
 
 // const history = createBrowserHistory();
 
