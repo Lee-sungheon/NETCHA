@@ -1,6 +1,6 @@
 
 .item {
-  flex: 0 0 16.4%;
+  flex: 0 0 16.36%;
   transition: transform 300ms ease 100ms;
   margin: 0 2px;
   // min-width: 150px;
@@ -8,7 +8,7 @@
 }
 @media ( max-width: 1280px ) {
   .item {
-    flex: 0 0 19.66%;
+    flex: 0 0 19.6%;
   }
 }
 @media ( max-width: 1023px ) {

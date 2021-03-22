@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import cx from 'classnames';
 import SliderContext from './context'
-import Content from './Content'
+import Content from '../content/Content'
 import SlideButton from './SlideButton'
 import SliderWrapper from './SliderWrapper'
 import useSliding from './useSliding'
@@ -11,8 +11,8 @@ import './Slider.scss'
 const Slider = ({ children, activeSlide, title, idx }) => {
   const [currentSlide, setCurrentSlide] = useState(activeSlide);
   const [showButton, setShowButton] = useState(true);
-  const [escapeLeft, setEscapeLeft] = useState(false);
-  const [escapeRight, setEscapeRight] = useState(false);
+  // const [escapeLeft, setEscapeLeft] = useState(false);
+  // const [escapeRight, setEscapeRight] = useState(false);
   const { width, elementRef } = useSizeElement();
   const {
     handlePrev,
@@ -41,16 +41,16 @@ const Slider = ({ children, activeSlide, title, idx }) => {
   const sliderWrap1 = document.getElementById(idx)
   const sliderWrap = document.getElementById(`wrapperidx${idx}`)
   const enterSetShow = (e) => {
-    if (e.clientX < 300) {
-      setEscapeLeft(true)
-    } else {
-      setEscapeLeft(false)
-    }
-    if (e.clientX > e.view.innerWidth-300) {
-      setEscapeRight(true)
-    } else {
-      setEscapeRight(false)
-    }
+    // if (e.clientX < 300) {
+    //   setEscapeLeft(true)
+    // } else {
+    //   setEscapeLeft(false)
+    // }
+    // if (e.clientX > e.view.innerWidth-300) {
+    //   setEscapeRight(true)
+    // } else {
+    //   setEscapeRight(false)
+    // }
     if (e.clientX < 47 || e.clientX > e.view.innerWidth-47 || e.target.className === 'slider__container'){
       if (showButton === false){
         setShowButton(true)
