@@ -11,6 +11,7 @@ import Evaluation from "./evaluation/container/Evaluation";
 import Account from "./user/container/Account";
 import Login from "./user/container/Login";
 import Signup from "./user/container/Signup";
+import SignupDetail from "./user/container/SignupDetail";
 import ProfileList from "./user/container/ProfileList";
 
 // const history = createBrowserHistory();
@@ -36,6 +37,9 @@ function App() {
             </Route>
             <Route path="/signup">
               <Signup />
+            </Route>
+            <Route path="/signupdetail">
+              <SignupDetail />
             </Route>
             <Route path="/profilelist">
               <ProfileList />
