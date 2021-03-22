@@ -6,12 +6,12 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./home/container/Home";
 import Header from "./navbar/container/Header";
 import EmptyPage from "./common/EmptyPage";
-import "./App.css";
+import "./App.scss";
 import Evaluation from "./evaluation/container/Evaluation";
-import Account from "./User/container/Account";
-import Login from "./User/container/Login";
-import Signup from "./User/container/Signup";
-import ProfileList from "./User/container/ProfileList";
+import Account from "./user/container/Account";
+import Login from "./user/container/Login";
+import Signup from "./user/container/Signup";
+import ProfileList from "./user/container/ProfileList";
 
 // const history = createBrowserHistory();
 
