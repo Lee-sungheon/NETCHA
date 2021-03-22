@@ -10,6 +10,8 @@ import "./App.css";
 import Evaluation from "./evaluation/container/Evaluation";
 import Account from "./User/container/Account";
 import Login from "./User/container/Login";
+import Signup from "./User/container/Signup";
+import ProfileList from "./User/container/ProfileList";
 
 // const history = createBrowserHistory();
 
@@ -31,6 +33,12 @@ function App() {
             </Route>
             <Route path="/login">
               <Login />
+            </Route>
+            <Route path="/signup">
+              <Signup />
+            </Route>
+            <Route path="/profilelist">
+              <ProfileList />
             </Route>
             <Route>
               <EmptyPage />

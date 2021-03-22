@@ -25,7 +25,8 @@ export default function Login(props) {
       >
         <div
           style={{
-            margin: "0 auto -236px",
+            margin: "0 auto",
+            width: "100%",
             maxWidth: "450px",
             height: "1000px",
           }}
