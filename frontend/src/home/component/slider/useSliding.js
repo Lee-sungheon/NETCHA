@@ -8,21 +8,11 @@ export default function useSliding(elementWidth, countElements) {
   const [distance, setDistance] = useState(0);
   const [totalInViewport, setTotalInViewport] = useState(0)
   const [viewed, setViewed] = useState(0);
-  const [cardWidth, setCardWidth] = useState(false);
+  const [cardWidth, setCardWidth] = useState(0);
   
   function checkWindowInner() {
     const windowInnerWidth = window.innerWidth;
-    if (windowInnerWidth < 600){
-      setCardWidth(true)
-    } else if (windowInnerWidth < 767) {
-      setCardWidth(true)
-    } else if (windowInnerWidth < 1023) {
-      setCardWidth(true)
-    } else if (windowInnerWidth < 1280) {
-      setCardWidth(true)
-    } else {
-      setCardWidth(false)
-    }
+    setCardWidth(windowInnerWidth)
   }
 
   useEffect(() => {

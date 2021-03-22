@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./home/container/Home";
 import Header from "./navbar/container/Header";
 import EmptyPage from "./common/EmptyPage";
-import "./App.css";
+import "./App.scss";
 import Evaluation from "./evaluation/container/Evaluation";
 import Account from "./user/container/Account";
 import Login from "./user/container/Login";
