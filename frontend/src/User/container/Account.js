@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "@material-ui/core";
+import img1 from "../../img/icon1.png";
+import img2 from "../../img/icon2.png";
+import img3 from "../../img/icon3.png";
 
 const useStyles = makeStyles((theme) => ({
   account_box: {
@@ -187,13 +190,63 @@ export default function Account() {
               <div>프로필 & 자녀 보호 설정</div>
             </header>
             <section className={classes.account_div_section}>
-              <div>
-                <Link href="">프로필1</Link>
-              </div>
-              <Divider />
-              <div>
-                <Link href="">프로필2</Link>
-              </div>
+              <ul
+                style={{
+                  listStyle: "none",
+                  paddingLeft: "0",
+                }}
+              >
+                <li
+                  style={{
+                    margin: "10px 0",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                    }}
+                  >
+                    <div>
+                      <img src={img1} width="60px" height="60px" />
+                    </div>
+                    <div>
+                      <span
+                        style={{
+                          marginLeft: "10px",
+                        }}
+                      >
+                        손동민
+                      </span>
+                    </div>
+                  </div>
+                </li>
+                <Divider />
+
+                <li
+                  style={{
+                    margin: "10px 0px",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                    }}
+                  >
+                    <div>
+                      <img src={img2} width="60px" height="60px" />
+                    </div>
+                    <div>
+                      <span
+                        style={{
+                          marginLeft: "10px",
+                        }}
+                      >
+                        키즈
+                      </span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </section>
           </div>
         </div>

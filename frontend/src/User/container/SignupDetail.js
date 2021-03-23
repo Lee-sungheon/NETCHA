@@ -1,21 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-
+import { Link } from "react-router-dom";
 export default function SignupDetail(props) {
-  const [checked, setChecked] = useState(true);
-
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
+  const [inputData, setInputData] = useState({
+    userId: "",
+    password: "",
+    confirmPassword: "",
+    name: "",
+    nickname: "",
+    phone: "",
+  });
+  const onUserIdHandler = (e) => {
+    setInputData({ ...inputData, userId: e.target.value });
   };
+  const onPasswordHandler = (e) => {
+    setInputData({ ...inputData, password: e.target.value });
+  };
+  const onConfirmPasswordHandler = (e) => {
+    setInputData({ ...inputData, confirmPassword: e.target.value });
+  };
+  const onNameHandler = (e) => {
+    setInputData({ ...inputData, name: e.target.value });
+  };
+  const onNicknameHandler = (e) => {
+    setInputData({ ...inputData, nickname: e.target.value });
+  };
+  const onPhoneHandler = (e) => {
+    setInputData({ ...inputData, phone: e.target.value });
+  };
+  useEffect(() => {
+    props.toggleIsHeader(false);
+    return () => {
+      props.toggleIsHeader(true);
+    };
+  }, []);
+
   return (
     <div
       style={{
         backgroundImage:
           "url(https://assets.nflxext.com/ffe/siteui/vlv3/33a85845-b76d-4e18-a74c-5859e3978a91/b4d69ed1-965f-49d2-abc2-02d4d0ae6ffb/KR-ko-20210308-popsignuptwoweeks-perspective_alpha_website_large.jpg)",
+        marginTop: "-64px",
       }}
     >
       <div
@@ -23,6 +52,15 @@ export default function SignupDetail(props) {
           background: "rgb(0, 0, 0, 0.5)",
         }}
       >
+        <header>
+          <Link to={"/"}>
+            <img
+              src={"../images/netcha.png"}
+              style={{ height: "90px", marginRight: "10px" }}
+              alt="netcha"
+            />
+          </Link>
+        </header>
         <div
           style={{
             margin: "0 auto",
@@ -57,10 +95,10 @@ export default function SignupDetail(props) {
                 <form autoComplete="off">
                   <TextField
                     label="이메일 주소"
-                    // InputLabelProps={{}}
-                    // inputProps={{
-                    //   color: "white",
-                    // }}
+                    type="email"
+                    id="userId"
+                    value={inputData.userId}
+                    onChange={onUserIdHandler}
                     InputLabelProps={{
                       color: "secondary",
                     }}
@@ -74,6 +112,9 @@ export default function SignupDetail(props) {
                   />
 
                   <TextField
+                    id="password"
+                    value={inputData.password}
+                    onChange={onPasswordHandler}
                     label="비밀번호"
                     type="password"
                     variant="filled"
@@ -87,6 +128,9 @@ export default function SignupDetail(props) {
                   />
 
                   <TextField
+                    id="confrimpassword"
+                    value={inputData.confirmPassword}
+                    onChange={onConfirmPasswordHandler}
                     label="비밀번호확인"
                     type="password"
                     variant="filled"
@@ -99,6 +143,9 @@ export default function SignupDetail(props) {
                     }}
                   />
                   <TextField
+                    id="name"
+                    value={inputData.name}
+                    onChange={onNameHandler}
                     label="이름"
                     variant="filled"
                     color="secondary"
@@ -110,6 +157,9 @@ export default function SignupDetail(props) {
                     }}
                   />
                   <TextField
+                    id="nickname"
+                    value={inputData.nickname}
+                    onChange={onNicknameHandler}
                     label="닉네임"
                     variant="filled"
                     color="secondary"
@@ -121,6 +171,9 @@ export default function SignupDetail(props) {
                     }}
                   />
                   <TextField
+                    id="phone"
+                    value={inputData.phone}
+                    onChange={onPhoneHandler}
                     label="전화번호"
                     variant="filled"
                     color="secondary"
@@ -131,7 +184,6 @@ export default function SignupDetail(props) {
                       marginBottom: "15px",
                     }}
                   />
-
                   <Button
                     variant="contained"
                     style={{

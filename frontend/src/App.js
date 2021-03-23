@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Provider } from "react-redux";
 import store from "./common/store";
 // import { createBrowserHistory } from 'history';
@@ -17,10 +17,15 @@ import ProfileList from "./user/container/ProfileList";
 // const history = createBrowserHistory();
 
 function App() {
+  const [isHeader, setIsHeader] = useState(true);
+
+  const toggleIsHeader = (e) => {
+    setIsHeader(e);
+  };
   return (
     <BrowserRouter>
       <div className="App">
-        <Header />
+        {isHeader ? <Header /> : null}
         <Provider store={store}>
           <Switch>
             <Route exact path="/">
@@ -33,13 +38,13 @@ function App() {
               <Account />
             </Route>
             <Route path="/login">
-              <Login />
+              <Login toggleIsHeader={toggleIsHeader} />
             </Route>
             <Route path="/signup">
-              <Signup />
+              <Signup toggleIsHeader={toggleIsHeader} />
             </Route>
             <Route path="/signupdetail">
-              <SignupDetail />
+              <SignupDetail toggleIsHeader={toggleIsHeader} />
             </Route>
             <Route path="/profilelist">
               <ProfileList />
