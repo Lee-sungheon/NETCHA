@@ -1,7 +1,13 @@
 import React from "react";
+import Button from "@material-ui/core/Button";
+
 export default function banner() {
   return (
-    <div>
+    <div
+      style={{
+        height: "40vw",
+      }}
+    >
       <div
         style={{
           position: "relative",
@@ -29,6 +35,65 @@ export default function banner() {
               height: "100%",
             }}
           ></img>
+          <div
+            style={{
+              marginTop: "10px",
+              color: "white",
+              textAlign: "left",
+            }}
+          >
+            <div
+              style={{
+                fontWeight: "bold",
+
+                fontSize: "2rem",
+              }}
+            >
+              오늘 한국에서 콘텐츠 순위 3위
+            </div>
+            <div
+              style={{
+                marginTop: "20px",
+                fontSize: "1.5rem",
+                width: "33vw",
+              }}
+            >
+              누구더냐,탄지로에게 칼을 들게 한 자가. 산에 사는 화목한 숯장수
+              가족에게 닥친 참극. 살아남은 아이는 복수를 위해 세상의 혈귀를
+              모조리 베어 버릴 검사가 된다.
+            </div>
+            <div>
+              <Button
+                variant="contained"
+                style={{
+                  width: "7vw",
+                  backgroundColor: "white",
+                  color: "black",
+                  marginTop: "25px",
+                  height: "45px",
+                  fontWeight: "bold",
+                  fontSize: "1.3rem",
+                }}
+              >
+                ▶ 재생
+              </Button>
+              <Button
+                variant="contained"
+                style={{
+                  width: "7vw",
+                  backgroundColor: "gray",
+                  color: "white",
+                  marginTop: "25px",
+                  height: "45px",
+                  fontWeight: "bold",
+                  fontSize: "1.3rem",
+                  marginLeft: "10px",
+                }}
+              >
+                상세정보
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
