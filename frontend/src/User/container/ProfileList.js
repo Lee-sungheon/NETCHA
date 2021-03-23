@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from "react";
+
 import Icon from "@material-ui/core/Icon";
 import img1 from "../../img/icon1.png";
 import img2 from "../../img/icon2.png";

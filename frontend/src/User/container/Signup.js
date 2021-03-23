@@ -1,29 +1,50 @@
+import React, { useState, useEffect } from "react";
+
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 export default function Signup(props) {
+  useEffect(() => {
+    props.toggleIsHeader(false);
+    return () => {
+      props.toggleIsHeader(true);
+    };
+  }, []);
   return (
     <div
       style={{
         backgroundImage:
           "url(https://assets.nflxext.com/ffe/siteui/vlv3/33a85845-b76d-4e18-a74c-5859e3978a91/b4d69ed1-965f-49d2-abc2-02d4d0ae6ffb/KR-ko-20210308-popsignuptwoweeks-perspective_alpha_website_large.jpg)",
-        height: "800px",
+        // height: "800px",
+        marginTop: "-64px",
       }}
     >
       <div
         style={{
           background: "rgb(0, 0, 0, 0.5)",
-          height: "100%",
+          // height: "100%",
         }}
       >
+        <header>
+          <Link to={"/"}>
+            <img
+              src={"../images/netcha.png"}
+              style={{ height: "90px", marginRight: "10px" }}
+              alt="netcha"
+            />
+          </Link>
+        </header>
         <div
-          style={{
-            height: "90%",
-          }}
+          style={
+            {
+              // height: "100%",
+            }
+          }
         >
           <div
             style={{
-              height: "500px",
+              // height: "400px",
               width: "950px",
               margin: "0 auto",
               padding: "200px 0",
@@ -60,7 +81,6 @@ export default function Signup(props) {
               <div
                 style={{
                   width: "600px",
-                  height: "50px",
                   margin: "25px auto",
                 }}
               >
@@ -77,24 +97,50 @@ export default function Signup(props) {
                     height: "100%",
                   }}
                 />
-                <Button
-                  variant="contained"
-                  style={{
-                    width: "30%",
-                    backgroundColor: "#e50914",
-                    color: "white",
-                    height: "100%",
+                <Link to="/signupdetail">
+                  <Button
+                    variant="contained"
+                    style={{
+                      width: "30%",
+                      backgroundColor: "#e50914",
+                      color: "white",
+                      height: "100%",
 
-                    marginLeft: "2px",
-                    fontSize: "1.5rem",
-                  }}
-                >
-                  시작하기
-                </Button>
+                      marginLeft: "2px",
+                      fontSize: "1.5rem",
+                    }}
+                  >
+                    시작하기
+                  </Button>
+                </Link>
               </div>
             </form>
           </div>
         </div>
+        <div
+          style={{
+            backgroundColor: "black",
+            width: "100%",
+            height: "500px",
+            borderTop: "solid #222 8px",
+          }}
+        ></div>
+        <div
+          style={{
+            backgroundColor: "black",
+            width: "100%",
+            height: "500px",
+            borderTop: "solid #222 8px",
+          }}
+        ></div>
+        <div
+          style={{
+            backgroundColor: "black",
+            width: "100%",
+            height: "500px",
+            borderTop: "solid #222 8px",
+          }}
+        ></div>
       </div>
     </div>
   );
