@@ -1,50 +1,59 @@
 import React from 'react';
-import IconCross from '../Icons/IconCross';
 import './Content.scss';
+import BasicInformation from '../basicInformation/BasicInformation';
+import DetailInformation from '../detailInformation/DetailInformation';
+import IconCross from '../Icons/IconCross';
 
-const Content = ({ movie, onClose }) => (
+const Content = ({ movie, onClose, tabNo, setTabNumber }) => (
   <div className="content">
     <div className="content__background">
       <div className="content__background__shadow" />
       <div
         className="content__background__image"
-        style={{ 'backgroundImage': `url(${movie.imageBg})` }}
+        style={tabNo === 2 || tabNo === 3 ? 
+          { 'backgroundImage': `url(${movie.imageBg})`, filter: 'blur(6px)', opacity: 0.2 }
+          : { 'backgroundImage': `url(${movie.imageBg})`}}
       />
     </div>
     <div className="content__area">
-      <div className="content__area__container">
-        <div className="content__title">{movie.title}</div>
-        <div className="content__description">
-          2027년, 전 세계 모든 여자가 임신 능력을 상실한 시대. 아들이 죽은 후 삶의 의지를 잃은 테오 앞에 20년 만에 나타난 전 부인 줄리안은 그에게 기적적으로 임신한 소녀 키를 부탁한다.
+      <div className="content__title">{movie.title}</div>
+      <div className="content__rating_container">
+        <div className="content__rating_container__rating_box">
+          <div className="content__rating_container__rating_box__title">평균 별점</div>
+          <div className="content__rating_container__rating_box__rating">4.7</div>
         </div>
-        <div style={{display:'flex'}}>
-          <div className="content__information__title">
-            감독
-          </div>
-          <div className="content__information__content">
-            알폰소 쿠아론
-          </div>
-        </div>
-        <div style={{display:'flex'}}>
-          <div className="content__information__title">
-            감독
-          </div>
-          <div className="content__information__content">
-            알폰소 쿠아론
-          </div>
-        </div>
-        <div style={{display:'flex'}}>
-          <div className="content__information__title">
-            감독
-          </div>
-          <div className="content__information__content">
-            알폰소 쿠아론
-          </div>
-        </div>
+        <div className="content__rating_container__information">12세 • 1시간 31분</div>
       </div>
-      <button className="content__close" onClick={onClose}>
-        <IconCross />
-      </button>
+      {tabNo == 1 && <div className="content__area__container1">
+        <BasicInformation movie={movie} />
+      </div>}
+      <div className="content__area__container2">
+        {tabNo == 2 && <DetailInformation movie={movie} />}
+        {tabNo == 3 && <DetailInformation movie={movie} />}
+      </div>
+    </div>
+    <button className="content__close" onClick={onClose}>
+      <IconCross />
+    </button>
+    <div className="content__tab-box">
+      <div 
+        className={tabNo == 1 ? "content__tab-box__item-avtive":"content__tab-box__item"}
+        onClick={() => {setTabNumber(1)}}
+      >
+        기본정보
+      </div>
+      <div 
+        className={tabNo == 2 ? "content__tab-box__item-avtive":"content__tab-box__item"}
+        onClick={() => {setTabNumber(2)}}
+      >
+        상세정보
+      </div>
+      <div 
+        className={tabNo == 3 ? "content__tab-box__item-avtive":"content__tab-box__item"}
+        onClick={() => {setTabNumber(3)}}
+      >
+        비슷한 작품
+      </div>
     </div>
   </div>
 );

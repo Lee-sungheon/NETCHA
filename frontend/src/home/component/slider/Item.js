@@ -44,6 +44,7 @@ const Item = ({ movie }) => (
               </CardContent>
             </CardActionArea>
           </Card>
+          {<div className="show-card-title" style={isActive ? {opacity: 1}:{opacity: 0.7}}>{movie.title}</div>}
         </div>
       );
     }}
