@@ -67,7 +67,6 @@ export default function Home() {
       </div>
       <div
         style={{
-          width: "100%",
           height: "300px",
           color: "white",
           textAlign: "center",
