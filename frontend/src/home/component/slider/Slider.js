@@ -13,6 +13,10 @@ const Slider = ({ children, activeSlide, title, idx }) => {
   const [showButton, setShowButton] = useState(true);
   // const [escapeLeft, setEscapeLeft] = useState(false);
   // const [escapeRight, setEscapeRight] = useState(false);
+  const [tabNo, setTabNo] = useState(1);
+  const setTabNumber = num => {
+    setTabNo(num);
+  };
   const { width, elementRef } = useSizeElement();
   const {
     handlePrev,
@@ -37,6 +41,7 @@ const Slider = ({ children, activeSlide, title, idx }) => {
     elementRef,
     currentSlide,
   };
+  
   
   const sliderWrap1 = document.getElementById(idx)
   const sliderWrap = document.getElementById(`wrapperidx${idx}`)
@@ -129,7 +134,6 @@ const Slider = ({ children, activeSlide, title, idx }) => {
             className="slider__container" {...slideProps} 
             onMouseMove={enterSetShow}
             onMouseLeave={leaveSetShow}
-            onClick={(e) => console.log(e)}
           >
               {children}
           </div>
@@ -137,7 +141,7 @@ const Slider = ({ children, activeSlide, title, idx }) => {
         {hasPrev && <SlideButton onClick={handlePrev} type="prev" showButton = {showButton} />}
         {hasNext && <SlideButton onClick={handleNext} type="next" showButton = {showButton} />}
       </SliderWrapper>
-      {currentSlide && <Content movie={currentSlide} onClose={handleClose} />}
+      {currentSlide && <Content movie={currentSlide} onClose={handleClose} tabNo={tabNo} setTabNumber={setTabNumber} />}
     </SliderContext.Provider>
   );
 };
