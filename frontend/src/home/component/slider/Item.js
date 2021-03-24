@@ -32,16 +32,16 @@ const Item = ({ movie, idx }) => (
                 className='image-style'
                 id={idx}
               />
-              <CardContent className="show-card-content">
-                  <div style={{width:'100%', position: 'relative'}}>
-                    <PlayArrowIcon className='play-button'/>
-                    <AddIcon className='common-button'/>
-                    <ThumbUpAltIcon className='common-button'/>
-                    <ThumbDownIcon className='common-button'/>
-                    <ExpandMoreIcon className='end-button' onClick={() => onSelectSlide(movie)}/>
+              <CardContent className="show-card-content" id={idx}>
+                  <div style={{width:'100%', position: 'relative'}} id={idx}>
+                    <PlayArrowIcon className='play-button'id={idx} />
+                    <AddIcon className='common-button'id={idx} />
+                    <ThumbUpAltIcon className='common-button' id={idx} />
+                    <ThumbDownIcon className='common-button'id={idx} />
+                    <ExpandMoreIcon className='end-button' id={idx} onClick={() => onSelectSlide(movie)}/>
                   </div>
-                <h5 style={{textAlign: 'center', margin:'5px'}}>{movie.title}</h5>
-                <h6 style={{textAlign: 'center', margin:'5px'}}>로맨스 / 코미디 / 액션</h6>
+                <h5 style={{textAlign: 'center', margin:'5px'}} id={idx}>{movie.title}</h5>
+                <h6 style={{textAlign: 'center', margin:'5px'}} id={idx}>로맨스 / 코미디 / 액션</h6>
               </CardContent>
             </CardActionArea>
           </Card>
