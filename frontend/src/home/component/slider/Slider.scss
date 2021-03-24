@@ -21,22 +21,38 @@
     z-index: 10;
   }
 
-  // &:not(&--left) .item:hover {
-  //   transform: scale(1.3) translateY(-5%) translateX(25%) !important;
-  //   z-index: 10;
-  // }
+  &:not(&--left) .item:hover {
+    transform: scale(1.3) translateY(-5%) translateX(11%) !important;
+    z-index: 10;
+  }
 
-  // &:not(&--right) .item:hover {
-  //   transform: scale(1.3) translateY(-5%) translateX(-25%) !important;
-  //   z-index: 10;
-  // }
+  &:not(&--right) .item:hover {
+    transform: scale(1.3) translateY(-5%) translateX(-11%) !important;
+    z-index: 10;
+  }
 
   &:not(&--open):hover .item {
     transform: translateX(-15%);
   }
 
+  &:not(&--right):hover .item {
+    transform: translateX(-29%);
+  }
+
+  &:not(&--left):hover .item {
+    transform: translateX(0%);
+  }
+
   &:not(&--open) .item:hover ~ .item {
     transform: translateX(15%);
+  }
+
+  &:not(&--right) .item:hover ~ .item {
+    transform: translateX(0%);
+  }
+
+  &:not(&--left) .item:hover ~ .item {
+    transform: translateX(29%);
   }
   
   &:not(&--open) .item:hover .show-card-content {
