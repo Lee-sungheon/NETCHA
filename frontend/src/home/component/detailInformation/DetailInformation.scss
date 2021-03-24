@@ -12,6 +12,26 @@
     color: rgba(255, 255, 255, 0.5);
   }
 
+  &__comment {
+    font-size: 1vw;
+    font-weight: 600;
+    margin: 0.1vw 0;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  &__more {
+    color: white;
+    cursor: pointer;
+    margin-left: 0.3vw;
+  }
+
+  &__thumb {
+    display: flex;
+    color: white;
+    font-size: 1vw;
+    margin-top: 0.2vw;
+  }
+
   &__chevron-box {
     width: 5%;
     display: flex;
