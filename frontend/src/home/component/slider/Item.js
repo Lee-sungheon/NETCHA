@@ -13,7 +13,7 @@ import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
-const Item = ({ movie }) => (
+const Item = ({ movie, idx }) => (
   <SliderContext.Consumer>
     {function Itemsetup({ onSelectSlide, currentSlide, elementRef }) {
       const isActive = currentSlide && currentSlide.id === movie.id;
@@ -30,6 +30,7 @@ const Item = ({ movie }) => (
                 component="img"
                 image={movie.image}
                 className='image-style'
+                id={idx}
               />
               <CardContent className="show-card-content">
                   <div style={{width:'100%', position: 'relative'}}>
