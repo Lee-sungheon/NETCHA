@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 100,
     height: '100px',
     width: '100%',
-    // backgroundColor: 'rgb(20, 21, 23)',
     background: 'linear-gradient(to top, rgba(18, 18, 18, 0), rgba(18, 18, 18, 0.6) 10%, rgba(18, 18, 18, 0.8) 16%, rgb(18, 18, 18) 29%);',
     
   },
