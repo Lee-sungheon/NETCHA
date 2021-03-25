@@ -1,5 +1,6 @@
 // import MovieDetail from './movieDetail/container/MovieDetail.js';
 import { BrowserRouter } from 'react-router-dom';
+import Home from './home/container/Home';
 import Footer from './navbar/container/Footer';
 import Header from './navbar/container/Header'
 
@@ -8,7 +9,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Header />
-        {/* <div style={{height: '1000px', width: '100%'}}></div> */}
+        <Home />
         <Footer />
       </div>
     </BrowserRouter>
