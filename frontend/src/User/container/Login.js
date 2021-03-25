@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
   },
   login_page: {
     background: "rgb(0, 0, 0, 0.5)",
-    width: "100vw",
   },
   login_div_back: {
     margin: "0 auto",
