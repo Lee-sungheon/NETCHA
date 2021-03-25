@@ -1,0 +1,93 @@
+.slick-prev:before,
+.slick-next:before {
+  font-size: 40px;
+  color: rgb(150, 150, 150);
+  position: relative;
+  top: -55px;
+}
+
+.image {
+  margin: 0 10px 0 10px;
+  height: 350px;
+}
+
+.title {
+  position: relative;
+  left: 20px;
+  bottom: -10px;
+  font-weight: 700;
+}
+
+.MovieBox {
+  width: 16.699em;
+
+  .movieAllWrap {
+    display: flex;
+    height: 28.634em;
+    width: 16.699em;
+    padding: 0 6px 0 6px;
+
+    .moviePosterInside {
+      height: 28.5em;
+      width: 15.675em;
+      position: relative;
+      cursor: pointer;
+
+      .movieRank {
+        // @include rankIcon;
+        position: absolute;
+        top: 6px;
+        bottom: 6px;
+        right: 183.797px;
+        left: 6px;
+        color: white;
+      }
+
+      .movieInfo {
+        height: 5.438em;
+        width: 13.05em;
+        margin: 0 10px 0 10px;
+
+        .movieTitle {
+          font-weight: bold;
+          font-size: 14px;
+          height: 22px;
+          margin: 10px 0 5px 0;
+          outline: none;
+        }
+
+        .movieDate {
+          font-size: 14px;
+          outline: none;
+          padding-bottom: 1px;
+          height: 22px;
+          padding: 0 0 1px 0;
+        }
+
+        .movieRate {
+          display: flex;
+          color: navy;
+          margin-top: 2px;
+          height: 12px;
+
+          .iconStar {
+            font-size: 12px;
+            color: hotpink;
+            margin: 0 3px;
+          }
+
+          .movieScore {
+            color: hotpink;
+            font-size: 13px;
+          }
+        }
+        .movieRatio {
+          color: grey;
+          font-size: 13px;
+          letter-spacing: -0.3px;
+          margin: 5px 0 0 0;
+        }
+      }
+    }
+  }
+}

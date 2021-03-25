@@ -5,6 +5,7 @@ import store from "./common/store";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./home/container/Home";
 import Header from "./navbar/container/Header";
+import LikeList from "./likeList/container/LikeList";
 import EmptyPage from "./common/EmptyPage";
 import "./App.scss";
 import Evaluation from "./evaluation/container/Evaluation";
@@ -31,7 +32,10 @@ function App() {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route exact path="/eval">
+            <Route path="/mylike">
+              <LikeList />
+            </Route>
+            <Route path="/eval">
               <Evaluation />
             </Route>
             <Route path="/account">

@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
+import "./Banner.scss";
 
 export default function banner() {
   return (
@@ -10,6 +11,7 @@ export default function banner() {
       }}
     >
       <div
+        className="banner"
         style={{
           position: "relative",
           textAlign: "right",
