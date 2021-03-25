@@ -10,57 +10,51 @@
     width: 100%;
   }
 
-  &:not(&--open) .item:hover .show-details-button {
-    opacity: 1;
-    transition-property: opacity;
-  }
-  
-
-  &:not(&--open) .item:hover {
+  &:not(&--open) .movie-item:hover {
     transform: scale(1.3) translateY(-15%) !important;
     z-index: 10;
   }
 
-  &:not(&--left) .item:hover {
+  &:not(&--left) .movie-item:hover {
     transform: scale(1.3) translateY(-15%) translateX(11%) !important;
     z-index: 10;
   }
 
-  &:not(&--right) .item:hover {
+  &:not(&--right) .movie-item:hover {
     transform: scale(1.3) translateY(-15%) translateX(-11%) !important;
     z-index: 10;
   }
 
-  &:not(&--open):hover .item {
+  &:not(&--open):hover .movie-item {
     transform: translateX(-15%);
   }
 
-  &:not(&--right):hover .item {
+  &:not(&--right):hover .movie-item {
     transform: translateX(-29%);
   }
 
-  &:not(&--left):hover .item {
+  &:not(&--left):hover .movie-item {
     transform: translateX(0%);
   }
 
-  &:not(&--open) .item:hover ~ .item {
+  &:not(&--open) .movie-item:hover ~ .movie-item {
     transform: translateX(15%);
   }
 
-  &:not(&--right) .item:hover ~ .item {
+  &:not(&--right) .movie-item:hover ~ .movie-item {
     transform: translateX(0%);
   }
 
-  &:not(&--left) .item:hover ~ .item {
+  &:not(&--left) .movie-item:hover ~ .movie-item {
     transform: translateX(29%);
   }
   
-  &:not(&--open) .item:hover .show-card-content {
+  &:not(&--open) .movie-item:hover .movie-show-card-content {
     visibility: visible;
     position: relative;
   }
 
-  &:not(&--open) .item:hover .show-card-title {
+  &:not(&--open) .movie-item:hover .movie-show-card-title {
     display: none;
   }
 }
