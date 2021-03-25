@@ -306,14 +306,7 @@ export default function Header() {
               </StyledMenuItem>
             </StyledMenu>
           </div>
-          <Link
-            to="/login"
-            style={{
-              color: "white",
-            }}
-          >
-            로그인
-          </Link>
+
         </Toolbar>
       </AppBar>
     </div>
