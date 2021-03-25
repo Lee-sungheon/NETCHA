@@ -4,20 +4,22 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "@material-ui/core";
 import img1 from "../../img/icon1.png";
 import img2 from "../../img/icon2.png";
-import img3 from "../../img/icon3.png";
 
 const useStyles = makeStyles((theme) => ({
+  account_page: {
+    backgroundColor: "#f5f5f5",
+    height: "100%",
+    minHeight: "1000px",
+  },
   account_box: {
-    width: "90%",
+    width: "90vw",
     maxWidth: "1024px",
     margin: "auto",
-    paddingTop: "15px",
+    paddingTop: "2vw",
   },
   account_div: {
     display: "flex",
     flexDirection: "row",
-    marginTop: "15px",
-    marginBottom: "10px",
   },
   account_div_hd: {
     width: "25%",
@@ -28,40 +30,39 @@ const useStyles = makeStyles((theme) => ({
   account_div_section_div: {
     display: "flex",
     flexDirection: "row",
-    marginBottom: "10px",
+    marginBottom: "1vw",
   },
   account_div_section_div2: {
     textAlign: "right",
     marginLeft: "auto",
+  },
+  divider: {
+    marginTop: "1vw",
+    marginBottom: "1vw",
+  },
+  membershipButton: {
+    width: "60%",
+    marginTop: "1vw",
+    height: "40px",
+  },
+  profile_ul: {
+    listStyle: "none",
+    paddingLeft: "0",
   },
 }));
 
 export default function Account() {
   const classes = useStyles();
   return (
-    <div
-      style={{
-        backgroundColor: "#f5f5f5",
-        height: "100%",
-        minHeight: "1000px",
-      }}
-    >
+    <div className={classes.account_page}>
       <div className={classes.account_box}>
         <h1>계정</h1>
         <div>
-          <Divider />
+          <Divider className={classes.divider} />
           <div className={classes.account_div}>
             <header className={classes.account_div_hd}>
               <div>멤버십 & 결제정보</div>
-              <button
-                style={{
-                  width: "60%",
-                  marginTop: "10px",
-                  height: "40px",
-                }}
-              >
-                멤버십 해지
-              </button>
+              <button className={classes.membershipButton}>멤버십 해지</button>
             </header>
             <section className={classes.account_div_section}>
               <div className={classes.account_div_section_div}>
@@ -81,7 +82,6 @@ export default function Account() {
                       href=""
                       style={{
                         textDecorationColor: "primary",
-                        // textDecorationLine: "underlineHover",
                       }}
                     >
                       이메일 주소 변경
@@ -95,7 +95,7 @@ export default function Account() {
                   </div>
                 </div>
               </div>
-              <Divider />
+              <Divider className={classes.divider} />
 
               <div className={classes.account_div_section_div}>
                 <div
@@ -119,7 +119,7 @@ export default function Account() {
                   </div>
                 </div>
               </div>
-              <Divider />
+              <Divider className={classes.divider} />
 
               <div className={classes.account_div_section_div}>
                 <div account_div_section_div2>
@@ -133,18 +133,14 @@ export default function Account() {
               </div>
             </section>
           </div>
-          <Divider />
+          <Divider className={classes.divider} />
           <div className={classes.account_div}>
             <header className={classes.account_div_hd}>
               <div>멤버십 상세 정보</div>
             </header>
             <section className={classes.account_div_section}>
               <div className={classes.account_div_section_div}>
-                <div
-                  style={{
-                    width: "60%",
-                  }}
-                >
+                <div>
                   <div>프리미엄</div>
                 </div>
                 <div className={classes.account_div_section_div2}>
@@ -155,7 +151,7 @@ export default function Account() {
               </div>
             </section>
           </div>
-          <Divider />
+          <Divider className={classes.divider} />
           <div className={classes.account_div}>
             <header className={classes.account_div_hd}>
               <div>설정</div>
@@ -184,23 +180,14 @@ export default function Account() {
               </div>
             </section>
           </div>
-          <Divider />
+          <Divider className={classes.divider} />
           <div className={classes.account_div}>
             <header className={classes.account_div_hd}>
               <div>프로필 & 자녀 보호 설정</div>
             </header>
             <section className={classes.account_div_section}>
-              <ul
-                style={{
-                  listStyle: "none",
-                  paddingLeft: "0",
-                }}
-              >
-                <li
-                  style={{
-                    margin: "10px 0",
-                  }}
-                >
+              <ul className={classes.profile_ul}>
+                <li>
                   <div
                     style={{
                       display: "flex",
@@ -220,13 +207,9 @@ export default function Account() {
                     </div>
                   </div>
                 </li>
-                <Divider />
+                <Divider className={classes.divider} />
 
-                <li
-                  style={{
-                    margin: "10px 0px",
-                  }}
-                >
+                <li>
                   <div
                     style={{
                       display: "flex",

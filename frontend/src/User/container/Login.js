@@ -3,8 +3,69 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  login_back: {
+    backgroundImage:
+      "url(https://assets.nflxext.com/ffe/siteui/vlv3/33a85845-b76d-4e18-a74c-5859e3978a91/b4d69ed1-965f-49d2-abc2-02d4d0ae6ffb/KR-ko-20210308-popsignuptwoweeks-perspective_alpha_website_large.jpg)",
+    marginTop: "-64px",
+  },
+  login_page: {
+    background: "rgb(0, 0, 0, 0.5)",
+    width: "100vw",
+  },
+  login_div_back: {
+    margin: "0 auto",
+    width: "100vw",
+    maxWidth: "450px",
+    height: "1000px",
+    paddingTop: "30px",
+  },
+  login_div: {
+    background: "rgb(0, 0, 0, 0.7)",
+    height: "540px",
+    width: "314px",
+    padding: "60px 68px",
+  },
+  login_div_login: {
+    color: "white",
+    marginBottom: "25px",
+  },
+  login_div_textfield: {
+    borderRadius: "4px",
+    backgroundColor: "white",
+    width: "100%",
+    marginBottom: "15px",
+  },
+  login_div_loginbutton: {
+    width: "100%",
+    backgroundColor: "#e50914",
+    color: "white",
+    marginTop: "25px",
+    height: "45px",
+  },
+  login_div2: {
+    display: "flex",
+    margin: "10px 0",
+  },
+  login_div2_span: {
+    color: "#b3b3b3",
+    fontSize: "0.8rem",
+    margin: "auto",
+  },
+  login_footer: {
+    marginTop: "-300px",
+    height: "300px",
+    backgroundColor: "black",
+    background: "rgb(0, 0, 0, 0.7)",
+    padding: "20px",
+  },
+}));
 
 export default function Login(props) {
+  const classes = useStyles();
+
   const [checked, setChecked] = useState(true);
   const [inputData, setInputData] = useState({ userId: "", password: "" });
 
@@ -29,19 +90,8 @@ export default function Login(props) {
   };
   return (
     <div>
-      <div
-        style={{
-          backgroundImage:
-            "url(https://assets.nflxext.com/ffe/siteui/vlv3/33a85845-b76d-4e18-a74c-5859e3978a91/b4d69ed1-965f-49d2-abc2-02d4d0ae6ffb/KR-ko-20210308-popsignuptwoweeks-perspective_alpha_website_large.jpg)",
-          marginTop: "-64px",
-        }}
-      >
-        <div
-          style={{
-            background: "rgb(0, 0, 0, 0.5)",
-            width: "100vw",
-          }}
-        >
+      <div className={classes.login_back}>
+        <div className={classes.login_page}>
           <header>
             <Link to={"/"}>
               <img
@@ -51,38 +101,11 @@ export default function Login(props) {
               />
             </Link>
           </header>
-          <div
-            style={{
-              margin: "0 auto",
-              width: "100vw",
-              maxWidth: "450px",
-              height: "1000px",
-              paddingTop: "30px",
-            }}
-          >
-            <div
-              style={{
-                background: "rgb(0, 0, 0, 0.7)",
-                height: "540px",
-                width: "314px",
-                padding: "60px 68px",
-              }}
-            >
-              <div
-                style={{
-                  width: "100%",
-                  height: "100%",
-                }}
-              >
+          <div className={classes.login_div_back}>
+            <div className={classes.login_div}>
+              <div>
                 <div>
-                  <h1
-                    style={{
-                      color: "white",
-                      marginBottom: "25px",
-                    }}
-                  >
-                    로그인
-                  </h1>
+                  <h1 className={classes.login_div_login}>로그인</h1>
                   <form autoComplete="off">
                     <TextField
                       id="userId"
@@ -94,12 +117,7 @@ export default function Login(props) {
                       value={inputData.userId}
                       variant="filled"
                       onChange={onUserIdHandler}
-                      style={{
-                        borderRadius: "4px",
-                        backgroundColor: "white",
-                        width: "100%",
-                        marginBottom: "15px",
-                      }}
+                      className={classes.login_div_textfield}
                     />
 
                     <TextField
@@ -109,41 +127,19 @@ export default function Login(props) {
                       type="password"
                       value={inputData.password}
                       onChange={onPasswordHandler}
-                      style={{
-                        borderRadius: "4px",
-                        backgroundColor: "white",
-                        width: "100%",
-                        marginBottom: "15px",
-                      }}
+                      className={classes.login_div_textfield}
                     />
 
                     <Button
                       variant="contained"
-                      style={{
-                        width: "100%",
-                        backgroundColor: "#e50914",
-                        color: "white",
-                        marginTop: "25px",
-                        height: "45px",
-                      }}
+                      className={classes.login_div_loginbutton}
                     >
                       로그인
                     </Button>
                   </form>
-                  <div
-                    style={{
-                      display: "flex",
-                      margin: "10px 0",
-                    }}
-                  >
+                  <div className={classes.login_div2}>
                     <div>
-                      <span
-                        style={{
-                          color: "#b3b3b3",
-                          fontSize: "0.8rem",
-                          margin: "auto",
-                        }}
-                      >
+                      <span className={classes.login_div2_span}>
                         <Checkbox
                           id="check1"
                           defaultChecked
@@ -160,22 +156,16 @@ export default function Login(props) {
                     </div>
                     <div
                       style={{
-                        color: "#b3b3b3",
-                        fontSize: "0.8rem",
                         margin: "auto",
                       }}
                     >
-                      <span>도움이 필요하신가요?</span>
+                      <span className={classes.login_div2_span}>
+                        도움이 필요하신가요?
+                      </span>
                     </div>
                   </div>
                   <p></p>
-                  <div
-                    style={{
-                      color: "white",
-                    }}
-                  >
-                    sns로그인
-                  </div>
+
                   <div
                     style={{
                       color: "gray",
@@ -195,15 +185,7 @@ export default function Login(props) {
               </div>
             </div>
           </div>
-          <div
-            style={{
-              marginTop: "-300px",
-              height: "300px",
-              backgroundColor: "black",
-              background: "rgb(0, 0, 0, 0.7)",
-              padding: "20px",
-            }}
-          >
+          <div className={classes.login_footer}>
             <div
               style={{
                 color: "#757575",
