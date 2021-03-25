@@ -20,8 +20,8 @@ const MovieItem = ({ movie, idx }) => (
       return (
         <div
           ref={elementRef}
-          className={cx('item', {
-            'item--open': isActive,
+          className={cx('movie-item', {
+            'movie-item--open': isActive,
           })}
         >
           <Card style={isActive === true ? {border: 'solid 2px white'}:{}} >
@@ -29,23 +29,23 @@ const MovieItem = ({ movie, idx }) => (
               <CardMedia
                 component="img"
                 image={movie.image}
-                className='image-style'
+                className='movie-image-style'
                 id={idx}
               />
-              <CardContent className="show-card-content" id={idx}>
+              <CardContent className="movie-show-card-content" id={idx}>
                   <div style={{width:'100%', position: 'relative'}} id={idx}>
-                    <PlayArrowIcon className='play-button'id={idx} />
-                    <AddIcon className='common-button'id={idx} />
-                    <ThumbUpAltIcon className='common-button' id={idx} />
-                    <ThumbDownIcon className='common-button'id={idx} />
-                    <ExpandMoreIcon className='end-button' id={idx} onClick={() => onSelectSlide(movie)}/>
+                    <PlayArrowIcon className='movie-play-button'id={idx} />
+                    <AddIcon className='movie-common-button'id={idx} />
+                    <ThumbUpAltIcon className='movie-common-button' id={idx} />
+                    <ThumbDownIcon className='movie-common-button'id={idx} />
+                    <ExpandMoreIcon className='movie-end-button' id={idx} onClick={() => onSelectSlide(movie)}/>
                   </div>
                 <h5 style={{textAlign: 'center', margin:'5px'}} id={idx}>{movie.title}</h5>
                 <h6 style={{textAlign: 'center', margin:'5px'}} id={idx}>로맨스 / 코미디 / 액션</h6>
               </CardContent>
             </CardActionArea>
           </Card>
-          {<div className="show-card-title" style={isActive ? {opacity: 1}:{opacity: 0.7}}>{movie.title}</div>}
+          {<div className="movie-show-card-title" style={isActive ? {opacity: 1}:{opacity: 0.7}}>{movie.title}</div>}
         </div>
       );
     }}
