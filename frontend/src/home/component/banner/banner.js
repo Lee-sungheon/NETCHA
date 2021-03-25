@@ -19,6 +19,7 @@ export default function banner() {
           src="https://occ-0-4807-395.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABbOymx7zApiRkB4v8RlqPyDcTKk403CX_3kF9AmSltYMW-7mOI54Rimond4ElEj5huQMTf_nPAiJYViyei3JdEij4PoF.webp?r=4cc"
           style={{
             width: "100%",
+            height: "50vw",
           }}
         ></img>
         <div
@@ -80,7 +81,7 @@ export default function banner() {
               <Button
                 variant="contained"
                 style={{
-                  width: "7vw",
+                  width: "9vw",
                   backgroundColor: "gray",
                   color: "white",
                   marginTop: "25px",

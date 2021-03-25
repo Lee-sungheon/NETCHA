@@ -3,8 +3,63 @@ import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  signup_back: {
+    backgroundImage:
+      "url(https://assets.nflxext.com/ffe/siteui/vlv3/33a85845-b76d-4e18-a74c-5859e3978a91/b4d69ed1-965f-49d2-abc2-02d4d0ae6ffb/KR-ko-20210308-popsignuptwoweeks-perspective_alpha_website_large.jpg)",
+    // height: "800px",
+    marginTop: "-64px",
+  },
+  signup_div: {
+    background: "rgb(0, 0, 0, 0.5)",
+  },
+  header_link: {
+    position: "absolute",
+    right: "3vw",
+    top: "1.5vw",
+  },
+  header_link_button: {
+    width: "",
+    backgroundColor: "#e50914",
+    color: "white",
+    marginLeft: "2px",
+    fontSize: "1rem",
+  },
+  signup_section_div: {
+    width: "950px",
+    margin: "0 auto",
+    padding: "200px 0",
+    color: "white",
+    textAlign: "center",
+  },
+  signup_section_div_text: {
+    fontSize: "3rem",
+    fontWeight: "bold",
+  },
+  signup_section_div_text2: {
+    fontSize: "1.5rem",
+    marginTop: "15px",
+  },
+  signup_form: {
+    marginTop: "15px",
+  },
+  signup_form_div: {
+    width: "600px",
+    margin: "25px auto",
+  },
+  signup_form_textfield: {
+    backgroundColor: "white",
+    width: "68%",
+    marginBottom: "15px",
+    height: "100%", 
+  }
+}));
 
 export default function Signup(props) {
+  const classes = useStyles();
+
   useEffect(() => {
     props.toggleIsHeader(false);
     return () => {
@@ -12,20 +67,8 @@ export default function Signup(props) {
     };
   }, []);
   return (
-    <div
-      style={{
-        backgroundImage:
-          "url(https://assets.nflxext.com/ffe/siteui/vlv3/33a85845-b76d-4e18-a74c-5859e3978a91/b4d69ed1-965f-49d2-abc2-02d4d0ae6ffb/KR-ko-20210308-popsignuptwoweeks-perspective_alpha_website_large.jpg)",
-        // height: "800px",
-        marginTop: "-64px",
-      }}
-    >
-      <div
-        style={{
-          background: "rgb(0, 0, 0, 0.5)",
-          // height: "100%",
-        }}
-      >
+    <div className={classes.signup_back}>
+      <div className={classes.signup_div}>
         <header>
           <Link to={"/"}>
             <img
@@ -34,56 +77,27 @@ export default function Signup(props) {
               alt="netcha"
             />
           </Link>
+          <Link to="/login" className={classes.header_link}>
+            <Button variant="contained" className={classes.header_link_button}>
+              로그인
+            </Button>
+          </Link>
         </header>
-        <div
-          style={
-            {
-              // height: "100%",
-            }
-          }
-        >
-          <div
-            style={{
-              // height: "400px",
-              width: "950px",
-              margin: "0 auto",
-              padding: "200px 0",
-              color: "white",
-              textAlign: "center",
-            }}
-          >
-            <div
-              style={{
-                fontSize: "3rem",
-                fontWeight: "bold",
-              }}
-            >
+        <section>
+          <div className={classes.signup_section_div}>
+            <div className={classes.signup_section_div_text}>
               영화, TV 프로그램을
               <br /> 무제한으로.
             </div>
-            <div
-              style={{
-                fontSize: "1.5rem",
-                marginTop: "15px",
-              }}
-            >
+            <div className={classes.signup_section_div_text2}>
               다양한 디바이스에서 시청하세요. 언제든 해지하실 수 있습니다.
             </div>
-            <form
-              style={{
-                marginTop: "15px",
-              }}
-            >
-              <h3>
+            <form className={classes.signup_form}>
+              <div>
                 시청할 준비가 되셨나요? 멤버십을 등록하거나 재시작하려면 이메일
                 주소를 입력하세요.
-              </h3>
-              <div
-                style={{
-                  width: "600px",
-                  margin: "25px auto",
-                }}
-              >
+              </div>
+              <div className={classes.signup_form_div}>
                 <TextField
                   label="이메일 주소"
                   InputLabelProps={{
@@ -116,7 +130,7 @@ export default function Signup(props) {
               </div>
             </form>
           </div>
-        </div>
+        </section>
         <div
           style={{
             backgroundColor: "black",
