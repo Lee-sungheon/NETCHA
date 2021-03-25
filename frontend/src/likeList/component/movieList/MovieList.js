@@ -110,8 +110,8 @@ const MovieList = ({ children, activeSlide, idx, num }) => {
         <div
           className={cx('slider', 
           { 'slider--open': currentSlide != null }, 
-          {'slider--left': !escapeLeft},
-          {'slider--right': !escapeRight}
+          { 'slider--left': !escapeLeft},
+          { 'slider--right': !escapeRight}
           )}>
           <div 
             // ref={containerRef} 
