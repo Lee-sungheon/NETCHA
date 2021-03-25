@@ -34,8 +34,10 @@
 //   }
 // }
 
-// .root {
-//   position: static;
-//   overflow: visible;
-//   height: 200px * $length;
-// }
+.container1 {
+    width: 100%;
+    position: relative;
+    overflow: visible;
+    width: 1300px;
+    margin: 0 auto;
+}
