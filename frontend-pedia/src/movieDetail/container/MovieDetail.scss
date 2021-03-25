@@ -8,25 +8,64 @@
       background-color: white;
       border: 1px solid lightgray;
       border-radius: 5px;
-      .movieInfo {
-        margin: 0px 0 0 0;
-        padding: 5px 5px 5px 5px;
-        .infoHeader {
-          display: flex;
-          justify-content: space-between;
-          font-size: 19px;
-          font-weight: bold;
-          span {
-            font-size: 17px;
-            color: hotpink;
-            cursor: pointer;
-          }
-        }
+      .basicInfo {
+        margin: 0px 0px 15px 0;
+        padding: 5px 5px 15px 5px;
+        border-bottom: 1px solid rgb(235, 233, 233);
+
         .infoContent {
-          margin-top: 10px;
           font-size: 15px;
         }
       }
+      .actors {
+        margin: 0px 0px 15px 0;
+        padding: 5px 5px 15px 5px;
+        border-bottom: 1px solid rgb(235, 233, 233);
+      }
+
+      .starGraph {
+        margin: 0px 0px 15px 0;
+        padding: 5px 5px 15px 5px;
+        border-bottom: 1px solid rgb(235, 233, 233);
+      }
+
+      .comment {
+        margin: 0px 0px 15px 0;
+        padding: 5px 5px 15px 5px;
+        border-bottom: 1px solid rgb(235, 233, 233);
+      }
+      .gallery {
+        margin: 0px 0px 15px 0;
+        padding: 5px 5px 15px 5px;
+        border-bottom: 1px solid rgb(235, 233, 233);
+      }
+      .video {
+        margin: 0px 0px 15px 0;
+        padding: 5px 5px 15px 5px;
+        border-bottom: 1px solid rgb(235, 233, 233);
+      }
+      .similarMovies {
+        margin: 0px 0px 15px 0;
+        padding: 5px 5px 15px 5px;
+        border-bottom: 1px solid rgb(235, 233, 233);
+      }
     }
+  }
+}
+
+.infoHeader {
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 19px;
+  font-weight: bold;
+  div {
+    font-weight: 500;
+    font-size: 17px;
+  }
+  span {
+    font-size: 17px;
+    color: hotpink;
+    cursor: pointer;
   }
 }
