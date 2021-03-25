@@ -2,7 +2,6 @@ import React from 'react';
 import './Content.scss';
 import BasicInformation from '../basicInformation/BasicInformation';
 import DetailInformation from '../detailInformation/DetailInformation';
-import SimilarMovie from '../similarMovie/SimilarMovie';
 import IconCross from '../Icons/IconCross';
 
 const Content = ({ movie, onClose, tabNo, setTabNumber }) => (
@@ -25,34 +24,32 @@ const Content = ({ movie, onClose, tabNo, setTabNumber }) => (
         </div>
         <div className="content__rating_container__information">12세 • 1시간 31분</div>
       </div>
-      {tabNo === 1 && <div className="content__area__container1">
+      {tabNo == 1 && <div className="content__area__container1">
         <BasicInformation movie={movie} />
       </div>}
-      {tabNo === 2 && <div className="content__area__container2">
-        <DetailInformation movie={movie} />
-      </div>}
-      {tabNo === 3 && <div className="content__area__container3">
-        <SimilarMovie movie={movie} />
-      </div>}
+      <div className="content__area__container2">
+        {tabNo == 2 && <DetailInformation movie={movie} />}
+        {tabNo == 3 && <DetailInformation movie={movie} />}
+      </div>
     </div>
     <button className="content__close" onClick={onClose}>
       <IconCross />
     </button>
     <div className="content__tab-box">
       <div 
-        className={tabNo === 1 ? "content__tab-box__item-avtive":"content__tab-box__item"}
+        className={tabNo == 1 ? "content__tab-box__item-avtive":"content__tab-box__item"}
         onClick={() => {setTabNumber(1)}}
       >
         기본정보
       </div>
       <div 
-        className={tabNo === 2 ? "content__tab-box__item-avtive":"content__tab-box__item"}
+        className={tabNo == 2 ? "content__tab-box__item-avtive":"content__tab-box__item"}
         onClick={() => {setTabNumber(2)}}
       >
         상세정보
       </div>
       <div 
-        className={tabNo === 3 ? "content__tab-box__item-avtive":"content__tab-box__item"}
+        className={tabNo == 3 ? "content__tab-box__item-avtive":"content__tab-box__item"}
         onClick={() => {setTabNumber(3)}}
       >
         비슷한 작품

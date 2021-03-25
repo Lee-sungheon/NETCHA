@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 
-let PADDINGS = 110;
+const PADDINGS = 110;
 
 export default function useSliding(elementWidth, countElements) {
   const containerRef = useRef();
@@ -20,7 +20,6 @@ export default function useSliding(elementWidth, countElements) {
     window.addEventListener('resize', function(){
       checkWindowInner()
     });
-    PADDINGS = containerRef.current.clientWidth * 0.08;
     const containerWidth = containerRef.current.clientWidth - PADDINGS;
     setContainerWidth(containerWidth);
     setTotalInViewport(Math.floor(containerWidth / elementWidth));
