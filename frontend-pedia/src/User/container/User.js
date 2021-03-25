@@ -1,6 +1,7 @@
 import React from 'react';
 import './User.scss';
 import MySlider from "../../home/component/slider/MySlider";
+import ActorList from './ActorList';
 
 export default function User() {
     return (
@@ -32,7 +33,7 @@ export default function User() {
                         </div>
                         <div>
                             <h3>선호배우</h3>
-                            <MySlider data={movies} title='' />
+                            <ActorList />
                         </div>
                         <div>
                             <h3>선호감독</h3>
