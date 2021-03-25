@@ -43,11 +43,6 @@ const Slider = ({ children, activeSlide, title, idx }) => {
     currentSlide,
   };
   
-  function onClick(e) {
-    console.log(e.target.id)
-    console.log(e.view.innerWidth)
-  }
-  
   const sliderWrap1 = document.getElementById(idx)
   const sliderWrap = document.getElementById(`wrapperidx${idx}`)
   const enterSetShow = (e) => {
@@ -145,14 +140,13 @@ const Slider = ({ children, activeSlide, title, idx }) => {
         <div
           className={cx('slider', 
           { 'slider--open': currentSlide != null || showButton}, 
-          {'slider--left': !escapeLeft},
-          {'slider--right': !escapeRight}
+          { 'slider--left': !escapeLeft},
+          { 'slider--right': !escapeRight}
           )}>
           <div ref={containerRef} 
             className="slider__container" {...slideProps} 
             onMouseMove={enterSetShow}
             onMouseLeave={leaveSetShow}
-            onClick={onClick}
           >
               {children}
           </div>
