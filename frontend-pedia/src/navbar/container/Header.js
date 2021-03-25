@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, Button, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Button } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     height: "62px",
     backgroundColor: "#ffffff",
-    padding: "0 10px",
   },
   title: {
     flexGrow: 5,
@@ -60,11 +59,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SearchAppBar() {
+export default function Header() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root} boxShadow={1}>
+    <div className={classes.root} >
       <AppBar className={classes.root} style={{boxShadow: "rgb(0 0 0 / 8%) 0px 1px 0px 0px"}} position="static">
         <Toolbar>
           <Link to={"/"}>
@@ -75,9 +74,7 @@ export default function SearchAppBar() {
               // onClick={() => setActiveValue("홈")}
             />
           </Link>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Material-UI
-          </Typography>
+          <div className={classes.title}></div>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon color="action" />
