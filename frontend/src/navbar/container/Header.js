@@ -160,7 +160,7 @@ export default function Header() {
     const nowLocation = nowUrl[nowUrl.length - 1];
     if (nowLocation === "eval") {
       setActiveValue("평가하기");
-    } else if (nowLocation === "myLike") {
+    } else if (nowLocation === "mylike") {
       setActiveValue("내가 찜한 콘텐츠");
     } else {
       setActiveValue("홈");
@@ -203,7 +203,7 @@ export default function Header() {
             </Link>
           </div>
           <div>
-            <Link to={"/myLike"}>
+            <Link to={"/mylike"}>
               <Typography
                 className={classes.menu}
                 variant="subtitle2"
