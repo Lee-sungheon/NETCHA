@@ -1,38 +1,3 @@
-// $length: 5;
-
-// @for $i from 1 through $length {
-//   .sliderbox-#{$i} { 
-//     width: 100%;
-//     position: absolute;
-//     top: 190px * $i;
-//   }
-//   @media ( max-width: 1023px ) {
-//   }
-  
-//   @media ( max-width: 900px ) {
-//     .sliderbox-#{$i} {
-//       top: 180px * $i;
-//     }
-//   }
-
-//   @media ( max-width: 767px ) {
-//   }
-  
-//   @media ( max-width: 680px ) {
-//     .sliderbox-#{$i} {
-//       top: 180px * $i;
-//     }
-//   }
-
-//   @media ( max-width: 600px ) {
-//   }
-
-//   @media ( max-width: 400px ) {
-//     .sliderbox-#{$i} {
-//       top: 180px * $i;
-//     }
-//   }
-// }
 
 .container1 {
     width: 100%;
@@ -40,4 +5,5 @@
     overflow: visible;
     width: 1300px;
     margin: 0 auto;
+    padding-bottom: 150px;
 }

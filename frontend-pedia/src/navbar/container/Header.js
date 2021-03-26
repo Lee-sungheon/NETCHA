@@ -6,6 +6,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Link } from "react-router-dom";
 import netchapediaImg from '../../images/netchapedia.png';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,7 +61,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header() {
+  function goToUser(id) {
+    id = 1;
+    history.push(`/user/${id}`);
+  }
+
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <div className={classes.root} >
@@ -89,7 +96,7 @@ export default function Header() {
               />
           </div>
           <Button color="action" style={{margin: "0px 24px 0px 24px", color: "grey"}}>평가하기</Button>
-          <AccountCircleIcon color="action" />
+          <AccountCircleIcon color="action" onClick={goToUser}/>
         </Toolbar>
       </AppBar>
     </div>
