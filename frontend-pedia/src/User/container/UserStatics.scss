@@ -9,38 +9,32 @@
     border-radius: 6px;
     overflow: hidden;
     margin: 12px 0 0;
-    
-        .staticsWallPaper {
-            width: 100%;
-            height: 280px;
-            background: linear-gradient(to right, #ff0073, #f872aa);
-            
-            .usText {
-                margin: -10px 0 0 33px;
-                color: white;
-                font-weight: bold;
-                font-size: 16px;
-                position: absolute;
-            }
-            
-            .profile {
-                position: relative;
-                top: 95px;
-                margin-left: 30px;
-            }
-        }
 
-        .paddingBox {
-            padding: 0 10px 10px 10px;
-            border-color: #e3e3e3 !important;
-        }
+    .staticsWallPaper {
+      width: 100%;
+      height: 280px;
+      background: linear-gradient(to right, #ff0073, #f872aa);
+
+      .usText {
+        margin: -10px 0 0 33px;
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+        position: absolute;
+      }
+
+      .profile {
+        position: relative;
+        top: 95px;
+        margin-left: 30px;
+      }
     }
-}
 
-
-
-hr {
-  color: rgb(192, 192, 192);
+    .paddingBox {
+      padding: 0 20px 10px 20px;
+      border-color: #e3e3e3 !important;
+    }
+  }
 }
 
 .graph {
