@@ -1,9 +1,16 @@
-* {
+html, body {
+  padding: 0;
+  height: 100%;
+}
+
+body {
   margin: 0;
-  text-decoration: none;
 }
 
 .App {
-  height: 100%;
+  position: relative;
+  min-height: 100%;
   width: 100%;
+  height: 100%;
 }
+
