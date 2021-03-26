@@ -122,7 +122,7 @@ const StyledMenuItem = withStyles((theme) => ({
     backgroundColor: "black",
     color: "white",
     height: "30px",
-    "&:focus": {
+    "&:hover": {
       textDecoration: "underline",
     },
   },
