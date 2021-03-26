@@ -1,15 +1,15 @@
 import React from "react";
-import MySlider from "../component/slider/MySlider";
+import LargeMovieSlider from "../component/slider/LargeMovieSlider";
 import './Home.scss';
 
 export default function Home() {
   return (
     <div className="container1">
       <div className="container2">
-        <MySlider data={movies} title='박스오피스 순위' />
+        <LargeMovieSlider data={movies} title='박스오피스 순위' />
       </div>
       <div className="container2">
-        <MySlider data={movies} title='넷챠 영화 순위' />
+        <LargeMovieSlider data={movies} title='넷챠 영화 순위' />
       </div>
     </div>
   );

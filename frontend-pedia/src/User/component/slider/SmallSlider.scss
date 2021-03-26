@@ -1,0 +1,63 @@
+.slick-prev:before {
+  left: 10px;
+}
+
+.slick-next:before {
+  right: 9px;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 25px;
+  color: rgb(150, 150, 150);
+  position: relative;
+  top: -45px;
+}
+
+.smallimage {
+  margin: 0 10px 0 10px;
+  height: 140px;
+}
+
+.title {
+  position: relative;
+  left: 20px;
+  bottom: -10px;
+  font-weight: 700;
+}
+
+.smallmovieInfo {
+  height: 5.438em;
+  width: 13.05em;
+  margin: 0 10px 0 10px;
+  
+  .smallmovieTitle {
+    font-weight: bold;
+    font-size: 14px;
+    height: 22px;
+    margin: 10px 0 5px 0;
+    outline: none;
+    width: 100%;
+    display: inline-block;
+    text-overflow: ellipsis;
+  }
+
+  .smallmovieRate {
+    display: flex;
+    margin-top: 2px;
+    height: 12px;
+
+    .smalliconStar {
+      font-size: 12px;
+      color: orange;
+      margin: 0 3px;
+    }
+
+    .smallmovieScore {
+      color: orange;
+      font-size: 13px;
+    }
+  }
+
+}
+
