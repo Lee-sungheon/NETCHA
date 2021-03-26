@@ -70,6 +70,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Evaluation() {
   const classes = useStyles();
+  const [pickNum, setPickNum] = useState(10)
   const [colsNum, setColsNum] = useState(5);
   useEffect(() => {
     checkWindowInner()
@@ -98,7 +99,7 @@ export default function Evaluation() {
           className={classes.menu} 
           variant="h5"
         >
-          20
+          {pickNum}
         </Typography>
         <Typography 
           className={classes.menu} 
@@ -108,14 +109,14 @@ export default function Evaluation() {
           아하, 이런 스타일이시군요!
         </Typography>
         <div className={classes.progressBar}>
-          <BorderLinearProgress variant="determinate" value={50} />
+          <BorderLinearProgress variant="determinate" value={pickNum*2.5} />
         </div>
       </div>
       <div className={classes.root}>
         <GridList cellHeight={'auto'} className={classes.gridList} cols={colsNum} spacing={35}>
           {tileData.map((tile) => (
             <GridListTile key={tile.title}>
-              <MovieItem tile={tile}/>
+              <MovieItem tile={tile} pickNum={pickNum} setPickNum={setPickNum}/>
             </GridListTile>
           ))}
         </GridList>

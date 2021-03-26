@@ -1,34 +1,27 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import Slider from "../component/slider";
 import Banner from "../component/banner/banner";
+import DehazeIcon from '@material-ui/icons/Dehaze';
+import ViewModuleIcon from '@material-ui/icons/ViewModule';
+import './Home.scss'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    position: "relative",
-    overflow: "visible",
-  },
-}));
 
 export default function Home() {
-  const classes = useStyles();
   return (
     <>
-      <div
-      // style={{
-      //   width: "100%",
-      //   height: "500px",
-      //   color: "white",
-      //   textAlign: "center",
-      //   lineHeight: "500px",
-      //   border: "5px white solid",
-      // }}
-      >
-        <Banner />
+      <div className="home__top-bar__container">
+        <div className="home__top-bar__area">
+          <div className="home__top-bar__left"></div>
+          <div className="home__top-bar__right" >
+            <Link to={"/"}><div className="home__top-bar__button1" ><DehazeIcon /></div></Link>
+            <Link to={"/movielist"}><div className="home__top-bar__button2"><ViewModuleIcon /></div></Link>
+          </div>
+        </div>
       </div>
-      <div className={classes.root}>
-        <div className={classes.root} id={"slider-1"}>
+      <Banner />
+      <div className="home__container">
+        <div className="home__container" id={"slider-1"}>
           <Slider title={"Netcha 인기 콘텐츠"} idx={`slider-1`}>
             {movies.map((movie, idx) => (
               <Slider.Item movie={movie} key={movie.id} idx={idx}>
@@ -37,7 +30,7 @@ export default function Home() {
             ))}
           </Slider>
         </div>
-        <div className={classes.root} id={"slider-2"}>
+        <div className="home__container" id={"slider-2"}>
           <Slider title={"Netcha 랜덤 콘텐츠"} idx={`slider-2`}>
             {movies.map((movie, idx) => (
               <Slider.Item movie={movie} key={movie.id} idx={idx}>
@@ -45,7 +38,7 @@ export default function Home() {
             ))}
           </Slider>
         </div>
-        <div className={classes.root} id={`slider-3`}>
+        <div className="home__container" id={`slider-3`}>
           <Slider title={"Netcha 싸피 콘텐츠"} idx={`slider-3`}>
             {movies.map((movie, idx) => (
               <Slider.Item movie={movie} key={movie.id} idx={idx}>
@@ -53,7 +46,7 @@ export default function Home() {
             ))}
           </Slider>
         </div>
-        <div className={classes.root} id={`slider-4`}>
+        <div className="home__container" id={`slider-4`}>
           <Slider title={"Netcha 추천 콘텐츠"} idx={`slider-4`}>
             {movies.map((movie, idx) => (
               <Slider.Item movie={movie} key={movie.id} idx={idx}>
@@ -63,7 +56,7 @@ export default function Home() {
         </div>
 
         {[5,6,7,8,9,10,11,12,13,14,15].map(item=> (
-          <div className={classes.root} id={`slider-${item}`}>
+          <div className="home__container" id={`slider-${item}`}>
             <Slider title={"Netcha 추천 콘텐츠"} idx={`slider-${item}`}>
               {movies.map((movie, idx) => (
                 <Slider.Item movie={movie} key={movie.id} idx={idx}>
