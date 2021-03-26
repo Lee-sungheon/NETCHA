@@ -11,7 +11,7 @@ import "./App.scss";
 import Evaluation from "./evaluation/container/Evaluation";
 import Account from "./user/container/Account";
 import Login from "./user/container/Login";
-import MBTI from "./mbti/container/TestMbti";
+import TestMbti from "./mbti/container/TestMbti";
 import Signup from "./user/container/Signup";
 import SignupDetail from "./user/container/SignupDetail";
 import ProfileList from "./user/container/ProfileList";
@@ -54,8 +54,8 @@ function App() {
             <Route path="/profilelist">
               <ProfileList />
             </Route>
-            <Route path="/mbti">
-              <MBTI toggleIsHeader={toggleIsHeader} />
+            <Route path="/testmbti">
+              <TestMbti toggleIsHeader={toggleIsHeader} />
             </Route>
             <Route>
               <EmptyPage />
