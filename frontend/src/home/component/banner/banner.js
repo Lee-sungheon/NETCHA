@@ -1,14 +1,17 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
+import "./Banner.scss";
 
 export default function banner() {
   return (
     <div
       style={{
         height: "40vw",
+        fontSize: "1vw",
       }}
     >
       <div
+        className="banner"
         style={{
           position: "relative",
           textAlign: "right",
@@ -19,12 +22,13 @@ export default function banner() {
           src="https://occ-0-4807-395.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABbOymx7zApiRkB4v8RlqPyDcTKk403CX_3kF9AmSltYMW-7mOI54Rimond4ElEj5huQMTf_nPAiJYViyei3JdEij4PoF.webp?r=4cc"
           style={{
             width: "100%",
+            height: "50vw",
           }}
         ></img>
         <div
           style={{
             position: "absolute",
-            top: "4vw",
+            top: "5vw",
             left: "4vw",
             height: "15vw",
           }}
@@ -46,7 +50,7 @@ export default function banner() {
               style={{
                 fontWeight: "bold",
 
-                fontSize: "2rem",
+                fontSize: "2em",
               }}
             >
               오늘 한국에서 콘텐츠 순위 3위
@@ -54,7 +58,7 @@ export default function banner() {
             <div
               style={{
                 marginTop: "20px",
-                fontSize: "1.5rem",
+                fontSize: "1.3em",
                 width: "33vw",
               }}
             >
@@ -66,13 +70,13 @@ export default function banner() {
               <Button
                 variant="contained"
                 style={{
-                  width: "7vw",
+                  width: "8vw",
                   backgroundColor: "white",
                   color: "black",
                   marginTop: "25px",
                   height: "45px",
                   fontWeight: "bold",
-                  fontSize: "1.3rem",
+                  fontSize: "1.3em",
                 }}
               >
                 ▶ 재생
@@ -80,13 +84,13 @@ export default function banner() {
               <Button
                 variant="contained"
                 style={{
-                  width: "7vw",
+                  width: "9vw",
                   backgroundColor: "gray",
                   color: "white",
                   marginTop: "25px",
                   height: "45px",
                   fontWeight: "bold",
-                  fontSize: "1.3rem",
+                  fontSize: "1.3em",
                   marginLeft: "10px",
                 }}
               >
