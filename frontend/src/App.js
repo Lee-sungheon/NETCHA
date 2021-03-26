@@ -4,6 +4,7 @@ import store from "./common/store";
 // import { createBrowserHistory } from 'history';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./home/container/Home";
+import MovieFilter from "./moviefliter/container/MovieFilter";
 import Header from "./navbar/container/Header";
 import LikeList from "./likeList/container/LikeList";
 import EmptyPage from "./common/EmptyPage";
@@ -32,6 +33,9 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Home />
+            </Route>
+            <Route path="/movielist">
+              <MovieFilter />
             </Route>
             <Route path="/mylike">
               <LikeList />

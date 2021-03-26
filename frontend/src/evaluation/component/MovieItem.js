@@ -53,11 +53,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MovieItem({tile}) {
+export default function MovieItem({tile, pickNum, setPickNum}) {
   const customClasses = useStyles();
   const [ isFinish, setIsFinish ] = useState(false)
   const [ isHover, setIsHover ] = useState(false)
-  const [ score, setScore ] = useState(5)
+  const [ score, setScore ] = useState(7)
   let tmpScore = 5
   function setHover() {
     if (isFinish){
@@ -74,9 +74,14 @@ export default function MovieItem({tile}) {
   }
   function onClick(e) {
     if (e.target.name !== 'size-large'){
+      if (!isFinish) {
+        setPickNum(pickNum+1)
+      }
       setIsFinish(true);
       if (tmpScore === score){
+        setPickNum(pickNum-1)
         setIsFinish(false)
+        return
       }
       setScore(tmpScore);
     }
