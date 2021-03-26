@@ -48,14 +48,22 @@ export default function TestMbtiItem(props) {
 
   const onClickChoice_1 = (e) => {
     e.preventDefault();
+    if (questionNum == 11) {
+      return;
+    }
     console.log(e.target);
     props.onChoice(1);
     setQuestionNum(questionNum + 1);
   };
-  const onClickChoice = (e) => {
+  const onClickChoice_2 = (e) => {
+    e.preventDefault();
+
+    if (questionNum == 11) {
+      return;
+    }
     console.log(e.target);
     props.onChoice(2);
-    // setQuestionNum(questionNum++);
+    setQuestionNum(questionNum + 1);
   };
 
   return (
@@ -111,7 +119,7 @@ export default function TestMbtiItem(props) {
           padding: "2.5vw",
           borderRadius: "0.5vw",
         }}
-        onClick={onClickChoice}
+        onClick={onClickChoice_2}
         value="2"
       >
         <div>
