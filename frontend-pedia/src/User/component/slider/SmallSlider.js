@@ -59,7 +59,9 @@ export default function SmallSlider({ data, title }) {
                   alt={data.title} src={data.image}
                 />
                 <div className="smallmovieInfo">
-                  <div className="smallmovieTitle">{data.title}</div>
+                  <div className="smallmovieTitle">
+                      <p title={data.title}>{data.title}</p>
+                  </div>
                   <div className="smallmovieRate">
                     <span className="smallmovieScore">평가함&nbsp;</span>
                     <span className="smallmovieScore">★&nbsp;5.0</span>
