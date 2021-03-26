@@ -41,7 +41,6 @@ export default function Home() {
           <Slider title={"Netcha 랜덤 콘텐츠"} idx={`slider-2`}>
             {movies.map((movie, idx) => (
               <Slider.Item movie={movie} key={movie.id} idx={idx}>
-                item1
               </Slider.Item>
             ))}
           </Slider>
@@ -50,7 +49,6 @@ export default function Home() {
           <Slider title={"Netcha 싸피 콘텐츠"} idx={`slider-3`}>
             {movies.map((movie, idx) => (
               <Slider.Item movie={movie} key={movie.id} idx={idx}>
-                item1
               </Slider.Item>
             ))}
           </Slider>
@@ -59,11 +57,22 @@ export default function Home() {
           <Slider title={"Netcha 추천 콘텐츠"} idx={`slider-4`}>
             {movies.map((movie, idx) => (
               <Slider.Item movie={movie} key={movie.id} idx={idx}>
-                item1
               </Slider.Item>
             ))}
           </Slider>
         </div>
+
+        {[5,6,7,8,9,10,11,12,13,14,15].map(item=> (
+          <div className={classes.root} id={`slider-${item}`}>
+            <Slider title={"Netcha 추천 콘텐츠"} idx={`slider-${item}`}>
+              {movies.map((movie, idx) => (
+                <Slider.Item movie={movie} key={movie.id} idx={idx}>
+                </Slider.Item>
+              ))}
+          </Slider>
+        </div>
+        ))}
+
       </div>
       <div
         style={{
