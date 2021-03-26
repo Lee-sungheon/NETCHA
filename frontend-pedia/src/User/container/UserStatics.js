@@ -33,14 +33,14 @@ export default function UserStatics() {
       <div className="roundedCornerBox">
         <div className="paddingBox">
           <h3>별점 분포</h3>
-          <StarGraph data={arr}/>
+          <StarGraph data={arr} />
         </div>
       </div>
       <div className="roundedCornerBox">
         <div className="paddingBox">
           <div>
             <h3>영화 선호태그</h3>
-            <Wordcloud data={words}/>
+            <Wordcloud data={words} />
           </div>
           <hr />
           <div>
@@ -57,9 +57,9 @@ export default function UserStatics() {
             <h3>영화 선호국가</h3>
             <div className="genreWrap">
               <ul>
-                <li className="genreli">한국</li>
-                <li className="genreli">미국</li>
-                <li className="genreli">영국</li>
+                {country.map((data) => {
+                  return <li className="genreli">{data}</li>;
+                })}
               </ul>
             </div>
           </div>
@@ -68,9 +68,9 @@ export default function UserStatics() {
             <h3>영화 선호장르</h3>
             <div className="genreWrap">
               <ul>
-                <li className="genreli">드라마</li>
-                <li className="genreli">액션</li>
-                <li className="genreli">코미디</li>
+                {genre.map((data) => {
+                  return <li className="genreli">{data}</li>;
+                })}
               </ul>
             </div>
           </div>
@@ -79,6 +79,9 @@ export default function UserStatics() {
     </div>
   );
 }
+
+const country = ["한국", "미국", "영국"];
+const genre = ["드라마", "액션", "코미디"];
 
 const actors = [
   {
@@ -123,99 +126,99 @@ const arr = [2, 3, 2, 1, 3, 8, 4, 7, 10, 11, 9];
 
 const words = [
   {
-    text: '연기력',
+    text: "연기력",
     value: 200,
   },
   {
-    text: '연기력',
+    text: "연기력",
     value: 90,
   },
   {
-    text: '배경이 예쁜',
+    text: "배경이 예쁜",
     value: 80,
   },
   {
-    text: '카리스마',
+    text: "카리스마",
     value: 70,
   },
   {
-    text: '연기력',
+    text: "연기력",
     value: 60,
   },
   {
-    text: '블록버스터',
+    text: "블록버스터",
     value: 50,
   },
   {
-    text: '연기력',
+    text: "연기력",
     value: 40,
   },
   {
-    text: '액션',
+    text: "액션",
     value: 30,
   },
   {
-    text: '슬픈',
+    text: "슬픈",
     value: 64,
   },
   {
-    text: '웃긴',
+    text: "웃긴",
     value: 64,
   },
   {
-    text: '블록버스터',
+    text: "블록버스터",
     value: 11,
   },
   {
-    text: '블록버스터',
+    text: "블록버스터",
     value: 11,
   },
   {
-    text: '블록버스터',
+    text: "블록버스터",
     value: 11,
   },
   {
-    text: '블록버스터',
+    text: "블록버스터",
     value: 11,
   },
   {
-    text: '강렬힌',
+    text: "강렬힌",
     value: 30,
   },
   {
-    text: '강렬힌',
+    text: "강렬힌",
     value: 30,
   },
   {
-    text: '강렬힌',
+    text: "강렬힌",
     value: 30,
   },
   {
-    text: '한국배경',
+    text: "한국배경",
     value: 17,
   },
   {
-    text: '통쾌한',
+    text: "통쾌한",
     value: 55,
   },
   {
-    text: '통쾌한',
+    text: "통쾌한",
     value: 55,
   },
   {
-    text: '통쾌한',
+    text: "통쾌한",
     value: 55,
   },
   {
-    text: '통쾌한',
+    text: "통쾌한",
     value: 55,
   },
   {
-    text: '통쾌한',
+    text: "통쾌한",
     value: 55,
   },
   {
-    text: '통쾌한',
+    text: "통쾌한",
     value: 55,
   },
-]
+];

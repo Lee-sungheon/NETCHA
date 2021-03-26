@@ -1,14 +1,14 @@
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import './PeopleList.scss';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "./PeopleList.scss";
 
-export default function ActorList({data}) {
+export default function ActorList({ data }) {
   const settings = {
-    className: 'center',
+    className: "center",
     centerMode: true,
     infinite: true,
-    centerPadding: '5px',
+    centerPadding: "5px",
     slidesToShow: 1,
     arrows: true,
     speed: 500,
@@ -17,17 +17,20 @@ export default function ActorList({data}) {
   };
   return (
     <div className="slider">
-        <Slider {...settings}>
-          {data.map((data) => {
-            return (
-                <div>
-                    <div className="actorImage"></div>
-                    <div className="actorInfo">{data.name}</div>
-                </div>
-            );
-          })}
+      <Slider {...settings}>
+        {data.map((data) => {
+          return (
+            <div className="actorWrap">
+              <div>
+                <img src="/images/profileIcon.jpg" />
+              </div>
+              <div>
+                <span className="actorInfo">{data.name}</span>
+              </div>
+            </div>
+          );
+        })}
       </Slider>
     </div>
   );
 }
-
