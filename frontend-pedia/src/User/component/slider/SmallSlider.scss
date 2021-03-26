@@ -11,53 +11,47 @@
   font-size: 25px;
   color: rgb(150, 150, 150);
   position: relative;
-  top: -45px;
+  top: -55px;
 }
 
 .smallimage {
   margin: 0 10px 0 10px;
   height: 140px;
-}
-
-.title {
-  position: relative;
-  left: 20px;
-  bottom: -10px;
-  font-weight: 700;
+  border-radius: 6px;
 }
 
 .smallmovieInfo {
-  height: 5.438em;
-  width: 13.05em;
   margin: 0 10px 0 10px;
-  
+
   .smallmovieTitle {
-    font-weight: bold;
-    font-size: 14px;
-    height: 22px;
-    margin: 10px 0 5px 0;
-    outline: none;
     width: 100%;
-    display: inline-block;
-    text-overflow: ellipsis;
+    height: 30px;
+    outline: none;
+
+    p {
+      // 아래 세 줄 : overflow 을 위한 코드...
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      font-weight: bold;
+      font-size: 14px;
+      margin: 10px 0 0 0;
+    }
   }
 
   .smallmovieRate {
     display: flex;
     margin-top: 2px;
     height: 12px;
+    color: orange;
 
     .smalliconStar {
       font-size: 12px;
-      color: orange;
       margin: 0 3px;
     }
 
     .smallmovieScore {
-      color: orange;
       font-size: 13px;
     }
   }
-
 }
-

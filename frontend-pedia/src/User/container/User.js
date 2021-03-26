@@ -2,10 +2,12 @@ import React from "react";
 import "./User.scss";
 import { useHistory } from "react-router-dom";
 import SmallSlider from "../component/slider/SmallSlider";
+import netchapediaImg from "../../images/netchapediaTransWhite.png";
 
 export default function User() {
   const userId = 1;
-  function goToStatics() {
+  function goToStatics(e) {
+    e.preventDefault();
     history.push(`/user/statics/${userId}`);
   }
 
@@ -13,16 +15,18 @@ export default function User() {
   return (
     <div className="userWrapper">
       <div className="userBox">
-        <div className="wallPaper"></div>
+        <div className="wallPaper">
+        <img src={netchapediaImg} alt="netchapedia" className="logoImage" />
+        </div>
         <div className="user">
-          <div className="profile">
-            <img src="/images/profile.png" style={{ width: "70px" }} />
+          <div>
+            <img src="/images/profileIcon.jpg" className="profileIconImg" />
             <div style={{ marginTop: "-20px" }}>
               <h2>강유정</h2>
             </div>
           </div>
           <hr />
-          <a href="#" onClick={goToStatics}>
+          <a href="#" onClick={goToStatics} style={{ color: "#000" }}>
             <div>
               <img
                 src="/images/graph.png"

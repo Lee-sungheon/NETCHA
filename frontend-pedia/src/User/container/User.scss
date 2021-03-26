@@ -4,6 +4,7 @@
     width: 100%;
     margin: 30px 0 30px 0;
     margin-bottom: 20px;
+    
 }
 
 .userBox {
@@ -20,9 +21,11 @@
 
 .wallPaper {
     width: 100%;
-    height: 280px;
-    margin: 0 0 -20px;
-    background-image: url("/images/wallpaper2.jpg");
+    height: 200px;
+    margin: 0 0 -20px -0.0145px;
+    background: linear-gradient(to right, #141130, #1481a7);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
 }
 
 hr {
@@ -36,6 +39,7 @@ hr {
 
 .genreWrap{
     width: 100%;
+    font-weight: bold;
 }
 
 .genreli {
@@ -46,4 +50,14 @@ hr {
 
 .smallSliderWrap {
     height: 230px;
+}
+
+.userPreference {
+    width: 100%;
+}
+
+.profileIconImg {
+    width: 60px;
+    border-radius: 60%;
+    border: 1px solid #e6e6e6;
 }
