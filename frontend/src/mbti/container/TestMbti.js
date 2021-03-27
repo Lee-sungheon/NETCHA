@@ -5,6 +5,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import TestMbtiList from "../component/TestMbtiItem";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   mbti_back: {
@@ -45,10 +46,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TestMBTI(props) {
   const classes = useStyles();
+  const history = useHistory();
   const [choiceList, setChoiceList] = useState({ choice: [] });
   const onChoice = (data) => {
     console.log(data);
+
     setChoiceList({ ...choiceList, choice: choiceList.choice.concat(data) });
+    console.log(choiceList.choice.length);
+    if (choiceList.choice.length == 12) {
+      console.log(history);
+      history.push({
+        pathname: "/mbtiresult",
+        state: { choiceList: choiceList },
+      });
+    }
   };
 
   const questionList = [

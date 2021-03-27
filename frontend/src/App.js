@@ -16,6 +16,7 @@ import TestMbti from "./mbti/container/TestMbti";
 import Signup from "./user/container/Signup";
 import SignupDetail from "./user/container/SignupDetail";
 import ProfileList from "./user/container/ProfileList";
+import MbtiResult from "./mbti/container/MbtiResult";
 
 // const history = createBrowserHistory();
 
@@ -61,6 +62,10 @@ function App() {
             <Route path="/testmbti">
               <TestMbti toggleIsHeader={toggleIsHeader} />
             </Route>
+            <Route path="/mbtiresult">
+              <MbtiResult toggleIsHeader={toggleIsHeader} />
+            </Route>
+            
             <Route>
               <EmptyPage />
             </Route>
