@@ -48,21 +48,21 @@ export default function TestMbtiItem(props) {
 
   const onClickChoice_1 = (e) => {
     e.preventDefault();
+    console.log(e.target);
+    props.onChoice(1);
     if (questionNum == 11) {
       return;
     }
-    console.log(e.target);
-    props.onChoice(1);
     setQuestionNum(questionNum + 1);
   };
   const onClickChoice_2 = (e) => {
     e.preventDefault();
 
+    console.log(e.target);
+    props.onChoice(2);
     if (questionNum == 11) {
       return;
     }
-    console.log(e.target);
-    props.onChoice(2);
     setQuestionNum(questionNum + 1);
   };
 
