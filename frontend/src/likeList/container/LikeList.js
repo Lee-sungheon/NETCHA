@@ -50,18 +50,6 @@ export default function LikeList() {
         </div>
         ))}
       </div>
-      
-      <div
-        style={{
-          height: "300px",
-          color: "white",
-          textAlign: "center",
-          lineHeight: "300px",
-          border: "5px white solid",
-        }}
-      >
-        풋터 자리
-      </div>
     </>
   )
 }
