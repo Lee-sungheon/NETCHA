@@ -27,11 +27,20 @@
         position: relative;
         top: 95px;
         margin-left: 30px;
+
+        .profileIconImg {
+          width: 40px;
+          border-radius: 60%;
+          position: relative;
+          top: 13px;
+          left: 1px;
+          margin-right: 10px;
+        }
       }
     }
 
     .paddingBox {
-      padding: 0 20px 10px 20px;
+      margin: 0 20px 10px 20px;
       border-color: #e3e3e3 !important;
     }
   }
@@ -42,14 +51,33 @@
   background-color: rgb(248, 169, 218);
 }
 
-.genreWrap {
+.gcWrap {
   width: 100%;
-}
+  padding: 20px 0 21px 0;
+  
+  .gcUl {
+    padding-inline-start: 0;
+  }
 
-.genreli {
-  display: inline-block;
-  list-style: none;
-  width: 33%;
+  .gcli {
+    display: inline-block;
+    list-style: none;
+    width: 33%;
+    text-align: center;
+    
+    .gcBoldText {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 19px;
+      margin: 0 0 4px;
+    }
+    .gcText {
+      font-size: 12px;
+      color: #787878;
+      font-weight: 400;
+      line-height: 19px;
+    }
+  }
 }
 
 .smallSliderWrap {

@@ -16,17 +16,15 @@ export default function ActorList({ data }) {
     slidesPerRow: 1,
   };
   return (
-    <div className="slider">
+    <div className="peopleSlider">
       <Slider {...settings}>
         {data.map((data) => {
           return (
             <div className="actorWrap">
-              <div>
-                <img src="/images/profileIcon.jpg" />
-              </div>
-              <div>
-                <span className="actorInfo">{data.name}</span>
-              </div>
+                <img className="actorImage" src="/images/profileIcon.jpg" />
+              {/* <span className="actorImageWrap">
+              </span> */}
+              <div className="actorName">{data.name}</div>
             </div>
           );
         })}
