@@ -6,31 +6,32 @@
   top: -10px;
 }
 
-.actorWrap {
-  width: 100%;
-  margin: 0 0 10px 10px;
-  height: 100%;
-  
-  div {
-    display: inline-block;
-    height: 100%;
-    border-bottom: 1px solid #f0f0f0;
-    text-align: center;
-    align-items: center;
-  }
+.peopleSlider {
+  .actorWrap {
+    width: 100%;
+    margin: 0 0 10px 0;
+    height: 76px;
+    position: relative;
 
-  img {
-    width: 56px;
-    border-radius: 60%;
-    border: 1px solid #e6e6e6;
-    display: inline-block;
-  }
+    .actorImage {
+      align-items: center;
+      width: 56px;
+      height: 56px;
+      border: 1px solid #e6e6e6;
+      border-radius: 50%;
+      position: relative;
+    }
 
-  .actorInfo {
-    height: 100%;
-    text-align: center;
-    color: #1e1e1e;
-    font-size: 17px;
-    font-weight: 400;
+    .actorName {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      border-bottom: 1px solid #f0f0f0;
+      color: #1e1e1e;
+      font-size: 17px;
+      font-weight: 400;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 }

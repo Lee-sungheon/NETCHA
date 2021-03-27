@@ -10,13 +10,13 @@ export default function SmallSlider({ data, title }) {
   // }
 
   var settings = {
-    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 5,
     initialSlide: 0,
     centerMode: false,
+    dots: false,
     responsive: [
       {
         breakpoint: 1024,

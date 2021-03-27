@@ -17,7 +17,6 @@ function App() {
         <Route exact path="/user/:id" component={User} />
         <Route exact path="/user/statics/:id" component={UserStatics} />
         <Route exact path="/movieDetail/:movieId" component={MovieDetail} />
-        <div className="blank" />
         <Footer />
       </div>
     </BrowserRouter>
