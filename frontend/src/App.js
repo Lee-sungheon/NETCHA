@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./home/container/Home";
 import MovieFilter from "./moviefliter/container/MovieFilter";
 import Header from "./navbar/container/Header";
+import Footer from './navbar/container/Footer';
 import LikeList from "./likeList/container/LikeList";
 import EmptyPage from "./common/EmptyPage";
 import "./App.scss";
@@ -71,6 +72,7 @@ function App() {
             </Route>
           </Switch>
         </Provider>
+        {isHeader ? <Footer /> : null}
       </div>
     </BrowserRouter>
   );
