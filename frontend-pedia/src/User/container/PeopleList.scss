@@ -14,18 +14,19 @@
     position: relative;
 
     .actorImage {
+      display: inline-block;
       align-items: center;
-      width: 56px;
       height: 56px;
+      width: 10%;
       border: 1px solid #e6e6e6;
       border-radius: 50%;
       position: relative;
     }
-
+    
     .actorName {
-      position: relative;
       display: inline-block;
-      width: 100%;
+      width: 80%;
+      padding: 0 0 20px 10px;
       border-bottom: 1px solid #f0f0f0;
       color: #1e1e1e;
       font-size: 17px;

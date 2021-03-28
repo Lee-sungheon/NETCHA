@@ -2,6 +2,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./PeopleList.scss";
+import PersonImage from './PersonImage'
 
 export default function ActorList({ data }) {
   const settings = {
@@ -21,10 +22,18 @@ export default function ActorList({ data }) {
         {data.map((data) => {
           return (
             <div className="actorWrap">
-                <img className="actorImage" src="/images/profileIcon.jpg" />
+              <PersonImage name={data.name} />
+              {/* <img
+                className="actorImage"
+                src="/images/+${data.name}.jpg`"
+                alt={data.name}
+                title={data.name}
+              /> */}
               {/* <span className="actorImageWrap">
               </span> */}
-              <div className="actorName">{data.name}</div>
+              <div className="actorName">
+                <span>{data.name}</span>
+              </div>
             </div>
           );
         })}
