@@ -46,7 +46,7 @@ export default function LargeMovieSlider({ data, title }) {
   const history = useHistory();
 
   return (
-    <div>
+    <div className="largeSlider">
       <div className="title">
         <h2> {title} </h2>
       </div>
