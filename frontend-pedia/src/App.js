@@ -5,6 +5,8 @@ import Footer from './navbar/container/Footer';
 import Header from './navbar/container/Header'
 import User from './User/container/User';
 import './App.scss';
+import UserStatics from './User/container/UserStatics';
+import MovieDetail from './movieDetail/container/MovieDetail';
 
 function App() {
   return (
@@ -13,7 +15,8 @@ function App() {
         <Header />
         <Route exact path="/" component={Home} />
         <Route exact path="/user/:id" component={User} />
-        <div className="blank" />
+        <Route exact path="/user/statics/:id" component={UserStatics} />
+        <Route exact path="/movieDetail/:movieId" component={MovieDetail} />
         <Footer />
       </div>
     </BrowserRouter>

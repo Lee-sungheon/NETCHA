@@ -1,0 +1,38 @@
+.slick-prev:before,
+.slick-next:before {
+  color: #ddd !important;
+  font-size: 23px;
+  position: relative;
+  top: -10px;
+}
+
+.peopleSlider {
+  .actorWrap {
+    width: 100%;
+    margin: 0 0 10px 0;
+    height: 76px;
+    position: relative;
+
+    .actorImage {
+      display: inline-block;
+      align-items: center;
+      height: 56px;
+      width: 10%;
+      border: 1px solid #e6e6e6;
+      border-radius: 50%;
+      position: relative;
+    }
+    
+    .actorName {
+      display: inline-block;
+      width: 80%;
+      padding: 0 0 20px 10px;
+      border-bottom: 1px solid #f0f0f0;
+      color: #1e1e1e;
+      font-size: 17px;
+      font-weight: 400;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

@@ -2,21 +2,19 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./SmallSlider.scss";
+import "./LargeMovieSlider.scss";
+import { useHistory } from "react-router";
 
-export default function SmallSlider({ data, title }) {
-  // function goToMovieDetail(movieTitle){
-  //   alert(movieTitle);
-  // }
-
+export default function LargeMovieSlider({ data, title }) {
+  
   var settings = {
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 5,
     initialSlide: 0,
     centerMode: false,
-    dots: false,
     responsive: [
       {
         breakpoint: 1024,
@@ -44,6 +42,8 @@ export default function SmallSlider({ data, title }) {
       },
     ],
   };
+  
+  const history = useHistory();
 
   return (
     <div>
@@ -54,17 +54,24 @@ export default function SmallSlider({ data, title }) {
         <Slider {...settings}>
           {data.map((data) => {
             return (
-              <div className="smallMovieBox" key={data.id}>
-                <img className="smallimage" // onClick={goToMovieDetail(data.title)}
-                  alt={data.title} src={data.image}
-                />
-                <div className="smallmovieInfo">
-                  <div className="smallmovieTitle">
-                      <p title={data.title}>{data.title}</p>
-                  </div>
-                  <div className="smallmovieRate">
-                    <span className="smallmovieScore">평가함&nbsp;</span>
-                    <span className="smallmovieScore">★&nbsp;5.0</span>
+              <div className="MovieBox" key={data.id}>
+                <div className="movieAllWrap">
+                  <div className="moviePosterInside">
+                    <img
+                      className="image"
+                      // onClick={goToMovieDetail(data.title)}
+                      alt={data.title}
+                      src={data.image}
+                      onClick={() => history.push(`/movieDetail/${data.id}`)}
+                    />
+                    <div className="movieInfo">
+                      <div className="movieTitle">{data.title}</div>
+                      <div className="movieDate">2021 · 한국</div>
+                      <div className="movieRate">
+                        <span className="movieScore">평점</span>
+                        <span className="movieScore">★5</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
