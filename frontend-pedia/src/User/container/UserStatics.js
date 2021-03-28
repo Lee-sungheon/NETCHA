@@ -115,15 +115,15 @@ const genre = [
 const actors = [
   {
     id: 1,
-    name: '정이삭',
+    name: '임시완',
   },
   {
     id: 2,
-    name: '윤여정',
+    name: '박규영',
   },
   {
     id: 3,
-    name: '스티븐연',
+    name: '이도현',
   },
   {
     id: 4,
@@ -131,23 +131,23 @@ const actors = [
   },
   {
     id: 5,
-    name: '이민기',
+    name: '신세경',
   },
   {
     id: 6,
-    name: '박규영',
+    name: '수지',
   },
   {
     id: 7,
-    name: '고민시',
-  },
-  {
-    id: 8,
     name: '송강',
   },
   {
     id: 8,
-    name: '이도현',
+    name: '천우희',
+  },
+  {
+    id: 8,
+    name: '레이첼 맥아담스',
   },
 ];
 
