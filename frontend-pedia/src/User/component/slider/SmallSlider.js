@@ -46,7 +46,7 @@ export default function SmallSlider({ data, title }) {
   };
 
   return (
-    <div>
+    <div className="smallSlider">
       <div className="title">
         <h2> {title} </h2>
       </div>

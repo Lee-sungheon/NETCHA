@@ -1,11 +1,9 @@
 import React from "react";
-import { AppBar, Toolbar, Button } from "@material-ui/core";
-import InputBase from "@material-ui/core/InputBase";
+import { AppBar, Toolbar, Button, InputBase } from "@material-ui/core";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import netchapediaImg from "../../images/netchapedia.png";
-import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {

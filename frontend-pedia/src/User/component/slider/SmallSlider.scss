@@ -1,17 +1,21 @@
-.slick-prev:before {
-  left: 10px;
-}
+.smallSlider {
+  
+  .slick-prev:before {
+    left: 10px;
+  }
+  
+  .slick-next:before {
+    right: 9px;
+  }
+  
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 20px;
+    color: rgb(150, 150, 150);
+    position: relative;
+    top: -25px;
+  }
 
-.slick-next:before {
-  right: 9px;
-}
-
-.slick-prev:before,
-.slick-next:before {
-  font-size: 25px;
-  color: rgb(150, 150, 150);
-  position: relative;
-  top: -55px;
 }
 
 .smallimage {
