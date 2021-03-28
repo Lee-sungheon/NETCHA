@@ -1,9 +1,10 @@
-import React from "react";
-import { AppBar, Toolbar, Button, InputBase } from "@material-ui/core";
+import React, { useState } from "react";
+import { AppBar, Toolbar, Button } from "@material-ui/core";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
 import { Link, useHistory } from "react-router-dom";
 import netchapediaImg from "../../images/netchapedia.png";
+import SearchInput from "./SearchInput";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,6 +59,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header() {
+  const [searchKeyword, setSearchKeyword] = useState("");
+
   function goToUser(e) {
     e.preventDefault();
     const id = 1;
@@ -92,14 +95,17 @@ export default function Header() {
             <div className={classes.searchIcon}>
               <SearchIcon color="action" />
             </div>
-            <InputBase
-              placeholder="작품의 제목, 배우, 감독을 검색해보세요."
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
+            <SearchInput />
+            {/* <form>
+              <InputBase
+                placeholder="작품의 제목, 배우, 감독을 검색해보세요."
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ "aria-label": "search", "name": {searchKeyword} }}
+              />
+            </form> */}
           </div>
           <Button
             color="action"
