@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
-import SearchIcon from "@material-ui/icons/Search";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import Avatar from "@material-ui/core/Avatar";
@@ -14,6 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import Search from '../component/search/Search';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,26 +34,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     color: "white",
   },
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: "rgba(0, 0, 0, 0)",
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(1),
-      width: "auto",
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "white",
-  },
   Brightness4Icon: {
     padding: theme.spacing(0, 1),
     height: "100%",
@@ -62,33 +41,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     color: "white",
-  },
-  inputRoot: {
-    color: "inherit",
-  },
-  inputInput: {
-    padding: theme.spacing(1, 0, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create("width"),
-    color: "white",
-    width: "0ch",
-    cursor: "pointer",
-    "&:focus": {
-      cursor: "text",
-      border: "white 1px solid",
-      width: "25ch",
-    },
-  },
-  inputInputValue: {
-    padding: theme.spacing(1, 0, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create("width"),
-    color: "white",
-    cursor: "text",
-    border: "white 1px solid",
-    width: "25ch",
   },
   small: {
     width: theme.spacing(3),
@@ -129,12 +81,7 @@ const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 export default function Header() {
-  const [searchText, setsearchText] = useState("");
-  function onChangeText(e) {
-    const text = e.target.value;
-    setsearchText(text);
-    console.log(searchText);
-  }
+  const classes = useStyles();
   const [activeValue, setActiveValue] = useState("홈");
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -150,7 +97,6 @@ export default function Header() {
     setActiveValue(event.target.innerText);
   }
 
-  const classes = useStyles();
 
   useEffect(() => {
     window.onscroll = function () {
@@ -239,27 +185,8 @@ export default function Header() {
             noWrap
           ></Typography>
 
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="제목, 사람, 장르"
-              classes={
-                !!searchText
-                  ? {
-                      root: classes.inputRoot,
-                      input: classes.inputInputValue,
-                    }
-                  : {
-                      root: classes.inputRoot,
-                      input: classes.inputInput,
-                    }
-              }
-              inputProps={{ "aria-label": "search" }}
-              onChange={onChangeText}
-            />
-          </div>
+          <Search activeValue={activeValue} setActiveValue={setActiveValue}/>
+
           <Link to={"/"}>
             <div className={classes.Brightness4Icon}>
               <Brightness4Icon />
