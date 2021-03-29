@@ -65,7 +65,7 @@ export default function LargeMovieSlider({ data, title }) {
                       onClick={() => history.push(`/movieDetail/${data.id}`)}
                     />
                     <div className="movieInfo">
-                      <div className="movieTitle">{data.title}</div>
+                      <div className="movieTitle" title={data.title}>{data.title}</div>
                       <div className="movieDate">2021 · 한국</div>
                       <div className="movieRate">
                         <span className="movieScore">평점</span>

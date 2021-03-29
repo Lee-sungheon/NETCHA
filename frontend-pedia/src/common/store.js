@@ -1,8 +1,8 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { all } from '@redux-saga/core/effects';
-import searchMovieReducer from '../navbar/container/SearchMovie/state';
-import searchMovieSaga from '../navbar/container/SearchMovie/state/saga'
+import searchMovieReducer from '../components/common/SearchMovie/state';
+import searchMovieSaga from '../components/common/SearchMovie/state/saga'
 
 const reducer = combineReducers({
   searchMovie: searchMovieReducer,

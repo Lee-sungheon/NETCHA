@@ -1,14 +1,5 @@
 .largeSlider {
-  // outline: none;
-  // .slick-prev:before {
-  //  left: 25px; 
-  //  z-index: 5;
-  // }
-  
-  // .slick-next:before {
-  //   right: 25px; 
-  // }
-  
+
   .slick-prev:before,
   .slick-next:before {
     opacity: 1;
@@ -19,28 +10,28 @@
     // background: white center;
     // border-radius: 50%;
   }
-  
+
   .title {
     position: relative;
     left: 20px;
     bottom: -10px;
     font-weight: 700;
   }
-  
+
   .MovieBox {
     width: 260px;
     height: 450px;
-    
+
     .movieAllWrap {
       display: flex;
       padding: 0 6px 0 6px;
-      
+
       .moviePosterInside {
         height: 28.5em;
         width: 15.675em;
         position: relative;
         cursor: pointer;
-        
+
         .image {
           margin: 0 10px 0 10px;
           height: 345px;
@@ -64,9 +55,14 @@
 
           .movieTitle {
             font-weight: bold;
-            font-size: 14px;
+            font-size: 16px;
+            letter-spacing: -0.3px;
+            line-height: 22px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             height: 22px;
-            margin: 10px 0 5px 0;
+            margin: 10px 0 3px 0;
             outline: none;
           }
 
