@@ -1,10 +1,10 @@
 import React from 'react';
 import './UserStatics.scss';
-import netchapediaImg from '../../images/netchapediaTransWhite.png';
+import netchapediaImg from "../images/netchapediaTransWhite.png";
 
-import PeopleList from './PeopleList';
-import StarGraph from './StarGraph';
-import Wordcloud from './WordCloud';
+import PeopleList from '../components/user/ActorAndDirectorList';
+import StarGraph from '../components/user/StarGraph';
+import Wordcloud from '../components/user/WordCloud';
 
 export default function UserStatics() {
   return (

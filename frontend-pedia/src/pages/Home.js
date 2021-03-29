@@ -1,5 +1,5 @@
 import React from "react";
-import LargeMovieSlider from "../component/slider/LargeMovieSlider";
+import LargeMovieSlider from "../components/slider/LargeMovieSlider";
 import './Home.scss';
 
 export default function Home() {
@@ -14,6 +14,7 @@ export default function Home() {
     </div>
   );
 }
+
 
 const movies = [
   {
