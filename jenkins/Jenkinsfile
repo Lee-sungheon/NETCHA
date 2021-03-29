@@ -12,7 +12,7 @@ pipeline {
 		// 해당 stage 명으로 jenkins 화면에 표시된다
 		stage('Build and Test') {
 		// docker image에 명시된 image를 활용하여 steps 수행
-			agent none
+			agent any
 			options { skipDefaultCheckout(false) }
 			steps {
 				sh 'gradle jar'
