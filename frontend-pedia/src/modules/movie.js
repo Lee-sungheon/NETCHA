@@ -26,12 +26,10 @@ const initialState = {
 
 const movie = handleActions(
   {
-    [READ_MOVIE_SUCCESS]: (state, { payload: movie }) => {
-      return {
-        ...state,
-        movie,
-      };
-    },
+    [READ_MOVIE_SUCCESS]: (state, { payload: movie }) => ({
+      ...state,
+      movie,
+    }),
     [READ_MOVIE_FAILURE]: (state, { payload: error }) => ({
       ...state,
       error,
