@@ -1,4 +1,4 @@
-import Graph from '../component/Graph';
+import Graph from '../../components/common/Graph';
 
 export default function StarGraph() {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
