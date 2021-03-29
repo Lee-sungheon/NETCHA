@@ -15,6 +15,6 @@ const options = {
 
 export default function Wordcloud({ data }) {
   return (
-    <ReactWordcloud options={options} words={data} />
+    <ReactWordcloud options={options} />
   );
 }
