@@ -11,11 +11,10 @@ export function createReducer(initialState, handlerMap) {
   }; 
 }
 
+export function createSetValueAction(type) {
+  return (key, value) => ({ type, key, value });
+}
 
-// 다양한 방법으로 활용 가능
-// export function createSetValueAction(type) {
-//   return (key, value) => ({ type, key, value });
-// }
-// export function setValueReducer(state, action) {
-//   state[action.key] = action.value;
-// }
+export function setValueReducer(state, action) {
+  state[action.key] = action.value;
+}
