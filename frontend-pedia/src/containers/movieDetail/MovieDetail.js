@@ -1,17 +1,18 @@
 import React from 'react';
 import './MovieDetail.scss';
-import BasicInfo from '../../movieDetail/component/BasicInfo';
-import Actors from '../../movieDetail/component/Actors';
-import StarGraph from '../../movieDetail/component/StarGraph';
-import Comment from '../../components/movieDetail/Comment/Comment';
-import Gallery from '../../movieDetail/component/Gallery';
-import Video from '../../movieDetail/component/Video';
-import SimilarMovies from '../../movieDetail/component/SimilarMovies';
-import MovieHeader from '../../movieDetail/component/MovieHeader';
-import { useDispatch, useSelector } from 'react-redux';
+import MovieHeader from '../../components/movieDetail/MovieHeader'
+import BasicInfo from '../../components/movieDetail/BasicInfo'
+import Actors from '../../components/movieDetail/Actors'
+import StarGraph from '../../components/movieDetail/StarGraph'
+import Comment from '../../components/movieDetail/Comment/Comment'
+import SimilarMovies from '../../components/movieDetail/SimilarMovies'
+import Gallery from '../../components/movieDetail/Gallery'
+import Video from '../../components/movieDetail/Video'
+
+// import { useDispatch, useSelector } from 'react-redux';
 
 export default function MovieDetail() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   return (
     <div className="movieDetail">
