@@ -11,7 +11,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
-
+import { useSelector, useDispatch } from 'react-redux';
+import { actions } from "../../home/state";
 
 const StyledMenu = withStyles({
   paper: {
@@ -49,7 +50,10 @@ export default function MovieFilter() {
   const [tabNo, setTabNo] = useState(5);
   const [filterText, setFilterText] = useState("추천 콘텐츠")
   const [anchorEl, setAnchorEl] = useState(null);
-  
+  const movieLists = useSelector(state => state.home.movieLists);
+  const isLoading = useSelector(state => state.home.isLoading);
+  const dispatch = useDispatch();
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -60,13 +64,14 @@ export default function MovieFilter() {
   
   useEffect(() => {
     checkWindowInner()
+    dispatch(actions.requestMovieList());
     window.addEventListener('resize', function(){
       checkWindowInner()
     });
   }, [])
   repeat = []
-  for (let i=0 ; i<=movies.length/tabNo ; i++){
-    repeat.push(movies.slice(i*tabNo, (i+1)*tabNo))
+  for (let i=0 ; i<=movieLists.length/tabNo ; i++){
+    repeat.push(movieLists.slice(i*tabNo, (i+1)*tabNo))
   }
   function checkWindowInner() {
     const windowInnerWidth = window.innerWidth;
@@ -114,14 +119,7 @@ export default function MovieFilter() {
                   onClose={handleClose}
                 >
                   <StyledMenuItem>
-                    {/* <Link
-                      to="/account"
-                      style={{
-                        color: "white",
-                      }}
-                    > */}
                     <ListItemText primary="추천 콘텐츠" onClick={(changeFilterText)}/>
-                    {/* </Link> */}
                   </StyledMenuItem>
                   <StyledMenuItem>
                     <ListItemText primary="출시일순" onClick={changeFilterText}/>
@@ -153,224 +151,4 @@ export default function MovieFilter() {
       </div>
     </>
   )
-
 }
-
-const movies = [
-  {
-    id: 1,
-    image: "/images/slide1.jpg",
-    imageBg: "/images/slide1b.webp",
-    title: "1983",
-  },
-  {
-    id: 2,
-    image: "/images/slide2.jpg",
-    imageBg: "/images/slide2b.webp",
-    title: "Russian doll",
-  },
-  {
-    id: 3,
-    image: "/images/slide3.jpg",
-    imageBg: "/images/slide3b.webp",
-    title: "The rain",
-  },
-  {
-    id: 4,
-    image: "/images/slide4.jpg",
-    imageBg: "/images/slide4b.webp",
-    title: "Sex education",
-  },
-  {
-    id: 5,
-    image: "/images/slide5.jpg",
-    imageBg: "/images/slide5b.webp",
-    title: "Elite",
-  },
-  {
-    id: 6,
-    image: "/images/slide6.jpg",
-    imageBg: "/images/slide6b.webp",
-    title: "Black mirror",
-  },
-  {
-    id: 7,
-    image: "/images/slide1.jpg",
-    imageBg: "/images/slide1b.webp",
-    title: "1983",
-  },
-  {
-    id: 8,
-    image: "/images/slide2.jpg",
-    imageBg: "/images/slide2b.webp",
-    title: "Russian doll",
-  },
-  {
-    id: 9,
-    image: "/images/slide3.jpg",
-    imageBg: "/images/slide3b.webp",
-    title: "The rain",
-  },
-  {
-    id: 10,
-    image: "/images/slide4.jpg",
-    imageBg: "/images/slide4b.webp",
-    title: "Sex education",
-  },
-  {
-    id: 11,
-    image: "/images/slide5.jpg",
-    imageBg: "/images/slide5b.webp",
-    title: "Elite",
-  },
-  {
-    id: 12,
-    image: "/images/slide6.jpg",
-    imageBg: "/images/slide6b.webp",
-    title: "Black mirror",
-  },
-  {
-    id: 1,
-    image: "/images/slide1.jpg",
-    imageBg: "/images/slide1b.webp",
-    title: "1983",
-  },
-  {
-    id: 2,
-    image: "/images/slide2.jpg",
-    imageBg: "/images/slide2b.webp",
-    title: "Russian doll",
-  },
-  {
-    id: 3,
-    image: "/images/slide3.jpg",
-    imageBg: "/images/slide3b.webp",
-    title: "The rain",
-  },
-  {
-    id: 4,
-    image: "/images/slide4.jpg",
-    imageBg: "/images/slide4b.webp",
-    title: "Sex education",
-  },
-  {
-    id: 5,
-    image: "/images/slide5.jpg",
-    imageBg: "/images/slide5b.webp",
-    title: "Elite",
-  },
-  {
-    id: 6,
-    image: "/images/slide6.jpg",
-    imageBg: "/images/slide6b.webp",
-    title: "Black mirror",
-  },
-  {
-    id: 7,
-    image: "/images/slide1.jpg",
-    imageBg: "/images/slide1b.webp",
-    title: "1983",
-  },
-  {
-    id: 8,
-    image: "/images/slide2.jpg",
-    imageBg: "/images/slide2b.webp",
-    title: "Russian doll",
-  },
-  {
-    id: 9,
-    image: "/images/slide3.jpg",
-    imageBg: "/images/slide3b.webp",
-    title: "The rain",
-  },
-  {
-    id: 10,
-    image: "/images/slide4.jpg",
-    imageBg: "/images/slide4b.webp",
-    title: "Sex education",
-  },
-  {
-    id: 11,
-    image: "/images/slide5.jpg",
-    imageBg: "/images/slide5b.webp",
-    title: "Elite",
-  },
-  {
-    id: 12,
-    image: "/images/slide6.jpg",
-    imageBg: "/images/slide6b.webp",
-    title: "Black mirror",
-  },
-  {
-    id: 1,
-    image: "/images/slide1.jpg",
-    imageBg: "/images/slide1b.webp",
-    title: "1983",
-  },
-  {
-    id: 2,
-    image: "/images/slide2.jpg",
-    imageBg: "/images/slide2b.webp",
-    title: "Russian doll",
-  },
-  {
-    id: 3,
-    image: "/images/slide3.jpg",
-    imageBg: "/images/slide3b.webp",
-    title: "The rain",
-  },
-  {
-    id: 4,
-    image: "/images/slide4.jpg",
-    imageBg: "/images/slide4b.webp",
-    title: "Sex education",
-  },
-  {
-    id: 5,
-    image: "/images/slide5.jpg",
-    imageBg: "/images/slide5b.webp",
-    title: "Elite",
-  },
-  {
-    id: 6,
-    image: "/images/slide6.jpg",
-    imageBg: "/images/slide6b.webp",
-    title: "Black mirror",
-  },
-  {
-    id: 7,
-    image: "/images/slide1.jpg",
-    imageBg: "/images/slide1b.webp",
-    title: "1983",
-  },
-  {
-    id: 8,
-    image: "/images/slide2.jpg",
-    imageBg: "/images/slide2b.webp",
-    title: "Russian doll",
-  },
-  {
-    id: 9,
-    image: "/images/slide3.jpg",
-    imageBg: "/images/slide3b.webp",
-    title: "The rain",
-  },
-  {
-    id: 10,
-    image: "/images/slide4.jpg",
-    imageBg: "/images/slide4b.webp",
-    title: "Sex education",
-  },
-  {
-    id: 11,
-    image: "/images/slide5.jpg",
-    imageBg: "/images/slide5b.webp",
-    title: "Elite",
-  },
-  {
-    id: 12,
-    image: "/images/slide6.jpg",
-    imageBg: "/images/slide6b.webp",
-    title: "Black mirror",
-  },
-];

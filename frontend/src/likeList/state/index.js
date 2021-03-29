@@ -1,11 +1,10 @@
 import { createReducer, createSetValueAction, setValueReducer } from '../../common/createReducer';
 
 export const types = {
-  REQUEST_MOVIELIST: 'search/REQUEST_MOVIELIST',
-  SET_MOVIELIST: 'search/SET_MOVIELIST',
-  SET_LOADING: 'search/SET_LOADING',
-  SET_VALUE: 'search/SET_VALUE',
-  TRY_SET_TEXT: 'search/TRY_SET_TEXT',
+  REQUEST_MOVIELIST: 'like/REQUEST_MOVIELIST',
+  SET_MOVIELIST: 'like/SET_MOVIELIST',
+  SET_LOADING: 'like/SET_LOADING',
+  SET_VALUE: 'like/SET_VALUE',
 };
 
 export const actions = {
@@ -16,13 +15,9 @@ export const actions = {
     isLoading,
   }),
   setValue: createSetValueAction(types.SET_VALUE),
-  trySetText: text => ({
-    type: types.TRY_SET_TEXT,
-    text,
-  })
 }
 
-const INITIAL_STATE = { text: '', movieLists: [], isLoading: false, error: '', };
+const INITIAL_STATE = { movieLists: [], isLoading: false, error: '', };
 const reducer = createReducer(INITIAL_STATE, {
   [types.SET_MOVIELIST]: (state, action) => {
     state.movieLists = action.data

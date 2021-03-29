@@ -17,17 +17,17 @@
   
 
   &:not(&--open) .item:hover {
-    transform: scale(1.3) translateY(-5%) !important;
+    transform: scale(1.3) translateY(-3%) !important;
     z-index: 10;
   }
 
   &:not(&--left) .item:hover {
-    transform: scale(1.3) translateY(-5%) translateX(11%) !important;
+    transform: scale(1.3) translateY(-3%) translateX(11%) !important;
     z-index: 10;
   }
 
   &:not(&--right) .item:hover {
-    transform: scale(1.3) translateY(-5%) translateX(-11%) !important;
+    transform: scale(1.3) translateY(-3%) translateX(-11%) !important;
     z-index: 10;
   }
 
@@ -61,6 +61,6 @@
   }
 
   &:not(&--open) .item:hover .show-card-title {
-    display: none;
+    visibility: hidden;
   }
 }

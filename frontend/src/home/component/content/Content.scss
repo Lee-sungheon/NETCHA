@@ -1,6 +1,6 @@
 .content {
   position: relative;
-  height: 37vw;
+  height: 40vw;
   margin: 30px 0;
   z-index: 5;
 
@@ -54,6 +54,7 @@
 
     &__container1 {
       width: 35%;
+      height: 20vw;
       color: wheat;
     }
     &__container2 {
@@ -106,7 +107,9 @@
     &__information {
       font-size: 1.2vw;
       font-weight: 700;
-      margin: 2px 12px;
+      display: flex;
+      align-items: center;
+      margin: 0 5px;
       color: rgba(255, 255, 255, 0.7);
     }
   }
