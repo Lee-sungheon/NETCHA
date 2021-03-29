@@ -1,11 +1,9 @@
 import React from "react";
 import WordCloud from "../../components/user/WordCloud";
-import "tippy.js/dist/tippy.css";
-import "tippy.js/animations/scale.css";
 
-export default function Wordcloud() {
+export default function WordCloudContainer() {
   return (
-    <Wordcloud words={words} />
+    <WordCloud words={words} />
   );
 }
 

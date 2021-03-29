@@ -1,14 +1,16 @@
 .userStaticsBox {
   position: relative;
   width: 600px;
+  height: 100%;
   margin: 20px auto;
+  padding-bottom: 20px;
 
   .roundedCornerBox {
     border: 1px solid;
     border-color: #e3e3e3;
     border-radius: 6px;
     overflow: hidden;
-    margin: 12px 0 0;
+    margin: 12px 0 20px;
 
     .staticsWallPaper {
       width: 100%;

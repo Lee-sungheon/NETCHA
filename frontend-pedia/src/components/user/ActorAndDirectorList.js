@@ -4,18 +4,19 @@ import "slick-carousel/slick/slick-theme.css";
 import "./ActorAndDirectorList.scss";
 import PersonImage from './PersonImage'
 
-export default function ActorAndDirectorList({ data }) {
-  const settings = {
-    className: "center",
-    centerMode: true,
-    infinite: true,
-    centerPadding: "5px",
-    slidesToShow: 1,
-    arrows: true,
-    speed: 500,
-    rows: 3,
-    slidesPerRow: 1,
-  };
+const settings = {
+  className: "center",
+  centerMode: true,
+  infinite: true,
+  centerPadding: "5px",
+  slidesToShow: 1,
+  arrows: true,
+  speed: 500,
+  rows: 3,
+  slidesPerRow: 1,
+};
+
+const ActorAndDirectorList = ({data}) => {
   return (
     <div className="peopleSlider">
       <Slider {...settings}>
@@ -23,14 +24,6 @@ export default function ActorAndDirectorList({ data }) {
           return (
             <div className="actorWrap">
               <PersonImage name={data.name} />
-              {/* <img
-                className="actorImage"
-                src="/images/+${data.name}.jpg`"
-                alt={data.name}
-                title={data.name}
-              /> */}
-              {/* <span className="actorImageWrap">
-              </span> */}
               <div className="actorName">
                 <span>{data.name}</span>
               </div>
@@ -41,3 +34,5 @@ export default function ActorAndDirectorList({ data }) {
     </div>
   );
 }
+
+export default ActorAndDirectorList;

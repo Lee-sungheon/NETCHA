@@ -69,7 +69,7 @@ export default function LargeMovieSlider({ data, title }) {
                       <div className="movieDate">2021 · 한국</div>
                       <div className="movieRate">
                         <span className="movieScore">평점</span>
-                        <span className="movieScore">★5</span>
+                        <span className="movieScore">&nbsp;★5</span>
                       </div>
                     </div>
                   </div>
