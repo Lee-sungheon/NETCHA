@@ -1,12 +1,11 @@
-// import MovieDetail from './movieDetail/container/MovieDetail.js';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Home from './home/container/Home';
-import Footer from './navbar/container/Footer';
-import Header from './navbar/container/Header'
-import User from './User/container/User';
-import './App.scss';
-import UserStatics from './User/container/UserStatics';
+import Home from './pages/Home';
+import Footer from './components/common/Footer';
+import Header from './components/common/Header'
+import User from './pages/User';
+import UserStatics from './pages/UserStatics';
 import MovieDetail from './movieDetail/container/MovieDetail';
+import './App.scss';
 
 function App() {
   return (
