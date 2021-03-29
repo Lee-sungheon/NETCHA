@@ -4,7 +4,7 @@ import Footer from "./components/common/Footer";
 import Header from "./components/common/Header";
 import User from "./pages/User";
 import UserStatics from "./pages/UserStatics";
-// import MovieDetail from './movieDetail/container/MovieDetail';
+import MovieDetail from './pages/MovieDetailPage';
 import "./App.scss";
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
         <Route exact path="/" component={MovieRanking} />
         <Route exact path="/user/:id" component={User} />
         <Route exact path="/user/statics/:id" component={UserStatics} />
-        {/* <Route exact path="/movieDetail/:movieId" component={MovieDetail} /> */}
+        <Route exact path="/movieDetail/:movieId" component={MovieDetail} />
       </BrowserRouter>
     </div>
   );
