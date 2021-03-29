@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "@material-ui/core";
@@ -194,7 +194,7 @@ export default function Account() {
                     }}
                   >
                     <div>
-                      <img src={img1} width="60px" height="60px" />
+                      <img src={img1} alt="" width="60px" height="60px" />
                     </div>
                     <div>
                       <span
@@ -216,7 +216,7 @@ export default function Account() {
                     }}
                   >
                     <div>
-                      <img src={img2} width="60px" height="60px" />
+                      <img src={img2} alt="" width="60px" height="60px" />
                     </div>
                     <div>
                       <span
