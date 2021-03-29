@@ -1,17 +1,9 @@
 import React from "react";
-import LargeMovieSlider from "../components/slider/LargeMovieSlider";
-import './Home.scss';
+import MovieRanking from "../../components/movies/MovieRanking";
 
-export default function Home() {
+export default function MovieRankingContainer() {
   return (
-    <div className="container1">
-      <div className="container2">
-        <LargeMovieSlider data={movies} title='박스오피스 순위' />
-      </div>
-      <div className="container2">
-        <LargeMovieSlider data={movies} title='넷챠 영화 순위' />
-      </div>
-    </div>
+    <MovieRanking movies={movies} />
   );
 }
 
