@@ -53,21 +53,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-<<<<<<< HEAD
 export default function MovieItem({tile, pickNum, setPickNum}) {
   const customClasses = useStyles();
   const [ isFinish, setIsFinish ] = useState(false)
   const [ isHover, setIsHover ] = useState(false)
   const [ score, setScore ] = useState(7)
   let tmpScore = 5
-=======
-export default function MovieItem({ tile }) {
-  const customClasses = useStyles();
-  const [isFinish, setIsFinish] = useState(false);
-  const [isHover, setIsHover] = useState(false);
-  const [score, setScore] = useState(5);
-  let tmpScore = 5;
->>>>>>> feature/FE_pedia_movieDetail
   function setHover() {
     if (isFinish) {
       setIsHover(true);
@@ -82,7 +73,6 @@ export default function MovieItem({ tile }) {
     }
   }
   function onClick(e) {
-<<<<<<< HEAD
     if (e.target.name !== 'size-large'){
       if (!isFinish) {
         setPickNum(pickNum+1)
@@ -92,12 +82,6 @@ export default function MovieItem({ tile }) {
         setPickNum(pickNum-1)
         setIsFinish(false)
         return
-=======
-    if (e.target.name !== 'size-large') {
-      setIsFinish(true);
-      if (tmpScore === score) {
-        setIsFinish(false);
->>>>>>> feature/FE_pedia_movieDetail
       }
       setScore(tmpScore);
     }
