@@ -1,9 +1,11 @@
 import client from './client';
 
-const movie = { id: 1, movieName: '미나리' };
+const movie = {
+  data: { title: '미나리' },
+};
 
 export const readMovie = (id) => {
-  console.log(id);
+  console.log(movie);
   return movie;
   // client.get(`/api/posts/${id}`)
 };
