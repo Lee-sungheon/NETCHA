@@ -1,4 +1,4 @@
-import Graph from '../../movieDetail/component/Graph';
+import Graph from '../common/Graph';
 
 export default function StarGraph({data}) {
 
