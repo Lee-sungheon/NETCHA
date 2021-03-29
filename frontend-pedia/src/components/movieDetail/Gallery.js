@@ -10,7 +10,7 @@ export default function Gallery() {
     arrows: true,
     speed: 500,
     rows: 1,
-    slidesPerRow: 4,
+    slidesPerRow: 2,
   };
   return (
     <div className="gallery">

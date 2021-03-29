@@ -1,9 +1,9 @@
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import './ActorList.scss';
+import './Actors.scss';
 
-export default function ActorList() {
+const ActorList = () => {
   const settings = {
     className: 'center',
     centerMode: true,
@@ -49,4 +49,15 @@ export default function ActorList() {
       </Slider>
     </div>
   );
-}
+};
+
+const Actors = () => {
+  return (
+    <div className="actors">
+      <div className="infoHeader">출연/제작</div>
+      <ActorList />
+    </div>
+  );
+};
+
+export default Actors;
