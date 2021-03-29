@@ -1,5 +1,9 @@
-import React from 'react';
-import './MovieDetail.scss';
+import React, {useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {withRouter} from 'react-router-dom';
+import movie, {readMovie, unloadMovie} from '../../modules/movie';
+
+import './MovieDetailContainer.scss';
 import MovieHeader from '../../components/movieDetail/MovieHeader'
 import BasicInfo from '../../components/movieDetail/BasicInfo'
 import Actors from '../../components/movieDetail/Actors'
@@ -9,14 +13,24 @@ import SimilarMovies from '../../components/movieDetail/SimilarMovies'
 import Gallery from '../../components/movieDetail/Gallery'
 import Video from '../../components/movieDetail/Video'
 
-// import { useDispatch, useSelector } from 'react-redux';
 
-export default function MovieDetail() {
-  // const dispatch = useDispatch();
+const MovieDetailContainer = ({match}) => {
+  // 처음 마운트될 때 무비 읽기 API 요청
+  const { movieId } = match.params;
+  console.log(movieId);
+  const dispatch = useDispatch();
+  const {movie, error, loading } = useSelector(({moive, loading}) => ({
+    movie: movie.movie,
+    error: movie.error,
+    loading: loading['movie/READ_MOVIE'],
+  })) ;
+ 
+
 
   return (
     <div className="movieDetail">
       <div className="headerWrapper">
+          {/* 영화 이미지, 포스터, 제목, 장르 별점 */}
         <MovieHeader />
       </div>
       <div className="contentWrapper">
@@ -35,3 +49,5 @@ export default function MovieDetail() {
     </div>
   );
 }
+
+export default withRouter(MovieDetailContainer);
