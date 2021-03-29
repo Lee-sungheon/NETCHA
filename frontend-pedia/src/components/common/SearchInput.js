@@ -1,6 +1,6 @@
 import React from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import useAutocomplete from '@material-ui/lab/useAutocomplete';
+import useAutocomplete from "@material-ui/lab/useAutocomplete";
 // import { useSelector, useDispatch } from "react-redux";
 // import { actions } from "./SearchMovie/state";
 // import { actions as userActions } from "../../user/state";
@@ -24,32 +24,47 @@ const useStyles = makeStyles((theme) => ({
       width: "35ch",
     },
   },
-  label: {
-    display: "block",
-  },
   input: {
-    width: 200,
+    width: 300,
+    height: 50,
   },
   listbox: {
-    width: 200,
+    width: 330,
     margin: 0,
     padding: 0,
     zIndex: 1,
     position: "absolute",
     listStyle: "none",
     backgroundColor: theme.palette.background.paper,
-    overflow: "auto",
+    color: "black",
     maxHeight: 200,
-    border: "1px solid rgba(0,0,0,.25)",
+    border: "1px solid #e6e6e6",
     '& li[data-focus="true"]': {
-      backgroundColor: "#4a8df6",
-      color: "white",
+      backgroundColor: "#e6e6e6",
       cursor: "pointer",
     },
     "& li:active": {
-      backgroundColor: "#2977f5",
-      color: "white",
+      backgroundColor: "#e6e6e6",
     },
+    // overflow: "auto",
+    overflow: "hidden", // UI를 위해 스크롤 금지 했지만 고민해보고 결정~~!!
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "action",
+  },
+  movieli: {
+    height: 40,
+    lineHeight: "23px",
+    fontSize: "14px",
+    padding: "7px 0 0",
+    caretColor: "rgb(53, 53, 53)",
   },
 }));
 
@@ -76,7 +91,6 @@ export default function SearchInput() {
 
   const {
     getRootProps,
-    getInputLabelProps,
     getInputProps,
     getListboxProps,
     getOptionProps,
@@ -88,60 +102,35 @@ export default function SearchInput() {
   });
 
   return (
-    <div style={{ width: 300 }}>
-      {/* <form onSubmit="">
+    <>
+      <div {...getRootProps()}>
+        <div className={classes.searchIcon}>
+          <SearchIcon color="action" />
+        </div>
         <InputBase
           placeholder="작품의 제목, 배우, 감독을 검색해보세요."
           classes={{
             root: classes.inputRoot,
             input: classes.inputInput,
           }}
+          {...getInputProps()}
           inputProps={{ "aria-label": "search" }}
         />
-      </form> */}
-
-      {/* <Autocomplete
-        // freeSolo
-        // value={keyword}
-        // onChange={setKeyword}
-        onSelect={goToUser}
-        style={{ width: "100%" }}
-        options={movies.map((item) => item)}
-        // options={autoCompletes.map((item) => (item.name)}
-        autoFocus
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Search input"
-            prefix={<SearchIcon color="action" />}
-            margin="normal"
-            variant="outlined"
-            InputProps={{ ...params.InputProps, type: "search" }}
-          />
-        )}
-      /> */}
-
-      <div>
-        <div {...getRootProps()}>
-        {/* <InputBase
-          placeholder="작품의 제목, 배우, 감독을 검색해보세요."
-          classes={{
-            root: classes.inputRoot,
-            input: classes.inputInput,
-          }}
-          inputProps={{ "aria-label": "search" }}
-        /> */}
-          <input className={classes.input} {...getInputProps()} />
-        </div>
-        {groupedOptions.length > 0 ? (
-          <ul className={classes.listbox} {...getListboxProps()}>
-            {groupedOptions.map((option, index) => (
-              <li {...getOptionProps({ option, index })}>{option.title}</li>
-            ))}
-          </ul>
-        ) : null}
+        {/* <input className={classes.input} {...getInputProps()} /> */}
       </div>
-    </div>
+      {groupedOptions.length > 0 ? (
+        <ul className={classes.listbox} {...getListboxProps()}>
+          {groupedOptions.map((option, index) => (
+            <li
+              className={classes.movieli}
+              {...getOptionProps({ option, index })}
+            >
+              {option}
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </>
   );
 }
 
