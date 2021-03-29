@@ -14,8 +14,8 @@ pipeline {
 		// docker image에 명시된 image를 활용하여 steps 수행
 			options { skipDefaultCheckout(false) }
 			steps {
-				sh 'sudo gradle jar'
-				sh 'sudo gradle build'
+				sh 'gradle jar'
+				sh 'gradle build'
 			}
 		}
 		stage('Docker build') {
