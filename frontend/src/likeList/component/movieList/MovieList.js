@@ -28,15 +28,12 @@ const MovieList = ({ children, activeSlide, idx, num }) => {
   const contextValue = {
     onSelectSlide: handleSelect,
     onCloseSlide: handleClose,
-    // elementRef,
     currentSlide,
   };
-  // const sliderWrap1 = document.getElementById(idx)
-  // const sliderWrap = document.getElementById(`wrapperidx${idx}`)
   useEffect(() => {
     setSliderWrap1(document.getElementById(idx))
     setSliderWrap(document.getElementById(`wrapperidx${idx}`))
-  }, [])
+  }, [idx])
   const enterSetShow = (e) => {
     // 맨왼쪽, 맨오른쪽 아이템 트랜지션 변경
     if (e.target.id % num === 0) {
@@ -76,7 +73,7 @@ const MovieList = ({ children, activeSlide, idx, num }) => {
           const sliderWrap2 = document.getElementById(index)
           index = `slider-${id}` 
           if (sliderWrap2) {
-            sliderWrap2.style.top = '-142px'
+            sliderWrap2.style.top = '-171px'
           } else {
             break
           }

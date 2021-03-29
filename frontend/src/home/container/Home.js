@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Slider from "../component/slider";
 import Banner from "../component/banner/banner";
 import DehazeIcon from '@material-ui/icons/Dehaze';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
+import { actions } from "../state";
+import { useSelector, useDispatch } from 'react-redux';
 import './Home.scss'
 
 
 export default function Home() {
+  const movieLists = useSelector(state => state.home.movieLists);
+  const isLoading = useSelector(state => state.home.isLoading);
+  const dispatch = useDispatch();
+  useEffect(() =>{
+    if (movieLists.length === 0){
+      dispatch(actions.requestMovieList());
+    }
+  }, [])
+  // useEffect(() =>{
+  //   console.log(movieLists);
+  // }, [movieLists])
+
   return (
     <>
       <div className="home__top-bar__container">
@@ -22,126 +36,119 @@ export default function Home() {
       <Banner />
       <div className="home__container">
         <div className="home__container" id={"slider-1"}>
-          <Slider title={"Netcha 인기 콘텐츠"} idx={`slider-1`}>
-            {movies.map((movie, idx) => (
-              <Slider.Item movie={movie} key={movie.id} idx={idx}>
-                item1
-              </Slider.Item>
-            ))}
-          </Slider>
+            {isLoading && <Slider title={"Netcha 인기 콘텐츠"} idx={`slider-1`}>
+              {loading.map((movie, idx) => (
+                  <Slider.Item movie={movie} key={movie.no} idx={idx}>
+                  </Slider.Item>
+              ))}
+            </Slider>}
+            {!isLoading && <Slider title={"Netcha 인기 콘텐츠"} idx={`slider-1`}>
+              {movieLists.slice(0,10).map((movie, idx) => (
+                  <Slider.Item movie={movie} key={movie.no} idx={idx} >
+                  </Slider.Item>
+              ))}
+            </Slider>}
         </div>
         <div className="home__container" id={"slider-2"}>
-          <Slider title={"Netcha 랜덤 콘텐츠"} idx={`slider-2`}>
-            {movies.map((movie, idx) => (
-              <Slider.Item movie={movie} key={movie.id} idx={idx}>
-              </Slider.Item>
+          {isLoading && <Slider title={"Netcha 랜덤 콘텐츠"} idx={`slider-2`}>
+            {loading.map((movie, idx) => (
+                <Slider.Item movie={movie} key={movie.no} idx={idx} >
+                </Slider.Item>
             ))}
-          </Slider>
+          </Slider>}
+          {!isLoading && <Slider title={"Netcha 랜덤 콘텐츠"} idx={`slider-2`}>
+            {movieLists.slice(10,20).map((movie, idx) => (
+                <Slider.Item movie={movie} key={movie.no} idx={idx}>
+                </Slider.Item>
+            ))}
+          </Slider>}
         </div>
         <div className="home__container" id={`slider-3`}>
-          <Slider title={"Netcha 싸피 콘텐츠"} idx={`slider-3`}>
-            {movies.map((movie, idx) => (
-              <Slider.Item movie={movie} key={movie.id} idx={idx}>
-              </Slider.Item>
+          {isLoading && <Slider title={"Netcha 싸피 콘텐츠"} idx={`slider-3`}>
+            {loading.map((movie, idx) => (
+                <Slider.Item movie={movie} key={movie.no} idx={idx} >
+                </Slider.Item>
             ))}
-          </Slider>
+          </Slider>}
+          {!isLoading && <Slider title={"Netcha 싸피 콘텐츠"} idx={`slider-3`}>
+            {movieLists.slice(20,30).map((movie, idx) => (
+                <Slider.Item movie={movie} key={movie.no} idx={idx}>
+                </Slider.Item>
+            ))}
+          </Slider>}
         </div>
         <div className="home__container" id={`slider-4`}>
-          <Slider title={"Netcha 추천 콘텐츠"} idx={`slider-4`}>
-            {movies.map((movie, idx) => (
-              <Slider.Item movie={movie} key={movie.id} idx={idx}>
-              </Slider.Item>
+          {isLoading && <Slider title={"Netcha 추천 콘텐츠"} idx={`slider-4`}>
+            {loading.map((movie, idx) => (
+                <Slider.Item movie={movie} key={movie.no} idx={idx} >
+                </Slider.Item>
             ))}
-          </Slider>
+          </Slider>}
+          {!isLoading && <Slider title={"Netcha 추천 콘텐츠"} idx={`slider-4`}>
+            {movieLists.slice(30,40).map((movie, idx) => (
+                <Slider.Item movie={movie} key={movie.no} idx={idx}>
+                </Slider.Item>
+            ))}
+          </Slider>}
         </div>
 
-        {[5,6,7,8,9,10,11,12,13,14,15].map(item=> (
+        {/* {[5,6,7,8,9,10,11,12,13,14,15].map(item=> (
           <div className="home__container" id={`slider-${item}`}>
-            <Slider title={"Netcha 추천 콘텐츠"} idx={`slider-${item}`}>
-              {movies.map((movie, idx) => (
-                <Slider.Item movie={movie} key={movie.id} idx={idx}>
-                </Slider.Item>
+            {isLoading && <Slider title={"Netcha 추천 콘텐츠"} idx={`slider-${item}`}>
+              {loading.map((movie, idx) => (
+                  <Slider.Item movie={movie} key={movie.no} idx={idx} >
+                  </Slider.Item>
               ))}
-          </Slider>
-        </div>
-        ))}
+            </Slider>}
+            {!isLoading && <Slider title={"Netcha 추천 콘텐츠"} idx={`slider-${item}`}>
+              {movieLists.slice(30,40).map((movie, idx) => (
+                  <Slider.Item movie={movie} key={movie.no} idx={idx}>
+                  </Slider.Item>
+              ))}
+            </Slider>}
+          </div>
+        ))} */}
 
       </div>
     </>
   );
 }
 
-const movies = [
+const loading = [
   {
-    id: 1,
-    image: "/images/slide1.jpg",
+    no: 1,
+    imageUrl: "/images/loading.gif",
     imageBg: "/images/slide1b.webp",
-    title: "1983",
+    title: "",
   },
   {
-    id: 2,
-    image: "/images/slide2.jpg",
+    no: 2,
+    imageUrl: "/images/loading.gif",
     imageBg: "/images/slide2b.webp",
-    title: "Russian doll",
+    title: "",
   },
   {
-    id: 3,
-    image: "/images/slide3.jpg",
+    no: 3,
+    imageUrl: "/images/loading.gif",
     imageBg: "/images/slide3b.webp",
-    title: "The rain",
+    title: "",
   },
   {
-    id: 4,
-    image: "/images/slide4.jpg",
+    no: 4,
+    imageUrl: "/images/loading.gif",
     imageBg: "/images/slide4b.webp",
-    title: "Sex education",
+    title: "",
   },
   {
-    id: 5,
-    image: "/images/slide5.jpg",
+    no: 5,
+    imageUrl: "/images/loading.gif",
     imageBg: "/images/slide5b.webp",
-    title: "Elite",
+    title: "",
   },
   {
-    id: 6,
-    image: "/images/slide6.jpg",
+    no: 6,
+    imageUrl: "/images/loading.gif",
     imageBg: "/images/slide6b.webp",
-    title: "Black mirror",
-  },
-  {
-    id: 7,
-    image: "/images/slide1.jpg",
-    imageBg: "/images/slide1b.webp",
-    title: "1983",
-  },
-  {
-    id: 8,
-    image: "/images/slide2.jpg",
-    imageBg: "/images/slide2b.webp",
-    title: "Russian doll",
-  },
-  {
-    id: 9,
-    image: "/images/slide3.jpg",
-    imageBg: "/images/slide3b.webp",
-    title: "The rain",
-  },
-  {
-    id: 10,
-    image: "/images/slide4.jpg",
-    imageBg: "/images/slide4b.webp",
-    title: "Sex education",
-  },
-  {
-    id: 11,
-    image: "/images/slide5.jpg",
-    imageBg: "/images/slide5b.webp",
-    title: "Elite",
-  },
-  {
-    id: 12,
-    image: "/images/slide6.jpg",
-    imageBg: "/images/slide6b.webp",
-    title: "Black mirror",
+    title: "",
   },
 ];
