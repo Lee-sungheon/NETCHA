@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -53,8 +53,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     width: "68%",
     marginBottom: "15px",
-    height: "100%", 
-  }
+    height: "100%",
+  },
 }));
 
 export default function Signup(props) {

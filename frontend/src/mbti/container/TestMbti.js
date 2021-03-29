@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import TestMbtiList from "../component/TestMbtiItem";
@@ -37,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
   },
   mbti_div_question: {
     color: "#64ffda",
-    marginBottom: "25px",
     marginBottom: "3vw",
     fontSize: "2vw",
     textAlign: "center",
@@ -53,7 +49,7 @@ export default function TestMBTI(props) {
 
     setChoiceList({ ...choiceList, choice: choiceList.choice.concat(data) });
     console.log(choiceList.choice.length);
-    if (choiceList.choice.length == 12) {
+    if (choiceList.choice.length === 12) {
       console.log(history);
       history.push({
         pathname: "/mbtiresult",

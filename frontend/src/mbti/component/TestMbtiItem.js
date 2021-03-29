@@ -1,8 +1,4 @@
-import React, { useState, useEffect } from "react";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,10 +31,22 @@ const useStyles = makeStyles((theme) => ({
   },
   mbti_div_question: {
     color: "#64ffda",
-    marginBottom: "25px",
+    // marginBottom: "25px",
     marginBottom: "3vw",
     fontSize: "2vw",
     textAlign: "center",
+  },
+  mbti_div_choice: {
+    margin: "2px",
+    backgroundColor: "#424242",
+    textAlign: "center",
+    padding: "2.5vw",
+    borderRadius: "0.5vw",
+    "&:hover": {
+      cursor: "pointer",
+      border: "solid 2px white",
+      // bordercolor: "white !important",
+    },
   },
 }));
 
@@ -50,7 +58,7 @@ export default function TestMbtiItem(props) {
     e.preventDefault();
     console.log(e.target);
     props.onChoice(1);
-    if (questionNum == 11) {
+    if (questionNum === 11) {
       return;
     }
     setQuestionNum(questionNum + 1);
@@ -60,7 +68,7 @@ export default function TestMbtiItem(props) {
 
     console.log(e.target);
     props.onChoice(2);
-    if (questionNum == 11) {
+    if (questionNum === 11) {
       return;
     }
     setQuestionNum(questionNum + 1);
@@ -75,12 +83,7 @@ export default function TestMbtiItem(props) {
         {props.questionList[questionNum].question}
       </h1>
       <div
-        style={{
-          backgroundColor: "#424242",
-          textAlign: "center",
-          padding: "2.5vw",
-          borderRadius: "0.5vw",
-        }}
+        className={classes.mbti_div_choice}
         onClick={onClickChoice_1}
         value="1"
       >
@@ -113,12 +116,7 @@ export default function TestMbtiItem(props) {
         </div>
       </div>
       <div
-        style={{
-          backgroundColor: "#424242",
-          textAlign: "center",
-          padding: "2.5vw",
-          borderRadius: "0.5vw",
-        }}
+        className={classes.mbti_div_choice}
         onClick={onClickChoice_2}
         value="2"
       >

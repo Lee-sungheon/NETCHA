@@ -65,7 +65,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Login(props) {
   const classes = useStyles();
 
-  const [checked, setChecked] = useState(true);
   const [inputData, setInputData] = useState({ userId: "", password: "" });
 
   useEffect(() => {
@@ -82,11 +81,6 @@ export default function Login(props) {
     setInputData({ ...inputData, password: e.target.value });
   };
 
-  const login = () => {};
-
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-  };
   return (
     <div>
       <div className={classes.login_back}>

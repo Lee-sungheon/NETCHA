@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-import Icon from "@material-ui/core/Icon";
 import img1 from "../../img/icon1.png";
 import img2 from "../../img/icon2.png";
 import img3 from "../../img/icon3.png";
 
-const MEDIA_QUERIES = {
-  pc: "(min-width:1024px)",
-};
 const useStyles = makeStyles((theme) => ({
   profileList_page: { width: "100%", height: "900px", marginTop: "200px" },
   profileList_div: { width: "", height: "340px", margin: "0 auto" },
@@ -47,7 +43,7 @@ export default function ProfileList(props) {
               <li className={classes.profileList_li}>
                 <div>
                   <div>
-                    <img src={img1} width="150px" height="150px" />
+                    <img src={img1} alt="" width="150px" height="150px" />
                   </div>
                   <div>
                     <span
@@ -63,7 +59,7 @@ export default function ProfileList(props) {
               <li className={classes.profileList_li}>
                 <div>
                   <div>
-                    <img src={img2} width="150px" height="150px" />
+                    <img src={img2} alt="" width="150px" height="150px" />
                   </div>
                   <div>
                     <span
@@ -79,7 +75,7 @@ export default function ProfileList(props) {
               <li className={classes.profileList_li}>
                 <div>
                   <div>
-                    <img src={img3} width="170px" height="150px" />
+                    <img src={img3} alt="" width="170px" height="150px" />
                   </div>
                   <div>
                     <span
