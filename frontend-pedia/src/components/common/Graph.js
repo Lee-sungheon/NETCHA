@@ -1,5 +1,5 @@
-import React from 'react';
-import { Bar } from 'react-chartjs-2';
+import React from "react";
+import { Bar } from "react-chartjs-2";
 
 const options = {
   layout: { padding: { left: 0, right: 50, top: 0, bottom: 0 } },
@@ -11,10 +11,16 @@ const options = {
       {
         gridLines: {
           display: false,
-          color: 'black',
+          color: "black",
         },
         ticks: {
-          maxTicksLimit: 5, //xAxes에 출력할 숫자 30개로 제한
+          maxTicksLimit: 9, //xAxes에 출력할 숫자 30개로 제한
+        },
+        afterTickToLabelConversion: function (data) {
+          let xLabels = data.ticks;
+          for (let i = 0; i < xLabels.length; i++) {
+            if (i % 2 == 0) xLabels[i] = "";
+          }
         },
       },
     ],
@@ -22,11 +28,11 @@ const options = {
       {
         gridLines: {
           display: false,
-          color: 'black',
+          color: "black",
         },
         ticks: {
           display: false,
-          min: 0, // 스케일에 대한 최솟갓 설정, 0 부터 시작
+          min: 0.5, // 스케일에 대한 최솟갓 설정, 0 부터 시작
           stepSize: 1, // 스케일에 대한 사용자 고정 정의 값
         },
       },
@@ -47,11 +53,11 @@ const Graph = ({ rankArr }) => {
       max = rankArr[i];
       maxIdx = i;
     }
-    rankColor[i] = '#FFDD64';
+    rankColor[i] = "#FFDD64";
   }
-  rankColor[maxIdx] = '#ffa136';
+  rankColor[maxIdx] = "#ffa136";
   const data = {
-    labels: ['0', '0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5'],
+    labels: ["0.5", "1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5"],
     datasets: [
       {
         backgroundColor: rankColor,

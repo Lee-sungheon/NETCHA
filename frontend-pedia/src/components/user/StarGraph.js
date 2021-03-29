@@ -1,7 +1,7 @@
 import Graph from '../common/Graph';
 
-export default function StarGraph({data}) {
-
+const StarGraph = ({data, sum, avg, max}) => {
+  
   return (
     <div className="starGraphWrap">
       <div className="starGraph">
@@ -10,15 +10,15 @@ export default function StarGraph({data}) {
       <div className="starGraphInfo">
         <ul>
           <li className="starGraphLi">
-            <div className="starGraphNum">4.5</div>
+            <div className="starGraphNum">{avg}</div>
             <div className="starGraphTitle">별점 평균</div>
           </li>
           <li className="starGraphLi">
-            <div className="starGraphNum">43</div>
+            <div className="starGraphNum">{sum}</div>
             <div className="starGraphTitle">별점 개수</div>
           </li>
           <li className="starGraphLi">
-            <div className="starGraphNum">5.0</div>
+            <div className="starGraphNum">{max}</div>
             <div className="starGraphTitle">많이 준 별점</div>
           </li>
         </ul>
@@ -27,3 +27,5 @@ export default function StarGraph({data}) {
     </div>
   );
 }
+
+export default StarGraph;
