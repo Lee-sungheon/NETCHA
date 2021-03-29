@@ -1,10 +1,10 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./PeopleList.scss";
+import "./ActorAndDirectorList.scss";
 import PersonImage from './PersonImage'
 
-export default function PeopleList({ data }) {
+export default function ActorAndDirectorList({ data }) {
   const settings = {
     className: "center",
     centerMode: true,

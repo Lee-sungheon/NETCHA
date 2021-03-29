@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { AppBar, Toolbar, Button } from "@material-ui/core";
+import React from "react";
+import { AppBar, Toolbar, Button, InputBase } from "@material-ui/core";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
 import { Link, useHistory } from "react-router-dom";
@@ -59,8 +59,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header() {
-  const [searchKeyword, setSearchKeyword] = useState("");
-
   function goToUser(e) {
     e.preventDefault();
     const id = 1;
@@ -96,16 +94,6 @@ export default function Header() {
               <SearchIcon color="action" />
             </div>
             <SearchInput />
-            {/* <form>
-              <InputBase
-                placeholder="작품의 제목, 배우, 감독을 검색해보세요."
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ "aria-label": "search", "name": {searchKeyword} }}
-              />
-            </form> */}
           </div>
           <Button
             color="action"

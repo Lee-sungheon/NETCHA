@@ -1,8 +1,8 @@
 import React from "react";
 import "./User.scss";
 import { useHistory } from "react-router-dom";
-import SmallSlider from "../component/slider/SmallSlider";
-import netchapediaImg from "../../images/netchapediaTransWhite.png";
+import SmallSlider from "../components/slider/SmallSlider";
+import netchapediaImg from "../images/netchapediaTransWhite.png";
 
 export default function User() {
   const userId = 1;
