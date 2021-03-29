@@ -1,5 +1,6 @@
 import React from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import useAutocomplete from '@material-ui/lab/useAutocomplete';
 // import { useSelector, useDispatch } from "react-redux";
 // import { actions } from "./SearchMovie/state";
 // import { actions as userActions } from "../../user/state";
@@ -23,21 +24,48 @@ const useStyles = makeStyles((theme) => ({
       width: "35ch",
     },
   },
+  label: {
+    display: "block",
+  },
+  input: {
+    width: 200,
+  },
+  listbox: {
+    width: 200,
+    margin: 0,
+    padding: 0,
+    zIndex: 1,
+    position: "absolute",
+    listStyle: "none",
+    backgroundColor: theme.palette.background.paper,
+    overflow: "auto",
+    maxHeight: 200,
+    border: "1px solid rgba(0,0,0,.25)",
+    '& li[data-focus="true"]': {
+      backgroundColor: "#4a8df6",
+      color: "white",
+      cursor: "pointer",
+    },
+    "& li:active": {
+      backgroundColor: "#2977f5",
+      color: "white",
+    },
+  },
 }));
 
 export default function SearchInput() {
   const classes = useStyles();
-//   const keyword = useSelector((state) => state.searchMovie.keyword);
-//   const dispatch = useDispatch();
-//   function setKeyword(value) {
-//     if (value !== keyword) {
-//       dispatch(actions.setValue("keyword", value));
-//       dispatch(actions.fetchAutoComplete(value));
-//     }
-//   }
+  //   const keyword = useSelector((state) => state.searchMovie.keyword);
+  //   const dispatch = useDispatch();
+  //   function setKeyword(value) {
+  //     if (value !== keyword) {
+  //       dispatch(actions.setValue("keyword", value));
+  //       dispatch(actions.fetchAutoComplete(value));
+  //     }
+  //   }
 
-//   //   const autoCompletes = useSelector((state) => state.search.autoCompletes);
-//   //   const history = useHistory();
+  //   //   const autoCompletes = useSelector((state) => state.search.autoCompletes);
+  //   //   const history = useHistory();
   function goToUser(value) {
     // const user = autoCompletes.find((item) => item.name === value);
     // if (user) {
@@ -46,10 +74,34 @@ export default function SearchInput() {
     // }
   }
 
+  const {
+    getRootProps,
+    getInputLabelProps,
+    getInputProps,
+    getListboxProps,
+    getOptionProps,
+    groupedOptions,
+  } = useAutocomplete({
+    id: "use-autocomplete-demo",
+    options: movies,
+    getOptionLabel: (option) => option,
+  });
+
   return (
     <div style={{ width: 300 }}>
-      <Autocomplete
-        freeSolo
+      {/* <form onSubmit="">
+        <InputBase
+          placeholder="작품의 제목, 배우, 감독을 검색해보세요."
+          classes={{
+            root: classes.inputRoot,
+            input: classes.inputInput,
+          }}
+          inputProps={{ "aria-label": "search" }}
+        />
+      </form> */}
+
+      {/* <Autocomplete
+        // freeSolo
         // value={keyword}
         // onChange={setKeyword}
         onSelect={goToUser}
@@ -66,17 +118,29 @@ export default function SearchInput() {
             variant="outlined"
             InputProps={{ ...params.InputProps, type: "search" }}
           />
-          // <InputBase
-          //   {...params}
-          //   placeholder="작품의 제목, 배우, 감독을 검색해보세요."
-          //   classes={{
-          //     root: classes.inputRoot,
-          //     input: classes.inputInput,
-          //   }}
-          //   inputProps={{ "aria-label": "search" }}
-          // />
         )}
-      />
+      /> */}
+
+      <div>
+        <div {...getRootProps()}>
+        {/* <InputBase
+          placeholder="작품의 제목, 배우, 감독을 검색해보세요."
+          classes={{
+            root: classes.inputRoot,
+            input: classes.inputInput,
+          }}
+          inputProps={{ "aria-label": "search" }}
+        /> */}
+          <input className={classes.input} {...getInputProps()} />
+        </div>
+        {groupedOptions.length > 0 ? (
+          <ul className={classes.listbox} {...getListboxProps()}>
+            {groupedOptions.map((option, index) => (
+              <li {...getOptionProps({ option, index })}>{option.title}</li>
+            ))}
+          </ul>
+        ) : null}
+      </div>
     </div>
   );
 }
@@ -92,4 +156,4 @@ const movies = [
   "국카스텐 콘서트 실황 : 해프닝",
   "더 박스",
   "스파이의 아내",
-]
+];
