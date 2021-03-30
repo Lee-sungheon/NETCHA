@@ -19,7 +19,7 @@ const options = {
         afterTickToLabelConversion: function (data) {
           let xLabels = data.ticks;
           for (let i = 0; i < xLabels.length; i++) {
-            if (i % 2 == 0) xLabels[i] = "";
+            if (i % 2 === 0) xLabels[i] = "";
           }
         },
       },
