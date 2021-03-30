@@ -41,8 +41,6 @@ public class Member {
     @NotBlank
     private String name;
     @NotNull
-    private String email;
-    @NotNull
     private String nickname;
     private String phone;
     private String mbti;
@@ -67,11 +65,10 @@ public class Member {
 
     
     public Member(@NotNull String userId, @NotNull String password, @NotBlank String name,
-    		@NotNull String email, @NotNull String nickname, String phone, String mbti) {
+    	 @NotNull String nickname, String phone, String mbti) {
     	this.userId = userId;
     	this.password = password;
     	this.name = name;
-    	this.email = email;
     	this.nickname = nickname;
     	this.phone = phone;
     	this.mbti = mbti;
