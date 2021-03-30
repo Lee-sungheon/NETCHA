@@ -1,8 +1,13 @@
 import React from 'react';
-import MovieDetail from '../containers/movieDetail/MovieDetail';
-
+import Header from "../components/common/Header";
+import MovieDetailContainer from '../containers/movieDetail/MovieDetailContainer';
 const MovieDetailPage = () => {
-  return <MovieDetail />;
+  return (
+    <>
+    <Header />
+    <MovieDetailContainer />
+  </>
+  );
 };
 
 export default MovieDetailPage;
