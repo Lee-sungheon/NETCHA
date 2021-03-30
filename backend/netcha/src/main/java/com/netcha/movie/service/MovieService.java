@@ -76,19 +76,19 @@ public class MovieService {
 		return movies;
 	}
 	
-	@Transactional
-	public List<MovieResponseDto> findMovieByNewContents() {
-		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
-		List<Movie> movieR = movieRepository.findAllByOpen();
-		for(Movie m : movieR) {
-			if(m.getRating().equals("")) {
-				String[] result = crawling(m);
-				m.updateRPI(result[0], result[1], result[2]);
-			}
-			movies.add(new MovieResponseDto(m));
-		}
-		return movies;
-	}
+//	@Transactional
+//	public List<MovieResponseDto> findMovieByNewContents() {
+//		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
+//		List<Movie> movieR = movieRepository.findAllByOpen();
+//		for(Movie m : movieR) {
+//			if(m.getRating().equals("")) {
+//				String[] result = crawling(m);
+//				m.updateRPI(result[0], result[1], result[2]);
+//			}
+//			movies.add(new MovieResponseDto(m));
+//		}
+//		return movies;
+//	}
 	
 	@Transactional
 	public List<MovieRankResponseDto> findMovieRankByUserId(long userId) {
