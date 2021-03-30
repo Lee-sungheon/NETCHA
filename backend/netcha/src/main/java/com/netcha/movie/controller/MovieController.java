@@ -41,7 +41,7 @@ public class MovieController {
 	@GetMapping("/list_totalView")
 	public ResponseEntity<?> getListByTotalView() {
 		List<MovieResponseDto> movies = movieService.findMovieByTotalView();
-		System.out.println("인기 순위 : "+movies.size());
+		System.out.println("인기순위 : "+movies.size());
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
