@@ -30,7 +30,7 @@ export default function Item({ movie, idx }) {
                 <div className='image-box'>
                   <CardMedia
                     component="img"
-                    image={ movie.imageUrl !== 'default' ? movie.imageUrl : "/images/netchar2.png" }
+                    image={ movie.imageUrl[0] !== 'default' ? movie.imageUrl[0] : "/images/netchar2.png" }
                     className='image-style'
                     id={idx}
                   />
