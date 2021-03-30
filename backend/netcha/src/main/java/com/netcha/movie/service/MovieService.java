@@ -1,8 +1,10 @@
 package com.netcha.movie.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -113,21 +115,53 @@ public class MovieService {
 	}
 	
 	@Transactional
-	public List<MovieResponseDto> findAllMovie() {
-		List<MovieResponseDto> movieList = new ArrayList<MovieResponseDto>();
-		List<Movie> list = movieRepository.findAll();
-		for(int i=0; i<list.size(); i++) movieList.add(new MovieResponseDto(list.get(i)));
-		return movieList;
-	}
-	
-	@Transactional
 	public List<MovieResponseDto> recommendMovieByRank(long userId) {
 		// 유저 아이디에 해당하는 영화 평점 정보 리스트
 		List<MovieRankResponseDto> movieRankList = findMovieRankByUserId(userId);
 		// 영화 전체 정보
-		List<MovieResponseDto> movieList = findAllMovie();
+		List<Movie> movieList = movieRepository.findAll();
+		Map<String, float[]> ganreValue = new HashMap<String, float[]>();
+		for(MovieRankResponseDto mr : movieRankList) {
+			for(String ganre : mr.getGanre()) {
+				if(!ganreValue.containsKey(ganre)) ganreValue.put(ganre, new float[2]);
+				float[] value = ganreValue.get(ganre);
+				value[0] += 1;
+				value[1] += mr.getRank();
+				ganreValue.put(ganre, value);
+			}
+		}
+		System.out.println(ganreValue);
 		
-		return null;
+		List<float[]> scoreList = new ArrayList<float[]>();
+		for(Movie movie : movieList) {
+			float score = 0;
+			String[] ganres = movie.getGanre().split(",");
+			for(int i=1; i<=ganres.length; i++) {
+				String ganre = ganres[i-1];
+				if(ganreValue.containsKey(ganre))
+					score += (1*Math.pow(0.9, i))*(ganreValue.get(ganre)[1]/ganreValue.get(ganre)[0]);
+			}
+			float[] obj = new float[2];
+			obj[0] = movie.getNo();
+			obj[1] = score;
+			scoreList.add(obj);
+		}
+		scoreList.sort(new Comparator<float[]>() {
+			@Override
+			public int compare(float[] o1, float[] o2) {
+				return Float.compare(o2[1], o1[1]);
+			}
+		});
+		List<MovieResponseDto> result = new ArrayList<MovieResponseDto>();
+		for(int i=0; i<40; i++) {
+			Movie movie = movieRepository.findById((long)scoreList.get(i)[0]).get();
+			if(movie.getRating().equals("")) {
+				String[] temp = crawling(movie);
+				movie.updateCrawling(temp[0], temp[1], temp[2]);
+			}
+			result.add(new MovieResponseDto(movie));
+		}
+		return result;
 	}
 	
 }
