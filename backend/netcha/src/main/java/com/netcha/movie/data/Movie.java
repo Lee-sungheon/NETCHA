@@ -28,7 +28,7 @@ public class Movie {
 	private String company;
 	private long time;
 	private String ganre;
-	private long open;
+	private String open;
 	private String directors;
 	private String casts;
 	private String keywords;
@@ -40,7 +40,7 @@ public class Movie {
 	@OneToMany(mappedBy = "movie")
 	private List<MovieRank> movieRank = new ArrayList<MovieRank>();
 	
-	public void updateRPI(String rating, String posterUrl, String imageUrl) {
+	public void updateCrawling(String rating, String posterUrl, String imageUrl) {
 		this.rating = rating;
 		this.posterUrl = posterUrl;
 		this.imageUrl = imageUrl;
