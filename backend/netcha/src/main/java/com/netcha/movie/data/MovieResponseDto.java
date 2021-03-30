@@ -15,7 +15,7 @@ public class MovieResponseDto {
 	private String[] company;
 	private long time;
 	private String[] ganre;
-	private long open;
+	private String open;
 	private String[] directors;
 	private String[] casts;
 	private String[] keywords;

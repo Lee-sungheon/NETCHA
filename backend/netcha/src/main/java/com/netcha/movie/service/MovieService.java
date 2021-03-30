@@ -1,7 +1,7 @@
 package com.netcha.movie.service;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.jsoup.Jsoup;
@@ -62,33 +62,47 @@ public class MovieService {
 	}
 	
 	@Transactional
-	public List<MovieResponseDto> findByOpenAndTimeAndMovieId(long open, long time, String movieId) {
+	public List<MovieResponseDto> findByOpenAndTimeAndMovieId(String open, long time, String movieId) {
 		System.out.println(open+" "+time+" "+movieId);
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		List<Movie> movieR = movieRepository.findByOpenAndTimeAndMovieId(open, time, movieId);
 		for(Movie m : movieR) {
 			if(m.getRating().equals("")) {
 				String[] result = crawling(m);
-				m.updateRPI(result[0], result[1], result[2]);
+				m.updateCrawling(result[0], result[1], result[2]);
 			}
 			movies.add(new MovieResponseDto(m));
 		}
 		return movies;
 	}
 	
-//	@Transactional
-//	public List<MovieResponseDto> findMovieByNewContents() {
-//		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
-//		List<Movie> movieR = movieRepository.findAllByOpen();
-//		for(Movie m : movieR) {
-//			if(m.getRating().equals("")) {
-//				String[] result = crawling(m);
-//				m.updateRPI(result[0], result[1], result[2]);
-//			}
-//			movies.add(new MovieResponseDto(m));
-//		}
-//		return movies;
-//	}
+	@Transactional
+	public List<MovieResponseDto> findMovieByNewContents() {
+		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
+		List<Movie> movieR = movieRepository.findTop40ByOrderByOpenDesc();
+		for(Movie m : movieR) {
+			if(m.getRating().equals("")) {
+				String[] result = crawling(m);
+				m.updateCrawling(result[0], result[1], result[2]);
+			}
+			movies.add(new MovieResponseDto(m));
+		}
+		return movies;
+	}
+	
+	@Transactional
+	public List<MovieResponseDto> findMovieByTotalView() {
+		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
+		List<Movie> movieR = movieRepository.findTop40ByOrderByTotalViewDesc();
+		for(Movie m : movieR) {
+			if(m.getRating().equals("")) {
+				String[] result = crawling(m);
+				m.updateCrawling(result[0], result[1], result[2]);
+			}
+			movies.add(new MovieResponseDto(m));
+		}
+		return movies;
+	}
 	
 	@Transactional
 	public List<MovieRankResponseDto> findMovieRankByUserId(long userId) {

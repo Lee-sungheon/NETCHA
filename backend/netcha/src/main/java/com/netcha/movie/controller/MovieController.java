@@ -26,21 +26,30 @@ public class MovieController {
 	
 	@GetMapping("/list")
 	public ResponseEntity<?> getList() {
-		List<MovieResponseDto> movies = movieService.findByOpenAndTimeAndMovieId(2020, 120, "F");
-		System.out.println(movies.size());
+		List<MovieResponseDto> movies = movieService.findByOpenAndTimeAndMovieId("2020-01-01", 120, "F");
+		System.out.println("test : "+movies.size());
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
-//	@GetMapping("/newContents")
-//	public ResponseEntity<?> getListByNewContents() {
-//		List<MovieResponseDto> movies = movieService.findMovieByNewContents();
-//		return new ResponseEntity<>(movies, HttpStatus.OK);
-//	}
+	@GetMapping("/list_newContents")
+	public ResponseEntity<?> getListByNewContents() {
+		List<MovieResponseDto> movies = movieService.findMovieByNewContents();
+		System.out.println("새로운 컨텐츠 : "+movies.size());
+		return new ResponseEntity<>(movies, HttpStatus.OK);
+	}
+	
+	@GetMapping("/list_totalView")
+	public ResponseEntity<?> getListByTotalView() {
+		List<MovieResponseDto> movies = movieService.findMovieByTotalView();
+		System.out.println("인기 순위 : "+movies.size());
+		return new ResponseEntity<>(movies, HttpStatus.OK);
+	}
+	
+	
 	
 	@GetMapping("/view")
 	public ResponseEntity<?> watchMovie(@RequestParam long no) {
 		
-		
-		return new ResponseEntity<>(movieService.findMovieRankByUserId(1), HttpStatus.OK);
+		return new ResponseEntity<>("", HttpStatus.OK);
 	}
 }
