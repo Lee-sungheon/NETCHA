@@ -8,7 +8,6 @@ import lombok.Setter;
 public class MemberResponseDto {
 	private String userId;
 	private String name;
-	private String email;
 	private String nickname;
 	private String phone;
 	private String mbti;
@@ -16,7 +15,6 @@ public class MemberResponseDto {
 	public MemberResponseDto(Member member) {
 		this.userId = member.getUserId();
 		this.name = member.getName();
-		this.email = member.getEmail();
 		this.nickname = member.getNickname();
 		this.phone = member.getPhone();
 		this.mbti = member.getMbti();
