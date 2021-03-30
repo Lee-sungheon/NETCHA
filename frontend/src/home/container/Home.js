@@ -18,9 +18,9 @@ export default function Home() {
       dispatch(actions.requestMovieList());
     }
   }, [])
-  // useEffect(() =>{
-  //   console.log(movieLists);
-  // }, [movieLists])
+  useEffect(() =>{
+    console.log(movieLists);
+  }, [movieLists])
 
   return (
     <>
