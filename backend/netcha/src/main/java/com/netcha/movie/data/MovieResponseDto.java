@@ -6,22 +6,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class MovieResponseDto {
-	private Long no;
+	private long no;
 	private String movieId;
 	private String movieSeq;
 	private String title;
 	private String scenario;
 	private String[] country;
 	private String[] company;
-	private Long time;
+	private long time;
 	private String[] ganre;
-	private Long open;
+	private long open;
 	private String[] directors;
 	private String[] casts;
 	private String[] keywords;
 	private String rating;
 	private String posterUrl;
 	private String[] imageUrl;
+	private long totalView;
+	private float avgRank;
 	
 	public MovieResponseDto(Movie movie) {
 		this.no = movie.getNo();
@@ -40,5 +42,11 @@ public class MovieResponseDto {
 		this.rating = movie.getRating();
 		this.posterUrl = movie.getPosterUrl();
 		this.imageUrl = movie.getImageUrl().split(",");
+		this.totalView = movie.getTotalView();
+		float sum = 0;
+		if(movie.getMovieRank().size() != 0) {
+			for(int i=0; i<movie.getMovieRank().size(); i++) sum += movie.getMovieRank().get(i).getRank();
+			this.avgRank = (float)((int)(sum / movie.getMovieRank().size() * 10)) / (float)10;			
+		} else this.avgRank = 0;
 	}
 }
