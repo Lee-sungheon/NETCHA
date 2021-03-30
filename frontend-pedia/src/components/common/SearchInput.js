@@ -1,5 +1,4 @@
 import React from "react";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import useAutocomplete from "@material-ui/lab/useAutocomplete";
 // import { useSelector, useDispatch } from "react-redux";
 // import { actions } from "./SearchMovie/state";
@@ -7,7 +6,6 @@ import useAutocomplete from "@material-ui/lab/useAutocomplete";
 // import { useHistory } from "react-router-dom";
 import { InputBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
 
 const useStyles = makeStyles((theme) => ({
@@ -68,7 +66,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SearchInput() {
+
+const SearchInput = ({movies}) => {
   const classes = useStyles();
   //   const keyword = useSelector((state) => state.searchMovie.keyword);
   //   const dispatch = useDispatch();
@@ -78,7 +77,7 @@ export default function SearchInput() {
   //       dispatch(actions.fetchAutoComplete(value));
   //     }
   //   }
-
+  
   //   //   const autoCompletes = useSelector((state) => state.search.autoCompletes);
   //   //   const history = useHistory();
   function goToUser(value) {
@@ -88,7 +87,6 @@ export default function SearchInput() {
     //   history.push(`/user/${user.name}`);
     // }
   }
-
   const {
     getRootProps,
     getInputProps,
@@ -97,10 +95,10 @@ export default function SearchInput() {
     groupedOptions,
   } = useAutocomplete({
     id: "use-autocomplete-demo",
-    options: movies,
+    options: {movies}.movies,
     getOptionLabel: (option) => option,
   });
-
+  
   return (
     <>
       <div {...getRootProps()}>
@@ -132,17 +130,7 @@ export default function SearchInput() {
       ) : null}
     </>
   );
+
 }
 
-const movies = [
-  "고질라 VS. 콩",
-  "극장판 귀멸의 칼날 무한열차편",
-  "자산어보",
-  "미나리",
-  "최면",
-  "파이터",
-  "디 아더 사이드",
-  "국카스텐 콘서트 실황 : 해프닝",
-  "더 박스",
-  "스파이의 아내",
-];
+export default SearchInput;

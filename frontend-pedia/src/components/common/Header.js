@@ -1,9 +1,9 @@
 import React from "react";
-import { AppBar, Toolbar, Button, InputBase } from "@material-ui/core";
+import { AppBar, Toolbar, Button } from "@material-ui/core";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import { Link, useHistory } from "react-router-dom";
 import netchapediaImg from "../../images/netchapedia.png";
-import SearchInput from "./SearchInput";
+import SearchInputContainer from "../../containers/movieSearch/SearchInputContainer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -90,7 +90,7 @@ export default function Header() {
           </Link>
           <div className={classes.title}></div>
           <div className={classes.search}>
-            <SearchInput />
+            <SearchInputContainer />
           </div>
           <Button
             color="action"
