@@ -1,38 +1,52 @@
 package com.netcha.movie.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import lombok.*;
 
 @NoArgsConstructor
 @Getter
 @Entity
+@Table(name = "movie")
 public class Movie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long no;
+	private long no;
 	private String movieId;
 	private String movieSeq;
 	private String title;
 	private String scenario;
 	private String country;
 	private String company;
-	private Long time;
+	private long time;
 	private String ganre;
-	private Long open;
+	private long open;
 	private String directors;
 	private String casts;
 	private String keywords;
 	private String rating;
 	private String posterUrl;
 	private String imageUrl;
+	private long totalView;
 	
-	public void update(String rating, String posterUrl, String imageUrl) {
+	@OneToMany(mappedBy = "movie")
+	private List<MovieRank> movieRank = new ArrayList<MovieRank>();
+	
+	public void updateRPI(String rating, String posterUrl, String imageUrl) {
 		this.rating = rating;
 		this.posterUrl = posterUrl;
 		this.imageUrl = imageUrl;
+	}
+	
+	public void updateView() {
+		this.totalView += 1;
 	}
 }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.netcha.movie.data.MovieResponseDto;
@@ -28,5 +29,18 @@ public class MovieController {
 		List<MovieResponseDto> movies = movieService.findByOpenAndTimeAndMovieId(2020, 120, "F");
 		System.out.println(movies.size());
 		return new ResponseEntity<>(movies, HttpStatus.OK);
+	}
+	
+	@GetMapping("/newContents")
+	public ResponseEntity<?> getListByNewContents() {
+		List<MovieResponseDto> movies = movieService.findMovieByNewContents();
+		return new ResponseEntity<>(movies, HttpStatus.OK);
+	}
+	
+	@GetMapping("/view")
+	public ResponseEntity<?> watchMovie(@RequestParam long no) {
+		
+		
+		return new ResponseEntity<>(movieService.findMovieRankByUserId(1), HttpStatus.OK);
 	}
 }
