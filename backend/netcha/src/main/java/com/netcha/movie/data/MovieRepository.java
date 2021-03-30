@@ -10,6 +10,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	@Query("select m from Movie m where m.open >= :open and m.time >= :time and movie_id = :movieId")
 	public List<Movie> findByOpenAndTimeAndMovieId(@Param("open") long open, @Param("time") long time, @Param("movieId") String movieId);
 	
-	@Query("select m from Movie m order by open desc limit 40")
-	public List<Movie> findAllByOpen();
+//	@Query("select m from Movie m order by open desc limit 40")
+//	public List<Movie> findAllByOpen();
 }

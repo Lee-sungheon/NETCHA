@@ -31,11 +31,11 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
-	@GetMapping("/newContents")
-	public ResponseEntity<?> getListByNewContents() {
-		List<MovieResponseDto> movies = movieService.findMovieByNewContents();
-		return new ResponseEntity<>(movies, HttpStatus.OK);
-	}
+//	@GetMapping("/newContents")
+//	public ResponseEntity<?> getListByNewContents() {
+//		List<MovieResponseDto> movies = movieService.findMovieByNewContents();
+//		return new ResponseEntity<>(movies, HttpStatus.OK);
+//	}
 	
 	@GetMapping("/view")
 	public ResponseEntity<?> watchMovie(@RequestParam long no) {
