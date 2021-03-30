@@ -23,6 +23,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+	// https://mvnrepository.com/artifact/org.jsoup/jsoup
+	implementation group: 'org.jsoup', name: 'jsoup', version: '1.13.1'
 	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
 	//implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.12.1'
 	// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple

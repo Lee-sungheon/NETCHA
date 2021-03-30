@@ -2,22 +2,28 @@ import { useState, useEffect } from 'react';
 import '../../likeList/container/LikeList.scss';
 import MovieList from '../../likeList/component/movieList/MovieList';
 import MovieItem from '../../likeList/component/movieList/MovieItem';
+import { actions } from "../state";
+import { useSelector, useDispatch } from 'react-redux';
+
 
 let repeat = []
 export default function SearchList({location}) {
   const [tabNo, setTabNo] = useState(5);
+  const movieLists = useSelector(state => state.search.movieLists);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     checkWindowInner()
     window.addEventListener('resize', function(){
       checkWindowInner()
     });
+    dispatch(actions.requestMovieList());
     console.log(location.search)
   }, [location])
 
   repeat = []
-  for (let i=0 ; i<=movies.length/tabNo ; i++){
-    repeat.push(movies.slice(i*tabNo, (i+1)*tabNo))
+  for (let i=0 ; i<=movieLists.length/tabNo ; i++){
+    repeat.push(movieLists.slice(i*tabNo, (i+1)*tabNo))
   }
   
   function checkWindowInner() {

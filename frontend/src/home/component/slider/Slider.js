@@ -102,7 +102,7 @@ const Slider = ({ children, activeSlide, title, idx }) => {
           const sliderWrap2 = document.getElementById(index)
           index = `slider-${id}` 
           if (sliderWrap2) {
-            sliderWrap2.style.top = '-152px'
+            sliderWrap2.style.top = '-177px'
           } else {
             break
           }

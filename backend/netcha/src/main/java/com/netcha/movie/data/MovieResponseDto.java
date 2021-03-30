@@ -21,7 +21,7 @@ public class MovieResponseDto {
 	private String[] keywords;
 	private String rating;
 	private String posterUrl;
-	private String imageUrl;
+	private String[] imageUrl;
 	
 	public MovieResponseDto(Movie movie) {
 		this.no = movie.getNo();
@@ -39,6 +39,6 @@ public class MovieResponseDto {
 		this.keywords = movie.getKeywords().split(",");
 		this.rating = movie.getRating();
 		this.posterUrl = movie.getPosterUrl();
-		this.imageUrl = movie.getImageUrl();
+		this.imageUrl = movie.getImageUrl().split(",");
 	}
 }
