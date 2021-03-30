@@ -7,6 +7,7 @@ import useAutocomplete from "@material-ui/lab/useAutocomplete";
 import { InputBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   inputRoot: {
@@ -66,27 +67,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-const SearchInput = ({movies}) => {
+const SearchInput = ({ movies, keyword, onChange, onKeyPress }) => {
   const classes = useStyles();
-  //   const keyword = useSelector((state) => state.searchMovie.keyword);
-  //   const dispatch = useDispatch();
-  //   function setKeyword(value) {
-  //     if (value !== keyword) {
-  //       dispatch(actions.setValue("keyword", value));
-  //       dispatch(actions.fetchAutoComplete(value));
-  //     }
-  //   }
-  
-  //   //   const autoCompletes = useSelector((state) => state.search.autoCompletes);
-  //   //   const history = useHistory();
-  function goToUser(value) {
-    // const user = autoCompletes.find((item) => item.name === value);
-    // if (user) {
-    //   dispatch(userActions.setValue("user", user));
-    //   history.push(`/user/${user.name}`);
-    // }
-  }
+  const history = useHistory();
   const {
     getRootProps,
     getInputProps,
@@ -95,10 +78,17 @@ const SearchInput = ({movies}) => {
     groupedOptions,
   } = useAutocomplete({
     id: "use-autocomplete-demo",
-    options: {movies}.movies,
+    options: { movies }.movies,
     getOptionLabel: (option) => option,
   });
-  
+
+  const onSubmit = () => {
+    // alert('유저 아이디 넣어보자');
+    // set 뭐시기?  
+    const searchKeyword = '안녕';
+    history.push(`/searchMovie/${searchKeyword}`);
+  };
+
   return (
     <>
       <div {...getRootProps()}>
@@ -113,6 +103,8 @@ const SearchInput = ({movies}) => {
           }}
           {...getInputProps()}
           inputProps={{ "aria-label": "search" }}
+          onKeyPress={onKeyPress}
+          onChange={onChange}
         />
         {/* <input className={classes.input} {...getInputProps()} /> */}
       </div>
@@ -130,7 +122,6 @@ const SearchInput = ({movies}) => {
       ) : null}
     </>
   );
-
-}
+};
 
 export default SearchInput;

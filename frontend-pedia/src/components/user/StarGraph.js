@@ -1,4 +1,5 @@
 import Graph from '../common/Graph';
+import './StarGraph.scss';
 
 const StarGraph = ({data, sum, avg, max}) => {
   

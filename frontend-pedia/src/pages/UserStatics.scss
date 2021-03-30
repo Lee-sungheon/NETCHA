@@ -1,13 +1,15 @@
 .userStaticsBox {
-  position: relative;
   width: 600px;
-  height: 100%;
-  margin: 20px auto;
-  padding-bottom: 20px;
+  margin: 0 auto;
+  padding: 85px 0 30px 0;
+
+  hr {
+    border: 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
 
   .roundedCornerBox {
-    border: 1px solid;
-    border-color: #e3e3e3;
+    border: 1px solid #e3e3e3;
     border-radius: 6px;
     overflow: hidden;
     margin: 12px 0 20px;
