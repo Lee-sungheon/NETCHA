@@ -1,11 +1,13 @@
 import './MovieHeader.scss';
 import AddIcon from '@material-ui/icons/Add';
 import Rating from '@material-ui/lab/Rating';
+import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import { useState } from 'react';
 
-export default function MovieHeader({ movie }) {
+const MovieHeader = ({ movie }) => {
   const [isFinish, setIsFinish] = useState(false);
   const [isHover, setIsHover] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
   const [score, setScore] = useState(0);
   let tmpScore = 0;
   function setHover() {
@@ -21,6 +23,11 @@ export default function MovieHeader({ movie }) {
       tmpScore = v;
     }
   }
+
+  const onClickLike = () => {
+    setIsSelected(!isSelected);
+  };
+
   function onClick(e) {
     if (e.target.name !== 'size-large') {
       setIsFinish(true);
@@ -48,14 +55,25 @@ export default function MovieHeader({ movie }) {
             <div className="posterBottom">
               <div className="averageScore">평균 ★3.0 (3292명)</div>
               <div className="ratingContent">
-                <div className="buttonContainer">
-                  <button className="Like">
-                    <div className="plusIcon">
-                      <AddIcon style={{ fontSize: '30px' }} />
-                    </div>
+                <div className="buttonContainer" onClick={onClickLike}>
+                  <button className={isSelected ? 'like' : 'unLike'}>
+                    {isSelected && (
+                      <div className="plusIcon">
+                        <AddIcon style={{ fontSize: '30px' }} />
+                      </div>
+                    )}
+                    {!isSelected && (
+                      <div className="plusIcon">
+                        <BookmarksIcon className="bookmark" />
+                      </div>
+                    )}
                     보고싶어요
                   </button>
-                  <button className="modalBtnWrapper">
+                  <button
+                    className={
+                      isSelected ? 'modalBtnWrapper' : 'unLikeModalBtnWrapper'
+                    }
+                  >
                     <div className="modalBtn">▾</div>
                   </button>
                 </div>
@@ -79,4 +97,6 @@ export default function MovieHeader({ movie }) {
       <div className={false ? '' : 'displayNone'}></div>
     </div>
   );
-}
+};
+
+export default MovieHeader;

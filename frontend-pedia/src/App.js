@@ -1,13 +1,12 @@
-import { BrowserRouter, Route } from "react-router-dom";
-import MovieRanking from "./pages/MovieRanking";
-import Footer from "./components/common/Footer";
-import Header from "./components/common/Header";
-import User from "./pages/User";
-import UserStatics from "./pages/UserStatics";
+import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+import MovieRanking from './pages/MovieRanking';
+import User from './pages/User';
+import UserStatics from './pages/UserStatics';
 import MovieDetail from './pages/MovieDetailPage';
-import "./App.scss";
+import './App.scss';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -18,6 +17,6 @@ function App() {
       </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;

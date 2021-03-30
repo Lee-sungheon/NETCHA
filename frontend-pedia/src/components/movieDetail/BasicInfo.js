@@ -1,9 +1,9 @@
-export default function BasicInformation() {
+const BasicInformation = ({ movie }) => {
   return (
     <div className="basicInfo">
       <div className="infoHeader">기본정보</div>
       <div className="infoContent">
-        <div>미나리</div>
+        <div>{movie && movie.title}</div>
         <div>2020.미국.드라마</div>
         <div>1시간 56분</div>
         <div>
@@ -15,4 +15,5 @@ export default function BasicInformation() {
       </div>
     </div>
   );
-}
+};
+export default BasicInformation;
