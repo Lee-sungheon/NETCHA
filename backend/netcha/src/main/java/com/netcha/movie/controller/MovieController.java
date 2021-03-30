@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.netcha.movie.data.MovieResponseDto;
 import com.netcha.movie.service.MovieService;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -24,6 +25,7 @@ public class MovieController {
 	@Autowired
     private MovieService movieService;
 	
+	@ApiOperation(value = "테스트용 api", notes = "40개정도 더미데이터 전송")
 	@GetMapping("/list")
 	public ResponseEntity<?> getList() {
 		List<MovieResponseDto> movies = movieService.findByOpenAndTimeAndMovieId("2020-01-01", 120, "F");
@@ -31,6 +33,7 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "새로운 컨텐츠(40개) : 개봉일 얼마 안된 순으로 추천")
 	@GetMapping("/list_newContents")
 	public ResponseEntity<?> getListByNewContents() {
 		List<MovieResponseDto> movies = movieService.findMovieByNewContents();
@@ -38,6 +41,7 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "인기 순위(40개) : 누적 조회수 순으로 추천")
 	@GetMapping("/list_totalView")
 	public ResponseEntity<?> getListByTotalView() {
 		List<MovieResponseDto> movies = movieService.findMovieByTotalView();
@@ -46,7 +50,7 @@ public class MovieController {
 	}
 	
 	
-	
+	@ApiOperation(value = "테스트중..")
 	@GetMapping("/view")
 	public ResponseEntity<?> watchMovie(@RequestParam long no) {
 		
