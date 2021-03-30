@@ -1,9 +1,7 @@
 export default function BasicInformation() {
   return (
     <div className="basicInfo">
-      <div className="infoHeader">
-        기본정보<span>더보기</span>
-      </div>
+      <div className="infoHeader">기본정보</div>
       <div className="infoContent">
         <div>미나리</div>
         <div>2020.미국.드라마</div>
