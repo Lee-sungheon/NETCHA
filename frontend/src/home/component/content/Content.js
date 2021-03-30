@@ -12,8 +12,8 @@ const Content = ({ movie, onClose, tabNo, setTabNumber }) => (
       <div
         className="content__background__image"
         style={tabNo === 2 || tabNo === 3 ? 
-          { 'backgroundImage': `url(${ movie.imageUrl !== 'default' ? movie.imageUrl : "/images/netchar2.png" })`, filter: 'blur(6px)', opacity: 0.2 }
-          : { 'backgroundImage': `url(${ movie.imageUrl !== 'default' ? movie.imageUrl : "/images/netchar2.png" })`}}
+          { 'backgroundImage': `url(${ movie.imageUrl[0] !== 'default' ? movie.imageUrl[1] : "/images/netchar2.png" })`, filter: 'blur(6px)', opacity: 0.2 }
+          : { 'backgroundImage': `url(${ movie.imageUrl[0] !== 'default' ? movie.imageUrl[1] : "/images/netchar2.png" })`}}
       />
     </div>
     <div className="content__area">
