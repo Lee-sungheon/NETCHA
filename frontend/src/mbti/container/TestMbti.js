@@ -45,12 +45,8 @@ export default function TestMBTI(props) {
   const history = useHistory();
   const [choiceList, setChoiceList] = useState({ choice: [] });
   const onChoice = (data) => {
-    console.log(data);
-
     setChoiceList({ ...choiceList, choice: choiceList.choice.concat(data) });
-    console.log(choiceList.choice.length);
     if (choiceList.choice.length === 12) {
-      console.log(history);
       history.push({
         pathname: "/mbtiresult",
         state: { choiceList: choiceList },

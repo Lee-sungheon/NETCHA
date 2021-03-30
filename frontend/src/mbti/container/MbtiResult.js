@@ -15,14 +15,16 @@ const useStyles = makeStyles((theme) => ({
     width: "60vw",
     maxWidth: "900px",
     height: "100vh",
-    paddingTop: "64px",
+    paddingTop: "10vw",
   },
   mbti_div: {
     background: "rgb(0, 0, 0, 1)",
-    height: "20vw",
+    height: "25vw",
     // width: "100%",
-    padding: "60px 68px",
+    padding: "3vw 3.5vw",
     color: "white",
+    textAlign: "center",
+    fontSize: "2.5vw",
   },
 }));
 
@@ -47,7 +49,6 @@ export default function MbtiResult(props) {
   }, [MBTI]);
   useEffect(() => {
     const ChoiceList = location.state.choiceList.choice;
-    console.log(ChoiceList);
     let N_S = 0;
     let J_P = 0;
     let T_F = 0;
@@ -130,6 +131,7 @@ export default function MbtiResult(props) {
                 src={mbtiImg.mbtiimg}
                 style={{
                   width: "40vw",
+                  marginTop: "2vw",
                 }}
               />
               {/* {MBTI.E_I + MBTI.N_S + MBTI.T_F + MBTI.J_P} 입니다. */}

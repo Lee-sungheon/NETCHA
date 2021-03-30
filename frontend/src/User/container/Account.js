@@ -1,7 +1,7 @@
 import React from "react";
 import { Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import img1 from "../../img/icon1.png";
 import img2 from "../../img/icon2.png";
 
@@ -74,6 +74,7 @@ export default function Account() {
                   <div>asdsd9852@naver.com</div>
                   <div>비밀번호 : ********</div>
                   <div>전화번호 : 010-4528-9852</div>
+                  <div>MBTI : ENFP </div>
                 </div>
 
                 <div className={classes.account_div_section_div2}>
@@ -92,6 +93,9 @@ export default function Account() {
                   </div>
                   <div>
                     <Link href="">휴대폰 번호 변경</Link>
+                  </div>
+                  <div>
+                    <Link to="mbti">MBTI 변경</Link>
                   </div>
                 </div>
               </div>

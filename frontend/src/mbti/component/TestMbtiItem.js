@@ -56,7 +56,6 @@ export default function TestMbtiItem(props) {
 
   const onClickChoice_1 = (e) => {
     e.preventDefault();
-    console.log(e.target);
     props.onChoice(1);
     if (questionNum === 11) {
       return;
@@ -66,7 +65,6 @@ export default function TestMbtiItem(props) {
   const onClickChoice_2 = (e) => {
     e.preventDefault();
 
-    console.log(e.target);
     props.onChoice(2);
     if (questionNum === 11) {
       return;
