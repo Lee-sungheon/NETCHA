@@ -7,6 +7,9 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Button from "@material-ui/core/Button";
 import "./Mbti.css";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   mbti_back: {
@@ -38,15 +41,38 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Mbti(props) {
   const location = useLocation();
+  const { mbti, userId } = useSelector((state) => ({
+    mbti: state.user.userData.member.mbti,
+    userId: state.user.userData.member.userId,
+  }));
   const classes = useStyles();
+  const history = useHistory();
   const [state, setState] = useState({
-    mbti: "",
+    mbti: mbti,
   });
   const handleChange = (event) => {
     setState({
       ...state,
       mbti: event.target.value,
     });
+  };
+  const changeMbti = (e) => {
+    e.preventDefault();
+    const body = {
+      mbti: state.mbti,
+      userId: userId,
+    };
+    axios
+      .post("netcha/user/changeUser", JSON.stringify(body), {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        history.push({
+          pathname: "/account",
+        });
+      });
   };
   return (
     <div>
@@ -129,6 +155,7 @@ export default function Mbti(props) {
                       marginTop: "1vw",
                       fontFamily: "Bazzi",
                     }}
+                    onClick={changeMbti}
                   >
                     확인
                   </Button>
