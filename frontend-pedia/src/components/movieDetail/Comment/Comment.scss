@@ -1,0 +1,46 @@
+.commentBox {
+  padding: 10px;
+  max-width: 48%;
+  border-radius: 3px;
+  background-color: #f2f2f2;
+  .header {
+    display: flex;
+    font-weight: bold;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid rgb(235, 233, 233);
+
+    div {
+      padding-left: 5px;
+      width: 50px;
+      font-weight: 400;
+      border-radius: 13px;
+      color: rgb(58, 58, 58);
+      background-color: white;
+      span {
+        font-size: 18px;
+      }
+      .score {
+        font-size: 15px;
+      }
+    }
+  }
+  .content {
+    padding: 5px 0;
+    height: 150px;
+    border-bottom: 1px solid rgb(235, 233, 233);
+  }
+  .footer1 {
+    padding: 10px 0;
+    border-bottom: 1px solid rgb(235, 233, 233);
+  }
+  .footer2 {
+    cursor: pointer;
+    padding: 5px 0;
+    font-weight: bold;
+    color: rgb(255, 58, 156);
+  }
+}
+.commentBox:nth-child(even) {
+  margin-left: 10px;
+}

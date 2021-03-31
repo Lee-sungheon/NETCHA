@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useLocation } from "react-router";
+import "./Mbti.css";
+
 const useStyles = makeStyles((theme) => ({
   mbti_back: {
     backgroundImage:
@@ -9,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
   mbti_page: {
     background: "rgb(0, 0, 0, 0.5)",
+    fontFamily: "Bazzi",
   },
   mbti_div_back: {
     margin: "0 auto",
@@ -126,14 +129,16 @@ export default function MbtiResult(props) {
           <div className={classes.mbti_div_back}>
             <div className={classes.mbti_div}>
               당신의 MBTI 테스트 결과는 <br />
-              <img
-                alt={mbtiImg.mbtiimg}
-                src={mbtiImg.mbtiimg}
-                style={{
-                  width: "40vw",
-                  marginTop: "2vw",
-                }}
-              />
+              {mbtiImg ? (
+                <img
+                  alt={mbtiImg.mbtiimg}
+                  src={mbtiImg.mbtiimg}
+                  style={{
+                    width: "40vw",
+                    marginTop: "2vw",
+                  }}
+                />
+              ) : null}
               {/* {MBTI.E_I + MBTI.N_S + MBTI.T_F + MBTI.J_P} 입니다. */}
             </div>
           </div>

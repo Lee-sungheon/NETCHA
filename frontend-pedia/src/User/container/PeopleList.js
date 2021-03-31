@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./PeopleList.scss";
 import PersonImage from './PersonImage'
 
-export default function ActorList({ data }) {
+export default function PeopleList({ data }) {
   const settings = {
     className: "center",
     centerMode: true,
