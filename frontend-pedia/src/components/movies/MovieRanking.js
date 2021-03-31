@@ -3,11 +3,8 @@ import LargeMovieSlider from "../slider/LargeMovieSlider";
 
 const MovieRankingComponent = ({ loading, error, movies }) => {
   if (error) {
-    console.log("에러에러에러에러");
     return <h2>에러가 발생했습니다.</h2>;
   }
-
-  console.log("movies: " + movies);
 
   return (
     <>

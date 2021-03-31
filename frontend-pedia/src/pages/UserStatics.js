@@ -1,7 +1,8 @@
 import React from "react";
 import "./UserStatics.scss";
 import netchapediaImg from "../images/netchapediaTransWhite.png";
-import ActorAndDirectorListContainer from "../containers/user/ActorAndDirectorListContainer";
+import ActorListContainer from "../containers/user/ActorListContainer";
+import DirectorListContainer from "../containers/user/DirectorListContainer";
 import WordCloudContainer from "../containers/user/WordCloudContainer";
 import StarGraphContainer from "../containers/user/StarGraphContainer";
 import CountryListContainer from "../containers/user/CountryListContainer";
@@ -42,12 +43,12 @@ export default function UserStatics() {
             <hr />
             <div>
               <h3>선호배우</h3>
-              <ActorAndDirectorListContainer />
+              <ActorListContainer />
             </div>
             <hr />
             <div>
               <h3>선호감독</h3>
-              <ActorAndDirectorListContainer />
+              <DirectorListContainer />
             </div>
             <hr />
             <div>
