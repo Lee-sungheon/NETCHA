@@ -49,6 +49,7 @@ const StyledMenu = withStyles({
     }}
     {...props}
   />
+  
 ));
 
 const StyledMenuItem = withStyles((theme) => ({
@@ -178,7 +179,7 @@ export default function Header({toggleButton, setToggleButton}) {
             noWrap
           ></Typography>
 
-          <Search activeValue={activeValue} setActiveValue={setActiveValue}/>
+          <Search activeValue={activeValue} setActiveValue={setActiveValue} />
 
           <Link to={"/"}>
             <div className={classes.Brightness4Icon}>
@@ -222,11 +223,17 @@ export default function Header({toggleButton, setToggleButton}) {
                 </Link>
               </StyledMenuItem>
               <StyledMenuItem>
-                <ListItemText primary="로그아웃" />
+                <Link
+                  to=""
+                  style={{
+                    color: "white",
+                  }}
+                >
+                  <ListItemText primary="로그아웃" />
+                </Link>
               </StyledMenuItem>
             </StyledMenu>
           </div>
-
         </Toolbar>
       </AppBar>
     </div>

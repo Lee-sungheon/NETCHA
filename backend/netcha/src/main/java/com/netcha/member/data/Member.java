@@ -20,6 +20,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.netcha.config.UserRole;
+import com.netcha.member.data.Request.RequestChangeUser;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -60,6 +61,21 @@ public class Member {
     @JoinColumn(name = "salt_id")
     private Salt salt;
 
+    
+    public void updateUser( RequestChangeUser member ) {
+		if(member.getMbti() != null) {
+			this.mbti = member.getMbti();
+		}
+		if(member.getPhone() != null) {
+			this.phone = member.getPhone();
+		}
+		if(member.getNickname() != null) {
+			this.nickname = member.getNickname();
+		}
+		
+    }
+    
+    
     public Member() {
     }
 

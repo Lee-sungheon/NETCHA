@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import axios from "axios";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   signup_back: {
@@ -59,6 +61,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Signup(props) {
   const classes = useStyles();
+  const history = useHistory();
+
+  const [inputData, setInputData] = useState({
+    userId: "",
+  });
 
   useEffect(() => {
     props.toggleIsHeader(false);
@@ -66,6 +73,35 @@ export default function Signup(props) {
       props.toggleIsHeader(true);
     };
   }, []);
+  const onUserIdHandler = (e) => {
+    setInputData({ ...inputData, userId: e.target.value });
+  };
+  const onStart = (e) => {
+    e.preventDefault();
+    axios
+      .post("/netcha/user/checkId", inputData.userId, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        console.log(res.data.data);
+        if (res.data.data === 0) {
+          // 로그인화면
+          history.push({
+            pathname: "/login",
+            state: { userId: inputData.userId },
+          });
+        } else {
+          // 회원가입화면
+          history.push({
+            pathname: "/signupdetail",
+            state: { userId: inputData.userId },
+          });
+        }
+      });
+  };
   return (
     <div className={classes.signup_back}>
       <div className={classes.signup_div}>
@@ -103,6 +139,8 @@ export default function Signup(props) {
                   InputLabelProps={{
                     color: "secondary",
                   }}
+                  value={inputData.userId}
+                  onChange={onUserIdHandler}
                   variant="filled"
                   style={{
                     backgroundColor: "white",
@@ -111,22 +149,21 @@ export default function Signup(props) {
                     height: "100%",
                   }}
                 />
-                <Link to="/signupdetail">
-                  <Button
-                    variant="contained"
-                    style={{
-                      width: "30%",
-                      backgroundColor: "#e50914",
-                      color: "white",
-                      height: "100%",
+                <Button
+                  variant="contained"
+                  style={{
+                    width: "30%",
+                    backgroundColor: "#e50914",
+                    color: "white",
+                    height: "100%",
 
-                      marginLeft: "2px",
-                      fontSize: "1.5rem",
-                    }}
-                  >
-                    시작하기
-                  </Button>
-                </Link>
+                    marginLeft: "2px",
+                    fontSize: "1.5rem",
+                  }}
+                  onClick={onStart}
+                >
+                  시작하기
+                </Button>
               </div>
             </form>
           </div>
