@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -53,8 +53,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     width: "68%",
     marginBottom: "15px",
-    height: "100%", 
-  }
+    height: "100%",
+  },
 }));
 
 export default function Signup(props) {
@@ -134,11 +134,43 @@ export default function Signup(props) {
         <div
           style={{
             backgroundColor: "black",
-            width: "100%",
-            height: "500px",
+            // width: "100%",
+            height: "20vw",
             borderTop: "solid #222 8px",
+            padding: "5vw",
           }}
-        ></div>
+        >
+          <div
+            style={{
+              display: "flex",
+              backgroundColor: "white",
+              margin: "0 15vw",
+
+              height: "100%",
+            }}
+          >
+            <div
+              style={{
+                backgroundColor: "white",
+                height: "100%",
+                width: "50%",
+                color: "black",
+              }}
+            >
+              TV로 즐기세요.
+            </div>
+            <div
+              style={{
+                backgroundColor: "white",
+                height: "100%",
+                width: "50%",
+                color: "white",
+              }}
+            >
+              TV로 즐기세요.
+            </div>
+          </div>
+        </div>
         <div
           style={{
             backgroundColor: "black",
