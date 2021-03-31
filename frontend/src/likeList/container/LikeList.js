@@ -4,26 +4,36 @@ import MovieList from '../component/movieList/MovieList';
 import MovieItem from '../component/movieList/MovieItem';
 import { actions } from "../state";
 import { useSelector, useDispatch } from 'react-redux';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 let repeat = []
 export default function LikeList() {
   const [tabNo, setTabNo] = useState(5);
+  const [likeList, setLikeList] = useState([]);
   const movieLists = useSelector(state => state.like.movieLists);
+  const isLoading = useSelector(state => state.like.isLoading);
   const dispatch = useDispatch();
+
   useEffect(() => {
     checkWindowInner()
-    if (movieLists.length === 0){
-      dispatch(actions.requestMovieList());
-    }
+    dispatch(actions.requestMovieList());
     window.addEventListener('resize', function(){
       checkWindowInner()
     });
+    return () => {
+      window.removeEventListener('resize', function(){
+        checkWindowInner()
+    });
+    }
   }, [])
   
-  repeat = []
-  for (let i=0 ; i<=movieLists.length/tabNo ; i++){
-    repeat.push(movieLists.slice(i*tabNo, (i+1)*tabNo))
-  }
+  useEffect(() => {
+    repeat = []
+    for (let i=0 ; i<=movieLists.length/tabNo ; i++){
+      repeat.push(movieLists.slice(i*tabNo, (i+1)*tabNo))
+    }
+    setLikeList([...repeat])
+  }, [movieLists, tabNo])
   
   function checkWindowInner() {
     const windowInnerWidth = window.innerWidth;
@@ -45,11 +55,16 @@ export default function LikeList() {
     <>
       <div className='like__container'>
         <div className="like__title">내가 찜한 콘텐츠</div>
-        {repeat.map((item, idx) => (
+        { isLoading &&
+          <div style={{height: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <CircularProgress color="secondary" />
+          </div>
+        }
+        { !isLoading && likeList.map((item, idx) => (
           <div id={`slider-${idx}`} className='like__container' key={idx}>
             <MovieList idx={`slider-${idx}`} num={tabNo}>
               {item.map((movie, index) => (
-                <MovieItem movie={movie} idx={index} key={movie.id}>
+                <MovieItem movie={movie} idx={index} key={index}>
                 </MovieItem>
               ))}
           </MovieList>

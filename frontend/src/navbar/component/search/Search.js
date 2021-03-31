@@ -5,7 +5,7 @@ import InputBase from "@material-ui/core/InputBase";
 import { actions } from "../../state";
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
-
+import './Search.scss'
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -56,7 +56,6 @@ const useStyles = makeStyles((theme) => ({
     cursor: "text",
     border: "white 1px solid",
     width: "25ch",
-
     zIndex: -1,
     backgroundColor: 'black',
   },
@@ -89,10 +88,9 @@ export default function Search({activeValue, setActiveValue}) {
   }
   return(
     <>
-      <div className={classes.search} 
-      >
+      <div className={classes.search}>
         <div className={classes.searchIcon}>
-          <SearchIcon />
+          <SearchIcon className="search-icon"/>
         </div>
         <InputBase
           placeholder="제목, 사람, 장르"

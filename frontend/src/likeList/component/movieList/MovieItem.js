@@ -26,7 +26,7 @@ export default function MovieItem({ movie, idx }) {
             })}
           >
             <Card style={isActive === true ? {border: 'solid 2px white'}:{}} >
-              <CardActionArea>
+              <CardActionArea style={{zIndex: 5}}>
                 <div className='movie-image-box'>
                   <CardMedia
                     component="img"
@@ -35,28 +35,28 @@ export default function MovieItem({ movie, idx }) {
                     id={idx}
                   />
                 </div>
-                <CardContent className="movie-show-card-content" id={idx}>
-                    <div style={{width:'100%', position: 'relative'}} id={idx}>
-                      <PlayArrowIcon className='play-button'id={idx} />
-                      <AddIcon className='movie-common-button'id={idx} />
-                      <ThumbUpAltIcon className='movie-common-button' id={idx} />
-                      <ThumbDownIcon className='movie-common-button'id={idx} />
-                      <ExpandMoreIcon className='movie-end-button' id={idx} onClick={() => onSelectSlide(movie)}/>
-                    </div>
-                  <h5 style={{textAlign: 'center', margin:'5px', textAlign: 'start'}} id={idx}>{movie.title.slice(0, 15)}{movie.title.length > 15 && '...'}</h5>
-                  <div style={{display: 'flex', alignItems: 'center'}} id={idx}>
-                    { movie.rating !== "" && movie.rating !== undefined && <img style={{width: '12%', margin: '0 5px'}} src={`/images/${movie.rating.slice(0,2)}.svg`} />}
-                    <span style={{fontSize: '0.65rem', fontWeight: 900}}>{parseInt(movie.time/60)}시간 {movie.time%60}분</span>
-                  </div>
-                  <h6 style={{textAlign: 'center', margin:'5px', textAlign: 'start'}} id={idx}>
-                    {movie.keywords !== undefined && movie.keywords.slice(0,3).map((keyword, idx) => (
-                      <span key={keyword}>{idx !== 0 && <span> • </span>}{keyword}</span>
-                    ))}
-                  </h6>
-                </CardContent>
               </CardActionArea>
+              <CardContent className="movie-show-card-content" id={idx} style={{paddingBottom: '10px'}}>
+                  <div style={{width:'100%', position: 'relative'}} id={idx}>
+                    <PlayArrowIcon className='play-button'id={idx} />
+                    <AddIcon className='movie-common-button'id={idx} />
+                    <ThumbUpAltIcon className='movie-common-button' id={idx} />
+                    <ThumbDownIcon className='movie-common-button'id={idx} />
+                    <ExpandMoreIcon className='movie-end-button' id={idx} onClick={() => onSelectSlide(movie)}/>
+                  </div>
+                <h5 style={{textAlign: 'center', margin:'5px', textAlign: 'start'}} id={idx}>{movie.title}</h5>
+                <div style={{display: 'flex', alignItems: 'center'}} id={idx}>
+                  { movie.rating !== "" && movie.rating !== undefined && <img style={{width: '12%', margin: '0 5px'}} src={`/images/${movie.rating.slice(0,2)}.svg`} />}
+                  <div id={idx} style={{fontSize: '0.65rem', fontWeight: 900}}>{parseInt(movie.time/60)}시간 {movie.time%60}분</div>
+                </div>
+                <h6 style={{textAlign: 'center', margin:'5px', textAlign: 'start'}} id={idx}>
+                  {movie.keywords !== undefined && movie.keywords.slice(0,3).map((keyword, idx) => (
+                    <span key={keyword} id={idx}>{idx !== 0 && <span id={idx}> • </span>}{keyword}</span>
+                  ))}
+                </h6>
+              </CardContent>
             </Card>
-            {<div className="movie-show-card-title" style={isActive ? {opacity: 1}:{opacity: 0.7}}>
+            {<div className="movie-show-card-title" id={idx} style={isActive ? {opacity: 1}:{opacity: 0.7}}>
               {movie.title.slice(0, 14)}
               {movie.title.length > 14 && '...'}
             </div>}

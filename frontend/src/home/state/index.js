@@ -17,6 +17,9 @@ export const types = {
   REQUEST_POPULARMOVIELIST: 'home/REQUEST_POPULARMOVIELIST',
   SET_POPULARMOVIELIST: 'home/SET_POPULARMOVIELIST',
   SET_POPULARLOADING: 'home/SET_POPULARLOADING',
+  // 영화 필터링
+  REQUEST_FILTERMOVIELIST: 'home/REQUEST_FILTERMOVIELIST',
+  SET_ISFILTER: 'home/SET_ISFILTER',
   // 값 변경
   SET_VALUE: 'home/SET_VALUE',
 };
@@ -50,6 +53,12 @@ export const actions = {
     type: types.SET_POPULARLOADING,
     isPopularLoading,
   }),
+  //영화 필터링
+  requestFilterMovieList: data => ({ type: types.REQUEST_FILTERMOVIELIST }),
+  setIsFilter: isFilter => ({
+    type: types.SET_ISFILTER,
+    isFilter,
+  }),
   // 값 변경
   setValue: createSetValueAction(types.SET_VALUE),
 }
@@ -63,6 +72,7 @@ const INITIAL_STATE = {
   isNewLoading: false,
   popularMovieLists: [],
   isPopularLoading: false,
+  isFilter: false,
 };
 
 const reducer = createReducer(INITIAL_STATE, {
@@ -86,6 +96,7 @@ const reducer = createReducer(INITIAL_STATE, {
     state.popularMovieLists = action.data
   },
   [types.SET_POPULARLOADING]: (state, action) => (state.isPopularLoading = action.isPopularLoading),
+  [types.SET_ISFILTER]: (state, action) => (state.isFilter = action.isFilter),
   // 값 변경
   [types.SET_VALUE]: setValueReducer,
 });

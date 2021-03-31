@@ -6,8 +6,21 @@ export function* contentData() {
   yield put(actions.setLoading(true));
   yield put(actions.setValue('error', ''));
   try {
-    const data = yield call(callApiContentMovieList, 1)
-    yield put(actions.setMovieList(data))
+    const data = yield call(callApiContentMovieList, 1);
+    yield put(actions.setMovieList(data));
+  } catch(error) {
+    yield put(actions.setValue('error', error))
+  }
+  yield put(actions.setLoading(false));
+} 
+
+export function* filterData() {
+  yield put(actions.setLoading(true));
+  yield put(actions.setValue('error', ''));
+  try {
+    const data = yield call(callApiMovieList)
+    yield put(actions.setIsFilter(true));
+    yield put(actions.setMovieList(data));
   } catch(error) {
     yield put(actions.setValue('error', error))
   }
@@ -19,9 +32,9 @@ export function* newData() {
   yield put(actions.setValue('error', ''));
   try {
     const data = yield call(callApiNewMovieList);
-    yield put(actions.setNewMovieList(data))
+    yield put(actions.setNewMovieList(data));
   } catch(error) {
-    yield put(actions.setValue('error', error))
+    yield put(actions.setValue('error', error));
   }
   yield put(actions.setNewLoading(false));
 } 
@@ -33,7 +46,7 @@ export function* popularData() {
     const data = yield call(callApiPopularMovieList);
     yield put(actions.setPopularMovieList(data))
   } catch(error) {
-    yield put(actions.setValue('error', error))
+    yield put(actions.setValue('error', error));
   }
   yield put(actions.setPopularLoading(false));
 } 
@@ -43,9 +56,9 @@ export function* addData() {
   yield put(actions.setValue('error', ''));
   try {
     const data = yield call(callApiMovieList);
-    yield put(actions.addMovieList(data))
+    yield put(actions.addMovieList(data));
   } catch(error) {
-    yield put(actions.setValue('error', error))
+    yield put(actions.setValue('error', error));
   }
   yield put(actions.setInfinite(false));
 } 
@@ -57,5 +70,6 @@ export default function* () {
     takeLeading(types.REQUEST_NEWMOVIELIST, newData),
     takeLeading(types.REQUEST_POPULARMOVIELIST, popularData),
     takeLeading(types.REQUEST_ADD_MOVIELIST, addData),
+    takeLeading(types.REQUEST_FILTERMOVIELIST, filterData),
   ]);
 }

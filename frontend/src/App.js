@@ -20,19 +20,20 @@ import Signup from "./user/container/Signup";
 import SignupDetail from "./user/container/SignupDetail";
 import ProfileList from "./user/container/ProfileList";
 import MbtiResult from "./mbti/container/MbtiResult";
+import cx from 'classnames';
 
 // const history = createBrowserHistory();
 function App() {
   const [isHeader, setIsHeader] = useState(true);
-
+  const [toggleButton, setToggleButton] = useState(false);
   const toggleIsHeader = (e) => {
     setIsHeader(e);
   };
   return (
     <BrowserRouter>
-      <div className="App">
+      <div className={cx('App', { 'App--toggle': toggleButton})}>
         <Provider store={store}>
-          {isHeader ? <Header /> : null}
+          {isHeader ? <Header toggleButton={toggleButton} setToggleButton={setToggleButton}/> : null}
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/movielist">

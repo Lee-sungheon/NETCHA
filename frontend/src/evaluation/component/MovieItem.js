@@ -19,6 +19,8 @@ const useStyles = makeStyles((theme) => ({
   },
   itemBox: {
     position: "relative",
+    height: "inherit",
+    boxSizing: 'border-box',
     "&:hover": {
       border: "white 1px solid",
     },
@@ -92,7 +94,7 @@ export default function MovieItem({ tile, pickNum, setPickNum }) {
       onMouseLeave={setHover}
       className={customClasses.itemBox}
     >
-      <img src={tile.img} alt={tile.title} style={{ width: "100%" }} />
+      <img src={tile.posterUrl} alt={tile.title} style={{ width: "100%", height: "inherit" }} />
       <div
         className={customClasses.customOverlay}
         style={isHover ? { display: "block" } : { display: "none" }}
