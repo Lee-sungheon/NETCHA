@@ -64,7 +64,7 @@ export default function BasicInformation({ movie }) {
           { movie.ganre.slice(0,3).map((gan, idx) => (
             <span key={gan}>{idx !== 0 && <span> • </span>}{gan}</span>
           ))}
-          <span> | </span> { movie.country[0] } <span> | </span> {movie.open}년
+          <span> | </span> { movie.country[0] } <span> | </span> {movie.open}
         </div>
       </div>
       <div className="content__button_box">

@@ -67,8 +67,12 @@ const MovieList = ({ children, activeSlide, idx, num }) => {
       if (!currentSlide) {
         let id = Number(idx.split('-')[1]) + 1
         let index = `slider-${id}`
-        sliderWrap1.style.zIndex = 10
-        sliderWrap.style.padding = '30px 0 70px 0'
+        if (sliderWrap1){
+          sliderWrap1.style.zIndex = 10
+        }
+        if (sliderWrap){
+          sliderWrap.style.padding = '30px 0 70px 0'
+        }
         while (true){
           const sliderWrap2 = document.getElementById(index)
           index = `slider-${id}` 
