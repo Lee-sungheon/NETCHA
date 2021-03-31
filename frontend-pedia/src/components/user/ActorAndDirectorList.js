@@ -2,7 +2,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./ActorAndDirectorList.scss";
-import PersonImage from "./PersonImage";
 
 const settings = {
   className: "center",
@@ -16,22 +15,22 @@ const settings = {
   slidesPerRow: 1,
 };
 
-const ActorAndDirectorList = ({ actors, error, loading }) => {
+const ActorAndDirectorList = ({ data, error, loading }) => {
   if (error) {
     return <h2>에러가 발생했습니다.</h2>;
   }
 
   return (
     <>
-      {!loading && actors && (
+      {!loading && data && (
         <div className="peopleSlider">
           <Slider {...settings}>
-            {actors.map((actor) => {
+            {data.map((data) => {
               return (
                 <div className="actorWrap">
-                  <PersonImage name={actor.name} />
+                  <img className="actorImage" src={data.image} alt={data.name} title={data.name} />
                   <div className="actorName">
-                    <span>{actor.name}</span>
+                    <span>{data.name}</span>
                   </div>
                 </div>
               );

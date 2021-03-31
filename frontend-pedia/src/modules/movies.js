@@ -41,7 +41,7 @@ const listNetChaRankingMoviesSaga = createRequestSaga(
   NETCHA_RANKING_MOVIES,
   moviesAPI.listNetChaRankingMovies
 );
-export function* netChaRankingMoviesSaga() {
+export function* netchaRankingMoviesSaga() {
   yield takeLatest(NETCHA_RANKING_MOVIES, listNetChaRankingMoviesSaga);
 }
 
