@@ -6,7 +6,7 @@ import { readMovie, unloadMovie } from '../../modules/movie';
 import './MovieDetailContainer.scss';
 import MovieHeader from '../../components/movieDetail/MovieHeader';
 import BasicInfo from '../../components/movieDetail/BasicInfo';
-import Actors from '../../components/movieDetail/Actors';
+import Cast from '../../components/movieDetail/Cast';
 import StarGraph from '../../components/movieDetail/StarGraph';
 import Comment from '../../components/movieDetail/Comment/Comment';
 import SimilarMovies from '../../components/movieDetail/SimilarMovies';
@@ -40,18 +40,57 @@ const MovieDetailContainer = ({ match }) => {
       <div className="contentWrapper">
         <div className="contentBox">
           <BasicInfo movie={movie} loading={loading} error={error} />
-          <Actors />
+          <Cast actors={actors} />
           <StarGraph />
           <Comment />
           <SimilarMovies />
         </div>
         <div className="sideBox">
-          <Gallery />
+          <Gallery imgs={imgs} />
           <Video />
         </div>
       </div>
     </div>
   );
 };
+
+const actors = [
+  { name: 'sdfsw', role: '감독' },
+  { name: '이상진', role: '배우' },
+  { name: 'sdfsw', role: '감독' },
+  { name: '이상진', role: '배우' },
+  { name: 'sdfsw', role: '감독' },
+  { name: '이상진', role: '배우' },
+  { name: 'sdfsw', role: '감독' },
+  { name: '이상진', role: '배우' },
+];
+
+const imgs = [
+  {
+    id: 1,
+    url:
+      'https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_360,q_80,w_640/v1576818817/ob8puocgokh3yj7thpdt.jpg',
+  },
+  {
+    id: 3,
+    url:
+      'https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_360,q_80,w_640/v1576818817/ob8puocgokh3yj7thpdt.jpg',
+  },
+  {
+    id: 4,
+    url:
+      'https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_360,q_80,w_640/v1576818817/ob8puocgokh3yj7thpdt.jpg',
+  },
+  {
+    id: 5,
+    url:
+      'https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_360,q_80,w_640/v1576818817/ob8puocgokh3yj7thpdt.jpg',
+  },
+  {
+    id: 6,
+    url:
+      'https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_360,q_80,w_640/v1576818817/ob8puocgokh3yj7thpdt.jpg',
+  },
+];
 
 export default withRouter(MovieDetailContainer);

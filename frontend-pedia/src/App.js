@@ -6,7 +6,7 @@ import MovieDetail from './pages/MovieDetailPage';
 import "./App.scss";
 import SearchMovieListPage from "./pages/SearchMovieListPage";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -18,6 +18,6 @@ function App() {
       </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;

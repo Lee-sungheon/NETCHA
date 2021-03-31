@@ -92,7 +92,7 @@
               height: 40px;
               margin-right: 40px;
 
-              .Like {
+              .like {
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -101,8 +101,35 @@
                 border-radius: 5px 0 0 5px;
                 color: $white;
                 font-size: 17px;
+                font-weight: bold;
                 border-width: bold;
                 border-right: 1px solid $pink;
+                cursor: pointer;
+
+                .plusIcon {
+                  line-height: 0px;
+                  transition: 0.5s;
+                  font-size: 20px;
+                  margin-right: 20px;
+                  &:hover {
+                    transform: rotate(90deg);
+                    transition: 0.5s;
+                  }
+                }
+              }
+
+              .unLike {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 162px;
+                background-color: $lightgrey;
+                border-radius: 5px 0 0 5px;
+                color: black;
+                font-size: 17px;
+                font-weight: bold;
+                border-width: bold;
+                border-right: 1px solid $lightgrey;
                 cursor: pointer;
 
                 .plusIcon {
@@ -135,6 +162,24 @@
                   }
                 }
               }
+              .unLikeModalBtnWrapper {
+                width: 51px;
+                height: 100%;
+                background-color: $lightgrey;
+                border-radius: 0 5px 5px 0;
+                color: rgb(201, 199, 199);
+                cursor: pointer;
+
+                .modalBtn {
+                  font-size: 20px;
+                  transition: 0.5s;
+
+                  &:hover {
+                    transform: translateY(5px);
+                    transition: 0.5s;
+                  }
+                }
+              }
             }
 
             .starRatingBox {
@@ -153,4 +198,8 @@
 
 .displayNone {
   display: none;
+}
+
+.bookmark {
+  color: $pink;
 }

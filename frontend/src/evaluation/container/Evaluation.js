@@ -4,6 +4,7 @@ import GridList from '@material-ui/core/GridList';
 import MovieItem from '../component/MovieItem';
 import GridListTile from '@material-ui/core/GridListTile';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import { actions } from "../state";
 import { useSelector, useDispatch } from 'react-redux';
@@ -118,13 +119,20 @@ export default function Evaluation() {
         </div>
       </div>
       <div className={classes.root}>
-        <GridList cellHeight={'auto'} className={classes.gridList} cols={colsNum} spacing={35}>
-          {movieLists.map((tile) => (tile.posterUrl !== 'default' &&
-            <GridListTile key={tile.title}>
-              <MovieItem tile={tile} pickNum={pickNum} setPickNum={setPickNum}/>
-            </GridListTile>
-          ))}
-        </GridList>
+        { !isLoading &&
+          <GridList cellHeight={'auto'} className={classes.gridList} cols={colsNum} spacing={35}>
+            {movieLists.map((tile) => (tile.posterUrl !== 'default' &&
+              <GridListTile key={tile.title}>
+                <MovieItem tile={tile} pickNum={pickNum} setPickNum={setPickNum}/>
+              </GridListTile>
+            ))}
+          </GridList>
+        }
+        { isLoading &&
+          <div style={{height: '60vh', display: 'flex', alignItems: 'center'}}>
+            <CircularProgress color="secondary" />
+          </div>
+        }
       </div>
     </div>
   );
