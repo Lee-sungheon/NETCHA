@@ -30,6 +30,14 @@ export const listTags = ({ userId }) => {
   // return client.get(`/country/${userId}`)
 }
 
+export const listStars = ({ userId }) => {
+  console.log('userId:' + userId);
+  return stars;
+  // return client.get(`/country/${userId}`)
+}
+
+const stars = {data: [2, 3, 1, 1, 3, 8, 4, 7, 13, 11]};
+
 const tags = {
   data: [
   {
