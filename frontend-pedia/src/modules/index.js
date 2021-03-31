@@ -8,6 +8,7 @@ import actors, { actorsSaga } from './actors';
 import directors, { directorsSaga } from './directors';
 import countries, { countriesSaga } from './countries';
 import genres, { genresSaga } from './genres';
+import tags, { tagsSaga } from './tags';
 
 const rootReducer = combineReducers({
   loading,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   directors,
   countries,
   genres,
+  tags,
 });
 
 export function* rootSaga() {
@@ -29,6 +31,7 @@ export function* rootSaga() {
     directorsSaga(),
     countriesSaga(),
     genresSaga(),
+    tagsSaga(),
   ]);
 }
 

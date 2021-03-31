@@ -1,107 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { withRouter } from "react-router";
+import { listTags } from "../../modules/tags";
 import WordCloud from "../../components/user/WordCloud";
 
-export default function WordCloudContainer() {
-  return (
-    <WordCloud words={words} />
-  );
-}
+const WordCloudContainer = () => {
+  const userId = 99999;
+  const dispatch = useDispatch();
+  const { tags, error, loading } = useSelector(({ tags, loading }) => ({
+    tags: tags.tags,
+    error: tags.error,
+    loading: loading["tags/LIST_TAGS"],
+  }));
+  useEffect(() => {
+    dispatch(listTags({ userId }));
+  }, [dispatch]);
 
-const words = [
-    {
-      text: '연기력',
-      value: 200,
-    },
-    {
-      text: '연기력',
-      value: 90,
-    },
-    {
-      text: '배경이 예쁜',
-      value: 80,
-    },
-    {
-      text: '카리스마',
-      value: 70,
-    },
-    {
-      text: '연기력',
-      value: 60,
-    },
-    {
-      text: '블록버스터',
-      value: 50,
-    },
-    {
-      text: '연기력',
-      value: 40,
-    },
-    {
-      text: '액션',
-      value: 30,
-    },
-    {
-      text: '슬픈',
-      value: 64,
-    },
-    {
-      text: '웃긴',
-      value: 64,
-    },
-    {
-      text: '블록버스터',
-      value: 11,
-    },
-    {
-      text: '블록버스터',
-      value: 11,
-    },
-    {
-      text: '블록버스터',
-      value: 11,
-    },
-    {
-      text: '블록버스터',
-      value: 11,
-    },
-    {
-      text: '강렬힌',
-      value: 30,
-    },
-    {
-      text: '강렬힌',
-      value: 30,
-    },
-    {
-      text: '강렬힌',
-      value: 30,
-    },
-    {
-      text: '한국배경',
-      value: 17,
-    },
-    {
-      text: '통쾌한',
-      value: 55,
-    },
-    {
-      text: '통쾌한',
-      value: 55,
-    },
-    {
-      text: '통쾌한',
-      value: 55,
-    },
-    {
-      text: '통쾌한',
-      value: 55,
-    },
-    {
-      text: '통쾌한',
-      value: 55,
-    },
-    {
-      text: '통쾌한',
-      value: 55,
-    },
-  ];
+  return (
+    <WordCloud tags={tags} error={error} loading={loading} />
+  );
+};
+
+export default withRouter(WordCloudContainer);
