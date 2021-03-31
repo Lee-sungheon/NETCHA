@@ -1,13 +1,13 @@
 import React from "react";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import useAutocomplete from "@material-ui/lab/useAutocomplete";
 // import { useSelector, useDispatch } from "react-redux";
 // import { actions } from "./SearchMovie/state";
 // import { actions as userActions } from "../../user/state";
 // import { useHistory } from "react-router-dom";
 import { InputBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   inputRoot: {
@@ -23,73 +23,105 @@ const useStyles = makeStyles((theme) => ({
       width: "35ch",
     },
   },
+  input: {
+    width: 300,
+    height: 50,
+  },
+  listbox: {
+    width: 330,
+    margin: 0,
+    padding: 0,
+    zIndex: 1,
+    position: "absolute",
+    listStyle: "none",
+    backgroundColor: theme.palette.background.paper,
+    color: "black",
+    maxHeight: 200,
+    border: "1px solid #e6e6e6",
+    '& li[data-focus="true"]': {
+      backgroundColor: "#e6e6e6",
+      cursor: "pointer",
+    },
+    "& li:active": {
+      backgroundColor: "#e6e6e6",
+    },
+    // overflow: "auto",
+    overflow: "hidden", // UI를 위해 스크롤 금지 했지만 고민해보고 결정~~!!
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "action",
+  },
+  movieli: {
+    height: 40,
+    lineHeight: "23px",
+    fontSize: "14px",
+    padding: "7px 0 0",
+    caretColor: "rgb(53, 53, 53)",
+  },
 }));
 
-export default function SearchInput() {
+const SearchInput = ({ movies, keyword, onChange, onKeyPress }) => {
   const classes = useStyles();
-//   const keyword = useSelector((state) => state.searchMovie.keyword);
-//   const dispatch = useDispatch();
-//   function setKeyword(value) {
-//     if (value !== keyword) {
-//       dispatch(actions.setValue("keyword", value));
-//       dispatch(actions.fetchAutoComplete(value));
-//     }
-//   }
+  const history = useHistory();
+  const {
+    getRootProps,
+    getInputProps,
+    getListboxProps,
+    getOptionProps,
+    groupedOptions,
+  } = useAutocomplete({
+    id: "use-autocomplete-demo",
+    options: { movies }.movies,
+    getOptionLabel: (option) => option,
+  });
 
-//   //   const autoCompletes = useSelector((state) => state.search.autoCompletes);
-//   //   const history = useHistory();
-  function goToUser(value) {
-    // const user = autoCompletes.find((item) => item.name === value);
-    // if (user) {
-    //   dispatch(userActions.setValue("user", user));
-    //   history.push(`/user/${user.name}`);
-    // }
-  }
+  const onSubmit = () => {
+    // alert('유저 아이디 넣어보자');
+    // set 뭐시기?  
+    const searchKeyword = '안녕';
+    history.push(`/searchMovie/${searchKeyword}`);
+  };
 
   return (
-    <div style={{ width: 300 }}>
-      <Autocomplete
-        freeSolo
-        // value={keyword}
-        // onChange={setKeyword}
-        onSelect={goToUser}
-        style={{ width: "100%" }}
-        options={movies.map((item) => item)}
-        // options={autoCompletes.map((item) => (item.name)}
-        autoFocus
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Search input"
-            prefix={<SearchIcon color="action" />}
-            margin="normal"
-            variant="outlined"
-            InputProps={{ ...params.InputProps, type: "search" }}
-          />
-          // <InputBase
-          //   {...params}
-          //   placeholder="작품의 제목, 배우, 감독을 검색해보세요."
-          //   classes={{
-          //     root: classes.inputRoot,
-          //     input: classes.inputInput,
-          //   }}
-          //   inputProps={{ "aria-label": "search" }}
-          // />
-        )}
-      />
-    </div>
+    <>
+      <div {...getRootProps()}>
+        <div className={classes.searchIcon}>
+          <SearchIcon color="action" />
+        </div>
+        <InputBase
+          placeholder="작품의 제목, 배우, 감독을 검색해보세요."
+          classes={{
+            root: classes.inputRoot,
+            input: classes.inputInput,
+          }}
+          {...getInputProps()}
+          inputProps={{ "aria-label": "search" }}
+          onKeyPress={onKeyPress}
+          onChange={onChange}
+        />
+        {/* <input className={classes.input} {...getInputProps()} /> */}
+      </div>
+      {groupedOptions.length > 0 ? (
+        <ul className={classes.listbox} {...getListboxProps()}>
+          {groupedOptions.map((option, index) => (
+            <li
+              className={classes.movieli}
+              {...getOptionProps({ option, index })}
+            >
+              {option}
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </>
   );
-}
+};
 
-const movies = [
-  "고질라 VS. 콩",
-  "극장판 귀멸의 칼날 무한열차편",
-  "자산어보",
-  "미나리",
-  "최면",
-  "파이터",
-  "디 아더 사이드",
-  "국카스텐 콘서트 실황 : 해프닝",
-  "더 박스",
-  "스파이의 아내",
-]
+export default SearchInput;

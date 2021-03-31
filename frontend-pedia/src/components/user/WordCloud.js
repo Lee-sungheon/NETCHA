@@ -13,8 +13,10 @@ const options = {
   rotations: 0,
 };
 
-export default function Wordcloud({ data }) {
+const Wordcloud = ({ words }) => {
   return (
-    <ReactWordcloud options={options} words={data} />
+    <ReactWordcloud options={options} words={words}/>
   );
 }
+
+export default Wordcloud;

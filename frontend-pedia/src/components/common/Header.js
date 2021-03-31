@@ -1,17 +1,18 @@
 import React from "react";
-import { AppBar, Toolbar, Button, InputBase } from "@material-ui/core";
+import { AppBar, Toolbar, Button } from "@material-ui/core";
 import { fade, makeStyles } from "@material-ui/core/styles";
-import SearchIcon from "@material-ui/icons/Search";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import netchapediaImg from "../../images/netchapedia.png";
-import SearchInput from "./SearchInput";
+import SearchInputContainer from "../../containers/movies/SearchInputContainer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: "100%",
     height: "62px",
-    backgroundColor: "#ffffff",
+    backgroundColor: "white",
+    position: "fixed",
+    zIndex: 50,
   },
   title: {
     flexGrow: 5,
@@ -42,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    color: "action",
   },
   inputRoot: {
     backgroundColor: "default",
@@ -58,15 +60,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header() {
-  function goToUser(e) {
-    e.preventDefault();
-    const id = 1;
-    history.push(`/user/${id}`);
-  }
-
+const Header = ({userId}) => {
   const classes = useStyles();
-  const history = useHistory();
 
   return (
     <div className={classes.root}>
@@ -90,10 +85,7 @@ export default function Header() {
           </Link>
           <div className={classes.title}></div>
           <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon color="action" />
-            </div>
-            <SearchInput />
+            <SearchInputContainer />
           </div>
           <Button
             color="action"
@@ -101,7 +93,7 @@ export default function Header() {
           >
             평가하기
           </Button>
-          <a href="#" onClick={goToUser}>
+          <Link to={`/user/${userId}`}>
             <img
               src="/images/profileIcon.jpg"
               className="profileIconImg"
@@ -110,10 +102,12 @@ export default function Header() {
                 borderRadius: "60%",
                 border: "1px solid #e6e6e6",
               }}
-            />
-          </a>
+              />
+              </Link>
         </Toolbar>
       </AppBar>
     </div>
   );
-}
+};
+
+export default Header;

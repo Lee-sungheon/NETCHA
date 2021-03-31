@@ -1,14 +1,5 @@
 .largeSlider {
-  // outline: none;
-  // .slick-prev:before {
-  //  left: 25px; 
-  //  z-index: 5;
-  // }
-  
-  // .slick-next:before {
-  //   right: 25px; 
-  // }
-  
+
   .slick-prev:before,
   .slick-next:before {
     opacity: 1;
@@ -20,12 +11,6 @@
     // border-radius: 50%;
   }
 
-  .image {
-    margin: 0 10px 0 10px;
-    height: 345px;
-    border-radius: 6px;
-  }
-
   .title {
     position: relative;
     left: 20px;
@@ -34,12 +19,11 @@
   }
 
   .MovieBox {
-    width: 16.699em;
+    width: 260px;
+    height: 450px;
 
     .movieAllWrap {
       display: flex;
-      height: 28.634em;
-      width: 16.699em;
       padding: 0 6px 0 6px;
 
       .moviePosterInside {
@@ -47,6 +31,12 @@
         width: 15.675em;
         position: relative;
         cursor: pointer;
+
+        .image {
+          margin: 0 10px 0 10px;
+          height: 345px;
+          border-radius: 6px;
+        }
 
         .movieRank {
           // @include rankIcon;
@@ -65,9 +55,14 @@
 
           .movieTitle {
             font-weight: bold;
-            font-size: 14px;
+            font-size: 16px;
+            letter-spacing: -0.3px;
+            line-height: 22px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             height: 22px;
-            margin: 10px 0 5px 0;
+            margin: 10px 0 3px 0;
             outline: none;
           }
 
@@ -85,22 +80,10 @@
             margin-top: 2px;
             height: 12px;
 
-            .iconStar {
-              font-size: 12px;
-              color: hotpink;
-              margin: 0 3px;
-            }
-
             .movieScore {
               color: hotpink;
               font-size: 13px;
             }
-          }
-          .movieRatio {
-            color: grey;
-            font-size: 13px;
-            letter-spacing: -0.3px;
-            margin: 5px 0 0 0;
           }
         }
       }

@@ -1,80 +1,38 @@
 .userWrapper {
-  height: 100%;
   width: 100%;
-  margin: 30px 0 30px 0;
-  margin-bottom: 20px;
-}
+  padding: 95px 0 30px 0;
+  border: 1px solid #e3e3e3;
 
-.userBox {
-  width: 600px;
-  border: 1px solid rgb(192, 192, 192);
-  border-radius: 6px;
-  margin: 0 auto;
-}
-
-.user {
-  padding: 0 20px 0 20px;
-}
-
-.wallPaper {
-  width: 100%;
-  height: 200px;
-  margin: 0 0 -20px -0.0145px;
-  background: linear-gradient(to right, #141130, #1481a7);
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-}
-
-hr {
-  border: 0;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.graph {
-  height: 200px;
-  background-color: rgb(206, 191, 245);
-}
-
-.smallSliderWrap {
-  height: 230px;
-}
-
-.userPreference {
-  width: 100%;
-}
-
-.profileIconImg {
-  width: 60px;
-  border-radius: 60%;
-  border: 1px solid #e6e6e6;
-}
-
-.starGraphWrap {
-  margin: 0 auto;
-
-  .starGraph {
-    width: 100%;
-    margin: 0 0 0 15px;
+  hr {
+    border: 0;
+    border-bottom: 1px solid #f0f0f0;
   }
+  .userBox {
+    width: 600px;
+    border: 1px solid rgb(192, 192, 192);
+    border-radius: 6px;
+    margin: 0 auto;
 
-  .starGraphInfo {
-    .starGraphLi {
-      list-style-type: none;
-      display: inline-block;
-      width: 33%;
-      margin: 0 -6px;
-      text-align: center;
-      vertical-align: top;
-      box-sizing: border-box;
+    .wallPaper {
+      width: 100%;
+      height: 200px;
+      margin: 0 0 -20px -0.0145px;
+      background: linear-gradient(to right, #141130, #1481a7);
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
     }
 
-    .starGraphNum {
-      font-weight: bold;
-    }
+    .user {
+      padding: 0 20px 0 20px;
 
-    .starGraphTitle {
-      font-size: 13px;
-      color: gray;
+      .profileIconImg {
+        width: 60px;
+        border-radius: 60%;
+        border: 1px solid #e6e6e6;
+      }
+      .smallSliderWrap {
+        height: 230px;
+      }
     }
   }
 }
