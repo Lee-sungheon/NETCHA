@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../state";
 import { useHistory } from "react-router";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   login_back: {
@@ -67,13 +68,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login(props) {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const [inputData, setInputData] = useState({ userId: "", password: "" });
 
   useEffect(() => {
     props.toggleIsHeader(false);
+    if (history.location.state) {
+      setInputData({ ...inputData, userId: history.location.state.userId });
+    }
     return () => {
       props.toggleIsHeader(true);
     };
@@ -87,15 +91,35 @@ export default function Login(props) {
   };
   const login = (e) => {
     e.preventDefault();
-    const userData = {
+    const body = {
       userId: inputData.userId,
       password: inputData.password,
     };
+    axios
+      .post("/netcha/user/login", JSON.stringify(body), {
+        headers: {
+          "Content-Type": "application/json",
+          // withCredentials: "true",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data.response === "success") {
+          console.log("로그인성공");
 
-    dispatch(actions.userLogin(userData));
-    history.push({
-      pathname: "/",
-    });
+          dispatch(actions.userLogin(res.data.data));
+          history.push({
+            pathname: "/",
+          });
+          alert("로그인되었습니다.");
+        } else {
+          console.log("로그인실패");
+          alert("아이디/비밀번호가 틀렸습니다.");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -138,6 +162,11 @@ export default function Login(props) {
                       value={inputData.password}
                       onChange={onPasswordHandler}
                       className={classes.login_div_textfield}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          login(e);
+                        }
+                      }}
                     />
 
                     <Button
