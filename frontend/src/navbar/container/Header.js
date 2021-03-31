@@ -12,7 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import Search from '../component/search/Search';
+import Search from "../component/search/Search";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -97,7 +97,6 @@ export default function Header() {
     setActiveValue(event.target.innerText);
   }
 
-
   useEffect(() => {
     window.onscroll = function () {
       myFunction();
@@ -122,7 +121,10 @@ export default function Header() {
       }
     }
   }, []);
-
+  const logout = (e) => {
+    e.preventDefault()
+    
+  }
   return (
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.root} id="header">
@@ -185,7 +187,7 @@ export default function Header() {
             noWrap
           ></Typography>
 
-          <Search activeValue={activeValue} setActiveValue={setActiveValue}/>
+          <Search activeValue={activeValue} setActiveValue={setActiveValue} />
 
           <Link to={"/"}>
             <div className={classes.Brightness4Icon}>
@@ -229,11 +231,17 @@ export default function Header() {
                 </Link>
               </StyledMenuItem>
               <StyledMenuItem>
-                <ListItemText primary="로그아웃" />
+                <Link
+                  to=""
+                  style={{
+                    color: "white",
+                  }}
+                >
+                  <ListItemText primary="로그아웃" />
+                </Link>
               </StyledMenuItem>
             </StyledMenu>
           </div>
-
         </Toolbar>
       </AppBar>
     </div>
