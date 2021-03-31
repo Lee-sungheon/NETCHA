@@ -2,6 +2,7 @@ package com.netcha.member.service;
 
 import com.netcha.config.UserRole;
 import com.netcha.member.data.Member;
+import com.netcha.member.data.Request.RequestChangeUser;
 
 import javassist.NotFoundException;
 
@@ -14,8 +15,10 @@ public interface AuthService {
     Member loginUser(String id, String password) throws Exception;
 
     Member findByUserId(String userId) throws NotFoundException;
-    Member socialFindByUserId(String userId);
+    Member checkFindByUserId(String userId);
 
+    void changeUser(RequestChangeUser member) throws NotFoundException;
+    
     void verifyEmail(String key) throws NotFoundException;
 
     void sendVerificationMail(Member member) throws NotFoundException;
