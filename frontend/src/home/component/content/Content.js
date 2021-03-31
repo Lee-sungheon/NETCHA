@@ -12,8 +12,8 @@ const Content = ({ movie, onClose, tabNo, setTabNumber }) => (
       <div
         className="content__background__image"
         style={tabNo === 2 || tabNo === 3 ? 
-          { 'backgroundImage': `url(${ movie.imageUrl[0] !== 'default' ? movie.imageUrl[1] : "/images/netchar2.png" })`, filter: 'blur(6px)', opacity: 0.2 }
-          : { 'backgroundImage': `url(${ movie.imageUrl[0] !== 'default' ? movie.imageUrl[1] : "/images/netchar2.png" })`}}
+          { 'backgroundImage': `url(${ movie.imageUrl[0] !== 'default' ? movie.imageUrl[1]? movie.imageUrl[1] : movie.imageUrl[0] : "/images/netchar2.png" })`, filter: 'blur(6px)', opacity: 0.2 }
+          : { 'backgroundImage': `url(${ movie.imageUrl[0] !== 'default' ? movie.imageUrl[1]? movie.imageUrl[1] : movie.imageUrl[0] : "/images/netchar2.png" })`}}
       />
     </div>
     <div className="content__area">
@@ -24,7 +24,7 @@ const Content = ({ movie, onClose, tabNo, setTabNumber }) => (
           <div className="content__rating_container__rating_box__rating">4.7</div>
         </div>
         <div className="content__rating_container__information">
-          { movie.rating !== undefined &&  <img style={{width: '12%', margin: '0 5px'}} src={`/images/${movie.rating.slice(0,2)}.svg`} />} 
+          { movie.rating !== "" && movie.rating !== undefined && <img style={{width: '12%', margin: '0 5px'}} src={`/images/${movie.rating.slice(0,2)}.svg`} />} 
           <span>{movie.time}분</span>
         </div>
       </div>
