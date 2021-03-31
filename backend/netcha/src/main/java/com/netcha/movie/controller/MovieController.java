@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001"})
 @RequestMapping("/movie")
 public class MovieController {
 	@Autowired
