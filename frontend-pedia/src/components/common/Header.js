@@ -1,7 +1,7 @@
 import React from "react";
 import { AppBar, Toolbar, Button } from "@material-ui/core";
 import { fade, makeStyles } from "@material-ui/core/styles";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import netchapediaImg from "../../images/netchapedia.png";
 import SearchInputContainer from "../../containers/movies/SearchInputContainer";
 

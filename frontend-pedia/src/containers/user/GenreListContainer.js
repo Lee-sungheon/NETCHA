@@ -8,14 +8,17 @@ export default function GenreListContainer() {
 
 const genre = [
   {
+    id: 1,
     name: '드라마',
     count: 25
   },
   {
+    id: 2,
     name: '액션',
     count: 9
   },
   {
+    id: 3,
     name: '코미디',
     count: 13
   },

@@ -16,12 +16,21 @@ export const listSearchMovies = ({page, keyword}) => {
   });
   return (movies);
   // return client.get(`/api/searchMovies/${queryString}`)
+  // return client.get(`/movie/list_totalView`)
 }
 
 // 메인페이지 넷챠 영화 순위 목록
 export const listNetChaRankingMovies = () => {
-  return client.get(`/movie/list_totalView`);
+  // return client.get(`/movie/list_totalView`);
+  return (movies);
 }
+
+// 사용자페이지 별점 준 영화 목록
+export const listScoreMovies = () => {
+  // return client.get(`/movie/list_totalView`);
+  return (movies);
+}
+
 
 const movie = {
   data: { title: '미나리' },
