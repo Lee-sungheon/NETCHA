@@ -50,10 +50,11 @@ public class MovieController {
 	}
 	
 	
-	@ApiOperation(value = "테스트중..")
+	@ApiOperation(value = "테스트용 api2", notes = "컨텐츠 기반 추천 테스트")
 	@GetMapping("/view")
-	public ResponseEntity<?> watchMovie(@RequestParam long no) {
-		
-		return new ResponseEntity<>("", HttpStatus.OK);
+	public ResponseEntity<?> watchMovie(@RequestParam long userId) {
+		List<MovieResponseDto> movies = movieService.recommendMovieByRank(userId);
+		System.out.println("컨텐츠 기반 추천 : "+movies.size());
+		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 }
