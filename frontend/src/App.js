@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./home/container/Home";
 import MovieFilter from "./moviefliter/container/MovieFilter";
 import Header from "./navbar/container/Header";
-import Footer from './navbar/container/Footer';
+import Footer from "./navbar/container/Footer";
 import LikeList from "./likeList/container/LikeList";
 import SearchList from "./navbar/container/SearchList";
 import EmptyPage from "./common/EmptyPage";
@@ -15,6 +15,7 @@ import Evaluation from "./evaluation/container/Evaluation";
 import Account from "./user/container/Account";
 import Login from "./user/container/Login";
 import TestMbti from "./mbti/container/TestMbti";
+import Mbti from "./mbti/container/Mbti";
 import Signup from "./user/container/Signup";
 import SignupDetail from "./user/container/SignupDetail";
 import ProfileList from "./user/container/ProfileList";
@@ -65,7 +66,9 @@ function App() {
             <Route path="/mbtiresult">
               <MbtiResult toggleIsHeader={toggleIsHeader} />
             </Route>
-            
+            <Route path="/mbti">
+              <Mbti toggleIsHeader={toggleIsHeader} />
+            </Route>
             <Route>
               <EmptyPage />
             </Route>
@@ -76,6 +79,5 @@ function App() {
     </BrowserRouter>
   );
 }
-
 
 export default App;

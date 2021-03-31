@@ -4,6 +4,9 @@ import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import { useSelector, useDispatch } from "react-redux";
+import { actions } from "../state";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   login_back: {
@@ -64,8 +67,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login(props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-  const [checked, setChecked] = useState(true);
   const [inputData, setInputData] = useState({ userId: "", password: "" });
 
   useEffect(() => {
@@ -81,12 +85,19 @@ export default function Login(props) {
   const onPasswordHandler = (e) => {
     setInputData({ ...inputData, password: e.target.value });
   };
+  const login = (e) => {
+    e.preventDefault();
+    const userData = {
+      userId: inputData.userId,
+      password: inputData.password,
+    };
 
-  const login = () => {};
-
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
+    dispatch(actions.userLogin(userData));
+    history.push({
+      pathname: "/",
+    });
   };
+
   return (
     <div>
       <div className={classes.login_back}>
@@ -132,6 +143,7 @@ export default function Login(props) {
                     <Button
                       variant="contained"
                       className={classes.login_div_loginbutton}
+                      onClick={login}
                     >
                       로그인
                     </Button>
