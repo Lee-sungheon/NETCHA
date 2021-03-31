@@ -12,16 +12,16 @@ import PopularBased from "../component/recommend/popular/PopularBased";
 
 export default function Home() {
   const movieLists = useSelector(state => state.home.movieLists);
-  const isLoading = useSelector(state => state.home.isLoading);
+  const isFilter = useSelector(state => state.home.isFilter);
   const dispatch = useDispatch();
   useEffect(() =>{
     if (movieLists.length === 0){
       dispatch(actions.requestMovieList());
+    } else if (isFilter) {
+      dispatch(actions.requestMovieList());
+      dispatch(actions.setIsFilter(false));
     }
   }, [])
-  // useEffect(() =>{
-  //   console.log(movieLists);
-  // }, [movieLists])
 
   return (
     <>
@@ -39,6 +39,9 @@ export default function Home() {
         <ContentBased loading={loading} idx={"slider-1"} />
         <PopularBased loading={loading} idx={"slider-2"} />
         <NewBased loading={loading} idx={"slider-3"} />
+        <ContentBased loading={loading} idx={"slider-4"} />
+        <PopularBased loading={loading} idx={"slider-5"} />
+        <NewBased loading={loading} idx={"slider-6"} />
       </div>
     </>
   );

@@ -14,12 +14,15 @@ import { withStyles } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from 'react-redux';
 import { actions } from "../../home/state";
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import GanreFilter from '../component/GanreFilter.js';
+import CountryFilter from '../component/CountryFilter.js';
 
 const StyledMenu = withStyles({
   paper: {
     backgroundColor: "black",
+    width: "200px",
     border: "1px solid #d3d4d5",
+    margin: "1px 0"
   },
 })((props) => (
   <Menu
@@ -55,6 +58,7 @@ export default function MovieFilter() {
   const movieLists = useSelector(state => state.home.movieLists);
   const [filterList, setFilterList] = useState([]);
   const isInfinite = useSelector(state => state.home.isInfinite);
+  const isLoading = useSelector(state => state.home.isLoading);
   const dispatch = useDispatch();
 
   const handleClick = (event) => {
@@ -67,15 +71,20 @@ export default function MovieFilter() {
   
   useEffect(() => {
     checkWindowInner()
-    dispatch(actions.requestMovieList());
+    if (movieLists.length === 0 && filterText === "추천 콘텐츠"){
+      dispatch(actions.requestMovieList());
+    }
     window.addEventListener("resize", function(){
       checkWindowInner()
     });
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", function(){
+        checkWindowInner()
+      });
     };
-  }, [])
+  }, []);
 
   useEffect(() => {
     repeat = []
@@ -83,7 +92,7 @@ export default function MovieFilter() {
       repeat.push(movieLists.slice(i*tabNo, (i+1)*tabNo))
     }
     setFilterList([...repeat])
-  }, [movieLists])
+  }, [movieLists, tabNo])
 
   function checkWindowInner() {
     const windowInnerWidth = window.innerWidth;
@@ -114,13 +123,13 @@ export default function MovieFilter() {
     setFilterText(e.target.innerText);
     handleClose();
     let filteredList = []
-    if (e.target.innerText === '오름차순(ㄱ-Z)') {
-      // 오름차순(ㄱ-Z)순 정렬
+    if (e.target.innerText === '오름차순(A-ㅎ)') {
+      // 오름차순(A-ㅎ))순 정렬
       filteredList = movieLists.slice().sort(function(a, b) {
         return a['title'] < b['title'] ? -1 : a['title'] > b['title']  ? 1 : 0;
       });
-      // '내림차순(Z-ㄱ)' 정렬
-    } else if (e.target.innerText === '내림차순(Z-ㄱ)') {
+      // '내림차순(ㅎ-A)' 정렬
+    } else if (e.target.innerText === '내림차순(ㅎ-A)') {
       filteredList = movieLists.slice().sort(function(a, b) {
         return a['title'] > b['title'] ? -1 : a['title'] < b['title']  ? 1 : 0;
       });
@@ -141,11 +150,14 @@ export default function MovieFilter() {
     <>
       <div className="movie-filter__top-bar__container">
         <div className="movie-filter__top-bar__area">
-          <div className="movie-filter__top-bar__left"></div>
+          <div className="movie-filter__top-bar__left">
+            <GanreFilter />
+            <CountryFilter />
+          </div>
           <div className="movie-filter__top-bar__right" >
-            <Link to={"/"}><div className="movie-filter__top-bar__button1" ><DehazeIcon /></div></Link>
+            <Link to={"/"}><div className="movie-filter__top-bar__right__button1" ><DehazeIcon /></div></Link>
             <Link to={"/movielist"}>
-              <div className="movie-filter__top-bar__button2">
+              <div className="movie-filter__top-bar__right__button2">
                 <ViewModuleIcon style={{margin: '0 15px'}}/>
                 <span style={{ fontSize: '0.5vw' }}>{filterText}</span>
                 <IconButton
@@ -154,7 +166,7 @@ export default function MovieFilter() {
                   variant="contained"
                   color="inherit"
                   onClick={handleClick}
-                  style={{ paddingLeft: "0px", position:'absolute', right:'40px', justifyContent: 'flex-end' }}
+                  style={{ paddingLeft: "0px", position:'absolute', right:'3.5%', justifyContent: 'flex-end' }}
                 >
                   <ArrowDropDownIcon style={{padding: '0'}} />
                 </IconButton>
@@ -165,16 +177,16 @@ export default function MovieFilter() {
                   onClose={handleClose}
                 >
                   <StyledMenuItem>
-                    <ListItemText primary="추천 콘텐츠" onClick={(changeFilterText)}/>
+                    <ListItemText primary="추천 콘텐츠" onClick={changeFilterText}/>
                   </StyledMenuItem>
                   <StyledMenuItem>
                     <ListItemText primary="출시일순" onClick={changeFilterText}/>
                   </StyledMenuItem>
                   <StyledMenuItem>
-                    <ListItemText primary="오름차순(ㄱ-Z)" onClick={changeFilterText}/>
+                    <ListItemText primary="오름차순(A-ㅎ)" onClick={changeFilterText}/>
                   </StyledMenuItem>
                   <StyledMenuItem>
-                    <ListItemText primary="내림차순(Z-ㄱ)" onClick={changeFilterText}/>
+                    <ListItemText primary="내림차순(ㅎ-A)" onClick={changeFilterText}/>
                   </StyledMenuItem>
                 </StyledMenu>
               </div>
@@ -184,19 +196,24 @@ export default function MovieFilter() {
       </div>
 
       <div className='movie-filter__container'>
-        {filterList.map((item, idx) => (
+        { isLoading &&
+          <div style={{height: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <CircularProgress color="secondary" />
+          </div>
+        }
+        { !isLoading && filterList.map((item, idx) => (
           <div id={`slider-${idx}`} className='like__container' key={idx}>
             <MovieList idx={`slider-${idx}`} num={tabNo}>
               {item.map((movie, index) => (
-                <MovieItem movie={movie} idx={index} key={movie.id}>
+                <MovieItem movie={movie} idx={index} key={index}>
                 </MovieItem>
               ))}
-          </MovieList>
-        </div>
+            </MovieList>
+          </div>
         ))}
-        <div style={{display: 'flex', justifyContent: 'center'}}>
+        {isInfinite && <div style={{display: 'flex', justifyContent: 'center'}}>
           <CircularProgress color="secondary" />
-        </div>
+        </div>}
       </div>
     </>
   )

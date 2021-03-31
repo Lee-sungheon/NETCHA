@@ -13,27 +13,9 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Search from '../component/search/Search';
+import './Header.scss';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: "rgba(0, 0, 0, 0)",
-    padding: "0 10px",
-    boxShadow: "none",
-  },
-  title: {
-    padding: theme.spacing(0, 0, 0, 1),
-    flexGrow: 1,
-    display: "block",
-    color: "white",
-  },
-  menu: {
-    padding: theme.spacing(0, 2),
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "white",
-  },
   Brightness4Icon: {
     padding: theme.spacing(0, 1),
     height: "100%",
@@ -80,10 +62,10 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-export default function Header() {
+export default function Header({toggleButton, setToggleButton}) {
   const classes = useStyles();
   const [activeValue, setActiveValue] = useState("홈");
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -93,12 +75,33 @@ export default function Header() {
     setAnchorEl(null);
   };
 
+  const onClick = () => {
+    setToggleButton(!toggleButton)
+    console.log(toggleButton)
+  }
+
   function handleChange(event) {
     setActiveValue(event.target.innerText);
   }
 
-
   useEffect(() => {
+    const header = document.getElementById("header");
+    function myFunction() {
+      if (window.pageYOffset > 0) {
+        if (!toggleButton) {
+          header.style.backgroundColor = "black";
+        } else{
+          header.style.backgroundColor = "white";
+        }
+      } else {
+        if (toggleButton) {
+          header.style.backgroundColor = "rgba(255, 255, 255, 1)";
+        } else {
+          header.style.backgroundColor = "rgba(255, 255, 255, 0)";
+        }
+      }
+    }
+    myFunction();
     window.onscroll = function () {
       myFunction();
     };
@@ -111,21 +114,11 @@ export default function Header() {
     } else {
       setActiveValue("홈");
     }
-    const header = document.getElementById("header");
-    const sticky = 0;
-
-    function myFunction() {
-      if (window.pageYOffset > sticky) {
-        header.style.backgroundColor = "rgba(0, 0, 0, 1)";
-      } else {
-        header.style.backgroundColor = "rgba(0, 0, 0, 0)";
-      }
-    }
-  }, []);
+  }, [toggleButton]);
 
   return (
-    <div className={classes.root}>
-      <AppBar position="fixed" className={classes.root} id="header">
+    <div className="root">
+      <AppBar position="fixed" className="root" id="header">
         <Toolbar>
           <Link to={"/"}>
             <img
@@ -138,7 +131,7 @@ export default function Header() {
           <div>
             <Link to={"/"}>
               <Typography
-                className={classes.menu}
+                className="menu"
                 variant="subtitle2"
                 noWrap
                 style={activeValue === "홈" ? { fontWeight: "bold" } : {}}
@@ -151,7 +144,7 @@ export default function Header() {
           <div>
             <Link to={"/mylike"}>
               <Typography
-                className={classes.menu}
+                className="menu"
                 variant="subtitle2"
                 noWrap
                 style={
@@ -168,7 +161,7 @@ export default function Header() {
           <div>
             <Link to={"/eval"}>
               <Typography
-                className={classes.menu}
+                className="menu"
                 variant="subtitle2"
                 noWrap
                 style={activeValue === "평가하기" ? { fontWeight: "bold" } : {}}
@@ -180,7 +173,7 @@ export default function Header() {
           </div>
 
           <Typography
-            className={classes.title}
+            className="title"
             variant="subtitle2"
             noWrap
           ></Typography>
@@ -189,7 +182,7 @@ export default function Header() {
 
           <Link to={"/"}>
             <div className={classes.Brightness4Icon}>
-              <Brightness4Icon />
+              <Brightness4Icon className="ld-button" onClick={onClick}/>
             </div>
           </Link>
           <div className={classes.Brightness4Icon}>
@@ -198,7 +191,7 @@ export default function Header() {
               className={classes.small}
               src="https://ww.namu.la/s/7afd3dd8186b6098081d52af9ba76b4b633331079cba253db56054f5d2a90fea37714c9f060074bbf86626a7f3016d89dc50d7f0c662ce806552ebb3f23f52d5968d07a1e25c8996f649d7364e995ae970190dd4ca6cb37dfb9bc0201e53540a1e5f2d2df2636376d26f60e96d9df172"
             />
-            <Typography className={classes.title} variant="subtitle2" noWrap>
+            <Typography className="title" variant="subtitle2" noWrap>
               싸피
             </Typography>
             <IconButton
@@ -209,7 +202,7 @@ export default function Header() {
               onClick={handleClick}
               style={{ paddingLeft: "0px" }}
             >
-              <ArrowDropDownIcon />
+              <ArrowDropDownIcon className="arrow-icon"/>
             </IconButton>
             <StyledMenu
               id="customized-menu"
