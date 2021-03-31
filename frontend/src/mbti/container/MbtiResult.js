@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useLocation } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { actions } from "../../user/state";
+import axios from "axios";
 import "./Mbti.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -34,6 +38,10 @@ const useStyles = makeStyles((theme) => ({
 export default function MbtiResult(props) {
   const location = useLocation();
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { userId } = useSelector((state) => ({
+    userId: state.user.userData.member.userId,
+  }));
   const [mbtiImg, setMbtiImg] = useState({
     mbtiimg: "",
   });
@@ -49,6 +57,31 @@ export default function MbtiResult(props) {
       ...mbtiImg,
       mbtiimg: "images/" + MBTI.E_I + MBTI.N_S + MBTI.T_F + MBTI.J_P + ".png",
     });
+
+    const body = {
+      mbti: MBTI.E_I + MBTI.N_S + MBTI.T_F + MBTI.J_P,
+      userId: userId,
+    };
+
+    axios
+      .post("netcha/user/changeUser", JSON.stringify(body), {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        axios
+          .post("netcha/user/info", userId, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+          .then((res) => {
+            console.log(res);
+            dispatch(actions.userInfo(res.data.data));
+          });
+      });
   }, [MBTI]);
   useEffect(() => {
     const ChoiceList = location.state.choiceList.choice;
@@ -141,6 +174,9 @@ export default function MbtiResult(props) {
               ) : null}
               {/* {MBTI.E_I + MBTI.N_S + MBTI.T_F + MBTI.J_P} 입니다. */}
             </div>
+            <Link to="/">
+              <button>메인페이지로</button>
+            </Link>
           </div>
         </div>
       </div>
