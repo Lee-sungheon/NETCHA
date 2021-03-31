@@ -66,7 +66,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public Member socialFindByUserId(String userId) {
+    public Member checkFindByUserId(String userId) {
         Member member = memberRepository.findByUserId(userId);
         return member;
     }
