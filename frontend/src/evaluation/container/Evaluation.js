@@ -8,6 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import { actions } from "../state";
 import { useSelector, useDispatch } from 'react-redux';
+import './Evaluation.scss';
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -76,6 +77,7 @@ export default function Evaluation() {
   const [colsNum, setColsNum] = useState(5);
   const movieLists = useSelector(state => state.evaluation.movieLists);
   const isLoading = useSelector(state => state.evaluation.isLoading);
+  const isInfinite = useSelector(state => state.evaluation.isInfinite);
   const dispatch = useDispatch();
   useEffect(() => {
     checkWindowInner()
@@ -83,6 +85,13 @@ export default function Evaluation() {
     window.addEventListener('resize', function(){
       checkWindowInner()
     });
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", function(){
+        checkWindowInner()
+      });
+    };
   }, [])
   
   function checkWindowInner() {
@@ -97,6 +106,16 @@ export default function Evaluation() {
       setColsNum(5)
     }
   }
+
+  function handleScroll() {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+    if (scrollTop + clientHeight + 1 >= scrollHeight && !isInfinite) {
+      // 페이지 끝에 도달하면 추가 데이터를 받아온다
+      dispatch(actions.requestAddMovieList());
+    }
+  };
 
   return (
     <div>
@@ -118,66 +137,25 @@ export default function Evaluation() {
           <BorderLinearProgress variant="determinate" value={pickNum*2.5} />
         </div>
       </div>
-      <div className={classes.root}>
-        { !isLoading &&
+      <div className="eval__root">
+        {!isLoading &&
           <GridList cellHeight={'auto'} className={classes.gridList} cols={colsNum} spacing={35}>
-            {movieLists.map((tile) => (tile.posterUrl !== 'default' &&
-              <GridListTile key={tile.title}>
+            {movieLists.map((tile, idx) => (tile.posterUrl !== 'default' &&
+              <GridListTile key={idx}>
                 <MovieItem tile={tile} pickNum={pickNum} setPickNum={setPickNum}/>
               </GridListTile>
             ))}
           </GridList>
         }
-        { isLoading &&
+        {isLoading &&
           <div style={{height: '60vh', display: 'flex', alignItems: 'center'}}>
             <CircularProgress color="secondary" />
           </div>
         }
       </div>
+      {isInfinite && !isLoading && <div style={{display: 'flex', justifyContent: 'center'}}>
+        <CircularProgress color="secondary" />
+      </div>}
     </div>
   );
 }
-
-
-const tileData = [
-  {
-    img: 'https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_400,q_80,w_280/v1466398085/c8v66gndnoud4lhcyyzh.jpg',
-    title: '성난 변호사',
-   },
-   {
-    img: 'https://image.tmdb.org/t/p/w500/pci1ArYW7oJ2eyTo2NMYEKHHiCP.jpg',
-    title: '가브리엘의 지옥 파트 2',
-   },
-   {
-    img: 'https://image.tmdb.org/t/p/w500/oyG9TL7FcRP4EZ9Vid6uKzwdndz.jpg',
-    title: '보랏 속편',
-   },
-   {
-    img: 'https://image.tmdb.org/t/p/w500/3hO6DIGRBaJQj2NLEYBMwpcz88D.jpg',
-    title: '쇼생크 탈출',
-   },
-   {
-    img: 'https://image.tmdb.org/t/p/w500/2CAL2433ZeIihfX1Hb2139CX0pW.jpg',
-    title: '용감한 자가 신부를 데려가리',
-   },
-   {
-    img: 'https://image.tmdb.org/t/p/w500/cOwVs8eYA4G9ZQs7hIRSoiZr46Q.jpg',
-    title: '대부',
-   },
-   {
-    img: 'https://image.tmdb.org/t/p/w500/oyyUcGwLX7LTFS1pQbLrQpyzIyt.jpg',
-    title: '쉰들러 리스트',
-   },
-   {
-    img: 'https://image.tmdb.org/t/p/w500/wx1Dxr4UyvN18SyC5GsVWWWtYja.jpg',
-    title: '너의 이름은',
-   },
-   {
-    img: 'https://image.tmdb.org/t/p/w500/u1L4qxIu5sC2P082uMHYt7Ifvnj.jpg',
-    title: '센과 치히로의 행방불명',
-   },
-   {
-    img: 'https://image.tmdb.org/t/p/w500/eJ0kCMcqKLBUaHhB9PfOMFu2uim.jpg',
-    title: '기생충',
-   },
-];

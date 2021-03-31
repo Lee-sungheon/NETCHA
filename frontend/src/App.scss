@@ -8,4 +8,50 @@
   background-color: rgb(20, 21, 23);
   padding-top: 64px;
   height: 100%;
+  overflow: hidden;
+  &--toggle {
+    color: black;
+    background-color: white;
+    .ld-button {
+      color: black;
+    }
+    h4 {
+      color: black !important;
+    }
+    .root {
+      color: white !important;
+      background-color: rgba(255, 255, 255, 0);
+      z-index: 15;
+      border-bottom: 1px solid gray;
+    }
+    .menu {
+      color: black;
+      font-weight: 700;
+    }
+    .title {
+      color: black;
+      font-weight: 700;
+    }
+    .arrow-icon {
+      color: black;
+    }
+    .eval__root {
+      background-color: white;
+    }
+    .search-icon {
+      color: black;
+    }
+    .show-card-title {
+      color: black;
+      font-weight: 700;
+    }
+    .movie-show-card-title {
+      color: black;
+      font-weight: 700;
+    }
+    .like__title {
+      color: black;
+      font-weight: 900;
+    }
+  }
 }

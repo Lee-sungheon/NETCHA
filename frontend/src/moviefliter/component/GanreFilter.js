@@ -1,0 +1,147 @@
+import { useState } from 'react'; 
+import IconButton from "@material-ui/core/IconButton";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import ListItemText from "@material-ui/core/ListItemText";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import { withStyles } from "@material-ui/core/styles";
+import { useSelector, useDispatch } from 'react-redux';
+import { actions } from "../../home/state";
+
+const StyledMenu = withStyles({
+  paper: {
+    backgroundColor: "black",
+    width: "107px",
+    border: "1px solid #d3d4d5",
+    margin: "1px 0",
+    maxHeight: "200px",
+  },
+})((props) => (
+  <Menu
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "right",
+    }}
+    transformOrigin={{
+      vertical: "top",
+      horizontal: "right",
+    }}
+    {...props}
+  />
+));
+
+const StyledMenuItem = withStyles((theme) => ({
+  root: {
+    backgroundColor: "black",
+    color: "white",
+    height: "25px",
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
+}))(MenuItem);
+
+
+export default function GanreFilter() {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [ganreText, setGanreText] = useState("장르");
+  const dispatch = useDispatch();
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  function changeFilterText(e) {
+    setGanreText(e.target.innerText);
+    handleClose();
+    dispatch(actions.requestFilterMovieList());
+  }
+  return (
+    <div className="movie-filter__top-bar__left__filter1" style={{padding: '0 10px', width: '85px'}}>
+      <div style={{ fontSize: '0.5vw' }}>{ganreText}</div>
+      <IconButton
+        aria-controls="customized-ganre"
+        aria-haspopup="true"
+        variant="contained"
+        color="inherit"
+        onClick={handleClick}
+        style={{ padding: 0, position:"absolute", left: '130px'}}
+      >
+        <ArrowDropDownIcon style={{padding: 0}} />
+      </IconButton>
+      <StyledMenu
+        id="customized-ganre"
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        {GANRES.map((ganre, idx)=>(
+          <StyledMenuItem key={idx}>
+            <ListItemText primary={ganre} onClick={changeFilterText}/>
+          </StyledMenuItem>
+        ))}
+      </StyledMenu>
+    </div>
+  )
+}
+
+const GANRES = [
+  '장르',
+  '예술', 
+  '어드벤처', 
+  '공포',
+  '활극', 
+  '뮤지컬', 
+  '뮤직', 
+  '문화', 
+  '인권', 
+  '아동', 
+  '액션', 
+  '에로', 
+  '드라마', 
+  '멜로', 
+  '청춘영화', 
+  '반공/분단', 
+  '사회물(경향)', 
+  '로드무비', 
+  '판타지', 
+  '공포(호러)', 
+  '전쟁', 
+  '범죄', 
+  '모험', 
+  '애니메이션', 
+  '군사', 
+  '스릴러', 
+  '스포츠', 
+  '애정', 
+  '전기', 
+  '신파', 
+  '코메디', 
+  '기록', 
+  '하이틴(고교)', 
+  '교육', 
+  '문예', 
+  '역사', 
+  '과학', 
+  '무협', 
+  '미스터리', 
+  'SF',
+  '자연ㆍ환경', 
+  '로맨스', 
+  '연쇄극', 
+  '인물', 
+  '갱스터', 
+  '가족', 
+  '시대극/사극', 
+  '재난', 
+  '실험', 
+  '첩보', 
+  '느와르', 
+  '종교', 
+  '사회', 
+  '옴니버스', 
+  '서부'
+]

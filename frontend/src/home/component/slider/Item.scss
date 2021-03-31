@@ -4,6 +4,10 @@
   transition: transform 300ms ease 100ms;
   margin-right: 0.3%;
 }
+.item:hover {
+  transition-delay: 0.5s;
+  transition: transform 300ms ease 100ms;
+}
 @media ( max-width: 1280px ) {
   .item {
     flex: 0 0 19.7%;
@@ -33,6 +37,7 @@
   position: relative;
   overflow: hidden;
   padding: 28.125% 0;
+  border-radius: 3px;
 }
 
 .image-style {
@@ -47,10 +52,16 @@
 }
 
 .show-card-content {
+  transition-delay: 0.4s;
   position: absolute;
   background-color: rgb(25, 25, 25);
   visibility: hidden;
   color: white;
+  border-radius: 4%;
+  top: 98%;
+  z-index: 1;
+  right: 0;
+  left: 0;
 }
 
 .show-card-title {

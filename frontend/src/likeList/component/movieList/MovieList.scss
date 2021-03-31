@@ -11,50 +11,51 @@
   }
 
   &:not(&--open) .movie-item:hover {
-    transform: scale(1.3) translateY(-15%) !important;
+    transform: scale(1.5) translateY(-50%) !important;
     z-index: 10;
+    transition-delay: 0.5s;
   }
 
   &:not(&--left) .movie-item:hover {
-    transform: scale(1.3) translateY(-15%) translateX(11%) !important;
+    transform: scale(1.5) translateY(-50%) translateX(16.5%) !important;
     z-index: 10;
+    transition-delay: 0.5s;
   }
 
   &:not(&--right) .movie-item:hover {
-    transform: scale(1.3) translateY(-15%) translateX(-11%) !important;
+    transform: scale(1.5) translateY(-50%) translateX(-16.5%) !important;
     z-index: 10;
+    transition-delay: 0.5s;
   }
 
   &:not(&--open):hover .movie-item {
-    transform: translateX(-15%);
+    transform: translateX(-25%);
+    transition-delay: 0.5s;
   }
 
   &:not(&--right):hover .movie-item {
-    transform: translateX(-29%);
-  }
-
-  &:not(&--left):hover .movie-item {
-    transform: translateX(0%);
+    transform: translateX(-50%);
+    transition-delay: 0.5s;
   }
 
   &:not(&--open) .movie-item:hover ~ .movie-item {
-    transform: translateX(15%);
-  }
-
-  &:not(&--right) .movie-item:hover ~ .movie-item {
-    transform: translateX(0%);
+    transform: translateX(25%);
+    transition-delay: 0.5s;
   }
 
   &:not(&--left) .movie-item:hover ~ .movie-item {
-    transform: translateX(29%);
+    transform: translateX(50%);
+    transition-delay: 0.5s;
   }
   
   &:not(&--open) .movie-item:hover .movie-show-card-content {
     visibility: visible;
-    position: relative;
+    border: 0.01px solid rgba(255, 255, 255, 0.2);
+    transition-delay: 0.5s;
   }
 
   &:not(&--open) .movie-item:hover .movie-show-card-title {
-    display: none;
+    display: hidden;
+    transition-delay: 0.5s;
   }
 }
