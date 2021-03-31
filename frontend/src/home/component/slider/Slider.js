@@ -34,6 +34,7 @@ const Slider = ({ children, activeSlide, title, idx }) => {
 
   const handleClose = () => {
     setCurrentSlide(null);
+    setTabNo(1);
   };
 
   const contextValue = {
@@ -43,8 +44,7 @@ const Slider = ({ children, activeSlide, title, idx }) => {
     currentSlide,
   };
   
-  const sliderWrap1 = document.getElementById(idx)
-  const sliderWrap = document.getElementById(`wrapperidx${idx}`)
+  const sliderWrap = document.getElementById(idx)
   const enterSetShow = (e) => {
     // 맨왼쪽, 맨오른쪽 아이템 트랜지션 변경
     let num = 6
@@ -73,19 +73,8 @@ const Slider = ({ children, activeSlide, title, idx }) => {
       if (showButton === false){
         setShowButton(true)
       }
-      let id = Number(idx.split('-')[1]) + 1
-      let index = `slider-${id}`
-      sliderWrap1.style.zIndex = 1
-      sliderWrap.style.padding = '20px 0'
-      while (true){
-        index = `slider-${id}`
-        const sliderWrap2 = document.getElementById(index)
-        if (sliderWrap2) {
-          sliderWrap2.style.top = 0
-        } else {
-          break
-        }
-        id += 1
+      if (sliderWrap){
+        sliderWrap.style.zIndex = 1
       }
       return
     }
@@ -93,21 +82,8 @@ const Slider = ({ children, activeSlide, title, idx }) => {
       if (showButton === true){
         setShowButton(false)
       }
-      if (!currentSlide) {
-        let id = Number(idx.split('-')[1]) + 1
-        let index = `slider-${id}`
-        sliderWrap1.style.zIndex = 10
-        sliderWrap.style.padding = '20px 0 70px 0'
-        while (true){
-          const sliderWrap2 = document.getElementById(index)
-          index = `slider-${id}` 
-          if (sliderWrap2) {
-            sliderWrap2.style.top = '-177px'
-          } else {
-            break
-          }
-          id += 1
-        }
+      if (!currentSlide && sliderWrap) {
+        sliderWrap.style.zIndex = 10
       }
     }
   }
@@ -116,20 +92,8 @@ const Slider = ({ children, activeSlide, title, idx }) => {
     if (showButton === false){
       setShowButton(true)
     }
-    sliderWrap1.style.zIndex = 1
-    let id = Number(idx.split('-')[1]) + 1
-    let index = `slider-${id}`
-    sliderWrap1.style.zIndex = 1
-    sliderWrap.style.padding = '20px 0'
-    while (true){
-      index = `slider-${id}`
-      const sliderWrap2 = document.getElementById(index)
-      if (sliderWrap2) {
-        sliderWrap2.style.top = 0
-      } else {
-        break
-      }
-      id += 1
+    if (sliderWrap){
+      sliderWrap.style.zIndex = 1
     }
   }
 

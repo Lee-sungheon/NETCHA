@@ -22,7 +22,6 @@ export function callApiPopularMovieList() {
   const url = '/netcha/movie/list_totalView'
   return axios.get(url)
     .then((Response)=>{
-      console.log(Response.data)
       return Response.data
     })
     .catch((Error)=>{console.log(Error)})

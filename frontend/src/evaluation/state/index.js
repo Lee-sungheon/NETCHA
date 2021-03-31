@@ -1,6 +1,11 @@
 import { createReducer, createSetValueAction, setValueReducer } from '../../common/createReducer';
 
 export const types = {
+  // 영화 인피니트 스크롤
+  REQUEST_ADD_MOVIELIST: 'evaluation/REQUEST_ADD_MOVIELIST',
+  ADD_MOVIELIST: 'evaluation/ADD_MOVIELIST',
+  SET_INFINITE: 'evaluation/SET_INFINITE',
+  // 추천 영화 받아오기
   REQUEST_MOVIELIST: 'evaluation/REQUEST_MOVIELIST',
   SET_MOVIELIST: 'evaluation/SET_MOVIELIST',
   SET_LOADING: 'evaluation/SET_LOADING',
@@ -8,6 +13,14 @@ export const types = {
 };
 
 export const actions = {
+  // 영화 인피니트 스크롤
+  requestAddMovieList: () => ({ type: types.REQUEST_ADD_MOVIELIST }),
+  addMovieList: data => ({ type: types.ADD_MOVIELIST, data }),
+  setInfinite: isInfinite => ({
+    type: types.SET_INFINITE,
+    isInfinite,
+  }),
+  // 추천 영화 받아오기
   requestMovieList: () => ({ type: types.REQUEST_MOVIELIST }),
   setMovieList: data => ({ type: types.SET_MOVIELIST, data }),
   setLoading: isLoading => ({
@@ -17,8 +30,13 @@ export const actions = {
   setValue: createSetValueAction(types.SET_VALUE),
 }
 
-const INITIAL_STATE = { movieLists: [], isLoading: false, error: '', };
+const INITIAL_STATE = { movieLists: [], isLoading: false, error: '', isInfinite: false , };
 const reducer = createReducer(INITIAL_STATE, {
+  // 영화 인피니트 스크롤
+  [types.ADD_MOVIELIST]: (state, action) => {
+    state.movieLists = state.movieLists.concat(action.data)
+  },
+  [types.SET_INFINITE]: (state, action) => (state.isInfinite = action.isInfinite),
   [types.SET_MOVIELIST]: (state, action) => {
     state.movieLists = action.data
   },

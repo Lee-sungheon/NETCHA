@@ -1,0 +1,11 @@
+.eval {
+  &__root {
+    margin: 0 50px 50px 50px;
+    padding-top: 130px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    overflow: hidden;
+    background-color: rgb(20, 21, 23);
+  }
+}
