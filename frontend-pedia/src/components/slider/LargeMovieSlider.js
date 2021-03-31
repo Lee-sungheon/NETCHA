@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./LargeMovieSlider.scss";
 import { useHistory } from "react-router";
 
-export default function LargeMovieSlider({ data, title }) {
+export default function LargeMovieSlider({ movies, title }) {
   
   var settings = {
     dots: false,
@@ -52,24 +52,24 @@ export default function LargeMovieSlider({ data, title }) {
       </div>
       <div>
         <Slider {...settings}>
-          {data.map((data) => {
+          {movies.map((movie) => {
             return (
-              <div className="MovieBox" key={data.id}>
+              <div className="MovieBox" key={movie.id}>
                 <div className="movieAllWrap">
                   <div className="moviePosterInside">
                     <img
                       className="image"
-                      // onClick={goToMovieDetail(data.title)}
-                      alt={data.title}
-                      src={data.image}
-                      onClick={() => history.push(`/movieDetail/${data.id}`)}
+                      // onClick={goToMovieDetail(movie.title)}
+                      alt={movie.title}
+                      src={movie.image}
+                      onClick={() => history.push(`/movieDetail/${movie.id}`)}
                     />
                     <div className="movieInfo">
-                      <div className="movieTitle">{data.title}</div>
+                      <div className="movieTitle" title={movie.title}>{movie.title}</div>
                       <div className="movieDate">2021 · 한국</div>
                       <div className="movieRate">
                         <span className="movieScore">평점</span>
-                        <span className="movieScore">★5</span>
+                        <span className="movieScore">&nbsp;★5</span>
                       </div>
                     </div>
                   </div>
