@@ -51,6 +51,7 @@ public class MemberController {
 	@Autowired
 	private RedisUtil redisUtil;
 
+
 	@ApiOperation(value = "회원 가입을 한다.", response = Response.class)
 	@PostMapping("/signup")
 	public Response signUpUser(@RequestBody Member member) {
@@ -73,6 +74,20 @@ public class MemberController {
 		}
 	}
 
+
+	@ApiOperation(value = "유저 정보 조회", response = Response.class)
+	@PostMapping("/info")
+	public Response info(@RequestBody String userId) {
+		try {
+			Member member = authService.findByUserId(userId);
+			MemberResponseDto userInfo = new MemberResponseDto(member);
+			return new Response("success", "유저정보 조회 성공", userInfo);
+		} catch (Exception e) {
+			return new Response("error", "유저정보 조회 실패", null);
+		}
+	}
+
+	
 	@ApiOperation(value = "Id 중복체크", response = Response.class)
 	@PostMapping("/checkId")
 	public Response checkId(@RequestBody String userId) {
