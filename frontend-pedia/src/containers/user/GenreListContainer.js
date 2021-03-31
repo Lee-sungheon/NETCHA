@@ -1,26 +1,24 @@
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { withRouter } from "react-router";
 import CountryAndGenreList from "../../components/user/CountryAndGenreList";
+import { listGenres } from "../../modules/genres";
 
-export default function GenreListContainer() {
+const GenreListContainer = () => {
+  const userId = 99999;
+  const dispatch = useDispatch();
+  const { genres, error, loading } = useSelector(({ genres, loading }) => ({
+    genres: genres.genres,
+    error: genres.error,
+    loading: loading["genres/LIST_GENRES"],
+  }));
+  useEffect(() => {
+    dispatch(listGenres({ userId }));
+  }, [dispatch]);
   return (
-    <CountryAndGenreList data={genre} />
+    <CountryAndGenreList data={genres} error={error} loading={loading} />
   );
-}
+};
 
-const genre = [
-  {
-    id: 1,
-    name: '드라마',
-    count: 25
-  },
-  {
-    id: 2,
-    name: '액션',
-    count: 9
-  },
-  {
-    id: 3,
-    name: '코미디',
-    count: 13
-  },
-];
+export default withRouter(GenreListContainer);
 
