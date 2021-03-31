@@ -32,15 +32,18 @@ export default function BasicInformation({ movie }) {
   return (
     <>
       <div className="content__description">
-        2027년, 전 세계 모든 여자가 임신 능력을 상실한 시대. 아들이 죽은 후 삶의 의지를 잃은 
-        테오 앞에 20년 만에 나타난 전 부인 줄리안은 그에게 기적적으로 임신한 소녀 키를 부탁한다.
+        { movie.scenario.slice(0, 235) }
+        { movie.scenario.length > 250 && '...'}
+        { movie.scenario.length > 250 && <span style={{color: 'white', cursor: 'pointer'}}>
+          더보기
+        </span>}
       </div>
       <div className="content__information">
         <div className="content__information__title">
           감독
         </div>
         <div className="content__information__content">
-          알폰소 쿠아론
+          { movie.directors[0] }
         </div>
       </div>
       <div className="content__information">
@@ -48,7 +51,9 @@ export default function BasicInformation({ movie }) {
           출연
         </div>
         <div className="content__information__content">
-          매튜 맥커너히, 앤 해서웨이, 제시카 차스테인
+          { movie.casts.slice(0,3).map((member, idx) => (
+            <span key={member}>{idx !== 0 && <span>, </span>}{member.split('(')[0]}</span>
+          ))}
         </div>
       </div>
       <div className="content__information">
@@ -56,7 +61,10 @@ export default function BasicInformation({ movie }) {
           개요
         </div>
         <div className="content__information__content">
-          모험 · 드라마   |   미국 · 영국   |    2014년
+          { movie.ganre.slice(0,3).map((gan, idx) => (
+            <span key={gan}>{idx !== 0 && <span> • </span>}{gan}</span>
+          ))}
+          <span> | </span> { movie.country[0] } <span> | </span> {movie.open}년
         </div>
       </div>
       <div className="content__button_box">

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import TestMbtiList from "../component/TestMbtiItem";
 import { useHistory } from "react-router";
+import "./Mbti.css";
 
 const useStyles = makeStyles((theme) => ({
   mbti_back: {
@@ -19,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "900px",
     height: "100vh",
     paddingTop: "10px",
+    fontFamily: "Bazzi",
   },
   mbti_div: {
     background: "rgb(0, 0, 0, 1)",

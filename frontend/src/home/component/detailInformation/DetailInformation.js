@@ -29,17 +29,12 @@ export default function DetailInformation({ movie }) {
     <>
       <div style={{width: '20%'}}>
         <div className="detail__title">감독</div>
-        <p className="detail__people">미셸 공드리</p>
+        <p className="detail__people">{ movie.directors[0] }</p>
 
         <div className="detail__title" style={{ marginTop: '1.5vw'}}>배우</div>
-        <p className="detail__people">짐 캐리</p>
-        <p className="detail__people">케이트 원슬렛</p>
-        <p className="detail__people">짐 캐리</p>
-        <p className="detail__people">케이트 원슬렛</p>
-        <p className="detail__people">짐 캐리</p>
-        <p className="detail__people">케이트 원슬렛</p>
-        <p className="detail__people">짐 캐리</p>
-        <p className="detail__people">케이트 원슬렛</p>
+        { movie.casts.map((member) => (
+          <p className="detail__people" key={member}>{member.split('(')[0]}</p>
+        ))}
       </div>
       <div style={{width: '80%', display: 'flex'} }>
         <div className="detail__chevron-box" 

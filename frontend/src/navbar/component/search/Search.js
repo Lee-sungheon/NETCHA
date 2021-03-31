@@ -70,8 +70,9 @@ export default function Search({activeValue, setActiveValue}) {
   const history = useHistory();
   const classes = useStyles();
   const text = useSelector(state => state.search.text);
+  
+  const dispatch = useDispatch();
   const [searchText, setSearchText] = useState(text);
-
   useEffect(() =>{
     if (activeValue !== 'search') {
       setSearchText('')
@@ -79,7 +80,6 @@ export default function Search({activeValue, setActiveValue}) {
     }
   }, [activeValue])
   
-  const dispatch = useDispatch();
   function onChangeText(e) {
     const text = e.target.value;
     dispatch(actions.trySetText(text));

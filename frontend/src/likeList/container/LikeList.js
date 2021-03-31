@@ -2,21 +2,27 @@ import { useState, useEffect } from 'react';
 import './LikeList.scss';
 import MovieList from '../component/movieList/MovieList';
 import MovieItem from '../component/movieList/MovieItem';
+import { actions } from "../state";
+import { useSelector, useDispatch } from 'react-redux';
 
 let repeat = []
 export default function LikeList() {
   const [tabNo, setTabNo] = useState(5);
-
+  const movieLists = useSelector(state => state.like.movieLists);
+  const dispatch = useDispatch();
   useEffect(() => {
     checkWindowInner()
+    if (movieLists.length === 0){
+      dispatch(actions.requestMovieList());
+    }
     window.addEventListener('resize', function(){
       checkWindowInner()
     });
   }, [])
-
+  
   repeat = []
-  for (let i=0 ; i<=movies.length/tabNo ; i++){
-    repeat.push(movies.slice(i*tabNo, (i+1)*tabNo))
+  for (let i=0 ; i<=movieLists.length/tabNo ; i++){
+    repeat.push(movieLists.slice(i*tabNo, (i+1)*tabNo))
   }
   
   function checkWindowInner() {
@@ -53,223 +59,3 @@ export default function LikeList() {
     </>
   )
 }
-
-const movies = [
-  {
-    id: 1,
-    image: "/images/slide1.jpg",
-    imageBg: "/images/slide1b.webp",
-    title: "1983",
-  },
-  {
-    id: 2,
-    image: "/images/slide2.jpg",
-    imageBg: "/images/slide2b.webp",
-    title: "Russian doll",
-  },
-  {
-    id: 3,
-    image: "/images/slide3.jpg",
-    imageBg: "/images/slide3b.webp",
-    title: "The rain",
-  },
-  {
-    id: 4,
-    image: "/images/slide4.jpg",
-    imageBg: "/images/slide4b.webp",
-    title: "Sex education",
-  },
-  {
-    id: 5,
-    image: "/images/slide5.jpg",
-    imageBg: "/images/slide5b.webp",
-    title: "Elite",
-  },
-  {
-    id: 6,
-    image: "/images/slide6.jpg",
-    imageBg: "/images/slide6b.webp",
-    title: "Black mirror",
-  },
-  {
-    id: 7,
-    image: "/images/slide1.jpg",
-    imageBg: "/images/slide1b.webp",
-    title: "1983",
-  },
-  {
-    id: 8,
-    image: "/images/slide2.jpg",
-    imageBg: "/images/slide2b.webp",
-    title: "Russian doll",
-  },
-  {
-    id: 9,
-    image: "/images/slide3.jpg",
-    imageBg: "/images/slide3b.webp",
-    title: "The rain",
-  },
-  {
-    id: 10,
-    image: "/images/slide4.jpg",
-    imageBg: "/images/slide4b.webp",
-    title: "Sex education",
-  },
-  {
-    id: 11,
-    image: "/images/slide5.jpg",
-    imageBg: "/images/slide5b.webp",
-    title: "Elite",
-  },
-  {
-    id: 12,
-    image: "/images/slide6.jpg",
-    imageBg: "/images/slide6b.webp",
-    title: "Black mirror",
-  },
-  {
-    id: 1,
-    image: "/images/slide1.jpg",
-    imageBg: "/images/slide1b.webp",
-    title: "1983",
-  },
-  {
-    id: 2,
-    image: "/images/slide2.jpg",
-    imageBg: "/images/slide2b.webp",
-    title: "Russian doll",
-  },
-  {
-    id: 3,
-    image: "/images/slide3.jpg",
-    imageBg: "/images/slide3b.webp",
-    title: "The rain",
-  },
-  {
-    id: 4,
-    image: "/images/slide4.jpg",
-    imageBg: "/images/slide4b.webp",
-    title: "Sex education",
-  },
-  {
-    id: 5,
-    image: "/images/slide5.jpg",
-    imageBg: "/images/slide5b.webp",
-    title: "Elite",
-  },
-  {
-    id: 6,
-    image: "/images/slide6.jpg",
-    imageBg: "/images/slide6b.webp",
-    title: "Black mirror",
-  },
-  {
-    id: 7,
-    image: "/images/slide1.jpg",
-    imageBg: "/images/slide1b.webp",
-    title: "1983",
-  },
-  {
-    id: 8,
-    image: "/images/slide2.jpg",
-    imageBg: "/images/slide2b.webp",
-    title: "Russian doll",
-  },
-  {
-    id: 9,
-    image: "/images/slide3.jpg",
-    imageBg: "/images/slide3b.webp",
-    title: "The rain",
-  },
-  {
-    id: 10,
-    image: "/images/slide4.jpg",
-    imageBg: "/images/slide4b.webp",
-    title: "Sex education",
-  },
-  {
-    id: 11,
-    image: "/images/slide5.jpg",
-    imageBg: "/images/slide5b.webp",
-    title: "Elite",
-  },
-  {
-    id: 12,
-    image: "/images/slide6.jpg",
-    imageBg: "/images/slide6b.webp",
-    title: "Black mirror",
-  },
-  {
-    id: 1,
-    image: "/images/slide1.jpg",
-    imageBg: "/images/slide1b.webp",
-    title: "1983",
-  },
-  {
-    id: 2,
-    image: "/images/slide2.jpg",
-    imageBg: "/images/slide2b.webp",
-    title: "Russian doll",
-  },
-  {
-    id: 3,
-    image: "/images/slide3.jpg",
-    imageBg: "/images/slide3b.webp",
-    title: "The rain",
-  },
-  {
-    id: 4,
-    image: "/images/slide4.jpg",
-    imageBg: "/images/slide4b.webp",
-    title: "Sex education",
-  },
-  {
-    id: 5,
-    image: "/images/slide5.jpg",
-    imageBg: "/images/slide5b.webp",
-    title: "Elite",
-  },
-  {
-    id: 6,
-    image: "/images/slide6.jpg",
-    imageBg: "/images/slide6b.webp",
-    title: "Black mirror",
-  },
-  {
-    id: 7,
-    image: "/images/slide1.jpg",
-    imageBg: "/images/slide1b.webp",
-    title: "1983",
-  },
-  {
-    id: 8,
-    image: "/images/slide2.jpg",
-    imageBg: "/images/slide2b.webp",
-    title: "Russian doll",
-  },
-  {
-    id: 9,
-    image: "/images/slide3.jpg",
-    imageBg: "/images/slide3b.webp",
-    title: "The rain",
-  },
-  {
-    id: 10,
-    image: "/images/slide4.jpg",
-    imageBg: "/images/slide4b.webp",
-    title: "Sex education",
-  },
-  {
-    id: 11,
-    image: "/images/slide5.jpg",
-    imageBg: "/images/slide5b.webp",
-    title: "Elite",
-  },
-  {
-    id: 12,
-    image: "/images/slide6.jpg",
-    imageBg: "/images/slide6b.webp",
-    title: "Black mirror",
-  },
-];
-

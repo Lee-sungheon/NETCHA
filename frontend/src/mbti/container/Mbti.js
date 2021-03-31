@@ -6,6 +6,7 @@ import { Select } from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Button from "@material-ui/core/Button";
+import "./Mbti.css";
 
 const useStyles = makeStyles((theme) => ({
   mbti_back: {
@@ -67,10 +68,13 @@ export default function Mbti(props) {
                     margin: "2vw",
                     height: "15vw",
                     width: "50%",
-                    color: "white",
+                    color: "black",
                     border: "solid white 1px",
                     padding: "3vw",
-                    // backgroundColor: "#64ffda",
+                    backgroundColor: "white",
+                    border: "1px solid black",
+                    borderRadius: "2vw",
+                    fontFamily: "Bazzi",
                   }}
                 >
                   직접선택하기
@@ -123,6 +127,7 @@ export default function Mbti(props) {
                     style={{
                       backgroundColor: "white",
                       marginTop: "1vw",
+                      fontFamily: "Bazzi",
                     }}
                   >
                     확인
@@ -136,7 +141,9 @@ export default function Mbti(props) {
                     border: "solid 1px white",
                     height: "15vw",
                     padding: "3vw",
-                    // backgroundColor: "#64ffda",
+                    backgroundColor: "white",
+                    border: "1px solid black",
+                    borderRadius: "2vw",
                   }}
                 >
                   <Link
@@ -145,9 +152,23 @@ export default function Mbti(props) {
                       height: "10vw",
                       width: "50%",
                       listStyle: "none",
+                      textDecoration: "none",
                     }}
                   >
-                    MBTI테스트하기
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      style={{
+                        backgroundColor: "white",
+                        marginTop: "4.5vw",
+                        width: "15vw",
+                        height: "5vw",
+                        fontFamily: "Bazzi",
+                        fontSize: "1.7vw",
+                      }}
+                    >
+                      MBTI테스트하기
+                    </Button>
                   </Link>
                 </div>
               </div>
