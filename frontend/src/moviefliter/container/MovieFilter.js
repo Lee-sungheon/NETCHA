@@ -13,6 +13,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from 'react-redux';
 import { actions } from "../../home/state";
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 const StyledMenu = withStyles({
   paper: {
@@ -51,7 +53,8 @@ export default function MovieFilter() {
   const [filterText, setFilterText] = useState("추천 콘텐츠")
   const [anchorEl, setAnchorEl] = useState(null);
   const movieLists = useSelector(state => state.home.movieLists);
-  const isLoading = useSelector(state => state.home.isLoading);
+  const [filterList, setFilterList] = useState([]);
+  const isInfinite = useSelector(state => state.home.isInfinite);
   const dispatch = useDispatch();
 
   const handleClick = (event) => {
@@ -65,14 +68,23 @@ export default function MovieFilter() {
   useEffect(() => {
     checkWindowInner()
     dispatch(actions.requestMovieList());
-    window.addEventListener('resize', function(){
+    window.addEventListener("resize", function(){
       checkWindowInner()
     });
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [])
-  repeat = []
-  for (let i=0 ; i<=movieLists.length/tabNo ; i++){
-    repeat.push(movieLists.slice(i*tabNo, (i+1)*tabNo))
-  }
+
+  useEffect(() => {
+    repeat = []
+    for (let i=0 ; i<=movieLists.length/tabNo ; i++){
+      repeat.push(movieLists.slice(i*tabNo, (i+1)*tabNo))
+    }
+    setFilterList([...repeat])
+  }, [movieLists])
+
   function checkWindowInner() {
     const windowInnerWidth = window.innerWidth;
     if (windowInnerWidth > 1280) {
@@ -87,9 +99,43 @@ export default function MovieFilter() {
       setTabNo(2)
     }
   }
+
+  function handleScroll() {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+    if (scrollTop + clientHeight >= scrollHeight && !isInfinite) {
+      // 페이지 끝에 도달하면 추가 데이터를 받아온다
+      dispatch(actions.requestAddMovieList());
+    }
+   };
+
   function changeFilterText(e) {
     setFilterText(e.target.innerText);
     handleClose();
+    let filteredList = []
+    if (e.target.innerText === '오름차순(ㄱ-Z)') {
+      // 오름차순(ㄱ-Z)순 정렬
+      filteredList = movieLists.slice().sort(function(a, b) {
+        return a['title'] < b['title'] ? -1 : a['title'] > b['title']  ? 1 : 0;
+      });
+      // '내림차순(Z-ㄱ)' 정렬
+    } else if (e.target.innerText === '내림차순(Z-ㄱ)') {
+      filteredList = movieLists.slice().sort(function(a, b) {
+        return a['title'] > b['title'] ? -1 : a['title'] < b['title']  ? 1 : 0;
+      });
+    } else if (e.target.innerText === '추천 콘텐츠') {
+      // 추천 콘텐츠 정렬
+      filteredList = movieLists.slice();
+    } else if (e.target.innerText === '출시일순') {
+      // 출시일 정렬
+      filteredList = movieLists.slice();
+    }
+    repeat = []
+    for (let i=0 ; i<=filteredList.length/tabNo ; i++){
+      repeat.push(filteredList.slice(i*tabNo, (i+1)*tabNo))
+    }
+    setFilterList([...repeat])
   }
   return (
     <>
@@ -138,7 +184,7 @@ export default function MovieFilter() {
       </div>
 
       <div className='movie-filter__container'>
-        {repeat.map((item, idx) => (
+        {filterList.map((item, idx) => (
           <div id={`slider-${idx}`} className='like__container' key={idx}>
             <MovieList idx={`slider-${idx}`} num={tabNo}>
               {item.map((movie, index) => (
@@ -148,6 +194,9 @@ export default function MovieFilter() {
           </MovieList>
         </div>
         ))}
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          <CircularProgress color="secondary" />
+        </div>
       </div>
     </>
   )
