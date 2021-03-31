@@ -1,38 +1,41 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SearchInput from "../../components/common/SearchInput";
-import { initializeInput } from "../../modules/movies";
+import { initializeInput, searchMovies } from "../../modules/movies";
 
-export default function SearchInputContainer() {
-  const dispatch = useDispatch();
-  const keyword = useSelector(({movies}) => ({
-    keyword: movies.keyword
-  }));
+export default function SearchInputContainer({history}) {
+  // const dispatch = useDispatch();
+  // const keyword = useSelector(({movies}) => ({
+  //   keyword: movies.keyword
+  // }));
 
-  //인풋 변경 이벤트 핸들러
-  const onChange = e => {
-    const {value} = e.target;
-    dispatch(
-      changeSearchKeyword({
-        keyword: value
-      })
-    )
-  }
+  // //인풋 변경 이벤트 핸들러
+  // const onChange = e => {
+  //   const {value} = e.target;
+  //   dispatch(
+  //     changeSearchKeyword({
+  //       keyword: value
+  //     })
+  //   )
+  // }
 
-  // 검색 엔터 이벤트 핸들러
-  const onKeyPress = e => {
-    if(e.key === 'Enter'){
-      onSubmit();
-    }
-  };
+  // // 검색 엔터 이벤트 핸들러
+  // const onKeyPress = e => {
+  //   if(e.key === 'Enter'){
+  //     // onSubmit();
+  //     dispatch(searchMovies({movies}))
+  //   }
+  // };
 
-  useEffect(() => {
-    dispatch(initializeInput(''));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(initializeInput(''));
+  // }, [dispatch]);
+
 
   return (
     <>
-      <SearchInput movies={movies} keyword={keyword} onChange={onChange} onKeyPress={onKeyPress} />
+      {/* <SearchInput movies={movies} keyword={keyword} onChange={onChange} onKeyPress={onKeyPress} /> */}
+      <SearchInput movies={movies} />
     </>
   );
 }
