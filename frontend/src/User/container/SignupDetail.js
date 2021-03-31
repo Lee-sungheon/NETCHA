@@ -3,6 +3,8 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import axios from "axios";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   signupDetail_back: {
@@ -18,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   signupDetail_div_div: {
     background: "rgb(0, 0, 0, 0.7)",
-    height: "540px",
+    // height: "650px",
     width: "314px",
     padding: "60px 68px",
   },
@@ -39,6 +41,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignupDetail(props) {
   const classes = useStyles();
+  const history = useHistory();
+
   const [inputData, setInputData] = useState({
     userId: "",
     password: "",
@@ -46,6 +50,14 @@ export default function SignupDetail(props) {
     name: "",
     nickname: "",
     phone: "",
+  });
+  const [inputCheck, setInputCheck] = useState({
+    userId: false,
+    confirmPassword: false,
+    nickname: true,
+    phone: true,
+    nickname: true,
+    name: true,
   });
   const onUserIdHandler = (e) => {
     setInputData({ ...inputData, userId: e.target.value });
@@ -66,12 +78,87 @@ export default function SignupDetail(props) {
     setInputData({ ...inputData, phone: e.target.value });
   };
   useEffect(() => {
+    if (
+      inputData.password &&
+      inputData.confirmPassword === inputData.password
+    ) {
+      setInputCheck({ ...inputData, confirmPassword: true });
+    } else {
+      setInputCheck({ ...inputData, confirmPassword: false });
+    }
+  }, [inputData.confirmPassword, inputData.password]);
+  useEffect(() => {
+    if (inputData.userId) {
+      const body = inputData.userId;
+      axios
+        .post("/netcha/user/checkId", JSON.stringify(body), {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((res) => {
+          setInputCheck({ ...inputCheck, userId: true });
+        })
+        .catch((err) => {
+          setInputCheck({ ...inputCheck, userId: false });
+        });
+    }
+  }, [inputData.userId]);
+  useEffect(() => {
     props.toggleIsHeader(false);
+    if (history.location.state) {
+      setInputData({ ...inputData, userId: history.location.state.userId });
+    }
     return () => {
       props.toggleIsHeader(true);
     };
   }, []);
 
+  const signUp = (e) => {
+    e.preventDefault();
+    const body = {
+      mbti: "ENTP",
+      name: inputData.name,
+      nickname: inputData.nickname,
+      password: inputData.password,
+      phone: inputData.phone,
+      userId: inputData.userId,
+    };
+    if (inputCheck.userId && inputCheck.confirmPassword) {
+      axios
+        .post("/netcha/user/signup", JSON.stringify(body), {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((res) => {
+          console.log("계정생성 성공");
+          axios
+            .post(
+              "/netcha/user/verify",
+              JSON.stringify({ userId: body.userId }),
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            )
+            .then((res) => {
+              console.log("인증메일 발송");
+            })
+            .catch((err) => {
+              console.log("인증메일 발송 실패");
+            });
+          history.push({
+            pathname: "/login",
+          });
+        })
+        .catch((err) => {
+          console.log("계정생성 실패");
+          console.error(err);
+        });
+    }
+  };
   return (
     <div className={classes.signupDetail_back}>
       <div
@@ -113,7 +200,29 @@ export default function SignupDetail(props) {
                     variant="filled"
                     className={classes.signupDetail_textfield}
                   />
-
+                  {inputData.userId ? (
+                    <>
+                      {inputCheck.userId ? (
+                        <div
+                          style={{
+                            color: "#42a5f5",
+                            margin: "-10px 0 7px 0",
+                          }}
+                        >
+                          사용가능한 이메일 입니다
+                        </div>
+                      ) : (
+                        <div
+                          style={{
+                            color: "#ef5350",
+                            margin: "-10px 0 7px 0",
+                          }}
+                        >
+                          사용할 수 없는 이메일 입니다
+                        </div>
+                      )}
+                    </>
+                  ) : null}
                   <TextField
                     id="password"
                     value={inputData.password}
@@ -135,6 +244,29 @@ export default function SignupDetail(props) {
                     color="secondary"
                     className={classes.signupDetail_textfield}
                   />
+                  {inputData.password ? (
+                    <>
+                      {inputCheck.confirmPassword ? (
+                        <div
+                          style={{
+                            color: "#42a5f5",
+                            margin: "-10px 0 7px 0",
+                          }}
+                        >
+                          비밀번호가 일치합니다.
+                        </div>
+                      ) : (
+                        <div
+                          style={{
+                            color: "#ef5350",
+                            margin: "-10px 0 7px 0",
+                          }}
+                        >
+                          비밀번호가 다릅니다.
+                        </div>
+                      )}
+                    </>
+                  ) : null}
                   <TextField
                     id="name"
                     value={inputData.name}
@@ -165,6 +297,7 @@ export default function SignupDetail(props) {
                   <Button
                     variant="contained"
                     className={classes.signupDetail_button}
+                    onClick={signUp}
                   >
                     회원가입
                   </Button>
