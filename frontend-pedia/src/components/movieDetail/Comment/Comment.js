@@ -15,9 +15,7 @@ export default function Comment() {
   };
   return (
     <div className="comment">
-      <div className="infoHeader">
-        코멘트<span>더보기</span>
-      </div>
+      <div className="infoHeader">코멘트</div>
       <Slider {...settings}>
         {comments.map((comment) => (
           <div key={comment.name} className="commentBox">

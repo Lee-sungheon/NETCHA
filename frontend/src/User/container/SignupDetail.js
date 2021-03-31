@@ -1,11 +1,44 @@
 import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
-import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  signupDetail_back: {
+    backgroundImage:
+      "url(https://assets.nflxext.com/ffe/siteui/vlv3/33a85845-b76d-4e18-a74c-5859e3978a91/b4d69ed1-965f-49d2-abc2-02d4d0ae6ffb/KR-ko-20210308-popsignuptwoweeks-perspective_alpha_website_large.jpg)",
+    marginTop: "-64px",
+  },
+  signupDetail_div: {
+    margin: "0 auto",
+    width: "100%",
+    maxWidth: "450px",
+    height: "1000px",
+  },
+  signupDetail_div_div: {
+    background: "rgb(0, 0, 0, 0.7)",
+    height: "540px",
+    width: "314px",
+    padding: "60px 68px",
+  },
+  signupDetail_textfield: {
+    borderRadius: "4px",
+    backgroundColor: "white",
+    width: "100%",
+    marginBottom: "15px",
+  },
+  signupDetail_button: {
+    width: "100%",
+    backgroundColor: "#e50914",
+    color: "white",
+    marginTop: "25px",
+    height: "45px",
+  },
+}));
+
 export default function SignupDetail(props) {
+  const classes = useStyles();
   const [inputData, setInputData] = useState({
     userId: "",
     password: "",
@@ -40,13 +73,7 @@ export default function SignupDetail(props) {
   }, []);
 
   return (
-    <div
-      style={{
-        backgroundImage:
-          "url(https://assets.nflxext.com/ffe/siteui/vlv3/33a85845-b76d-4e18-a74c-5859e3978a91/b4d69ed1-965f-49d2-abc2-02d4d0ae6ffb/KR-ko-20210308-popsignuptwoweeks-perspective_alpha_website_large.jpg)",
-        marginTop: "-64px",
-      }}
-    >
+    <div className={classes.signupDetail_back}>
       <div
         style={{
           background: "rgb(0, 0, 0, 0.5)",
@@ -61,28 +88,9 @@ export default function SignupDetail(props) {
             />
           </Link>
         </header>
-        <div
-          style={{
-            margin: "0 auto",
-            width: "100%",
-            maxWidth: "450px",
-            height: "1000px",
-          }}
-        >
-          <div
-            style={{
-              background: "rgb(0, 0, 0, 0.7)",
-              height: "540px",
-              width: "314px",
-              padding: "60px 68px",
-            }}
-          >
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-              }}
-            >
+        <div className={classes.signupDetail_div}>
+          <div className={classes.signupDetail_div_div}>
+            <div>
               <div>
                 <h1
                   style={{
@@ -103,12 +111,7 @@ export default function SignupDetail(props) {
                       color: "secondary",
                     }}
                     variant="filled"
-                    style={{
-                      borderRadius: "4px",
-                      backgroundColor: "white",
-                      width: "100%",
-                      marginBottom: "15px",
-                    }}
+                    className={classes.signupDetail_textfield}
                   />
 
                   <TextField
@@ -119,12 +122,7 @@ export default function SignupDetail(props) {
                     type="password"
                     variant="filled"
                     color="secondary"
-                    style={{
-                      borderRadius: "4px",
-                      backgroundColor: "white",
-                      width: "100%",
-                      marginBottom: "15px",
-                    }}
+                    className={classes.signupDetail_textfield}
                   />
 
                   <TextField
@@ -135,12 +133,7 @@ export default function SignupDetail(props) {
                     type="password"
                     variant="filled"
                     color="secondary"
-                    style={{
-                      borderRadius: "4px",
-                      backgroundColor: "white",
-                      width: "100%",
-                      marginBottom: "15px",
-                    }}
+                    className={classes.signupDetail_textfield}
                   />
                   <TextField
                     id="name"
@@ -149,12 +142,7 @@ export default function SignupDetail(props) {
                     label="이름"
                     variant="filled"
                     color="secondary"
-                    style={{
-                      borderRadius: "4px",
-                      backgroundColor: "white",
-                      width: "100%",
-                      marginBottom: "15px",
-                    }}
+                    className={classes.signupDetail_textfield}
                   />
                   <TextField
                     id="nickname"
@@ -163,12 +151,7 @@ export default function SignupDetail(props) {
                     label="닉네임"
                     variant="filled"
                     color="secondary"
-                    style={{
-                      borderRadius: "4px",
-                      backgroundColor: "white",
-                      width: "100%",
-                      marginBottom: "15px",
-                    }}
+                    className={classes.signupDetail_textfield}
                   />
                   <TextField
                     id="phone"
@@ -177,33 +160,15 @@ export default function SignupDetail(props) {
                     label="전화번호"
                     variant="filled"
                     color="secondary"
-                    style={{
-                      borderRadius: "4px",
-                      backgroundColor: "white",
-                      width: "100%",
-                      marginBottom: "15px",
-                    }}
+                    className={classes.signupDetail_textfield}
                   />
                   <Button
                     variant="contained"
-                    style={{
-                      width: "100%",
-                      backgroundColor: "#e50914",
-                      color: "white",
-                      marginTop: "25px",
-                      height: "45px",
-                    }}
+                    className={classes.signupDetail_button}
                   >
                     회원가입
                   </Button>
                 </form>
-                <div
-                  style={{
-                    display: "flex",
-                    margin: "10px 0",
-                  }}
-                ></div>
-                <p></p>
               </div>
             </div>
           </div>

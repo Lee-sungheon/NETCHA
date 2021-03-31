@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import TestMbtiList from "../component/TestMbtiItem";
 import { useHistory } from "react-router";
+import "./Mbti.css";
 
 const useStyles = makeStyles((theme) => ({
   mbti_back: {
@@ -22,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "900px",
     height: "100vh",
     paddingTop: "10px",
+    fontFamily: "Bazzi",
   },
   mbti_div: {
     background: "rgb(0, 0, 0, 1)",
@@ -37,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
   },
   mbti_div_question: {
     color: "#64ffda",
-    marginBottom: "25px",
     marginBottom: "3vw",
     fontSize: "2vw",
     textAlign: "center",
@@ -49,12 +47,8 @@ export default function TestMBTI(props) {
   const history = useHistory();
   const [choiceList, setChoiceList] = useState({ choice: [] });
   const onChoice = (data) => {
-    console.log(data);
-
     setChoiceList({ ...choiceList, choice: choiceList.choice.concat(data) });
-    console.log(choiceList.choice.length);
-    if (choiceList.choice.length == 12) {
-      console.log(history);
+    if (choiceList.choice.length === 12) {
       history.push({
         pathname: "/mbtiresult",
         state: { choiceList: choiceList },
