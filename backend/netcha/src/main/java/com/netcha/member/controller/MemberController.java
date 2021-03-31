@@ -61,6 +61,22 @@ public class MemberController {
         }
     }
     
+    
+    @ApiOperation(value = "Id 중복체크", response = Response.class)
+    @PostMapping("/checkId")
+    public Response checkId(@RequestBody String userId) {
+        try {
+            Member isMember = authService.checkFindByUserId(userId);
+            if(isMember == null) {
+            	return new Response("success", "중복없습니다.", 1);
+            }
+            else {
+            	return new Response("error", "중복입니다.", 0);
+            }
+        } catch (Exception e) {
+            return new Response("error", "오류가 발생했습니다.", null);
+        }
+    }
 //    @ApiOperation(value = "네이버 로그인을 한다.", response = Response.class)
 //    @PostMapping("/login/naver")
 //    public Response naverLogin(@RequestBody Member member,
