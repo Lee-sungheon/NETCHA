@@ -14,7 +14,7 @@ public interface AuthService {
     Member loginUser(String id, String password) throws Exception;
 
     Member findByUserId(String userId) throws NotFoundException;
-    Member socialFindByUserId(String userId);
+    Member checkFindByUserId(String userId);
 
     void verifyEmail(String key) throws NotFoundException;
 
