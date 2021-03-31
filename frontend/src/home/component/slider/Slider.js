@@ -136,7 +136,7 @@ const Slider = ({ children, activeSlide, title, idx }) => {
   return (
     <SliderContext.Provider value={contextValue}>
       <SliderWrapper idx={idx}>
-        <h4 style={{ color: 'white', margin: '0 0 10px 60px' }}>{title}</h4>
+        <h4 style={{ color: 'white', margin: '0 0 10px 4%' }}>{title}</h4>
         <div
           className={cx('slider', 
           { 'slider--open': currentSlide != null || showButton}, 
