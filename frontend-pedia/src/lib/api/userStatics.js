@@ -12,6 +12,56 @@ export const listLikeDirectors = ({ userId }) => {
   // return client.get(`/directors/${userId}`)
 };
 
+export const listCountries = ({ userId }) => {
+  console.log('userId:' + userId);
+  return country;
+  // return client.get(`/country/${userId}`)
+}
+
+export const listGenres = ({ userId }) => {
+  console.log('userId:' + userId);
+  return genre;
+  // return client.get(`/country/${userId}`)
+}
+
+const country = {
+  data: [
+  {
+    id: 1,
+    name: '한국',
+    count: 27
+  },
+  {
+    id: 2,
+    name: '미국',
+    count: 9
+  },
+  {
+    id: 3,
+    name: '영국',
+    count: 13
+  },
+]};
+
+const genre = {
+  data : [
+  {
+    id: 1,
+    name: '드라마',
+    count: 25
+  },
+  {
+    id: 2,
+    name: '액션',
+    count: 9
+  },
+  {
+    id: 3,
+    name: '코미디',
+    count: 13
+  },
+]};
+
 const directors = {
   data: [
     {
