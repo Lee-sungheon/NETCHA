@@ -43,9 +43,9 @@ export default function Item({ movie, idx }) {
                       <ThumbDownIcon className='common-button'id={idx} />
                       <ExpandMoreIcon className='end-button' id={idx} onClick={() => onSelectSlide(movie)}/>
                     </div>
-                  <h5 style={{textAlign: 'center', margin:'5px', textAlign: 'start'}} id={idx}>{movie.title.slice(0, 18)}</h5>
+                  <h5 style={{textAlign: 'center', margin:'5px', textAlign: 'start'}} id={idx}>{movie.title.slice(0, 15)}{movie.title.length > 15 && '...'}</h5>
                   <div style={{display: 'flex', alignItems: 'center'}} id={idx}>
-                    { movie.rating !== undefined &&  <img style={{width: '12%', margin: '0 5px'}} src={`/images/${movie.rating.slice(0,2)}.svg`} />}
+                    { movie.rating !== "" && movie.rating !== undefined && <img style={{width: '12%', margin: '0 5px'}} src={`/images/${movie.rating.slice(0,2)}.svg`} />}
                     <span style={{fontSize: '0.65rem', fontWeight: 900}}>{parseInt(movie.time/60)}시간 {movie.time%60}분</span>
                   </div>
                   <h6 style={{textAlign: 'center', margin:'5px', textAlign: 'start'}} id={idx}>
