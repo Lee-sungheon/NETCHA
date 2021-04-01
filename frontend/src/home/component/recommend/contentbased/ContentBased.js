@@ -9,7 +9,7 @@ export default function ContentBased({loading, idx}) {
   const dispatch = useDispatch();
   useEffect(() =>{
     if (movieLists.length === 0){
-      dispatch(actions.requestMovieList());
+      dispatch(actions.requestMovieList(0, 0));
     }
   }, [])
   

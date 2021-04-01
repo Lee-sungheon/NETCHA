@@ -1,12 +1,12 @@
 import { all, call, put, takeLeading } from 'redux-saga/effects';
 import { actions, types } from './index';
-import { callApiMovieList, callApiNewMovieList } from '../../common/api';
+import { callApiContentMovieList } from '../../common/api';
 
-export function* fetchData() {
+export function* fetchData(action) {
   yield put(actions.setLoading(true));
   yield put(actions.setValue('error', ''));
   try {
-    const data = yield call(callApiNewMovieList);
+    const data = yield call(callApiContentMovieList, action.pageNum, action.userNo);
     yield put(actions.setMovieList(data))
   } catch(error) {
     yield put(actions.setValue('error', error))
@@ -14,11 +14,11 @@ export function* fetchData() {
   yield put(actions.setLoading(false));
 } 
 
-export function* addData() {
+export function* addData(action) {
   yield put(actions.setInfinite(true));
   yield put(actions.setValue('error', ''));
   try {
-    const data = yield call(callApiMovieList);
+    const data = yield call(callApiContentMovieList, action.pageNum, action.userNo);
     yield put(actions.addMovieList(data))
   } catch(error) {
     yield put(actions.setValue('error', error))

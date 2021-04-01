@@ -51,7 +51,7 @@ export default function MovieItem({ movie, idx }) {
                 </div>
                 <h6 style={{textAlign: 'center', margin:'5px', textAlign: 'start'}} id={idx}>
                   {movie.keywords !== undefined && movie.keywords.slice(0,3).map((keyword, idx) => (
-                    <span key={keyword} id={idx}>{idx !== 0 && <span id={idx}> • </span>}{keyword}</span>
+                    <span key={idx} id={idx}>{idx !== 0 && <span id={idx}> • </span>}{keyword}</span>
                   ))}
                 </h6>
               </CardContent>
