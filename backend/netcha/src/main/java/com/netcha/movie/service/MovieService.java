@@ -134,6 +134,7 @@ public class MovieService {
 		}		
 		List<float[]> scoreList = new ArrayList<float[]>();
 		for(Movie movie : movieList) {
+			if(movie.getOpen().compareTo("1995-01-01") < 0) continue;
 			float score = 0;
 			String[] ganres = movie.getGanre().split(",");
 			for(int i=1; i<=ganres.length; i++) {
@@ -183,6 +184,20 @@ public class MovieService {
 	public List<MovieResponseDto> findMovieByKeyword(int pageNum, String keyword) {
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		List<Movie> movieR = movieRepository.findByKeywordOrderByTotalViewDesc("1995-01-01", keyword, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
+		for(Movie m : movieR) {
+			if(m.getRating().equals("")) {
+				String[] result = crawling(m);
+				m.updateCrawling(result[0], result[1], result[2]);
+			}
+			movies.add(new MovieResponseDto(m));
+		}
+		return movies;
+	}
+	
+	@Transactional
+	public List<MovieResponseDto> findMovieByCountry(int pageNum, String country) {
+		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
+		List<Movie> movieR = movieRepository.findByCountryOrderByTotalViewDesc("1995-01-01", country, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
 		for(Movie m : movieR) {
 			if(m.getRating().equals("")) {
 				String[] result = crawling(m);

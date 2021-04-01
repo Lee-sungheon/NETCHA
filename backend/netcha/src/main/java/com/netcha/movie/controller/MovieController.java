@@ -77,6 +77,14 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "나라별 (40개) : 나라별 누적 조회수 순으로 추천", notes = "입력값 : country(나라명), pageNum(페이지 번호(0번부터 시작))")
+	@GetMapping("/list_country")
+	public ResponseEntity<?> getListByCountry(@RequestParam String country, @RequestParam long pageNum) {
+		List<MovieResponseDto> movies = movieService.findMovieByCountry((int)pageNum, country);
+		System.out.println("나라별 : "+movies.size());
+		return new ResponseEntity<>(movies, HttpStatus.OK);
+	}
+	
 	@ApiOperation(value = "평점 순 (40개) : 평점 순, 누적 조회수 순으로 추천", notes = "입력값 : pageNum(페이지 번호(0번부터 시작))")
 	@GetMapping("/list_avgRank")
 	public ResponseEntity<?> getListByAvgRank(@RequestParam long pageNum) {
