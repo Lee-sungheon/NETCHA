@@ -7,16 +7,16 @@ import lombok.NoArgsConstructor;
 @Getter
 public class MovieRankResponseDto {
 	private long no;
-	private long userId;
 	private long movieId;
-	private float rank;
+	private long userId;
+	private float ranking;
 	private String[] ganre;
 	
 	public MovieRankResponseDto(MovieRank movieRank) {
 		this.no = movieRank.getNo();
-		this.userId = movieRank.getUserId();
 		this.movieId = movieRank.getMovie().getNo();
-		this.rank = movieRank.getRank();
+		this.userId = movieRank.getUserId();
+		this.ranking = movieRank.getRanking();
 		this.ganre = movieRank.getGanre().split(",");
 	}
 }

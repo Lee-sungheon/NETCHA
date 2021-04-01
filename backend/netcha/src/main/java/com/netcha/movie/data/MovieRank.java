@@ -1,6 +1,7 @@
 package com.netcha.movie.data;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,10 +21,30 @@ public class MovieRank {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long no;
 	private long userId;
-	private float rank;
+	private float ranking;
 	private String ganre;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "movie_id")
+	private Movie movie;
 	
-	@ManyToOne
-	@JoinColumn(name = "movieId")
-	private Movie movie; 
+	public MovieRank(long userId, float ranking, String ganre, Movie movie) {
+		this.userId = userId;
+		this.ranking = ranking;
+		this.ganre = ganre;
+		this.movie = movie;
+	}
+	
+	public void update(float ranking) {
+		this.ranking = ranking;
+		float sum = 0;
+		for(int i=0; i<movie.getMovieRank().size(); i++) sum += movie.getMovieRank().get(i).getRanking();
+		movie.updateAvgRank((int)(sum / (float)movie.getMovieRank().size() * 10) / (float)10);
+	}
+	
+	public void updateMovie(Movie movie) {
+		this.movie = movie;
+		if(!movie.getMovieRank().contains(this))
+			movie.getMovieRank().add(this);
+	}
 }
