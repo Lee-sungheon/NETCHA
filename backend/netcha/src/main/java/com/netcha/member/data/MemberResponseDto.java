@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter	
 public class MemberResponseDto {
+	private int seq;
 	private String userId;
 	private String name;
 	private String nickname;
@@ -13,6 +14,7 @@ public class MemberResponseDto {
 	private String mbti;
 
 	public MemberResponseDto(Member member) {
+		this.seq = member.getSeq();
 		this.userId = member.getUserId();
 		this.name = member.getName();
 		this.nickname = member.getNickname();
