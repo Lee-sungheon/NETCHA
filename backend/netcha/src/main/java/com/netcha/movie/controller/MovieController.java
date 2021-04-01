@@ -95,8 +95,13 @@ public class MovieController {
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
-	
-	
+	@ApiOperation(value = "평가하기 페이지 (40개) : 평가한적 없는 영화, 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))")
+	@GetMapping("/ranking_page")
+	public ResponseEntity<?> getListRankingPage(@RequestParam long userId, @RequestParam long pageNum) {
+		List<MovieResponseDto> movies = movieService.findMovieByNoNotInNo((int)userId, (int)pageNum);
+		System.out.println("평가하기 페이지 : "+movies.size());
+		return new ResponseEntity<>(movies, HttpStatus.OK);
+	}
 	
 	@GetMapping("/test")
 	public ResponseEntity<?> test() {
