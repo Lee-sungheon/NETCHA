@@ -52,7 +52,7 @@ export default function LargeMovieSlider({ movies, title }) {
       </div>
       <div>
         <Slider {...settings}>
-          {movies.map((movie) => {
+          {movies.map((movie, index) => {
             return (
               <div className="MovieBox" key={movie.id}>
                 <div className="movieAllWrap">
@@ -64,6 +64,7 @@ export default function LargeMovieSlider({ movies, title }) {
                       src={movie.posterUrl}
                       onClick={() => history.push(`/movieDetail/${movie.id}`)}
                     />
+                    <div className="rankingNumber">{index+1}</div>
                     <div className="movieInfo">
                       <div className="movieTitle" title={movie.title}>{movie.title}</div>
                       <div className="movieDate">{movie.open.split('-')[0]} · {movie.country}</div>
