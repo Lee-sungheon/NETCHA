@@ -3,12 +3,16 @@ package com.netcha.movie.service;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -79,9 +83,9 @@ public class MovieService {
 	}
 	
 	@Transactional
-	public List<MovieResponseDto> findMovieByNewContents() {
+	public List<MovieResponseDto> findMovieByNewContents(int pageNum) {
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
-		List<Movie> movieR = movieRepository.findTop40ByOrderByOpenDesc();
+		List<Movie> movieR = movieRepository.findByOrderByOpenDesc(PageRequest.of(pageNum, 40, Direction.DESC, "open"));
 		for(Movie m : movieR) {
 			if(m.getRating().equals("")) {
 				String[] result = crawling(m);
@@ -93,9 +97,9 @@ public class MovieService {
 	}
 	
 	@Transactional
-	public List<MovieResponseDto> findMovieByTotalView() {
+	public List<MovieResponseDto> findMovieByTotalView(int pageNum) {
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
-		List<Movie> movieR = movieRepository.findTop40ByOrderByTotalViewDesc();
+		List<Movie> movieR = movieRepository.findByOrderByTotalViewDesc("1995-01-01", PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
 		for(Movie m : movieR) {
 			if(m.getRating().equals("")) {
 				String[] result = crawling(m);
@@ -126,12 +130,10 @@ public class MovieService {
 				if(!ganreValue.containsKey(ganre)) ganreValue.put(ganre, new float[2]);
 				float[] value = ganreValue.get(ganre);
 				value[0] += 1;
-				value[1] += mr.getRank();
+				value[1] += mr.getRanking();
 				ganreValue.put(ganre, value);
 			}
-		}
-		System.out.println(ganreValue);
-		
+		}		
 		List<float[]> scoreList = new ArrayList<float[]>();
 		for(Movie movie : movieList) {
 			float score = 0;
@@ -163,5 +165,77 @@ public class MovieService {
 		}
 		return result;
 	}
+
+	@Transactional
+	public List<MovieResponseDto> findMovieByGanre(int pageNum, String ganre) {
+		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
+		List<Movie> movieR = movieRepository.findByGanreOrderByTotalViewDesc("1995-01-01", ganre, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
+		for(Movie m : movieR) {
+			if(m.getRating().equals("")) {
+				String[] result = crawling(m);
+				m.updateCrawling(result[0], result[1], result[2]);
+			}
+			movies.add(new MovieResponseDto(m));
+		}
+		return movies;
+	}
 	
+	@Transactional
+	public List<MovieResponseDto> findMovieByKeyword(int pageNum, String keyword) {
+		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
+		List<Movie> movieR = movieRepository.findByKeywordOrderByTotalViewDesc("1995-01-01", keyword, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
+		for(Movie m : movieR) {
+			if(m.getRating().equals("")) {
+				String[] result = crawling(m);
+				m.updateCrawling(result[0], result[1], result[2]);
+			}
+			movies.add(new MovieResponseDto(m));
+		}
+		return movies;
+	}
+	
+	@Transactional
+	public void updateRank(long userId, long movieNo, float ranking) {
+		MovieRank movieRank = movieRankRepository.findByUserIdAndMovieNo(userId, movieNo);
+		// 한번도 평점 체크한적 없으면 새로 만들기
+		if(movieRank == null) {
+			Movie movie = movieRepository.findById(movieNo).get();
+			movieRank = movieRankRepository.save(new MovieRank(userId, ranking, movie.getGanre(), movie));
+			movie.updateMovieRank(movieRank);
+		// 평점 체크한적 있으면 업데이트하기
+		} else movieRank.update(ranking);
+	}
+	
+	@Transactional
+	public List<MovieResponseDto> findMovieByAvgRank(int pageNum) {
+		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
+		List<Movie> movieR = movieRepository.findByOrderByTotalViewDesc("1995-01-01", PageRequest.of(pageNum, 40, Direction.DESC, "avgRank", "totalView"));
+		for(Movie m : movieR) {
+			if(m.getRating().equals("")) {
+				String[] result = crawling(m);
+				m.updateCrawling(result[0], result[1], result[2]);
+			}
+			movies.add(new MovieResponseDto(m));
+		}
+		return movies;
+	}
+	
+	public void test() {
+		MovieRank movieRank = movieRankRepository.findByUserIdAndMovieNo(3, 3);
+		if(movieRank == null) System.out.println("null임");
+		else System.out.println("아님");
+	}
+	
+//	public void test() {
+//		List<Movie> movies = movieRepository.findAll();
+//		Set<String> keywords = new HashSet<String>();
+//		
+//		for(Movie movie : movies) {
+//			String[] ks = movie.getKeywords().split(",");
+//			for(int j=0; j<ks.length; j++) {
+//				keywords.add(ks[j].replace(" ", ""));
+//			}
+//		}
+//		System.out.println(keywords.size());
+//	}
 }

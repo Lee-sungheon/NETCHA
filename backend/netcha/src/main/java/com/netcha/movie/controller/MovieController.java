@@ -33,28 +33,65 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "새로운 컨텐츠(40개) : 개봉일 얼마 안된 순으로 추천")
+	@ApiOperation(value = "컨텐츠 기반 추천 (40개) : 컨텐츠 기반 추천 알고리즘", notes = "입력값 : userId(유저고유번호)")
+	@GetMapping("/list_recommend")
+	public ResponseEntity<?> getListByRecommendContents(@RequestParam long userId) {
+		List<MovieResponseDto> movies = movieService.recommendMovieByRank(userId);
+		System.out.println("컨텐츠 기반 추천 : "+movies.size());
+		return new ResponseEntity<>(movies, HttpStatus.OK);
+	}
+
+	
+	@ApiOperation(value = "새로운 컨텐츠 (40개) : 개봉일 얼마 안된 순으로 추천", notes = "입력값 : pageNum(페이지 번호(0번부터 시작))")
 	@GetMapping("/list_newContents")
-	public ResponseEntity<?> getListByNewContents() {
-		List<MovieResponseDto> movies = movieService.findMovieByNewContents();
+	public ResponseEntity<?> getListByNewContents(@RequestParam long pageNum) {
+		List<MovieResponseDto> movies = movieService.findMovieByNewContents((int)pageNum);
 		System.out.println("새로운 컨텐츠 : "+movies.size());
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "인기 순위(40개) : 누적 조회수 순으로 추천")
+	@ApiOperation(value = "인기 순위 (40개) : 누적 조회수 순으로 추천", notes = "입력값 : pageNum(페이지 번호(0번부터 시작))")
 	@GetMapping("/list_totalView")
-	public ResponseEntity<?> getListByTotalView() {
-		List<MovieResponseDto> movies = movieService.findMovieByTotalView();
+	public ResponseEntity<?> getListByTotalView(@RequestParam long pageNum) {
+		List<MovieResponseDto> movies = movieService.findMovieByTotalView((int)pageNum);
 		System.out.println("인기순위 : "+movies.size());
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
-	
-	@ApiOperation(value = "테스트용 api2", notes = "컨텐츠 기반 추천 테스트")
-	@GetMapping("/view")
-	public ResponseEntity<?> watchMovie(@RequestParam long userId) {
-		List<MovieResponseDto> movies = movieService.recommendMovieByRank(userId);
-		System.out.println("컨텐츠 기반 추천 : "+movies.size());
+	@ApiOperation(value = "장르별 (40개) : 장르별 누적 조회수 순으로 추천", notes = "입력값 : ganre(장르명), pageNum(페이지 번호(0번부터 시작))")
+	@GetMapping("/list_ganre")
+	public ResponseEntity<?> getListByGanre(@RequestParam String ganre, @RequestParam long pageNum) {
+		List<MovieResponseDto> movies = movieService.findMovieByGanre((int)pageNum, ganre);
+		System.out.println("장르별 : "+movies.size());
 		return new ResponseEntity<>(movies, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "키워드별 (40개) : 장르별 누적 조회수 순으로 추천", notes = "입력값 : keyword(키워드명), pageNum(페이지 번호(0번부터 시작))")
+	@GetMapping("/list_keyword")
+	public ResponseEntity<?> getListByKeyword(@RequestParam String keyword, @RequestParam long pageNum) {
+		List<MovieResponseDto> movies = movieService.findMovieByKeyword((int)pageNum, keyword);
+		System.out.println("키워드별 : "+movies.size());
+		return new ResponseEntity<>(movies, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "평점 매기기(신규, 수정 포함)", notes = "입력값 : userId(유저고유번호), movieNo(영화고유번호), ranking(평점(0~5))")
+	@GetMapping("/update_rank")
+	public ResponseEntity<?> updateRank(@RequestParam long userId, @RequestParam long movieNo, @RequestParam float ranking) {
+		movieService.updateRank(userId, movieNo, ranking);
+		return new ResponseEntity<>("success", HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "평점 순 (40개) : 평점 순, 누적 조회수 순으로 추천", notes = "입력값 : pageNum(페이지 번호(0번부터 시작))")
+	@GetMapping("/list_avgRank")
+	public ResponseEntity<?> getListByAvgRank(@RequestParam long pageNum) {
+		List<MovieResponseDto> movies = movieService.findMovieByAvgRank((int)pageNum);
+		System.out.println("평점 순 : "+movies.size());
+		return new ResponseEntity<>(movies, HttpStatus.OK);
+	}
+	
+	@GetMapping("/test")
+	public ResponseEntity<?> test() {
+		movieService.test();
+		return new ResponseEntity<>("", HttpStatus.OK);
 	}
 }

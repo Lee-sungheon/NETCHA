@@ -43,10 +43,6 @@ public class MovieResponseDto {
 		this.posterUrl = movie.getPosterUrl();
 		this.imageUrl = movie.getImageUrl().split(",");
 		this.totalView = movie.getTotalView();
-		float sum = 0;
-		if(movie.getMovieRank().size() != 0) {
-			for(int i=0; i<movie.getMovieRank().size(); i++) sum += movie.getMovieRank().get(i).getRank();
-			this.avgRank = (float)((int)(sum / movie.getMovieRank().size() * 10)) / (float)10;			
-		} else this.avgRank = 0;
+		this.avgRank = movie.getAvgRank();
 	}
 }
