@@ -4,11 +4,8 @@ import { withRouter } from 'react-router';
 import { listStars } from '../../modules/stars';
 import StarGraph from '../../components/user/StarGraph';
 
-var highestStar = 0,
-  sum = 0,
-  calc = 0.0,
-  score = 0,
-  avg = 0;
+var highestStar = 0, sum = 0, calc = 0.0, score = 0, avg = 0;
+
 function getValues(arr) {
   console.log('여기는 arr');
   console.log(arr);
@@ -37,8 +34,9 @@ const StarGraphContainer = () => {
   useEffect(() => {
     dispatch(listStars({ userId }));
     console.log('stars: ' + stars);
-    getValues(stars);
-  }, [dispatch]);
+    if(stars !== null)
+      getValues(stars);
+  }, [stars]);
 
   return (
     <StarGraph
