@@ -12,6 +12,7 @@ import Comment from '../../components/movieDetail/Comment/Comment';
 import SimilarMovies from '../../components/movieDetail/SimilarMovies';
 import Gallery from '../../components/movieDetail/Gallery';
 import Video from '../../components/movieDetail/Video';
+import WriteComment from '../../components/movieDetail/Comment/WriteComment';
 
 const MovieDetailContainer = ({ match }) => {
   // 처음 마운트될 때 무비 읽기 API 요청
@@ -31,6 +32,7 @@ const MovieDetailContainer = ({ match }) => {
     };
   }, [dispatch, movieId]);
 
+  const score = 5;
   return (
     <div className="movieDetail">
       <div className="headerWrapper">
@@ -39,15 +41,22 @@ const MovieDetailContainer = ({ match }) => {
       </div>
       <div className="contentWrapper">
         <div className="contentBox">
-          <BasicInfo movie={movie} loading={loading} error={error} />
-          <Cast actors={actors} />
-          <StarGraph />
-          <Comment />
-          <SimilarMovies />
-        </div>
-        <div className="sideBox">
-          <Gallery imgs={imgs} />
-          <Video />
+          {!!score && (
+            <div className="commentWrapper">
+              <WriteComment />
+            </div>
+          )}
+          <div className="sideBlock">
+            <Gallery imgs={imgs} />
+            <Video />
+          </div>
+          <div className="contentBlock">
+            <BasicInfo movie={movie} loading={loading} error={error} />
+            <Cast actors={actors} />
+            <StarGraph />
+            <Comment />
+            <SimilarMovies />
+          </div>
         </div>
       </div>
     </div>
