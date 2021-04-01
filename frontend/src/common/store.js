@@ -11,6 +11,17 @@ import evaluationReducer from "../evaluation/state";
 import evaluationSaga from "../evaluation/state/saga";
 import userReducer from "../user/state";
 // import userSaga from "../user/state/saga";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+
+const persistConfig = {
+  key: "root",
+  // localStorage에 저장합니다.
+  storage,
+  // auth, board, studio 3개의 reducer 중에 auth reducer만 localstorage에 저장합니다.
+  whitelist: ["user", "home", "like", "evaluation"]
+  // blacklist -> 그것만 제외합니다
+};
 
 const reducer = combineReducers({
   search: searchReducer,
@@ -23,7 +34,7 @@ const reducer = combineReducers({
 const sagaMiddleware = createSagaMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
-  reducer,
+  persistReducer(persistConfig, reducer),
   composeEnhancers(applyMiddleware(sagaMiddleware))
 );
 

@@ -21,7 +21,10 @@ import SignupDetail from "./user/container/SignupDetail";
 import ProfileList from "./user/container/ProfileList";
 import MbtiResult from "./mbti/container/MbtiResult";
 import cx from 'classnames';
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 
+const persistor = persistStore(store);
 // const history = createBrowserHistory();
 function App() {
   const [isHeader, setIsHeader] = useState(true);
@@ -33,47 +36,49 @@ function App() {
     <BrowserRouter>
       <div className={cx('App', { 'App--toggle': toggleButton})}>
         <Provider store={store}>
-          {isHeader ? <Header toggleButton={toggleButton} setToggleButton={setToggleButton}/> : null}
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/movielist">
-              <MovieFilter />
-            </Route>
-            <Route path="/search" component={SearchList} />
-            <Route path="/mylike">
-              <LikeList />
-            </Route>
-            <Route path="/eval">
-              <Evaluation />
-            </Route>
-            <Route path="/account">
-              <Account />
-            </Route>
-            <Route path="/login">
-              <Login toggleIsHeader={toggleIsHeader} />
-            </Route>
-            <Route path="/signup">
-              <Signup toggleIsHeader={toggleIsHeader} />
-            </Route>
-            <Route path="/signupdetail">
-              <SignupDetail toggleIsHeader={toggleIsHeader} />
-            </Route>
-            <Route path="/profilelist">
-              <ProfileList />
-            </Route>
-            <Route path="/testmbti">
-              <TestMbti toggleIsHeader={toggleIsHeader} />
-            </Route>
-            <Route path="/mbtiresult">
-              <MbtiResult toggleIsHeader={toggleIsHeader} />
-            </Route>
-            <Route path="/mbti">
-              <Mbti toggleIsHeader={toggleIsHeader} />
-            </Route>
-            <Route>
-              <EmptyPage />
-            </Route>
-          </Switch>
+          <PersistGate loading={null} persistor={persistor}>
+            {isHeader ? <Header toggleButton={toggleButton} setToggleButton={setToggleButton}/> : null}
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/movielist">
+                <MovieFilter />
+              </Route>
+              <Route path="/search" component={SearchList} />
+              <Route path="/mylike">
+                <LikeList />
+              </Route>
+              <Route path="/eval">
+                <Evaluation />
+              </Route>
+              <Route path="/account">
+                <Account />
+              </Route>
+              <Route path="/login">
+                <Login toggleIsHeader={toggleIsHeader} />
+              </Route>
+              <Route path="/signup">
+                <Signup toggleIsHeader={toggleIsHeader} />
+              </Route>
+              <Route path="/signupdetail">
+                <SignupDetail toggleIsHeader={toggleIsHeader} />
+              </Route>
+              <Route path="/profilelist">
+                <ProfileList />
+              </Route>
+              <Route path="/testmbti">
+                <TestMbti toggleIsHeader={toggleIsHeader} />
+              </Route>
+              <Route path="/mbtiresult">
+                <MbtiResult toggleIsHeader={toggleIsHeader} />
+              </Route>
+              <Route path="/mbti">
+                <Mbti toggleIsHeader={toggleIsHeader} />
+              </Route>
+              <Route>
+                <EmptyPage />
+              </Route>
+            </Switch>
+          </PersistGate>
         </Provider>
         {isHeader ? <Footer /> : null}
       </div>
