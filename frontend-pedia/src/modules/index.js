@@ -6,6 +6,10 @@ import loading from './loading';
 import movies, { searchMoviesSaga, netchaRankingMoviesSaga, scoreMoviesSaga } from './movies';
 import actors, { actorsSaga } from './actors';
 import directors, { directorsSaga } from './directors';
+import countries, { countriesSaga } from './countries';
+import genres, { genresSaga } from './genres';
+import tags, { tagsSaga } from './tags';
+import stars, { starsSaga } from './stars';
 
 const rootReducer = combineReducers({
   loading,
@@ -13,6 +17,10 @@ const rootReducer = combineReducers({
   movies,
   actors,
   directors,
+  countries,
+  genres,
+  tags,
+  stars,
 });
 
 export function* rootSaga() {
@@ -23,6 +31,10 @@ export function* rootSaga() {
     scoreMoviesSaga(),
     actorsSaga(),
     directorsSaga(),
+    countriesSaga(),
+    genresSaga(),
+    tagsSaga(),
+    starsSaga(),
   ]);
 }
 
