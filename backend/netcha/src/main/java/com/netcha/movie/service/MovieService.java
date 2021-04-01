@@ -3,10 +3,8 @@ package com.netcha.movie.service;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -119,7 +117,7 @@ public class MovieService {
 	}
 	
 	@Transactional
-	public List<MovieResponseDto> recommendMovieByRank(long userId) {
+	public List<MovieResponseDto> recommendMovieByRank(long userId, long pageNum) {
 		// 유저 아이디에 해당하는 영화 평점 정보 리스트
 		List<MovieRankResponseDto> movieRankList = findMovieRankByUserId(userId);
 		// 영화 전체 정보
@@ -155,7 +153,8 @@ public class MovieService {
 			}
 		});
 		List<MovieResponseDto> result = new ArrayList<MovieResponseDto>();
-		for(int i=0; i<40; i++) {
+		int idx = (int)pageNum*40;
+		for(int i=idx; i<idx+40; i++) {
 			Movie movie = movieRepository.findById((long)scoreList.get(i)[0]).get();
 			if(movie.getRating().equals("")) {
 				String[] temp = crawling(movie);
@@ -225,17 +224,4 @@ public class MovieService {
 		if(movieRank == null) System.out.println("null임");
 		else System.out.println("아님");
 	}
-	
-//	public void test() {
-//		List<Movie> movies = movieRepository.findAll();
-//		Set<String> keywords = new HashSet<String>();
-//		
-//		for(Movie movie : movies) {
-//			String[] ks = movie.getKeywords().split(",");
-//			for(int j=0; j<ks.length; j++) {
-//				keywords.add(ks[j].replace(" ", ""));
-//			}
-//		}
-//		System.out.println(keywords.size());
-//	}
 }

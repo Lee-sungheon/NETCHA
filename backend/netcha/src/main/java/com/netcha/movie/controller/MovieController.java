@@ -33,10 +33,10 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "컨텐츠 기반 추천 (40개) : 컨텐츠 기반 추천 알고리즘", notes = "입력값 : userId(유저고유번호)")
+	@ApiOperation(value = "컨텐츠 기반 추천 (40개) : 컨텐츠 기반 추천 알고리즘", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))")
 	@GetMapping("/list_recommend")
-	public ResponseEntity<?> getListByRecommendContents(@RequestParam long userId) {
-		List<MovieResponseDto> movies = movieService.recommendMovieByRank(userId);
+	public ResponseEntity<?> getListByRecommendContents(@RequestParam long userId, @RequestParam long pageNum) {
+		List<MovieResponseDto> movies = movieService.recommendMovieByRank(userId, pageNum);
 		System.out.println("컨텐츠 기반 추천 : "+movies.size());
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
