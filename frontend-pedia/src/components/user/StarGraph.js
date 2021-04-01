@@ -31,7 +31,6 @@ const StarGraph = ({ stars, sum, avg, max, error, loading }) => {
           </div>
         </div>
       )}
-      ;
     </>
   );
 };
