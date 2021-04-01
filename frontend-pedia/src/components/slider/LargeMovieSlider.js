@@ -52,7 +52,7 @@ export default function LargeMovieSlider({ movies, title }) {
       </div>
       <div>
         <Slider {...settings}>
-          {movies.map((movie) => {
+          {movies.map((movie, index) => {
             return (
               <div className="MovieBox" key={movie.id}>
                 <div className="movieAllWrap">
@@ -61,12 +61,13 @@ export default function LargeMovieSlider({ movies, title }) {
                       className="image"
                       // onClick={goToMovieDetail(movie.title)}
                       alt={movie.title}
-                      src={movie.image}
+                      src={movie.posterUrl}
                       onClick={() => history.push(`/movieDetail/${movie.id}`)}
                     />
+                    <div className="rankingNumber">{index+1}</div>
                     <div className="movieInfo">
                       <div className="movieTitle" title={movie.title}>{movie.title}</div>
-                      <div className="movieDate">2021 · 한국</div>
+                      <div className="movieDate">{movie.open.split('-')[0]} · {movie.country}</div>
                       <div className="movieRate">
                         <span className="movieScore">평점</span>
                         <span className="movieScore">&nbsp;★5</span>
