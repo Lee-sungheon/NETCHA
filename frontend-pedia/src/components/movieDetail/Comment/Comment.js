@@ -13,6 +13,7 @@ export default function Comment() {
     rows: 1,
     slidesPerRow: 2,
   };
+
   return (
     <div className="comment">
       <div className="infoHeader">코멘트</div>
