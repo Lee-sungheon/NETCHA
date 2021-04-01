@@ -27,13 +27,14 @@
       padding: 0 6px 0 6px;
 
       .moviePosterInside {
-        height: 28.5em;
-        width: 15.675em;
+        height: 456px;
+        width: 250px;
         position: relative;
         cursor: pointer;
 
         .image {
           margin: 0 10px 0 10px;
+          width: 240px;
           height: 345px;
           border-radius: 6px;
         }
@@ -81,7 +82,7 @@
             height: 12px;
 
             .movieScore {
-              color: hotpink;
+              color: #ff0073;
               font-size: 13px;
             }
           }
