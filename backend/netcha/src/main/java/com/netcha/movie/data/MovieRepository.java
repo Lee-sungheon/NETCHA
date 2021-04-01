@@ -22,4 +22,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	// 키워드별 (40개) : 누적 조회수 순으로 추천
 	@Query("select m from Movie m where m.open >= :open and m.keywords like %:keyword%")
 	public List<Movie> findByKeywordOrderByTotalViewDesc(@Param("open") String open, @Param("keyword") String keyword, Pageable page);
+	
+	
+	public List<Movie> findByNoNotIn(List<Long> no, Pageable page);
 }
