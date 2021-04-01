@@ -6,7 +6,7 @@ import createRequestSaga, {
 } from "../lib/createRequestSaga";
 import { takeLatest } from "redux-saga/effects";
 
-// 영화 검색
+// 검색한 영화 목록
 const [
   LIST_SEARCH_MOVIES,
   LIST_SEARCH_MOVIES_SUCCESS,
@@ -18,7 +18,7 @@ export const listSearchMovies = createAction(
   ({ keyword, page }) => ({ keyword, page })
 );
 
-// 영화 검색 사가 생성
+// 검색한 영화 목록 사가 생성
 const listsearchMoviesSaga = createRequestSaga(
   LIST_SEARCH_MOVIES,
   moviesAPI.listSearchMovies
