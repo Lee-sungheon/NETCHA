@@ -1,6 +1,6 @@
 // import produce from "immer";
 import { createAction, handleActions } from "redux-actions";
-import * as directorsAPI from "../lib/api/likeActorsAndDirectors";
+import * as directorsAPI from "../lib/api/userStatics";
 import createRequestSaga, {
   createRequestActionTypes,
 } from "../lib/createRequestSaga";
