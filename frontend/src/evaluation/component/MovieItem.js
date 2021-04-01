@@ -94,7 +94,7 @@ export default function MovieItem({ tile, pickNum, setPickNum }) {
       onMouseLeave={setHover}
       className={customClasses.itemBox}
     >
-      <img src={tile.posterUrl} alt={tile.title} style={{ width: "100%", height: "inherit" }} />
+      <img src={tile.posterUrl} alt={tile.title} style={{ width: "100%", height: "inherit", maxHeight: "50vh" }} />
       <div
         className={customClasses.customOverlay}
         style={isHover ? { display: "block" } : { display: "none" }}

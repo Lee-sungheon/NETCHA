@@ -70,7 +70,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
+let pageNum = 1;
+let loadingPage = false;
 export default function Evaluation() {
   const classes = useStyles();
   const [pickNum, setPickNum] = useState(10)
@@ -80,8 +81,9 @@ export default function Evaluation() {
   const isInfinite = useSelector(state => state.evaluation.isInfinite);
   const dispatch = useDispatch();
   useEffect(() => {
+    pageNum = 1;
     checkWindowInner()
-    dispatch(actions.requestMovieList());
+    dispatch(actions.requestMovieList(0, 0));
     window.addEventListener('resize', function(){
       checkWindowInner()
     });
@@ -94,6 +96,10 @@ export default function Evaluation() {
     };
   }, [])
   
+  useEffect(() => {
+    loadingPage = false;
+  }, [movieLists])
+
   function checkWindowInner() {
     const windowInnerWidth = window.innerWidth;
     if (windowInnerWidth < 600){
@@ -113,7 +119,11 @@ export default function Evaluation() {
     const clientHeight = document.documentElement.clientHeight;
     if (scrollTop + clientHeight + 1 >= scrollHeight && !isInfinite) {
       // 페이지 끝에 도달하면 추가 데이터를 받아온다
-      dispatch(actions.requestAddMovieList());
+      dispatch(actions.requestAddMovieList(pageNum, 0));
+      if (!loadingPage){
+        pageNum += 1;
+      }
+      loadingPage = true
     }
   };
 

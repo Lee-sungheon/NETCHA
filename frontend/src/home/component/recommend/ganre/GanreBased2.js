@@ -1,27 +1,27 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import Slider from "../../../component/slider";
+import Slider from "../../slider";
 import { actions } from "../../../state";
 
-export default function NewBased({loading, idx}) {
-  const movieLists = useSelector(state => state.home.newMovieLists);
-  const isLoading = useSelector(state => state.home.isNewLoading);
+export default function GanreBased2({loading, idx, ganre}) {
+  const movieLists = useSelector(state => state.home.ganreMovieLists2);
+  const isLoading = useSelector(state => state.home.isGanreLoading2);
   const dispatch = useDispatch();
   useEffect(() =>{
-    if (movieLists.length === 0){
-      dispatch(actions.requestNewMovieList(0));
+    if (movieLists.length === 0) {
+      dispatch(actions.requestGanreMovieList2(ganre, 0));
     }
   }, [])
   
   return (
     <div className="home__container" id={idx}>
-        {isLoading && <Slider title={"Netcha 최신 콘텐츠"} idx={idx}>
+        {isLoading && <Slider title={`${ganre} 영화`} idx={idx}>
           {loading.map((movie, idx) => (
               <Slider.Item movie={movie} key={movie.no} idx={idx}>
               </Slider.Item>
           ))}
         </Slider>}
-        {!isLoading && <Slider title={"Netcha 최신 콘텐츠"} idx={idx}>
+        {!isLoading && <Slider title={`${ganre} 영화`} idx={idx}>
           {movieLists.map((movie, idx) => (
               <Slider.Item movie={movie} key={movie.no} idx={idx} >
               </Slider.Item>
