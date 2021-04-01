@@ -1,12 +1,15 @@
 package com.netcha.movie.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -74,13 +77,6 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "평점 매기기(신규, 수정 포함)", notes = "입력값 : userId(유저고유번호), movieNo(영화고유번호), ranking(평점(0~5))")
-	@GetMapping("/update_rank")
-	public ResponseEntity<?> updateRank(@RequestParam long userId, @RequestParam long movieNo, @RequestParam float ranking) {
-		movieService.updateRank(userId, movieNo, ranking);
-		return new ResponseEntity<>("success", HttpStatus.OK);
-	}
-	
 	@ApiOperation(value = "평점 순 (40개) : 평점 순, 누적 조회수 순으로 추천", notes = "입력값 : pageNum(페이지 번호(0번부터 시작))")
 	@GetMapping("/list_avgRank")
 	public ResponseEntity<?> getListByAvgRank(@RequestParam long pageNum) {
@@ -88,6 +84,19 @@ public class MovieController {
 		System.out.println("평점 순 : "+movies.size());
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "평점 매기기(신규, 수정 포함)", notes = "입력값 : userId(유저고유번호), movieNo(영화고유번호), ranking(평점(0~5))")
+	@PostMapping("/update_rank")
+	public ResponseEntity<?> updateRank(@RequestBody Map<String, String> param) {
+		long userId = Long.parseLong(param.get("userId"));
+		long movieNo = Long.parseLong(param.get("movieNo"));
+		float ranking = Float.parseFloat(param.get("ranking"));
+		movieService.updateRank(userId, movieNo, ranking);
+		return new ResponseEntity<>("success", HttpStatus.OK);
+	}
+	
+	
+	
 	
 	@GetMapping("/test")
 	public ResponseEntity<?> test() {
