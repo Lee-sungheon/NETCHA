@@ -34,9 +34,9 @@ function App() {
   };
   return (
     <BrowserRouter>
-      <div className={cx('App', { 'App--toggle': toggleButton})}>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <div className={cx('App', { 'App--toggle': toggleButton})}>
             {isHeader ? <Header toggleButton={toggleButton} setToggleButton={setToggleButton}/> : null}
             <Switch>
               <Route exact path="/" component={Home} />
@@ -78,10 +78,10 @@ function App() {
                 <EmptyPage />
               </Route>
             </Switch>
-          </PersistGate>
-        </Provider>
-        {isHeader ? <Footer /> : null}
-      </div>
+            {isHeader ? <Footer /> : null}
+          </div>
+        </PersistGate>
+      </Provider>
     </BrowserRouter>
   );
 }

@@ -9,7 +9,7 @@ export default function PopularBased({loading, idx}) {
   const dispatch = useDispatch();
   useEffect(() =>{
     if (movieLists.length === 0){
-      dispatch(actions.requestPopularMovieList());
+      dispatch(actions.requestPopularMovieList(0));
     }
   }, [])
   

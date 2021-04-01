@@ -14,14 +14,14 @@ export const types = {
 
 export const actions = {
   // 영화 인피니트 스크롤
-  requestAddMovieList: () => ({ type: types.REQUEST_ADD_MOVIELIST }),
+  requestAddMovieList: (pageNum, userNo) => ({ type: types.REQUEST_ADD_MOVIELIST, pageNum, userNo }),
   addMovieList: data => ({ type: types.ADD_MOVIELIST, data }),
   setInfinite: isInfinite => ({
     type: types.SET_INFINITE,
     isInfinite,
   }),
   // 추천 영화 받아오기
-  requestMovieList: () => ({ type: types.REQUEST_MOVIELIST }),
+  requestMovieList: (pageNum, userNo) => ({ type: types.REQUEST_MOVIELIST, pageNum, userNo }),
   setMovieList: data => ({ type: types.SET_MOVIELIST, data }),
   setLoading: isLoading => ({
     type: types.SET_LOADING,

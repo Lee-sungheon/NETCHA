@@ -3,25 +3,25 @@ import { useSelector, useDispatch } from 'react-redux';
 import Slider from "../../../component/slider";
 import { actions } from "../../../state";
 
-export default function NewBased({loading, idx}) {
-  const movieLists = useSelector(state => state.home.newMovieLists);
-  const isLoading = useSelector(state => state.home.isNewLoading);
+export default function RankBased({loading, idx}) {
+  const movieLists = useSelector(state => state.home.rankMovieLists);
+  const isLoading = useSelector(state => state.home.isRankLoading);
   const dispatch = useDispatch();
   useEffect(() =>{
     if (movieLists.length === 0){
-      dispatch(actions.requestNewMovieList(0));
+      dispatch(actions.requestRankMovieList(0));
     }
   }, [])
   
   return (
     <div className="home__container" id={idx}>
-        {isLoading && <Slider title={"Netcha 최신 콘텐츠"} idx={idx}>
+        {isLoading && <Slider title={"평점이 높은 영화"} idx={idx}>
           {loading.map((movie, idx) => (
               <Slider.Item movie={movie} key={movie.no} idx={idx}>
               </Slider.Item>
           ))}
         </Slider>}
-        {!isLoading && <Slider title={"Netcha 최신 콘텐츠"} idx={idx}>
+        {!isLoading && <Slider title={"평점이 높은 영화"} idx={idx}>
           {movieLists.map((movie, idx) => (
               <Slider.Item movie={movie} key={movie.no} idx={idx} >
               </Slider.Item>

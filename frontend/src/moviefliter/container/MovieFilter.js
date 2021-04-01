@@ -51,6 +51,8 @@ const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 let repeat = []
+let pageNum = 1;
+let loadingPage = false;
 export default function MovieFilter() {
   const [tabNo, setTabNo] = useState(5);
   const [filterText, setFilterText] = useState("추천 콘텐츠")
@@ -59,7 +61,10 @@ export default function MovieFilter() {
   const [filterList, setFilterList] = useState([]);
   const isInfinite = useSelector(state => state.home.isInfinite);
   const isLoading = useSelector(state => state.home.isLoading);
+  const [countryText, setCountryText] = useState("국가");
+  const [ganreText, setGanreText] = useState("장르");
   const dispatch = useDispatch();
+  // const userId = useSelector(state => state.user.userData)
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -70,28 +75,51 @@ export default function MovieFilter() {
   };
   
   useEffect(() => {
-    checkWindowInner()
+    function handleScroll() {
+      const scrollHeight = document.documentElement.scrollHeight;
+      const scrollTop = document.documentElement.scrollTop;
+      const clientHeight = document.documentElement.clientHeight;
+      if (scrollTop + clientHeight + 1 >= scrollHeight && !isInfinite ) {
+        // 페이지 끝에 도달하면 추가 데이터를 받아온다
+        console.log(ganreText)
+        if (countryText !== '국가') {
+          dispatch(actions.requestAddCountryMovieList(countryText, pageNum));
+        } else if (ganreText !== '장르'){
+          dispatch(actions.requestAddGanreMovieList(ganreText, pageNum));
+        } else {
+          dispatch(actions.requestAddMovieList(pageNum, 0));
+        }
+        if (!loadingPage){
+          pageNum += 1;
+        }
+        loadingPage = true
+      }
+    };
+    checkWindowInner();
     if (movieLists.length === 0 && filterText === "추천 콘텐츠"){
-      dispatch(actions.requestMovieList());
+      dispatch(actions.requestMovieList(0, 0));
     }
+    pageNum = movieLists.length/40;
     window.addEventListener("resize", function(){
-      checkWindowInner()
+      checkWindowInner();
     });
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", function(){
-        checkWindowInner()
+        checkWindowInner();
       });
     };
-  }, []);
+  }, [countryText, ganreText]);
 
   useEffect(() => {
     repeat = []
     for (let i=0 ; i<=movieLists.length/tabNo ; i++){
       repeat.push(movieLists.slice(i*tabNo, (i+1)*tabNo))
     }
+    pageNum = movieLists.length/40
     setFilterList([...repeat])
+    loadingPage = false;
   }, [movieLists, tabNo])
 
   function checkWindowInner() {
@@ -108,16 +136,6 @@ export default function MovieFilter() {
       setTabNo(2)
     }
   }
-
-  function handleScroll() {
-    const scrollHeight = document.documentElement.scrollHeight;
-    const scrollTop = document.documentElement.scrollTop;
-    const clientHeight = document.documentElement.clientHeight;
-    if (scrollTop + clientHeight >= scrollHeight && !isInfinite) {
-      // 페이지 끝에 도달하면 추가 데이터를 받아온다
-      dispatch(actions.requestAddMovieList());
-    }
-   };
 
   function changeFilterText(e) {
     setFilterText(e.target.innerText);
@@ -138,7 +156,9 @@ export default function MovieFilter() {
       filteredList = movieLists.slice();
     } else if (e.target.innerText === '출시일순') {
       // 출시일 정렬
-      filteredList = movieLists.slice();
+      filteredList = movieLists.slice().sort(function(a, b) {
+        return a['open'] > b['open'] ? -1 : a['open'] < b['open']  ? 1 : 0;
+      });
     }
     repeat = []
     for (let i=0 ; i<=filteredList.length/tabNo ; i++){
@@ -151,8 +171,8 @@ export default function MovieFilter() {
       <div className="movie-filter__top-bar__container">
         <div className="movie-filter__top-bar__area">
           <div className="movie-filter__top-bar__left">
-            <GanreFilter />
-            <CountryFilter />
+            <GanreFilter ganreText={ganreText} setGanreText={setGanreText} />
+            <CountryFilter countryText={countryText} setCountryText={setCountryText} />
           </div>
           <div className="movie-filter__top-bar__right" >
             <Link to={"/"}><div className="movie-filter__top-bar__right__button1" ><DehazeIcon /></div></Link>
@@ -211,7 +231,7 @@ export default function MovieFilter() {
             </MovieList>
           </div>
         ))}
-        {isInfinite && <div style={{display: 'flex', justifyContent: 'center'}}>
+        {isInfinite && !isLoading && <div style={{display: 'flex', justifyContent: 'center'}}>
           <CircularProgress color="secondary" />
         </div>}
       </div>
