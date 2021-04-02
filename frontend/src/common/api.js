@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export function callApiMovieList() {
-  const url = 'http://j4d105.p.ssafy.io:9000/netcha/movie/list'
+  const url = 'netcha/movie/list'
   return axios.get(url)
     .then((Response)=>{
       return Response.data
@@ -10,7 +10,7 @@ export function callApiMovieList() {
 }
 
 export function callApiNewMovieList(pageNum) {
-  const url = `http://j4d105.p.ssafy.io:9000/netcha/movie/list_newContents?pageNum=${pageNum}`
+  const url = `netcha/movie/list_newContents?pageNum=${pageNum}`
   return axios.get(url)
     .then((Response)=>{
       return Response.data
@@ -19,7 +19,7 @@ export function callApiNewMovieList(pageNum) {
 }
 
 export function callApiPopularMovieList(pageNum) {
-  const url = `http://j4d105.p.ssafy.io:9000/netcha/movie/list_totalView?pageNum=${pageNum}`
+  const url = `netcha/movie/list_totalView?pageNum=${pageNum}`
   return axios.get(url)
     .then((Response)=>{
       return Response.data
@@ -28,7 +28,7 @@ export function callApiPopularMovieList(pageNum) {
 }
 
 export function callApiContentMovieList(pageNum, id) {
-  const url = `http://j4d105.p.ssafy.io:9000/netcha/movie/list_recommend?pageNum=${pageNum}&userId=${id}`
+  const url = `netcha/movie/list_recommend?pageNum=${pageNum}&userId=${id}`
   return axios.get(url)
     .then((Response)=>{
       return Response.data
@@ -37,7 +37,7 @@ export function callApiContentMovieList(pageNum, id) {
 }
 
 export function callApiRankMovieList(pageNum) {
-  const url = `http://j4d105.p.ssafy.io:9000/netcha/movie/list_avgRank?pageNum=${pageNum}`
+  const url = `netcha/movie/list_avgRank?pageNum=${pageNum}`
   return axios.get(url)
     .then((Response)=>{
       return Response.data
@@ -46,7 +46,7 @@ export function callApiRankMovieList(pageNum) {
 }
 
 export function callApiGanreMovieList(ganre, pageNum) {
-  const url = `http://j4d105.p.ssafy.io:9000/netcha/movie/list_ganre?ganre=${ganre}&pageNum=${pageNum}`
+  const url = `netcha/movie/list_ganre?ganre=${ganre}&pageNum=${pageNum}`
   return axios.get(url)
     .then((Response)=>{
       return Response.data
@@ -55,7 +55,26 @@ export function callApiGanreMovieList(ganre, pageNum) {
 }
 
 export function callApiCountryMovieList(country, pageNum) {
-  const url = `http://j4d105.p.ssafy.io:9000/netcha/movie/list_country?country=${country}&pageNum=${pageNum}`
+  const url = `netcha/movie/list_country?country=${country}&pageNum=${pageNum}`
+  return axios.get(url)
+    .then((Response)=>{
+      return Response.data
+    })
+    .catch((Error)=>{console.log(Error)})
+}
+
+
+export function callApiKeywordMovieList(keyword, pageNum) {
+  const url = `netcha/movie/list_keyword?keyword=${keyword}&pageNum=${pageNum}`
+  return axios.get(url)
+  .then((Response)=>{
+    return Response.data
+  })
+  .catch((Error)=>{console.log(Error)})
+}
+
+export function callApiEvaluationMovieList(pageNum, id) {
+  const url = `http://j4d105.p.ssafy.io:9000/netcha/movie/ranking_page?pageNum=${pageNum}&userId=${id}`
   return axios.get(url)
     .then((Response)=>{
       return Response.data
