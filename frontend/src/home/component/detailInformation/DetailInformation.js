@@ -29,11 +29,11 @@ export default function DetailInformation({ movie }) {
     <>
       <div style={{width: '20%'}}>
         <div className="detail__title">감독</div>
-        <p className="detail__people">{ movie.directors[0] }</p>
+        <p className="detail__people"><span className="detail__people__member">{ movie.directors[0] }</span></p>
 
         <div className="detail__title" style={{ marginTop: '1.5vw'}}>배우</div>
         { movie.casts.slice(0, 10).map((member) => (
-          <p className="detail__people" key={member}>{member.split('(')[0]}</p>
+          <p className="detail__people" key={member}><span className="detail__people__member">{member.split('(')[0]}</span></p>
         ))}
       </div>
       <div style={{width: '80%', display: 'flex'} }>

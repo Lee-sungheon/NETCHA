@@ -79,27 +79,11 @@ export default function Evaluation() {
   const movieLists = useSelector(state => state.evaluation.movieLists);
   const isLoading = useSelector(state => state.evaluation.isLoading);
   const isInfinite = useSelector(state => state.evaluation.isInfinite);
+  const user = useSelector(state => state.user.userData.member);
   const dispatch = useDispatch();
-  useEffect(() => {
-    pageNum = 1;
-    checkWindowInner()
-    dispatch(actions.requestMovieList(0, 0));
-    window.addEventListener('resize', function(){
-      checkWindowInner()
-    });
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", function(){
-        checkWindowInner()
-      });
-    };
-  }, [])
-  
-  useEffect(() => {
-    loadingPage = false;
-  }, [movieLists])
 
+  useEffect(() => {
+    
   function checkWindowInner() {
     const windowInnerWidth = window.innerWidth;
     if (windowInnerWidth < 600){
@@ -119,13 +103,32 @@ export default function Evaluation() {
     const clientHeight = document.documentElement.clientHeight;
     if (scrollTop + clientHeight + 1 >= scrollHeight && !isInfinite) {
       // 페이지 끝에 도달하면 추가 데이터를 받아온다
-      dispatch(actions.requestAddMovieList(pageNum, 0));
+      dispatch(actions.requestAddMovieList(pageNum, user.seq));
       if (!loadingPage){
         pageNum += 1;
       }
       loadingPage = true
     }
   };
+  
+    pageNum = 1;
+    checkWindowInner()
+    dispatch(actions.requestMovieList(0, user.seq));
+    window.addEventListener('resize', function(){
+      checkWindowInner()
+    });
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", function(){
+        checkWindowInner()
+      });
+    };
+  }, [])
+  
+  useEffect(() => {
+    loadingPage = false;
+  }, [movieLists])
 
   return (
     <div>

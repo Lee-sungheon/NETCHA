@@ -20,6 +20,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   Brightness4Icon: {
+    cursor: "pointer",
     padding: theme.spacing(0, 1),
     height: "100%",
     display: "flex",
@@ -67,8 +68,8 @@ const StyledMenuItem = withStyles((theme) => ({
 
 export default function Header({ toggleButton, setToggleButton }) {
   const classes = useStyles();
-  const [activeValue, setActiveValue] = useState("홈");
   const [anchorEl, setAnchorEl] = useState(null);
+  const [activeValue, setActiveValue] = useState("홈");
   const history = useHistory();
   const { nickname } = useSelector((state) => ({
     nickname: state.user.userData.member.nickname,
@@ -201,11 +202,9 @@ export default function Header({ toggleButton, setToggleButton }) {
 
           <Search activeValue={activeValue} setActiveValue={setActiveValue} />
 
-          <Link to={"/"}>
-            <div className={classes.Brightness4Icon}>
-              <Brightness4Icon className="ld-button" onClick={onClick} />
-            </div>
-          </Link>
+          <div className={classes.Brightness4Icon}>
+            <Brightness4Icon className="ld-button" onClick={onClick} />
+          </div>
           <div className={classes.Brightness4Icon}>
             <Avatar
               alt="Travis Howard"
@@ -236,6 +235,7 @@ export default function Header({ toggleButton, setToggleButton }) {
             >
               <StyledMenuItem>
                 <Link
+                  to={"/"}
                   style={{
                     color: "white",
                   }}
@@ -246,6 +246,7 @@ export default function Header({ toggleButton, setToggleButton }) {
               </StyledMenuItem>
               <StyledMenuItem>
                 <Link
+                  to={"/"}
                   style={{
                     color: "white",
                   }}

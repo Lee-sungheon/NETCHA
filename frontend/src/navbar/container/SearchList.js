@@ -4,13 +4,21 @@ import MovieList from '../../likeList/component/movieList/MovieList';
 import MovieItem from '../../likeList/component/movieList/MovieItem';
 import { actions } from "../state";
 import { useSelector, useDispatch } from 'react-redux';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
+import DesktopAccessDisabledIcon from '@material-ui/icons/DesktopAccessDisabled';
 
 let repeat = []
+let pageNum = 1;
+let loadingPage = false;
+
 export default function SearchList({location}) {
   const [tabNo, setTabNo] = useState(5);
   const [searchList, setSearchList] = useState([]);
+  const search = location.search.slice(1,).split('=');
   const movieLists = useSelector(state => state.search.movieLists);
+  const isLoading = useSelector(state => state.search.isLoading);
+  const isInfinite = useSelector((state) => state.search.isInfinite);
+  const isInfiniteEnd = useSelector((state) => state.search.infiniteEnd);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,7 +34,37 @@ export default function SearchList({location}) {
   }, [])
 
   useEffect(() => {
-    dispatch(actions.requestMovieList());
+    window.scrollTo(0, 0);
+    function handleScroll() {
+      const scrollHeight = document.documentElement.scrollHeight;
+      const scrollTop = document.documentElement.scrollTop;
+      const clientHeight = document.documentElement.clientHeight;
+      if (scrollTop + clientHeight + 1 >= scrollHeight && !isInfinite) {
+        // 페이지 끝에 도달하면 추가 데이터를 받아온다
+        if (search[0] === "country") {
+          dispatch(actions.requestAddCountryMovieList(search[1], pageNum));
+        } else if (search[0] === "ganre") {
+          dispatch(actions.requestAddGanreMovieList(search[1], pageNum));
+        } else {
+          dispatch(actions.requestMovieList());
+        }
+        if (!loadingPage) {
+          pageNum += 1;
+        }
+        loadingPage = true;
+      }
+    }
+    window.addEventListener("scroll", handleScroll);
+    if (search[0] === 'ganre'){
+      dispatch(actions.requestGanreMovieList(search[1], 0));
+    } else if (search[0] === 'country'){
+      dispatch(actions.requestCountryMovieList(search[1], 0));
+    } else{
+      dispatch(actions.requestMovieList());
+    }
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [location])
 
   useEffect(() => {
@@ -35,6 +73,7 @@ export default function SearchList({location}) {
       repeat.push(movieLists.slice(i*tabNo, (i+1)*tabNo))
     }
     setSearchList([...repeat])
+    loadingPage = false;
   }, [movieLists, tabNo])
   
   function checkWindowInner() {
@@ -55,8 +94,13 @@ export default function SearchList({location}) {
   return (
     <>
       <div className='like__container'>
-        <div className="like__title"> {location.search.slice(3,)} 검색 결과</div>
-        {searchList.map((item, idx) => (
+        <div className="like__title"> {search[1]}<span style={{color: 'gray'}}> 검색 결과</span></div>
+        { isLoading &&
+          <div style={{height: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <CircularProgress color="secondary" />
+          </div>
+        }
+        { !isLoading && searchList.map((item, idx) => (
           <div id={`slider-${idx}`} className='like__container' key={idx}>
             <MovieList idx={`slider-${idx}`} num={tabNo}>
               {item.map((movie, index) => (
@@ -67,6 +111,26 @@ export default function SearchList({location}) {
         </div>
         ))}
       </div>
+      {searchList.length === 0 &&
+          <div style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <DesktopAccessDisabledIcon/>
+          <span style={{marginLeft: '8px'}}>해당 영화가 없습니다!</span>
+        </div>
+        }
+        {isInfinite && !isLoading && !isInfiniteEnd && (
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <CircularProgress color="secondary" />
+          </div>
+        )}
+        {isInfiniteEnd && searchList.length !== 0 &&
+          <div style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '5vh'}}>
+            <DesktopAccessDisabledIcon/>
+            <span style={{marginLeft: '8px'}}>더이상 불러올 데이터가 없습니다!</span>
+          </div>
+        }
+        {searchList.length < 3 &&
+          <div style={{height: '40vh'}}></div>
+        }
     </>
   )
 }

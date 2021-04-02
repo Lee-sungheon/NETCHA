@@ -7,6 +7,7 @@ export const types = {
   REQUEST_ADD_GANREMOVIELIST: 'home/REQUEST_ADD_GANREMOVIELIST',
   ADD_MOVIELIST: 'home/ADD_MOVIELIST',
   SET_INFINITE: 'home/SET_INFINITE',
+  SET_END: 'home/SET_END',
   // 추천 영화
   REQUEST_MOVIELIST: 'home/REQUEST_MOVIELIST',
   SET_MOVIELIST: 'home/SET_MOVIELIST',
@@ -59,6 +60,10 @@ export const types = {
   REQUEST_KEYWORDMOVIELIST3: 'home/REQUEST_KEYWORDMOVIELIST3',
   SET_KEYWORDMOVIELIST3: 'home/SET_KEYWORDMOVIELIST3',
   SET_KEYWORDLOADING3: 'home/SET_KEYWORDLOADING3',
+  // 비슷한 영화
+  REQUEST_SIMILARMOVIELIST: 'home/REQUEST_SIMILARMOVIELIST',
+  SET_SIMILARMOVIELIST: 'home/SET_SIMILARMOVIELIST',
+  SET_SIMILARLOADING: 'home/SET_SIMILARLOADING',
   // 영화 필터링
   REQUEST_FILTERCOUNTRYMOVIELIST: 'home/REQUEST_FILTERCOUNTRYMOVIELIST',
   REQUEST_FILTERGANREMOVIELIST: 'home/REQUEST_FILTERGANREMOVIELIST',
@@ -76,6 +81,10 @@ export const actions = {
   setInfinite: isInfinite => ({
     type: types.SET_INFINITE,
     isInfinite,
+  }),
+  setEnd: infiniteEnd => ({
+    type: types.SET_END,
+    infiniteEnd,
   }),
   // 추천 영화
   requestMovieList: (pageNum, userNo) => ({ type: types.REQUEST_MOVIELIST, pageNum, userNo }),
@@ -168,6 +177,13 @@ export const actions = {
     type: types.SET_KEYWORDLOADING3,
     isKeywordLoading3,
   }),
+  // 비슷한 영화
+  requestSimilarMovieList: (ganre, pageNum) => ({ type: types.REQUEST_SIMILARMOVIELIST, ganre, pageNum }),
+  setSimilarMovieList: data => ({ type: types.SET_SIMILARMOVIELIST, data }),
+  setSimilarLoading: isSimilarLoading => ({
+    type: types.SET_SIMILARLOADING,
+    isSimilarLoading,
+  }),
   //영화 필터링
   requestFilterCountryMovieList: (country, pageNum) => ({ type: types.REQUEST_FILTERCOUNTRYMOVIELIST, country, pageNum }),
   requestFilterGanreMovieList: (ganre, pageNum) => ({ type: types.REQUEST_FILTERGANREMOVIELIST, ganre, pageNum }),
@@ -184,6 +200,7 @@ const INITIAL_STATE = {
   isLoading: false,
   error: '',
   isInfinite: false,
+  infiniteEnd: false,
   newMovieLists: [],
   isNewLoading: false,
   popularMovieLists: [],
@@ -208,6 +225,8 @@ const INITIAL_STATE = {
   isKeywordLoading2: false,
   keywordMovieLists3: [],
   isKeywordLoading3: false,
+  similarMovieLists: [],
+  isSimilarLoading: false,
   isFilter: false,
 };
 
@@ -217,6 +236,7 @@ const reducer = createReducer(INITIAL_STATE, {
     state.movieLists = state.movieLists.concat(action.data)
   },
   [types.SET_INFINITE]: (state, action) => (state.isInfinite = action.isInfinite),
+  [types.SET_END]: (state, action) => (state.infiniteEnd = action.infiniteEnd),
   // 추천 영화
   [types.SET_MOVIELIST]: (state, action) => {
     state.movieLists = action.data
@@ -292,6 +312,11 @@ const reducer = createReducer(INITIAL_STATE, {
     state.keywordMovieLists3 = action.data
   },
   [types.SET_KEYWORDLOADING3]: (state, action) => (state.isKeywordLoading3 = action.isKeywordLoading3),
+  // 비슷한 영화
+  [types.SET_SIMILARMOVIELIST]: (state, action) => {
+    state.similarMovieLists = action.data
+  },
+  [types.SET_SIMILARLOADING]: (state, action) => (state.isSimilarLoading = action.isSimilarLoading),
   // 영화 필터
   [types.SET_ISFILTER]: (state, action) => (state.isFilter = action.isFilter),
   // 값 변경
