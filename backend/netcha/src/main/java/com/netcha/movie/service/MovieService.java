@@ -337,6 +337,58 @@ public class MovieService {
 		return movies;
 	}
 	
+	// 감독별
+	@Transactional
+	public List<MovieResponseDto> findMovieByDirector(int userId, String director) {
+		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
+		List<Movie> movieR = movieRepository.findByDirectorLike(director);
+		for(Movie m : movieR) {
+			if(m.getRating().equals("")) {
+				String[] result = crawling(m);
+				m.updateCrawling(result[0], result[1], result[2]);
+			}
+			MovieResponseDto movie = new MovieResponseDto(m);
+			boolean mr = false;
+			int ml = 0;
+			boolean mz = false;
+			MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+			if(movieRank != null) mr = true;
+			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+			if(movieLike != null) ml = (int)movieLike.getLikeHate();
+			MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+			if(movieZzim != null) mz = true;
+			movie.userInfo(mr, ml, mz);
+			movies.add(movie);
+		}
+		return movies;
+	}
+	
+	// 배우별
+	@Transactional
+	public List<MovieResponseDto> findMovieByCast(int userId, String cast) {
+		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
+		List<Movie> movieR = movieRepository.findByCastLike(cast);
+		for(Movie m : movieR) {
+			if(m.getRating().equals("")) {
+				String[] result = crawling(m);
+				m.updateCrawling(result[0], result[1], result[2]);
+			}
+			MovieResponseDto movie = new MovieResponseDto(m);
+			boolean mr = false;
+			int ml = 0;
+			boolean mz = false;
+			MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+			if(movieRank != null) mr = true;
+			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+			if(movieLike != null) ml = (int)movieLike.getLikeHate();
+			MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+			if(movieZzim != null) mz = true;
+			movie.userInfo(mr, ml, mz);
+			movies.add(movie);
+		}
+		return movies;
+	}
+	
 	// 평가하기
 	@Transactional
 	public void updateRank(int userId, long movieNo, float ranking) {
