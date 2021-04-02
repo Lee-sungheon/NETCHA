@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    color: "action",
+    color: "#e6e6e6",
   },
   movieli: {
     height: 40,

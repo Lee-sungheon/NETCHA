@@ -18,17 +18,6 @@ export const listSearchMovies = ({page, keyword}) => {
   // return client.get(`/api/searchMovies/${queryString}`)
   // return client.get(`/movie/list_totalView`)
 }
-// // 영화 검색 목록
-// export const listSearchMovies = ({page, keyword}) => {
-//   console.log('keyword:' + keyword);
-//   const queryString = qs.stringify({
-//     page,
-//     keyword,
-//   });
-//   return (movies);
-//   // return client.get(`/api/searchMovies/${queryString}`)
-//   // return client.get(`/movie/list_totalView`)
-// }
 
 // 메인페이지 넷챠 영화 순위 목록
 export const listNetChaRankingMovies = () => {
@@ -41,14 +30,22 @@ export const listNewMovies = () => {
 }
 
 // 사용자페이지 별점 준 영화 목록
-export const listScoreMovies = () => {
+export const listRatingMovies = (userId) => {
   // return client.get(`/movie/list_totalView`);
+  console.log('listRatingMovies ' + userId);
+  return (movies);
+}
+
+// 사용자페이지 찜한 영화 목록
+export const listZzimMovies = (userId) => {
+  // return client.get(`/movie/list_totalView`);
+  console.log('listZzimMovies ' + userId);
   return (movies);
 }
 
 // 헤더 검색한 영화 자동완성
 export const listAutoCompletesMovies = (keyword) => {
-  if(keyword == null || keyword.length == 0) return {data: []};
+  if(!keyword || keyword.length == 0) return {data: []};
 
   const titles = new Set();
   {movies_title.map((title) => {

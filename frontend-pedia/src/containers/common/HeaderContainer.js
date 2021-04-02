@@ -1,10 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Header from "../../components/common/Header";
 
 export default function HeaderContainer() {
-  const userId = 1;
+  const {user} = useSelector(({user}) => ({user}.user));
 
   return (
-    <Header userId={userId} />
+    <Header user={user} />
   );
 }
