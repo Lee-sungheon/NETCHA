@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import { useHistory } from "react-router";
+import { useLocation } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   signupDetail_back: {
@@ -42,9 +43,10 @@ const useStyles = makeStyles((theme) => ({
 export default function SignupDetail(props) {
   const classes = useStyles();
   const history = useHistory();
+  const location = useLocation();
 
   const [inputData, setInputData] = useState({
-    userId: "",
+    userId: location.state.userId,
     password: "",
     confirmPassword: "",
     name: "",
@@ -91,11 +93,15 @@ export default function SignupDetail(props) {
     if (inputData.userId) {
       const body = inputData.userId;
       axios
-        .post("/netcha/user/checkId", JSON.stringify(body), {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
+        .post(
+          "http://j4d105.p.ssafy.io:9000/netcha/user/checkId",
+          JSON.stringify(body),
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
         .then((res) => {
           setInputCheck({ ...inputCheck, userId: true });
         })
@@ -117,7 +123,7 @@ export default function SignupDetail(props) {
   const signUp = (e) => {
     e.preventDefault();
     const body = {
-      mbti: "ENTP",
+      mbti: "",
       name: inputData.name,
       nickname: inputData.nickname,
       password: inputData.password,
@@ -126,16 +132,20 @@ export default function SignupDetail(props) {
     };
     if (inputCheck.userId && inputCheck.confirmPassword) {
       axios
-        .post("/netcha/user/signup", JSON.stringify(body), {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
+        .post(
+          "http://j4d105.p.ssafy.io:9000/netcha/user/signup",
+          JSON.stringify(body),
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
         .then((res) => {
           console.log("계정생성 성공");
           axios
             .post(
-              "/netcha/user/verify",
+              "http://j4d105.p.ssafy.io:9000/netcha/user/verify",
               JSON.stringify({ userId: body.userId }),
               {
                 headers: {

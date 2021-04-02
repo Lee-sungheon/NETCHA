@@ -1,27 +1,28 @@
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../state";
-import axios from "axios";
 
-export default function ChangePhone() {
+export default function ChangeNickname() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { userId, phone } = useSelector((state) => ({
+
+  const { userId, nickname } = useSelector((state) => ({
     userId: state.user.userData.member.userId,
-    phone: state.user.userData.member.phone,
+    nickname: state.user.userData.member.nickname,
   }));
   const [inputData, setInputData] = useState({
-    phone: phone,
+    nickname: nickname,
   });
-  const onPhoneHandeler = (e) => {
-    setInputData({ ...inputData, phone: e.target.value });
+  const onNicknameHandeler = (e) => {
+    setInputData({ ...inputData, nickname: e.target.value });
   };
 
-  const changePhone = (e) => {
+  const changeNickname = (e) => {
     e.preventDefault();
     const body = {
-      phone: inputData.phone,
+      nickname: inputData.nickname,
       userId: userId,
     };
     axios
@@ -51,18 +52,17 @@ export default function ChangePhone() {
   };
   return (
     <div>
-      <h1>전화번호 변경</h1>
+      <h1>닉네임 변경</h1>
       <div>
-        <label>새 전화번호 : </label>
+        <label>새 닉네임 : </label>
         <input
           id="phone"
           type="tel"
-          value={inputData.phone}
-          onChange={onPhoneHandeler}
+          value={inputData.nickname}
+          onChange={onNicknameHandeler}
         ></input>
-
         <br />
-        <button onClick={changePhone}>전화번호 변경</button>
+        <button onClick={changeNickname}>닉네임 변경</button>
       </div>
     </div>
   );
