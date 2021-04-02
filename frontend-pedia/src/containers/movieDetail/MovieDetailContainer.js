@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { readMovie, unloadMovie } from '../../modules/movie';
@@ -32,16 +32,27 @@ const MovieDetailContainer = ({ match }) => {
     };
   }, [dispatch, movieId]);
 
-  const score = 5;
+  const [formData, setFormData] = useState({
+    userId: '1',
+    movieNo: '1',
+    ranking: 1,
+  });
+
   return (
     <div className="movieDetail">
       <div className="headerWrapper">
         {/* 영화 이미지, 포스터, 제목, 장르 별점 */}
-        <MovieHeader movie={movie} loading={loading} error={error} />
+        <MovieHeader
+          movie={movie}
+          formData={formData}
+          setFormData={setFormData}
+          loading={loading}
+          error={error}
+        />
       </div>
       <div className="contentWrapper">
         <div className="contentBox">
-          {!!score && (
+          {!!formData.ranking && (
             <div className="commentWrapper">
               <WriteComment />
             </div>
