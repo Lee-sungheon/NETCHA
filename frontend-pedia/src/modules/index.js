@@ -11,7 +11,7 @@ import genres, { genresSaga } from './genres';
 import tags, { tagsSaga } from './tags';
 import stars, { starsSaga } from './stars';
 import newMovies, { newMoviesSaga } from './newMovies';
-import autoCompletesMovies, { autoCompletesMoviesSaga } from './autoCompletesMovies';
+import autoCompletesMovies, { autoCompletesMoviesSaga, initializeSaga, changeSearchKeywordSaga } from './autoCompletesMovies';
 
 const rootReducer = combineReducers({
   loading,
@@ -41,6 +41,8 @@ export function* rootSaga() {
     starsSaga(),
     newMoviesSaga(),
     autoCompletesMoviesSaga(),
+    initializeSaga(),
+    changeSearchKeywordSaga(),
   ]);
 }
 

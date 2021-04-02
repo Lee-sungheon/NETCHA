@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import { InputBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
+import { changeSearchKeyword } from "../../modules/autoCompletesMovies";
 
 const useStyles = makeStyles((theme) => ({
   inputRoot: {
@@ -17,10 +18,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       width: "35ch",
     },
-  },
-  input: {
-    width: 300,
-    height: 50,
   },
   listbox: {
     width: 330,
@@ -65,11 +62,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SearchInput = ({ keyword, movies, onChange, onKeyPress, error }) => {
-  console.log('movies_title: ' + movies);
+  // console.log('movies_title: ' + movies);
 
   const classes = useStyles();
-  const history = useHistory();
-  const textInput = useRef(null);
 
   return (
     <>
@@ -83,14 +78,13 @@ const SearchInput = ({ keyword, movies, onChange, onKeyPress, error }) => {
             root: classes.inputRoot,
             input: classes.inputInput,
           }}
-          ref={textInput}
           value={keyword.keyword}
           inputProps={{ "aria-label": "search" }}
           onKeyPress={onKeyPress}
           onChange={onChange}
         />
       </div>
-      {!error && textInput && movies && movies.length > 0 ? (
+      {!error && movies && movies.length > 0 ? (
         <ul className={classes.listbox}>
           {movies.map((movieTitle, index) => (
             <li className={classes.movieli} key={index}>

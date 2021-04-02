@@ -14,25 +14,24 @@ export default function SearchInputContainer() {
   }));
 
   //인풋 변경 이벤트 핸들러
-  const onChange = useCallback(e => {
-    console.log('searchKeyword: ' + {keyword});
+  const onChange = e => {
     dispatch(changeSearchKeyword({keyword: e.target.value}));
-    // dispatch(listAutoCompletesMovies({keyword}));
-  }, [dispatch]);
-
+    dispatch(listAutoCompletesMovies(e.target.value));
+  };
+  
   // 검색 엔터 이벤트 핸들러
   const onKeyPress = e => {
     if(e.key === 'Enter') {
-      history.push(`/searchMovie/${keyword}`);
+      history.push(`/searchMovie?keyword=${keyword.keyword}&page=0`);
     }
   };
-
+  
   useEffect(() => {
-    dispatch(listAutoCompletesMovies({keyword}))
+    // dispatch(listAutoCompletesMovies(keyword))
     return() => {
       dispatch(initialize());
     };
-  }, [dispatch, keyword]);
+  }, [dispatch]);
 
 
   return <SearchInput keyword={keyword} movies={autoCompletesMovies} onChange={onChange} onKeyPress={onKeyPress} error={error} />;
