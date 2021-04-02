@@ -6,6 +6,9 @@ import createRequestSaga, {
 } from "../lib/createRequestSaga";
 import { takeLatest } from "redux-saga/effects";
 
+const INITIALIZE = 'movies/INITIALIZE';
+export const initialize = createAction(INITIALIZE);
+
 // 검색한 영화 목록
 const [
   LIST_SEARCH_MOVIES,
@@ -27,25 +30,6 @@ export function* searchMoviesSaga() {
   yield takeLatest(LIST_SEARCH_MOVIES, listsearchMoviesSaga);
 }
 
-// 넷챠 영화 순위
-const [
-  NETCHA_RANKING_MOVIES,
-  NETCHA_RANKING_MOVIES_SUCCESS,
-  NETCHA_RANKING_MOVIES_FAILURE,
-] = createRequestActionTypes("movies/NETCHA_RANKING_MOVIES");
-
-export const listNetChaRankingMovies = createAction(
-  NETCHA_RANKING_MOVIES,
-);
-
-// 넷챠 영화 순위 사가 생성
-const listNetChaRankingMoviesSaga = createRequestSaga(
-  NETCHA_RANKING_MOVIES,
-  moviesAPI.listNetChaRankingMovies
-);
-export function* netchaRankingMoviesSaga() {
-  yield takeLatest(NETCHA_RANKING_MOVIES, listNetChaRankingMoviesSaga);
-}
 
 // 사용자별 별점 준 영화 목록
 const [
@@ -81,14 +65,6 @@ const movies = handleActions(
       movies,
     }),
     [LIST_SEARCH_MOVIES_FAILURE]: (state, { payload: error }) => ({
-      ...state,
-      error,
-    }),
-    [NETCHA_RANKING_MOVIES_SUCCESS]: (state, { payload: movies }) => ({
-      ...state,
-      movies,
-    }),
-    [NETCHA_RANKING_MOVIES_FAILURE]: (state, { payload: error }) => ({
       ...state,
       error,
     }),
