@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import "./Banner.scss";
-
-export default function banner() {
+import ReactHlsPlayer from "react-hls-player";
+import SoundButton from "./SoundButton";
+export default function Banner() {
+  const SoundToggle = () => {
+    const player = document.getElementById("player");
+    // setMuted(!muted);
+    player.muted = !player.muted;
+  };
   return (
     <div
       style={{
@@ -18,7 +24,7 @@ export default function banner() {
           marginTop: "-64px",
         }}
       >
-        <img
+        {/* <img
           src="https://occ-0-4807-395.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABbOymx7zApiRkB4v8RlqPyDcTKk403CX_3kF9AmSltYMW-7mOI54Rimond4ElEj5huQMTf_nPAiJYViyei3JdEij4PoF.webp?r=4cc"
           alt=""
           style={{
@@ -100,7 +106,40 @@ export default function banner() {
               </Button>
             </div>
           </div>
+        </div> */}
+        <div
+          style={{
+            width: "100%",
+            height: "49.25vw",
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
+          <ReactHlsPlayer
+            id="player"
+            src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+            autoPlay={true}
+            width="100%"
+            height="auto"
+            style={{
+              zIndex: "1",
+            }}
+            muted
+          />
         </div>
+      </div>
+      <div
+        onClick={SoundToggle}
+        style={{
+          color: "black",
+          position: "absolute",
+          marginTop: "-500px",
+          marginLeft: "50px",
+          height: "40px",
+          width: "40px",
+        }}
+      >
+        <SoundButton />
       </div>
     </div>
   );
