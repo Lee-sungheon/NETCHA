@@ -47,6 +47,18 @@ export const types = {
   REQUEST_COUNTRYMOVIELIST3: 'home/REQUEST_COUNTRYMOVIELIST3',
   SET_COUNTRYMOVIELIST3: 'home/SET_COUNTRYMOVIELIST3',
   SET_COUNTRYLOADING3: 'home/SET_COUNTRYLOADING3',
+  // 키워드 영화
+  REQUEST_KEYWORDMOVIELIST: 'home/REQUEST_KEYWORDMOVIELIST',
+  SET_KEYWORDMOVIELIST: 'home/SET_KEYWORDMOVIELIST',
+  SET_KEYWORDLOADING: 'home/SET_KEYWORDLOADING',
+  // 키워드 영화2
+  REQUEST_KEYWORDMOVIELIST2: 'home/REQUEST_KEYWORDMOVIELIST2',
+  SET_KEYWORDMOVIELIST2: 'home/SET_KEYWORDMOVIELIST2',
+  SET_KEYWORDLOADING2: 'home/SET_KEYWORDLOADING2',
+  // 키워드 영화3
+  REQUEST_KEYWORDMOVIELIST3: 'home/REQUEST_KEYWORDMOVIELIST3',
+  SET_KEYWORDMOVIELIST3: 'home/SET_KEYWORDMOVIELIST3',
+  SET_KEYWORDLOADING3: 'home/SET_KEYWORDLOADING3',
   // 영화 필터링
   REQUEST_FILTERCOUNTRYMOVIELIST: 'home/REQUEST_FILTERCOUNTRYMOVIELIST',
   REQUEST_FILTERGANREMOVIELIST: 'home/REQUEST_FILTERGANREMOVIELIST',
@@ -135,6 +147,27 @@ export const actions = {
     type: types.SET_COUNTRYLOADING3,
     isCountryLoading3,
   }),
+  // 키워드 영화
+  requestKeywordMovieList: (keyword, pageNum) => ({ type: types.REQUEST_KEYWORDMOVIELIST, keyword, pageNum }),
+  setKeywordMovieList: data => ({ type: types.SET_KEYWORDMOVIELIST, data }),
+  setKeywordLoading: isKeywordLoading => ({
+    type: types.SET_KEYWORDLOADING,
+    isKeywordLoading,
+  }),
+  // 키워드 영화2
+  requestKeywordMovieList2: (keyword, pageNum) => ({ type: types.REQUEST_KEYWORDMOVIELIST2, keyword, pageNum }),
+  setKeywordMovieList2: data => ({ type: types.SET_KEYWORDMOVIELIST2, data }),
+  setKeywordLoading2: isKeywordLoading2 => ({
+    type: types.SET_KEYWORDLOADING2,
+    isKeywordLoading2,
+  }),
+  // 키워드 영화3
+  requestKeywordMovieList3: (keyword, pageNum) => ({ type: types.REQUEST_KEYWORDMOVIELIST3, keyword, pageNum }),
+  setKeywordMovieList3: data => ({ type: types.SET_KEYWORDMOVIELIST3, data }),
+  setKeywordLoading3: isKeywordLoading3 => ({
+    type: types.SET_KEYWORDLOADING3,
+    isKeywordLoading3,
+  }),
   //영화 필터링
   requestFilterCountryMovieList: (country, pageNum) => ({ type: types.REQUEST_FILTERCOUNTRYMOVIELIST, country, pageNum }),
   requestFilterGanreMovieList: (ganre, pageNum) => ({ type: types.REQUEST_FILTERGANREMOVIELIST, ganre, pageNum }),
@@ -169,6 +202,12 @@ const INITIAL_STATE = {
   isCountryLoading2: false,
   countryMovieLists3: [],
   isCountryLoading3: false,
+  keywordMovieLists: [],
+  isKeywordLoading: false,
+  keywordMovieLists2: [],
+  isKeywordLoading2: false,
+  keywordMovieLists3: [],
+  isKeywordLoading3: false,
   isFilter: false,
 };
 
@@ -238,6 +277,21 @@ const reducer = createReducer(INITIAL_STATE, {
     state.countryMovieLists3 = action.data
   },
   [types.SET_COUNTRYLOADING3]: (state, action) => (state.isCountryLoading3 = action.isCountryLoading3),
+  // 키워드 영화
+  [types.SET_KEYWORDMOVIELIST]: (state, action) => {
+    state.keywordMovieLists = action.data
+  },
+  [types.SET_KEYWORDLOADING]: (state, action) => (state.isKeywordLoading = action.isKeywordLoading),
+  // 키워드 영화2
+  [types.SET_KEYWORDMOVIELIST2]: (state, action) => {
+    state.keywordMovieLists2 = action.data
+  },
+  [types.SET_KEYWORDLOADING2]: (state, action) => (state.isKeywordLoading2 = action.isKeywordLoading2),
+  // 키워드 영화3
+  [types.SET_KEYWORDMOVIELIST3]: (state, action) => {
+    state.keywordMovieLists3 = action.data
+  },
+  [types.SET_KEYWORDLOADING3]: (state, action) => (state.isKeywordLoading3 = action.isKeywordLoading3),
   // 영화 필터
   [types.SET_ISFILTER]: (state, action) => (state.isFilter = action.isFilter),
   // 값 변경

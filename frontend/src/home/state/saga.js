@@ -1,13 +1,13 @@
 import { all, call, put, takeLeading } from 'redux-saga/effects';
 import { actions, types } from './index';
-import { 
-  callApiMovieList,
+import {
   callApiNewMovieList,
   callApiPopularMovieList,
   callApiContentMovieList,
   callApiRankMovieList,
   callApiGanreMovieList,
   callApiCountryMovieList,
+  callApiKeywordMovieList,
 } from '../../common/api';
 
 export function* contentData(action) {
@@ -166,6 +166,42 @@ export function* countryData3(action) {
   yield put(actions.setCountryLoading3(false));
 } 
 
+export function* keywordData(action) {
+  yield put(actions.setKeywordLoading(true));
+  try {
+    const data = yield call(callApiKeywordMovieList, action.keyword, action.pageNum);
+    if (data !== undefined) {
+      yield put(actions.setKeywordMovieList(data));
+    }
+  } catch(error) {
+  }
+  yield put(actions.setKeywordLoading(false));
+} 
+
+export function* keywordData2(action) {
+  yield put(actions.setKeywordLoading2(true));
+  try {
+    const data = yield call(callApiKeywordMovieList, action.keyword, action.pageNum);
+    if (data !== undefined) {
+      yield put(actions.setKeywordMovieList2(data));
+    }
+  } catch(error) {
+  }
+  yield put(actions.setKeywordLoading2(false));
+} 
+
+export function* keywordData3(action) {
+  yield put(actions.setKeywordLoading3(true));
+  try {
+    const data = yield call(callApiKeywordMovieList, action.keyword, action.pageNum);
+    if (data !== undefined) {
+      yield put(actions.setKeywordMovieList3(data));
+    }
+  } catch(error) {
+  }
+  yield put(actions.setKeywordLoading3(false));
+} 
+
 export function* addData(action) {
   yield put(actions.setInfinite(true));
   yield put(actions.setValue('error', ''));
@@ -217,6 +253,9 @@ export default function* () {
     takeLeading(types.REQUEST_COUNTRYMOVIELIST, countryData),
     takeLeading(types.REQUEST_COUNTRYMOVIELIST2, countryData2),
     takeLeading(types.REQUEST_COUNTRYMOVIELIST3, countryData3),
+    takeLeading(types.REQUEST_KEYWORDMOVIELIST, keywordData),
+    takeLeading(types.REQUEST_KEYWORDMOVIELIST2, keywordData2),
+    takeLeading(types.REQUEST_KEYWORDMOVIELIST3, keywordData3),
     takeLeading(types.REQUEST_FILTERCOUNTRYMOVIELIST, filterCountryData),
     takeLeading(types.REQUEST_FILTERGANREMOVIELIST, filterGanreData),
     takeLeading(types.REQUEST_ADD_MOVIELIST, addData),

@@ -1,28 +1,28 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import Slider from "../../../component/slider";
+import Slider from "../../slider";
 import { actions } from "../../../state";
 
-export default function ContentBased({loading, idx, user}) {
-  const movieLists = useSelector(state => state.home.movieLists);
-  const isLoading = useSelector(state => state.home.isLoading);
+export default function KeywordBased2({loading, idx, keyword}) {
+  const movieLists = useSelector(state => state.home.keywordMovieLists2);
+  const isLoading = useSelector(state => state.home.isKeywordLoading2);
   const dispatch = useDispatch();
   useEffect(() =>{
-    if (movieLists.length === 0){
-      dispatch(actions.requestMovieList(user.seq, 0));
+    if (movieLists.length === 0) {
+      dispatch(actions.requestKeywordMovieList2(keyword, 0));
     }
   }, [])
   
   return (
     <div className="home__container" id={idx}>
-        {isLoading && <Slider title={`${user.name}님의 취향저격 콘텐츠`} idx={idx}>
+        {isLoading && <Slider title={`${keyword} 영화`} idx={idx}>
           {loading.map((movie, idx) => (
               <Slider.Item movie={movie} key={movie.no} idx={idx}>
               </Slider.Item>
           ))}
         </Slider>}
-        {!isLoading && <Slider title={`${user.name}님의 취향저격 콘텐츠`} idx={idx}>
-          {movieLists.slice(0,40).map((movie, idx) => (
+        {!isLoading && <Slider title={`${keyword} 영화`} idx={idx}>
+          {movieLists.map((movie, idx) => (
               <Slider.Item movie={movie} key={movie.no} idx={idx} >
               </Slider.Item>
           ))}
