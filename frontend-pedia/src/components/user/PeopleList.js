@@ -25,9 +25,9 @@ const PeopleList = ({ data, error, loading }) => {
       {!loading && data && (
         <div className="peopleSlider">
           <Slider {...settings}>
-            {data.map((data) => {
+            {data.map((data, index) => {
               return (
-                <div className="actorWrap">
+                <div className="actorWrap" key={index}>
                   <img className="actorImage" src={data.image} alt={data.name} title={data.name} />
                   <div className="actorName">
                     <span>{data.name}</span>

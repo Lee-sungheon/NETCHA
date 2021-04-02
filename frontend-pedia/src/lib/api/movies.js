@@ -30,9 +30,16 @@ export const listNewMovies = () => {
 }
 
 // 사용자페이지 별점 준 영화 목록
-export const listScoreMovies = (userId) => {
+export const listRatingMovies = (userId) => {
   // return client.get(`/movie/list_totalView`);
-  console.log('사용자페이지 별점 준 영화목록: ' + userId);
+  console.log('listRatingMovies ' + userId);
+  return (movies);
+}
+
+// 사용자페이지 찜한 영화 목록
+export const listZzimMovies = (userId) => {
+  // return client.get(`/movie/list_totalView`);
+  console.log('listZzimMovies ' + userId);
   return (movies);
 }
 

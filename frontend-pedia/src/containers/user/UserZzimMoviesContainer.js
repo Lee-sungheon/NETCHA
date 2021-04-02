@@ -2,23 +2,23 @@ import SmallSlider from '../../components/slider/SmallSlider';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
-import { listScoreMovies } from '../../modules/movies';
+import { listZzimMovies } from '../../modules/zzimMovies';
 
-const UserScoreMoviesContainer = () => {
+const UserZzimMoviesContainer = () => {
   const dispatch = useDispatch();
   const { userId, movies, error, loading } = useSelector(
-    ({ user, movies, loading }) => ({
+    ({ user, zzimMovies, loading }) => ({
       userId: user.user.userId,
-      movies: movies.movies,
-      error: movies.error,
-      loading: loading['movies/LIST_SCORE_MOVIES'],
+      movies: zzimMovies.movies,
+      error: zzimMovies.error,
+      loading: loading['zzimMovies/LIST_ZZIM_MOVIES'],
     })
   );
   useEffect(() => {
-    dispatch(listScoreMovies(userId));
+    dispatch(listZzimMovies(userId));
   }, [dispatch]);
 
   return <SmallSlider movies={movies} error={error} loading={loading} />;
 };
 
-export default withRouter(UserScoreMoviesContainer);
+export default withRouter(UserZzimMoviesContainer);
