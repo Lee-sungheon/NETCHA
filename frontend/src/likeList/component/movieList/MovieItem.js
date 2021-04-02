@@ -57,8 +57,8 @@ export default function MovieItem({ movie, idx }) {
               </CardContent>
             </Card>
             {<div className="movie-show-card-title" id={idx} style={isActive ? {opacity: 1}:{opacity: 0.7}}>
-              {movie.title.slice(0, 14)}
-              {movie.title.length > 14 && '...'}
+              {movie.title.slice(0, 13)}
+              {movie.title.length > 13 && '...'}
             </div>}
           </div>
         );
@@ -72,6 +72,7 @@ const RATING = {
   '12' : '12',
   '18' : '18',
   전체 : 'all',
+  모두 : 'all',
   고등 : '15',
   미성 : '18',
   연소 : '18',

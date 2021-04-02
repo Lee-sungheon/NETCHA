@@ -26,7 +26,7 @@ export default function ContentBased({loading, idx, user}) {
               </Slider.Item>
           ))}
         </Slider>
-      )}
+        }
     </div>
   );
 }
