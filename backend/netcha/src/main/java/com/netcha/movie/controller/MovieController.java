@@ -95,8 +95,8 @@ public class MovieController {
 	}
 	
 	@ApiOperation(value = "장르, 나라별 (40개) : 장르+나라별 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), ganre(장르명), country(나라명), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
-	@GetMapping("/list_country")
-	public ResponseEntity<?> getListByCountry(@RequestParam long userId, @RequestParam String ganre, @RequestParam String country, @RequestParam long pageNum) {
+	@GetMapping("/list_ganreAndCountry")
+	public ResponseEntity<?> getListByGanreAndCountry(@RequestParam long userId, @RequestParam String ganre, @RequestParam String country, @RequestParam long pageNum) {
 		List<MovieResponseDto> movies = movieService.findMovieByGanreAndCountry((int)userId, (int)pageNum, ganre, country);
 		System.out.println("장르+나라별 : "+movies.size());
 		return new ResponseEntity<>(movies, HttpStatus.OK);
