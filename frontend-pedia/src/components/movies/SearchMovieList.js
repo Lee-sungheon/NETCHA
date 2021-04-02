@@ -1,6 +1,5 @@
 import React from "react";
-// import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./SearchMovieList.scss";
 
 const MovieItem = ({ movie }) => {
@@ -22,13 +21,11 @@ const MovieItem = ({ movie }) => {
 };
 
 const SearchMovieList = ({ loading, movies, error }) => {
+  const history = useHistory();
+  
   if (error) {
-    console.log("에러에러에러에러");
     return <h2>에러가 발생했습니다.</h2>;
   }
-  // const history = useHistory();
-
-  console.log("movies: " + movies);
 
   return (
     <>
@@ -38,7 +35,8 @@ const SearchMovieList = ({ loading, movies, error }) => {
           <button
             className="beforeArrow"
             onClick={() => {
-              this.props.history.goBack();
+              // this.props.history.goBack();
+              history.goBack();
             }}
           >
             <img className="beforeArrowImage" src="/images/beforeArrow.png" />
@@ -50,7 +48,6 @@ const SearchMovieList = ({ loading, movies, error }) => {
         {!loading && movies && (
           <div className="movieListWrap">
             {movies.map((movie) => {
-              console.dir(movie);
               return <MovieItem movie={movie} key={movie.id} />;
             })}
           </div>
