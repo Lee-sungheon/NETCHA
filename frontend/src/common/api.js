@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export function callApiMovieList() {
-  const url = 'netcha/movie/list'
+  const url = `netcha/movie/list`
   return axios.get(url)
     .then((Response)=>{
       return Response.data
@@ -74,9 +74,38 @@ export function callApiKeywordMovieList(keyword, pageNum) {
 }
 
 export function callApiEvaluationMovieList(pageNum, id) {
-  const url = `http://j4d105.p.ssafy.io:9000/netcha/movie/ranking_page?pageNum=${pageNum}&userId=${id}`
+  const url = `netcha/movie/rank_page?pageNum=${pageNum}&userId=${id}`
   return axios.get(url)
     .then((Response)=>{
+      return Response.data
+    })
+    .catch((Error)=>{console.log(Error)})
+}
+
+export function callApiRequestEvaluation(userId, movieNo, ranking) {
+  const url = `netcha/movie/rank_update`
+  const data = {
+    userId: userId,
+    movieNo: movieNo,
+    ranking: ranking
+  }
+  return axios.post(url, data)
+    .then((Response)=>{
+      console.log(Response.data)
+      return Response.data
+    })
+    .catch((Error)=>{console.log(Error)})
+}
+
+export function callApiDeleteEvaluation(userId, movieNo) {
+  const url = `netcha/movie/rank_delete`
+  const data = {
+    userId: userId,
+    movieNo: movieNo
+  }
+  return axios.delete(url, data)
+    .then((Response)=>{
+      console.log(Response.data)
       return Response.data
     })
     .catch((Error)=>{console.log(Error)})

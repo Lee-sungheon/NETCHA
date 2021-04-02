@@ -3,30 +3,46 @@ import { useEffect, useState } from 'react';
 import cx from 'classnames';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-
+import { actions } from "../../state";
+import { useSelector, useDispatch } from 'react-redux';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default function SimilarMovie({ movie }) {
-  const [ index, SetIndex ] = useState(1)
-  const [ similarList,setSimilarList ] = useState([])
-  useEffect(() => {
-    const movies = SIMILARMOVIES.slice((index-1)*4, index*4)
-    setSimilarList(movies)
-  }, [index])
+  const [ index, SetIndex ] = useState(1);
+  const [ similarList, setSimilarList ] = useState([]);
+  const similarMovie = useSelector(state => state.home.similarMovieLists);
+  const isLoading = useSelector(state => state.home.isSimilarLoading);
+  // const user = useSelector(state => state.user.userData.member);
+  const dispatch = useDispatch();
   function indexLeft() {
     if (index > 1) {
       SetIndex(index-1)
     }
   }
   function indexRight() {
-    if (index <= SIMILARMOVIES.length/4) {
+    if (index <= similarMovie.length/4) {
       SetIndex(index+1)
     }
   }
+  useEffect(() => {
+    dispatch(actions.requestSimilarMovieList(movie.ganre[0], 0));
+  }, [])
+  useEffect(() => {
+    if (similarMovie.length > 3) {
+      const movies = similarMovie.slice((index-1)*4, index*4);
+      setSimilarList(movies);
+    }
+  }, [index, similarMovie])
 
   return (
     <>
       <div className="similar__container" >
+        {isLoading &&
+          <div style={{height: '30vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <CircularProgress color="secondary" />
+          </div>
+        }
+        {!isLoading &&
         <div className="similar__area" >
           <div className="similar__chevron-box-left" 
             onClick={indexLeft}
@@ -36,123 +52,52 @@ export default function SimilarMovie({ movie }) {
           </div>
           <div className="similar__chevron-box-right" 
             onClick={indexRight}
-            style={index < SIMILARMOVIES.length/4 ? {visibility: 'visible'}:{visibility: 'hidden'}}
+            style={index < similarMovie.length/4 ? {visibility: 'visible'}:{visibility: 'hidden'}}
           >
             <ChevronRightIcon className="similar__chevron" />
           </div>
           <ul style={{padding: '0', margin: '0'}}>
-            {similarList.map((item, idx) => (
+            {similarList.map((movie, idx) => (
               <li 
-                key={item.id}
+                key={idx}
                 className={cx('similar__list', { 'similar__index': idx !== 0})} 
               >
                 <div className="similar__img-box">
-                  <div className="similar__background"  style={{backgroundImage: `url(${item.imageBg})`}} />
+                  <div className="similar__background" style={{backgroundImage: `url(${ movie.imageUrl[0] !== 'default' ? movie.imageUrl[0] : "/images/netchar2.png" })`}} />
                   <div className="similar__play-box">
                     ▶
-                    {/* <PlayArrowIcon className="similar__play-icon"/> */}
                   </div>
                 </div>
                 <div className="similar__text-box">
-                  <div className="similar__title">{item.title}</div>
-                  <div className="similar__info">전체 • 2시간 10분</div>
+                  <div className="similar__title">{movie.title}</div>
+                  <div className="similar__info">
+                    {movie.rating !== "" && movie.rating !== undefined && 
+                    <img style={{width: '7%', margin: '0 3px'}} src={`/images/${RATING[movie.rating.slice(0,2)]}.svg`} id={idx}/>}
+                     • {parseInt(movie.time/60)}시간 {movie.time%60}분
+                  </div>
                   <div className="similar__description">
-                    {item.description.slice(0,120)}
-                    {item.description.length > 120 && <span>...</span>}
+                    {movie.scenario.slice(0,118)}
+                    {movie.scenario.length > 120 && <span>...</span>}
                   </div>
                 </div>
               </li>
             ))}
           </ul>
-        </div>
+        </div>}
       </div>
     </>
   )
 }
 
-const SIMILARMOVIES = [
-  {
-    id: 1,
-    image: "/images/slide1.jpg",
-    imageBg: "/images/slide1b.webp",
-    title: "1983",
-    description: "짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.",
-  },
-  {
-    id: 2,
-    image: "/images/slide2.jpg",
-    imageBg: "/images/slide2b.webp",
-    title: "Russian doll",
-    description: "짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.",
-  },
-  {
-    id: 3,
-    image: "/images/slide3.jpg",
-    imageBg: "/images/slide3b.webp",
-    title: "The rain",
-    description: "짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.",
-  },
-  {
-    id: 4,
-    image: "/images/slide4.jpg",
-    imageBg: "/images/slide4b.webp",
-    title: "Sex education",
-    description: "짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.",
-  },
-  {
-    id: 5,
-    image: "/images/slide5.jpg",
-    imageBg: "/images/slide5b.webp",
-    title: "Elite",
-    description: "짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.",
-  },
-  {
-    id: 6,
-    image: "/images/slide6.jpg",
-    imageBg: "/images/slide6b.webp",
-    title: "Black mirror",
-    description: "짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.",
-  },
-  {
-    id: 7,
-    image: "/images/slide1.jpg",
-    imageBg: "/images/slide1b.webp",
-    title: "1983",
-    description: "짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.",
-  },
-  {
-    id: 8,
-    image: "/images/slide2.jpg",
-    imageBg: "/images/slide2b.webp",
-    title: "Russian doll",
-    description: "짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.",
-  },
-  {
-    id: 9,
-    image: "/images/slide3.jpg",
-    imageBg: "/images/slide3b.webp",
-    title: "The rain",
-    description: "짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.",
-  },
-  {
-    id: 10,
-    image: "/images/slide4.jpg",
-    imageBg: "/images/slide4b.webp",
-    title: "Sex education",
-    description: "짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.",
-  },
-  {
-    id: 11,
-    image: "/images/slide5.jpg",
-    imageBg: "/images/slide5b.webp",
-    title: "Elite",
-    description: "짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.",
-  },
-  {
-    id: 12,
-    image: "/images/slide6.jpg",
-    imageBg: "/images/slide6b.webp",
-    title: "Black mirror",
-    description: "짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.짐 고든 형사, 하비 덴트 검사와 함께 고담시의 범죄와 부정부패를 없애려는 배트맨. 그런 그의 앞에 보라색 양복을 입고 짙게 화장을 한 미치광이 살인 광대 조커가 등장한다.",
-  },
-];
+const RATING = {
+  '15' : '15',
+  '12' : '12',
+  '18' : '18',
+  전체 : 'all',
+  모두 : 'all',
+  고등 : '15',
+  미성 : '18',
+  연소 : '18',
+  중학 : '12',
+  청소 : '18',
+}

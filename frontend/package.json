@@ -14,6 +14,7 @@
     "@types/jest": "^26.0.4",
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
+    "cors": "^2.8.5",
     "diff": "^4.0.2",
     "express": "^4.17.1",
     "fluent-ffmpeg": "^2.1.2",
@@ -36,7 +37,6 @@
     "slick-carousel": "^1.8.1",
     "web-vitals": "^1.0.1"
   },
-  "proxy": "http://j4d105.p.ssafy.io:9000",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
