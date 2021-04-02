@@ -79,15 +79,11 @@ export default function Signup(props) {
   const onStart = (e) => {
     e.preventDefault();
     axios
-      .post(
-        "http://j4d105.p.ssafy.io:9000/netcha/user/checkId",
-        inputData.userId,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .post("netcha/user/checkId", inputData.userId, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         console.log(res);
         console.log(res.data.data);
@@ -181,39 +177,84 @@ export default function Signup(props) {
           style={{
             backgroundColor: "black",
             // width: "100%",
-            height: "20vw",
+            height: "300px",
             borderTop: "solid #222 8px",
-            padding: "5vw",
+            padding: "60px",
           }}
         >
           <div
             style={{
               display: "flex",
-              backgroundColor: "white",
-              margin: "0 15vw",
-
-              height: "100%",
+              width: "90vw",
+              maxWidth: "1100px",
+              height: "300px",
+              margin: "auto",
             }}
           >
             <div
               style={{
-                backgroundColor: "white",
+                width: "50%",
+                color: "white",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "50px",
+                  fontWeight: "bold",
+                  marginTop: "30px",
+                }}
+              >
+                TV로 즐기세요.
+              </div>
+              <div
+                style={{
+                  fontSize: "25px",
+                  marginTop: "15px",
+                }}
+              >
+                스마트 TV, PlayStation, Xbox, Chromecast, Apple TV, 블루레이
+                플레이어 등 다양한 디바이스에서 시청하세요.
+              </div>
+            </div>
+            <div
+              style={{
+                marginLeft: "3vw",
                 height: "100%",
                 width: "50%",
                 color: "black",
               }}
             >
-              TV로 즐기세요.
-            </div>
-            <div
-              style={{
-                backgroundColor: "white",
-                height: "100%",
-                width: "50%",
-                color: "white",
-              }}
-            >
-              TV로 즐기세요.
+              <div>
+                <img
+                  src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/tv.png"
+                  alt=""
+                  style={{
+                    height: "400px",
+                    width: "500px",
+                    marginTop: "-50px",
+                    marginLeft: "50px",
+                    position: "absolute",
+                    zIndex: "1",
+                  }}
+                ></img>
+                <video
+                  autoPlay
+                  playsInline
+                  muted
+                  loop
+                  style={{
+                    height: "210px",
+                    width: "600px",
+                    position: "absolute",
+                    marginTop: "35px",
+                  }}
+                >
+                  <source
+                    src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/video-tv-0819.m4v  "
+                    type="video/mp4"
+                  ></source>
+                </video>
+              </div>
             </div>
           </div>
         </div>
