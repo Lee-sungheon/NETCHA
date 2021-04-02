@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -94,7 +95,7 @@ public class MovieController {
 	}
 	
 	@ApiOperation(value = "평점 매기기(신규, 수정 포함)", notes = "입력값 : userId(유저고유번호), movieNo(영화고유번호), ranking(평점(0~5))")
-	@PostMapping("/update_rank")
+	@PostMapping("/rank_update")
 	public ResponseEntity<?> updateRank(@RequestBody Map<String, String> param) {
 		long userId = Long.parseLong(param.get("userId"));
 		long movieNo = Long.parseLong(param.get("movieNo"));
@@ -103,8 +104,17 @@ public class MovieController {
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "평점 삭제", notes = "입력값 : userId(유저고유번호), movieNo(영화고유번호)")
+	@DeleteMapping("/rank_delete")
+	public ResponseEntity<?> deleteRank(@RequestBody Map<String, String> param) {
+		long userId = Long.parseLong(param.get("userId"));
+		long movieNo = Long.parseLong(param.get("movieNo"));
+		movieService.deleteRank(userId, movieNo);
+		return new ResponseEntity<>("success", HttpStatus.OK);
+	}
+	
 	@ApiOperation(value = "평가하기 페이지 (40개) : 평가한적 없는 영화, 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))")
-	@GetMapping("/ranking_page")
+	@GetMapping("/rank_page")
 	public ResponseEntity<?> getListRankingPage(@RequestParam long userId, @RequestParam long pageNum) {
 		List<MovieResponseDto> movies = movieService.findMovieByNoNotInNo((int)userId, (int)pageNum);
 		System.out.println("평가하기 페이지 : "+movies.size());
