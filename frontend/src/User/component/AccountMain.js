@@ -104,7 +104,7 @@ export default function AccountMain() {
                     <br />
                   </div>
                   <div>
-                    <Link>닉네임 변경</Link>
+                    <Link to="/account/changeninkname">닉네임 변경</Link>
                   </div>
                   <div>
                     <Link to="/account/changepassword">비밀번호 변경</Link>
