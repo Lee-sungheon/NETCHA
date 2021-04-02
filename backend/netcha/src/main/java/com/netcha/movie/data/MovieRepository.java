@@ -30,4 +30,10 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	// 장르, 나라 해당 : 누적 조회수 순으로
 	@Query("select m from Movie m where m.ganre like %:ganre% and m.country like %:country%")
 	public List<Movie> findByGanreLikeAndCountryLike(@Param("ganre") String ganre, @Param("country") String country, Pageable page);
+	// 감독별 (40개) : 누적 조회수 순으로
+	@Query("select m from Movie m where m.directors like %:director% order by m.totalView desc")
+	public List<Movie> findByDirectorLike(@Param("director") String director);
+	// 배우별 (40개) : 누적 조회수 순으로
+	@Query("select m from Movie m where m.casts like %:cast% order by m.totalView desc")
+	public List<Movie> findByCastLike(@Param("cast") String cast);
 }

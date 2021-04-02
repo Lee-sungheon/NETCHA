@@ -102,6 +102,22 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "감독별 (40개) : 감독별 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), director(감독명)\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
+	@GetMapping("/list_director")
+	public ResponseEntity<?> getListByDirector(@RequestParam long userId, @RequestParam String director) {
+		List<MovieResponseDto> movies = movieService.findMovieByDirector((int)userId, director);
+		System.out.println("감독별 : "+movies.size());
+		return new ResponseEntity<>(movies, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "배우별 (40개) : 배우별 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), cast(배우명)\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
+	@GetMapping("/list_cast")
+	public ResponseEntity<?> getListByCast(@RequestParam long userId, @RequestParam String cast) {
+		List<MovieResponseDto> movies = movieService.findMovieByCast((int)userId, cast);
+		System.out.println("배우별 : "+movies.size());
+		return new ResponseEntity<>(movies, HttpStatus.OK);
+	}
+	
 	@ApiOperation(value = "평점 매기기(신규, 수정 포함)", notes = "입력값 : userId(유저고유번호), movieNo(영화고유번호), ranking(평점(0~5))")
 	@PostMapping("/rank_update")
 	public ResponseEntity<?> updateRank(@RequestBody Map<String, String> param) {
