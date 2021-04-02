@@ -3,7 +3,9 @@ import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
 import movie, { movieSaga } from './movie';
 import loading from './loading';
-import movies, { searchMoviesSaga, scoreMoviesSaga } from './movies';
+import searchMovies, { searchMoviesSaga } from './searchMovies';
+import ratingMovies, { ratingMoviesSaga } from './ratingMovies';
+import zzimMovies, { zzimMoviesSaga } from './zzimMovies';
 import actors, { actorsSaga } from './actors';
 import directors, { directorsSaga } from './directors';
 import countries, { countriesSaga } from './countries';
@@ -18,7 +20,9 @@ import user, { userSaga } from './user';
 const rootReducer = combineReducers({
   loading,
   movie,
-  movies,
+  searchMovies,
+  ratingMovies,
+  zzimMovies,
   actors,
   directors,
   countries,
@@ -36,7 +40,8 @@ export function* rootSaga() {
     movieSaga(), 
     searchMoviesSaga(), 
     netchaRankingMoviesSaga(),
-    scoreMoviesSaga(),
+    ratingMoviesSaga(),
+    zzimMoviesSaga(),
     actorsSaga(),
     directorsSaga(),
     countriesSaga(),
