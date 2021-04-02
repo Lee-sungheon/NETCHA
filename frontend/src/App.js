@@ -63,7 +63,7 @@ function App() {
               <Route path="/movielist">
                 <MovieFilter />
               </Route>
-              <Route path="/search" component={SearchList} />
+              <Route path="/search" component={SearchList}/>
               <Route path="/mylike">
                 <LikeList />
               </Route>

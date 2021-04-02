@@ -56,7 +56,9 @@ export default function CountryFilter({countryText, setCountryText}) {
   function changeCountryText(e) {
     setCountryText(e.target.innerText);
     handleClose();
-    dispatch(actions.requestFilterCountryMovieList(e.target.innerText, 0));
+    if (e.target.innerText!=='국가'){
+      dispatch(actions.requestFilterCountryMovieList(e.target.innerText, 0));
+    }
   }
   return (
     <div className="movie-filter__top-bar__left__filter1" style={{padding: '0 10px', marginLeft: '10px', width: '85px'}}>

@@ -4,6 +4,8 @@ import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import PropTypes from "prop-types";
+import { callApiRequestEvaluation, callApiDeleteEvaluation } from '../../common/api';
+import { useSelector } from "react-redux";
 
 MovieItem.propTypes = {
   tile: PropTypes.object,
@@ -55,12 +57,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+let tmpScore = 5;
 export default function MovieItem({ tile, pickNum, setPickNum }) {
   const customClasses = useStyles();
+  const user = useSelector(state => state.user.userData.member);
   const [isFinish, setIsFinish] = useState(false);
   const [isHover, setIsHover] = useState(false);
   const [score, setScore] = useState(7);
-  let tmpScore = 5;
   function setHover() {
     if (isFinish) {
       setIsHover(true);
@@ -76,16 +79,21 @@ export default function MovieItem({ tile, pickNum, setPickNum }) {
   }
   function onClick(e) {
     if (e.target.name !== "size-large") {
-      if (!isFinish) {
-        setPickNum(pickNum + 1);
-      }
-      setIsFinish(true);
-      if (tmpScore === score) {
+      if (tmpScore === score && isFinish) {
+        console.log(user.seq, tile.no)
+        callApiDeleteEvaluation(user.seq, tile.no)
         setPickNum(pickNum - 1);
         setIsFinish(false);
         return;
       }
+      if (!isFinish) {
+        setIsFinish(true);
+        setPickNum(pickNum + 1);
+      }
       setScore(tmpScore);
+      
+      console.log(user.seq, tile.no)
+      callApiRequestEvaluation(user.seq, tile.no, tmpScore)
     }
   }
   return (

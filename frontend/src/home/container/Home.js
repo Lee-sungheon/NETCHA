@@ -244,39 +244,17 @@ const COUNTRYS = [
 ];
 
 const KEYWORDS = [
-  "음모",
-  "마피아",
-  "탈출",
-  "형사",
-  "추적",
-  "복수",
-  "테러",
-  "구출",
-  "뮤지션",
-  "결혼",
-  "시리즈",
-  "부부",
-  "탐정",
-  "소설원작",
-  "돈",
-  "불륜",
-  "정치",
-  "정글",
-  "인질",
-  "학교",
-  "공항",
-  "숲",
-  "초현실",
-  "리메이크",
-];
-function shuffle(a) {
-  var j, x, i;
-  for (i = a.length; i; i -= 1) {
-    j = Math.floor(Math.random() * i);
-    x = a[i - 1];
-    a[i - 1] = a[j];
-    a[j] = x;
-  }
+  '음모', '마피아', '탈출', '형사', '추적', '복수', '테러', '구출', '뮤지션', '결혼', '시리즈', '부부', '탐정',
+  '소설원작', '돈', '정치', '정글', '인질', '학교', '공항', '숲', '초현실', '리메이크'
+]
+function shuffle(a) { 
+  var j, x, i; 
+  for (i = a.length; i; i -= 1) { 
+    j = Math.floor(Math.random() * i); 
+    x = a[i - 1]; 
+    a[i - 1] = a[j]; 
+    a[j] = x; 
+  } 
 }
 shuffle(GANRES);
 shuffle(COUNTRYS);

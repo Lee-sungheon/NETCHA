@@ -56,7 +56,9 @@ export default function GanreFilter({ganreText, setGanreText}) {
   function changeGanreText(e) {
     setGanreText(e.target.innerText);
     handleClose();
-    dispatch(actions.requestFilterGanreMovieList(e.target.innerText, 0));
+    if (e.target.innerText!=='장르'){
+      dispatch(actions.requestFilterGanreMovieList(e.target.innerText, 0));
+    }
   }
   return (
     <div className="movie-filter__top-bar__left__filter1" style={{padding: '0 10px', width: '85px'}}>
