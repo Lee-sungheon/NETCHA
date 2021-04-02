@@ -22,7 +22,7 @@ const MovieItem = ({ movie }) => {
 
 const SearchMovieList = ({ loading, movies, error }) => {
   const history = useHistory();
-  
+
   if (error) {
     return <h2>에러가 발생했습니다.</h2>;
   }
@@ -32,13 +32,7 @@ const SearchMovieList = ({ loading, movies, error }) => {
       <div className="searchMovieListWrap">
         <div className="movieHeaderWrap">
           {/* <button className="beforeArrow" onClick={() => history.goBack(1)}> */}
-          <button
-            className="beforeArrow"
-            onClick={() => {
-              // this.props.history.goBack();
-              history.goBack();
-            }}
-          >
+          <button className="beforeArrow" onClick={() => history.goBack()}>
             <img className="beforeArrowImage" src="/images/beforeArrow.png" />
           </button>
           <div className="movieHeader">영화</div>
