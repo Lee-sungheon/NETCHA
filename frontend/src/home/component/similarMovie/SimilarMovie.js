@@ -12,6 +12,7 @@ export default function SimilarMovie({ movie }) {
   const [ similarList, setSimilarList ] = useState([]);
   const similarMovie = useSelector(state => state.home.similarMovieLists);
   const isLoading = useSelector(state => state.home.isSimilarLoading);
+  const user = useSelector((state) => state.user.userData.member);
   // const user = useSelector(state => state.user.userData.member);
   const dispatch = useDispatch();
   function indexLeft() {
@@ -25,7 +26,7 @@ export default function SimilarMovie({ movie }) {
     }
   }
   useEffect(() => {
-    dispatch(actions.requestSimilarMovieList(movie.ganre[0], 0));
+    dispatch(actions.requestSimilarMovieList(movie.ganre[0], 0, user.seq));
   }, [])
   useEffect(() => {
     if (similarMovie.length > 3) {

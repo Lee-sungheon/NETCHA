@@ -8,6 +8,7 @@ import {
   callApiGanreMovieList,
   callApiCountryMovieList,
   callApiKeywordMovieList,
+  callApiCountryGanreMovieList,
 } from '../../common/api';
 
 export function* contentData(action) {
@@ -29,7 +30,7 @@ export function* filterCountryData(action) {
   yield put(actions.setEnd(false));
   yield put(actions.setLoading(true));
   try {
-    const data = yield call(callApiCountryMovieList, action.country, action.pageNum);
+    const data = yield call(callApiCountryMovieList, action.country, action.pageNum, action.userNo);
     if (data !== undefined) {
       yield put(actions.setIsFilter(true));
       yield put(actions.setMovieList(data));
@@ -43,7 +44,21 @@ export function* filterGanreData(action) {
   yield put(actions.setEnd(false));
   yield put(actions.setLoading(true));
   try {
-    const data = yield call(callApiGanreMovieList, action.ganre, action.pageNum);
+    const data = yield call(callApiGanreMovieList, action.ganre, action.pageNum, action.userNo);
+    if (data !== undefined) {
+      yield put(actions.setIsFilter(true));
+      yield put(actions.setMovieList(data));
+    }
+  } catch(error) {
+  }
+  yield put(actions.setLoading(false));
+} 
+
+export function* filterCountryGanreData(action) {
+  yield put(actions.setEnd(false));
+  yield put(actions.setLoading(true));
+  try {
+    const data = yield call(callApiCountryGanreMovieList, action.country, action.ganre, action.pageNum, action.userNo);
     if (data !== undefined) {
       yield put(actions.setIsFilter(true));
       yield put(actions.setMovieList(data));
@@ -58,7 +73,7 @@ export function* newData(action) {
   yield put(actions.setNewLoading(true));
   yield put(actions.setValue('error', ''));
   try {
-    const data = yield call(callApiNewMovieList, action.pageNum);
+    const data = yield call(callApiNewMovieList, action.pageNum, action.userNo);
     if (data !== undefined) {
       yield put(actions.setNewMovieList(data));
     }
@@ -73,7 +88,7 @@ export function* popularData(action) {
   yield put(actions.setPopularLoading(true));
   yield put(actions.setValue('error', ''));
   try {
-    const data = yield call(callApiPopularMovieList, action.pageNum);
+    const data = yield call(callApiPopularMovieList, action.pageNum, action.userNo);
     if (data !== undefined) {
       yield put(actions.setPopularMovieList(data));
     }
@@ -88,7 +103,7 @@ export function* rankData(action) {
   yield put(actions.setRankLoading(true));
   yield put(actions.setValue('error', ''));
   try {
-    const data = yield call(callApiRankMovieList, action.pageNum);
+    const data = yield call(callApiRankMovieList, action.pageNum, action.userNo);
     if (data !== undefined) {
       yield put(actions.setRankMovieList(data));
     }
@@ -103,7 +118,7 @@ export function* ganreData(action) {
   yield put(actions.setGanreLoading(true));
   yield put(actions.setValue('error', ''));
   try {
-    const data = yield call(callApiGanreMovieList, action.ganre, action.pageNum);
+    const data = yield call(callApiGanreMovieList, action.ganre, action.pageNum, action.userNo);
     if (data !== undefined) {
       yield put(actions.setGanreMovieList(data));
     }
@@ -116,7 +131,7 @@ export function* ganreData(action) {
 export function* ganreData2(action) {
   yield put(actions.setGanreLoading2(true));
   try {
-    const data = yield call(callApiGanreMovieList, action.ganre, action.pageNum);
+    const data = yield call(callApiGanreMovieList, action.ganre, action.pageNum, action.userNo);
     if (data !== undefined) {
       yield put(actions.setGanreMovieList2(data));
     }
@@ -128,7 +143,7 @@ export function* ganreData2(action) {
 export function* ganreData3(action) {
   yield put(actions.setGanreLoading3(true));
   try {
-    const data = yield call(callApiGanreMovieList, action.ganre, action.pageNum);
+    const data = yield call(callApiGanreMovieList, action.ganre, action.pageNum, action.userNo);
     if (data !== undefined) {
       yield put(actions.setGanreMovieList3(data));
     }
@@ -141,7 +156,7 @@ export function* countryData(action) {
   yield put(actions.setEnd(false));
   yield put(actions.setCountryLoading(true));
   try {
-    const data = yield call(callApiCountryMovieList, action.country, action.pageNum);
+    const data = yield call(callApiCountryMovieList, action.country, action.pageNum, action.userNo);
     if (data !== undefined) {
       yield put(actions.setCountryMovieList(data));
     }
@@ -153,7 +168,7 @@ export function* countryData(action) {
 export function* countryData2(action) {
   yield put(actions.setCountryLoading2(true));
   try {
-    const data = yield call(callApiCountryMovieList, action.country, action.pageNum);
+    const data = yield call(callApiCountryMovieList, action.country, action.pageNum, action.userNo);
     if (data !== undefined) {
       yield put(actions.setCountryMovieList2(data));
     }
@@ -165,7 +180,7 @@ export function* countryData2(action) {
 export function* countryData3(action) {
   yield put(actions.setCountryLoading3(true));
   try {
-    const data = yield call(callApiCountryMovieList, action.country, action.pageNum);
+    const data = yield call(callApiCountryMovieList, action.country, action.pageNum, action.userNo);
     if (data !== undefined) {
       yield put(actions.setCountryMovieList3(data));
     }
@@ -178,7 +193,7 @@ export function* keywordData(action) {
   yield put(actions.setEnd(false));
   yield put(actions.setKeywordLoading(true));
   try {
-    const data = yield call(callApiKeywordMovieList, action.keyword, action.pageNum);
+    const data = yield call(callApiKeywordMovieList, action.keyword, action.pageNum, action.userNo);
     if (data !== undefined) {
       yield put(actions.setKeywordMovieList(data));
     }
@@ -190,7 +205,7 @@ export function* keywordData(action) {
 export function* keywordData2(action) {
   yield put(actions.setKeywordLoading2(true));
   try {
-    const data = yield call(callApiKeywordMovieList, action.keyword, action.pageNum);
+    const data = yield call(callApiKeywordMovieList, action.keyword, action.pageNum, action.userNo);
     if (data !== undefined) {
       yield put(actions.setKeywordMovieList2(data));
     }
@@ -202,7 +217,7 @@ export function* keywordData2(action) {
 export function* keywordData3(action) {
   yield put(actions.setKeywordLoading3(true));
   try {
-    const data = yield call(callApiKeywordMovieList, action.keyword, action.pageNum);
+    const data = yield call(callApiKeywordMovieList, action.keyword, action.pageNum, action.userNo);
     if (data !== undefined) {
       yield put(actions.setKeywordMovieList3(data));
     }
@@ -214,7 +229,7 @@ export function* keywordData3(action) {
 export function* similarData(action) {
   yield put(actions.setSimilarLoading(true));
   try {
-    const data = yield call(callApiGanreMovieList, action.ganre, action.pageNum);
+    const data = yield call(callApiGanreMovieList, action.ganre, action.pageNum, action.userNo);
     if (data !== undefined) {
       yield put(actions.setSimilarMovieList(data));
     }
@@ -242,7 +257,7 @@ export function* addData(action) {
 export function* addCountryData(action) {
   yield put(actions.setInfinite(true));
   try {
-    const data = yield call(callApiCountryMovieList, action.country, action.pageNum);
+    const data = yield call(callApiCountryMovieList, action.country, action.pageNum, action.userNo);
     if (data !== undefined) {
       yield put(actions.addMovieList(data));
     } else {
@@ -256,7 +271,21 @@ export function* addCountryData(action) {
 export function* addGanreData(action) {
   yield put(actions.setInfinite(true));
   try {
-    const data = yield call(callApiGanreMovieList, action.ganre, action.pageNum);
+    const data = yield call(callApiGanreMovieList, action.ganre, action.pageNum, action.userNo);
+    if (data !== undefined) {
+      yield put(actions.addMovieList(data));
+    } else {
+      yield put(actions.setEnd(true));
+    }
+  } catch(error) {
+  }
+  yield put(actions.setInfinite(false));
+}
+
+export function* addCountryGanreData(action) {
+  yield put(actions.setInfinite(true));
+  try {
+    const data = yield call(callApiCountryGanreMovieList, action.country, action.ganre, action.pageNum, action.userNo);
     if (data !== undefined) {
       yield put(actions.addMovieList(data));
     } else {
@@ -284,9 +313,11 @@ export default function* () {
     takeLeading(types.REQUEST_KEYWORDMOVIELIST3, keywordData3),
     takeLeading(types.REQUEST_FILTERCOUNTRYMOVIELIST, filterCountryData),
     takeLeading(types.REQUEST_FILTERGANREMOVIELIST, filterGanreData),
+    takeLeading(types.REQUEST_FILTERCOUNTRYGANREMOVIELIST, filterCountryGanreData),
     takeLeading(types.REQUEST_SIMILARMOVIELIST, similarData),
     takeLeading(types.REQUEST_ADD_MOVIELIST, addData),
     takeLeading(types.REQUEST_ADD_COUNTRYMOVIELIST, addCountryData),
     takeLeading(types.REQUEST_ADD_GANREMOVIELIST, addGanreData),
+    takeLeading(types.REQUEST_ADD_COUNTRYGANREMOVIELIST, addCountryGanreData),
   ]);
 }

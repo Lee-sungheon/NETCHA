@@ -5,11 +5,13 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import Rating from '@material-ui/lab/Rating';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
+import { useHistory } from "react-router-dom";
 
 export default function DetailInformation({ movie }) {
   const [ index, SetIndex ] = useState(1)
   const [ commentList1,setCommentList1 ] = useState([])
   const [ commentList2,setCommentList2 ] = useState([])
+  const history = useHistory();
   useEffect(() => {
     const comments = COMMENTS.slice((index-1)*4, index*4)
     setCommentList1(comments.slice(0, 2))
@@ -25,15 +27,23 @@ export default function DetailInformation({ movie }) {
       SetIndex(index+1)
     }
   }
+  function onCastSearch(e) {
+    const text = e.target.innerText;
+    history.push(`/search?cast=${text}`);
+  }
+  function onDirectorSearch(e) {
+    const text = e.target.innerText;
+    history.push(`/search?director=${text}`);
+  }
   return (
     <>
       <div style={{width: '20%'}}>
         <div className="detail__title">감독</div>
-        <p className="detail__people"><span className="detail__people__member">{ movie.directors[0] }</span></p>
+        <p className="detail__people"><span className="detail__people__member" onClick={onDirectorSearch}>{ movie.directors[0] }</span></p>
 
         <div className="detail__title" style={{ marginTop: '1.5vw'}}>배우</div>
         { movie.casts.slice(0, 10).map((member) => (
-          <p className="detail__people" key={member}><span className="detail__people__member">{member.split('(')[0]}</span></p>
+          <p className="detail__people" key={member}><span className="detail__people__member" onClick={onCastSearch}>{member.split('(')[0]}</span></p>
         ))}
       </div>
       <div style={{width: '80%', display: 'flex'} }>
