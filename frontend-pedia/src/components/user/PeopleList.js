@@ -1,7 +1,7 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./ActorAndDirectorList.scss";
+import "./PeopleList.scss";
 
 const settings = {
   className: "center",
@@ -15,7 +15,7 @@ const settings = {
   slidesPerRow: 1,
 };
 
-const ActorAndDirectorList = ({ data, error, loading }) => {
+const PeopleList = ({ data, error, loading }) => {
   if (error) {
     return <h2>에러가 발생했습니다.</h2>;
   }
@@ -42,4 +42,4 @@ const ActorAndDirectorList = ({ data, error, loading }) => {
   );
 };
 
-export default ActorAndDirectorList;
+export default PeopleList;

@@ -40,7 +40,7 @@ const [
 
 export const listScoreMovies = createAction(
   LIST_SCORE_MOVIES,
-  moviesAPI.listNetChaRankingMovies
+  (userId) => (userId)
 );
 
 // 사용지별 별점 준 영화 사가 생성

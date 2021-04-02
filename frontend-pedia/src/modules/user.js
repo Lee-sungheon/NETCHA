@@ -27,6 +27,7 @@ export function* userSaga() {
 }
 
 const initialState = {
+  // user: null,
   user: {
     userId: '내가바로아이디',
     userName: '내가바로이름',

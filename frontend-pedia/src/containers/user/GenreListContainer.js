@@ -5,9 +5,9 @@ import CountryAndGenreList from "../../components/user/CountryAndGenreList";
 import { listGenres } from "../../modules/genres";
 
 const GenreListContainer = () => {
-  const userId = 99999;
   const dispatch = useDispatch();
-  const { genres, error, loading } = useSelector(({ genres, loading }) => ({
+  const { userId, genres, error, loading } = useSelector(({ user, genres, loading }) => ({
+    userId: user.user.userId,
     genres: genres.genres,
     error: genres.error,
     loading: loading["genres/LIST_GENRES"],
