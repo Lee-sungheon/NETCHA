@@ -17,12 +17,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "movie_like")
-public class MovieLike {
+@Table(name = "movie_zzim")
+public class MovieZzim {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long no;
-	private long likeHate;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "movie_id")
@@ -32,13 +31,8 @@ public class MovieLike {
 	@JoinColumn(name = "user_id")
 	private Member member;
 	
-	public MovieLike(Member member, long likeHate, Movie movie) {
+	public MovieZzim(Member member, Movie movie) {
 		this.member = member;
-		this.likeHate = likeHate;
 		this.movie = movie;
-	}
-	
-	public void update(long likeHate) {
-		this.likeHate = likeHate;
 	}
 }
