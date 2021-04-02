@@ -46,7 +46,7 @@ export default function MovieItem({ movie, idx }) {
                   </div>
                 <h5 style={{textAlign: 'center', margin:'5px', textAlign: 'start'}} id={idx}>{movie.title}</h5>
                 <div style={{display: 'flex', alignItems: 'center'}} id={idx}>
-                  { movie.rating !== "" && movie.rating !== undefined && <img style={{width: '12%', margin: '0 5px'}} src={`/images/${movie.rating.slice(0,2)}.svg`} />}
+                  { movie.rating !== "" && movie.rating !== undefined && <img style={{width: '12%', margin: '0 5px'}}src={`/images/${RATING[movie.rating.slice(0,2)]}.svg`} />}
                   <div id={idx} style={{fontSize: '0.65rem', fontWeight: 900}}>{parseInt(movie.time/60)}시간 {movie.time%60}분</div>
                 </div>
                 <h6 style={{textAlign: 'center', margin:'5px', textAlign: 'start'}} id={idx}>
@@ -66,3 +66,15 @@ export default function MovieItem({ movie, idx }) {
     </MovieListContext.Consumer>
   )
 };
+
+const RATING = {
+  '15' : '15',
+  '12' : '12',
+  '18' : '18',
+  전체 : 'all',
+  고등 : '15',
+  미성 : '18',
+  연소 : '18',
+  중학 : '12',
+  청소 : '18',
+}

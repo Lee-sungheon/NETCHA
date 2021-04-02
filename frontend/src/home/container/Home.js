@@ -16,10 +16,14 @@ import GanreBased3 from "../component/recommend/ganre/GanreBased3";
 import CountryBased from "../component/recommend/country/CountryBased";
 import CountryBased2 from "../component/recommend/country/CountryBased2";
 import CountryBased3 from "../component/recommend/country/CountryBased3";
+import KeywordBased from "../component/recommend/keyword/KeywordBased";
+import KeywordBased2 from "../component/recommend/keyword/KeywordBased2";
+import KeywordBased3 from "../component/recommend/keyword/KeywordBased3";
 
 export default function Home() {
   const movieLists = useSelector(state => state.home.movieLists);
   const isFilter = useSelector(state => state.home.isFilter);
+  const user = useSelector(state => state.user.userData.member);
   const dispatch = useDispatch();
   useEffect(() =>{
     if (movieLists.length === 0){
@@ -28,7 +32,7 @@ export default function Home() {
       dispatch(actions.requestMovieList(0, 0));
       dispatch(actions.setIsFilter(false));
     }
-  }, [])
+  })
 
   return (
     <>
@@ -43,16 +47,19 @@ export default function Home() {
       </div>
       <Banner />
       <div className="home__container">
-        <ContentBased loading={loading} idx={"slider-1"} />
-        <PopularBased loading={loading} idx={"slider-2"} />
-        <NewBased loading={loading} idx={"slider-3"} />
-        <RankBased loading={loading} idx={"slider-4"} />
-        <GanreBased loading={loading} idx={`slider-5`} ganre={GANRES[0]} />
-        <GanreBased2 loading={loading} idx={`slider-6`} ganre={GANRES[1]} />
-        <GanreBased3 loading={loading} idx={`slider-7`} ganre={GANRES[2]} />
-        <CountryBased loading={loading} idx={`slider-8`} country={COUNTRYS[0]} /> 
-        <CountryBased2 loading={loading} idx={`slider-9`} country={COUNTRYS[1]} /> 
-        <CountryBased3 loading={loading} idx={`slider-10`} country={COUNTRYS[2]} /> 
+        <ContentBased loading={loading} idx={"slider-1"} user={user}/>
+        <PopularBased loading={loading} idx={"slider-2"} user={user}/>
+        <NewBased loading={loading} idx={"slider-3"} user={user}/>
+        <RankBased loading={loading} idx={"slider-4"} user={user}/>
+        <GanreBased loading={loading} idx={`slider-5`} ganre={GANRES[0]} user={user}/>
+        <GanreBased2 loading={loading} idx={`slider-6`} ganre={GANRES[1]} user={user}/>
+        <GanreBased3 loading={loading} idx={`slider-7`} ganre={GANRES[2]} user={user}/>
+        <CountryBased loading={loading} idx={`slider-8`} country={COUNTRYS[0]} user={user}/> 
+        <CountryBased2 loading={loading} idx={`slider-9`} country={COUNTRYS[1]} user={user}/> 
+        <CountryBased3 loading={loading} idx={`slider-10`} country={COUNTRYS[2]} user={user}/> 
+        <KeywordBased loading={loading} idx={`slider-11`} keyword={KEYWORDS[0]} user={user}/> 
+        <KeywordBased2 loading={loading} idx={`slider-12`} keyword={KEYWORDS[1]} user={user}/> 
+        <KeywordBased3 loading={loading} idx={`slider-13`} keyword={KEYWORDS[2]} user={user}/> 
       </div>
     </>
   );
@@ -94,7 +101,7 @@ const loading = [
 const GANRES = [
   '어드벤처', '공포', '활극', '뮤지컬', '뮤직', '문화', '인권', '아동', '액션', '에로', '드라마', 
   '멜로', '로드무비', '판타지', '공포(호러)', '전쟁', '범죄', '모험', '애니메이션', '군사', '스릴러', 
-  '스포츠', '애정', '전기', '신파', '코메디', '기록', '하이틴(고교)', '교육', '문예', '역사', '과학', 
+  '스포츠', '애정', '전기', '신파', '코메디', '기록', '하이틴(고교)', '교육', '역사', '과학', 
   '무협', '미스터리', 'SF', '자연ㆍ환경', '로맨스', '인물', '갱스터', '가족', '시대극/사극', 
   '재난', '실험', '첩보', '느와르', '종교', '사회', '옴니버스', '서부'
 ]
@@ -104,6 +111,11 @@ const COUNTRYS = [
   '러시아', '콜롬비아', '아이슬란드', '네덜란드', '스위스', '아르헨티나', '이탈리아', '독일', '싱가포르',
   '베트남', '인도', '체코', '미국', '폴란드', '중국', '사우디아라비아', '네팔', '스페인', '터키',
   '필리핀', '남아프리카공화국', '이집트', '우크라이나', '캐나다', '벨기에', '영국', '홍콩', '대한민국', '북한',
+]
+
+const KEYWORDS = [
+  '음모', '마피아', '탈출', '형사', '추적', '복수', '테러', '구출', '뮤지션', '결혼', '시리즈', '부부', '탐정',
+  '소설원작', '돈', '불륜', '정치', '정글', '인질', '학교', '공항', '숲', '초현실', '리메이크'
 ]
 function shuffle(a) { 
   var j, x, i; 
@@ -116,3 +128,4 @@ function shuffle(a) {
 }
 shuffle(GANRES);
 shuffle(COUNTRYS);
+shuffle(KEYWORDS);

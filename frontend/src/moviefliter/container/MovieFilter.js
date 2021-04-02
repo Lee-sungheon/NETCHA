@@ -64,7 +64,7 @@ export default function MovieFilter() {
   const [countryText, setCountryText] = useState("국가");
   const [ganreText, setGanreText] = useState("장르");
   const dispatch = useDispatch();
-  // const userId = useSelector(state => state.user.userData)
+  const user = useSelector(state => state.user.userData.member)
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -87,7 +87,7 @@ export default function MovieFilter() {
         } else if (ganreText !== '장르'){
           dispatch(actions.requestAddGanreMovieList(ganreText, pageNum));
         } else {
-          dispatch(actions.requestAddMovieList(pageNum, 0));
+          dispatch(actions.requestAddMovieList(pageNum, user.seq));
         }
         if (!loadingPage){
           pageNum += 1;
@@ -97,7 +97,7 @@ export default function MovieFilter() {
     };
     checkWindowInner();
     if (movieLists.length === 0 && filterText === "추천 콘텐츠"){
-      dispatch(actions.requestMovieList(0, 0));
+      dispatch(actions.requestMovieList(0, user.seq));
     }
     pageNum = movieLists.length/40;
     window.addEventListener("resize", function(){

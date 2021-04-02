@@ -1,12 +1,13 @@
 import { all, call, put, takeLeading } from 'redux-saga/effects';
 import { actions, types } from './index';
-import { callApiContentMovieList } from '../../common/api';
+import { callApiEvaluationMovieList } from '../../common/api';
 
 export function* fetchData(action) {
   yield put(actions.setLoading(true));
   yield put(actions.setValue('error', ''));
   try {
-    const data = yield call(callApiContentMovieList, action.pageNum, action.userNo);
+    const data = yield call(callApiEvaluationMovieList, action.pageNum, action.userNo);
+    console.log(data)
     if (data !== undefined) {
       yield put(actions.setMovieList(data));
     }
@@ -20,7 +21,7 @@ export function* addData(action) {
   yield put(actions.setInfinite(true));
   yield put(actions.setValue('error', ''));
   try {
-    const data = yield call(callApiContentMovieList, action.pageNum, action.userNo);
+    const data = yield call(callApiEvaluationMovieList, action.pageNum, action.userNo);
     if (data !== undefined) {
       yield put(actions.addMovieList(data));
     }
