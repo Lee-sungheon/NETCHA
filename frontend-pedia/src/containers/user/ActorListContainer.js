@@ -1,13 +1,13 @@
-import ActorAndDirectorList from "../../components/user/ActorAndDirectorList";
+import PeopleList from "../../components/user/PeopleList";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router";
 import { listActors } from "../../modules/actors";
 
 const ActorListContainer = () => {
-  const userId = 99999;
   const dispatch = useDispatch();
-  const { actors, error, loading } = useSelector(({ actors, loading }) => ({
+  const { userId, actors, error, loading } = useSelector(({ user, actors, loading }) => ({
+    userId: user.user.userId,
     actors: actors.actors,
     error: actors.error,
     loading: loading["actors/LIST_ACTORS"],
@@ -17,7 +17,7 @@ const ActorListContainer = () => {
   }, [dispatch]);
 
   return (
-    <ActorAndDirectorList data={actors} error={error} loading={loading} />
+    <PeopleList data={actors} error={error} loading={loading} />
   );
 };
 

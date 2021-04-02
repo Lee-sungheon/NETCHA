@@ -7,8 +7,6 @@ import StarGraph from '../../components/user/StarGraph';
 var highestStar = 0, sum = 0, calc = 0.0, score = 0, avg = 0;
 
 function getValues(arr) {
-  console.log('여기는 arr');
-  console.log(arr);
   var max = 0;
   for (let i = 0; i < arr.length; i++) {
     score += 0.5;
@@ -24,16 +22,15 @@ function getValues(arr) {
 }
 
 const StarGraphContainer = () => {
-  const userId = 99999;
   const dispatch = useDispatch();
-  const { stars, error, loading } = useSelector(({ stars, loading }) => ({
+  const { userId, stars, error, loading } = useSelector(({ user, stars, loading }) => ({
+    userId: user.user.userId,
     stars: stars.stars,
     error: stars.error,
     loading: loading['stars/LIST_STARS'],
   }));
   useEffect(() => {
     dispatch(listStars({ userId }));
-    console.log('stars: ' + stars);
     if(stars !== null)
       getValues(stars);
   }, [stars]);

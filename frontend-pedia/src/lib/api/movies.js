@@ -18,17 +18,6 @@ export const listSearchMovies = ({page, keyword}) => {
   // return client.get(`/api/searchMovies/${queryString}`)
   // return client.get(`/movie/list_totalView`)
 }
-// // 영화 검색 목록
-// export const listSearchMovies = ({page, keyword}) => {
-//   console.log('keyword:' + keyword);
-//   const queryString = qs.stringify({
-//     page,
-//     keyword,
-//   });
-//   return (movies);
-//   // return client.get(`/api/searchMovies/${queryString}`)
-//   // return client.get(`/movie/list_totalView`)
-// }
 
 // 메인페이지 넷챠 영화 순위 목록
 export const listNetChaRankingMovies = () => {
@@ -41,8 +30,9 @@ export const listNewMovies = () => {
 }
 
 // 사용자페이지 별점 준 영화 목록
-export const listScoreMovies = () => {
+export const listScoreMovies = (userId) => {
   // return client.get(`/movie/list_totalView`);
+  console.log('사용자페이지 별점 준 영화목록: ' + userId);
   return (movies);
 }
 
