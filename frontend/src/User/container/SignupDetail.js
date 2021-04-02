@@ -93,15 +93,11 @@ export default function SignupDetail(props) {
     if (inputData.userId) {
       const body = inputData.userId;
       axios
-        .post(
-          "http://j4d105.p.ssafy.io:9000/netcha/user/checkId",
-          JSON.stringify(body),
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        )
+        .post("netcha/user/checkId", JSON.stringify(body), {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
         .then((res) => {
           setInputCheck({ ...inputCheck, userId: true });
         })
@@ -132,20 +128,16 @@ export default function SignupDetail(props) {
     };
     if (inputCheck.userId && inputCheck.confirmPassword) {
       axios
-        .post(
-          "http://j4d105.p.ssafy.io:9000/netcha/user/signup",
-          JSON.stringify(body),
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        )
+        .post("netcha/user/signup", JSON.stringify(body), {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
         .then((res) => {
           console.log("계정생성 성공");
           axios
             .post(
-              "http://j4d105.p.ssafy.io:9000/netcha/user/verify",
+              "netcha/user/verify",
               JSON.stringify({ userId: body.userId }),
               {
                 headers: {

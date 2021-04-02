@@ -123,7 +123,7 @@ export default function Header({ toggleButton, setToggleButton }) {
     window.sessionStorage.removeItem("userId");
     window.sessionStorage.removeItem("token");
     axios
-      .get("http://j4d105.p.ssafy.io:9000/netcha/user/logout")
+      .get("netcha/user/logout")
       .then((res) => {
         // history.push({
         //   pathname: "/login",
