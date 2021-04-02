@@ -2,41 +2,44 @@ import './MovieHeader.scss';
 import AddIcon from '@material-ui/icons/Add';
 import Rating from '@material-ui/lab/Rating';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import client from '../../lib/api/client';
 
-const MovieHeader = ({ movie }) => {
-  const [isFinish, setIsFinish] = useState(false);
-  const [isHover, setIsHover] = useState(false);
+const MovieHeader = ({ movie, formData, setFormData }) => {
   const [isSelected, setIsSelected] = useState(false);
-  const [score, setScore] = useState(0);
-  let tmpScore = 0;
-  function setHover() {
-    if (isFinish) {
-      setIsHover(true);
-    } else {
-      setIsHover(false);
-      setScore(5);
-    }
-  }
-  function onChange(e, v) {
-    if (v > 0) {
-      tmpScore = v;
-    }
-  }
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(null);
 
   const onClickLike = () => {
     setIsSelected(!isSelected);
   };
-
-  function onClick(e) {
-    if (e.target.name !== 'size-large') {
-      setIsFinish(true);
-      if (tmpScore === score) {
-        setIsFinish(false);
-      }
-      setScore(tmpScore);
+  const updateRank = async () => {
+    try {
+      // 요청이 시작 할 때에는 error 와 users 를 초기화하고
+      // setError(null);
+      // loading 상태를 true 로 바꿉니다.
+      // setLoading(true);
+      const response = await client.post('movie/rank_update', formData);
+    } catch (e) {
+      // setError(e);
     }
-  }
+    // setLoading(false);
+  };
+
+  const onClickRank = (e) => {
+    if (e.target.name == 'size-large') {
+      if (e.target.value === formData.ranking) {
+        setFormData({ ...formData, ranking: 0 });
+      } else {
+        setFormData({ ...formData, ranking: e.target.value });
+      }
+    }
+  };
+
+  useEffect(() => {
+    updateRank(formData);
+  }, [formData]);
+
   return (
     <div className="MovieHeaderWrapper">
       <div className="MovieHeaderTop">
@@ -79,13 +82,13 @@ const MovieHeader = ({ movie }) => {
                 </div>
                 <div className="starRatingBox">
                   평가하기
-                  <div onClick={onClick}>
+                  <div>
                     <Rating
                       name="size-large"
                       size="large"
                       precision={0.5}
-                      onChangeActive={onChange}
-                      value={score}
+                      onClick={(e) => onClickRank(e)}
+                      value={formData.ranking || 0}
                     />
                   </div>
                 </div>
