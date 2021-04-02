@@ -10,6 +10,7 @@ import java.util.Map;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.netcha.movie.data.Movie;
 import com.netcha.movie.data.MovieRank;
 import com.netcha.movie.data.MovieRankRepository;
-import com.netcha.movie.data.MovieRankResponseDto;
 import com.netcha.movie.data.MovieRepository;
 import com.netcha.movie.data.MovieResponseDto;
 
@@ -110,22 +110,15 @@ public class MovieService {
 	}
 	
 	@Transactional
-	public List<MovieRankResponseDto> findMovieRankByUserId(long userId) {
-		List<MovieRankResponseDto> movieRankList = new ArrayList<MovieRankResponseDto>();
-		List<MovieRank> list = movieRankRepository.findAllByUserId(userId);
-		for(int i=0; i<list.size(); i++) movieRankList.add(new MovieRankResponseDto(list.get(i)));
-		return movieRankList;
-	}
-	
-	@Transactional
 	public List<MovieResponseDto> recommendMovieByRank(long userId, long pageNum) {
 		// 유저 아이디에 해당하는 영화 평점 정보 리스트
-		List<MovieRankResponseDto> movieRankList = findMovieRankByUserId(userId);
+		List<MovieRank> movieRankList = movieRankRepository.findAllByUserId(userId);
 		// 영화 전체 정보
 		List<Movie> movieList = movieRepository.findAll();
 		Map<String, float[]> ganreValue = new HashMap<String, float[]>();
-		for(MovieRankResponseDto mr : movieRankList) {
-			for(String ganre : mr.getGanre()) {
+		for(MovieRank mr : movieRankList) {
+			String[] ganres = mr.getGanre().split(",");
+			for(String ganre : ganres) {
 				if(!ganreValue.containsKey(ganre)) ganreValue.put(ganre, new float[2]);
 				float[] value = ganreValue.get(ganre);
 				value[0] += 1;
@@ -222,6 +215,11 @@ public class MovieService {
 	}
 	
 	@Transactional
+	public void deleteRank(long userId, long movieNo) {
+		movieRankRepository.delete(movieRankRepository.findByUserIdAndMovieNo(userId, movieNo));
+	}
+	
+	@Transactional
 	public List<MovieResponseDto> findMovieByAvgRank(int pageNum) {
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		List<Movie> movieR = movieRepository.findByOrderByTotalViewDesc("1995-01-01", PageRequest.of(pageNum, 40, Direction.DESC, "avgRank", "totalView"));
@@ -238,10 +236,16 @@ public class MovieService {
 	@Transactional
 	public List<MovieResponseDto> findMovieByNoNotInNo(int userId, int pageNum) {
 		List<MovieRank> movieRanks = movieRankRepository.findAllByUserId(userId);
-		List<Long> movieNos = new ArrayList<Long>();
-		for(int i=0; i<movieRanks.size(); i++) movieNos.add(movieRanks.get(i).getMovie().getNo());
+		List<Movie> movieR = null;
+		if(movieRanks.size() == 0) {
+			Page<Movie> moviePages = movieRepository.findAll(PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
+			movieR = moviePages.getContent();
+		} else {
+			List<Long> movieNos = new ArrayList<Long>();
+			for(int i=0; i<movieRanks.size(); i++) movieNos.add(movieRanks.get(i).getMovie().getNo());
+			movieR = movieRepository.findByNoNotIn(movieNos, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
+		}
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
-		List<Movie> movieR = movieRepository.findByNoNotIn(movieNos, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
 		for(Movie m : movieR) {
 			if(m.getRating().equals("")) {
 				String[] result = crawling(m);
