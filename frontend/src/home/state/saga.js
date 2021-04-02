@@ -15,7 +15,9 @@ export function* contentData(action) {
   yield put(actions.setValue('error', ''));
   try {
     const data = yield call(callApiContentMovieList, action.pageNum, action.userNo);
-    yield put(actions.setMovieList(data));
+    if (data !== undefined) {
+      yield put(actions.setMovieList(data));
+    }
   } catch(error) {
     yield put(actions.setValue('error', error));
   }
@@ -26,8 +28,10 @@ export function* filterCountryData(action) {
   yield put(actions.setLoading(true));
   try {
     const data = yield call(callApiCountryMovieList, action.country, action.pageNum);
-    yield put(actions.setIsFilter(true));
-    yield put(actions.setMovieList(data));
+    if (data !== undefined) {
+      yield put(actions.setIsFilter(true));
+      yield put(actions.setMovieList(data));
+    }
   } catch(error) {
   }
   yield put(actions.setLoading(false));
@@ -37,8 +41,10 @@ export function* filterGanreData(action) {
   yield put(actions.setLoading(true));
   try {
     const data = yield call(callApiGanreMovieList, action.ganre, action.pageNum);
-    yield put(actions.setIsFilter(true));
-    yield put(actions.setMovieList(data));
+    if (data !== undefined) {
+      yield put(actions.setIsFilter(true));
+      yield put(actions.setMovieList(data));
+    }
   } catch(error) {
   }
   yield put(actions.setLoading(false));
@@ -49,7 +55,9 @@ export function* newData(action) {
   yield put(actions.setValue('error', ''));
   try {
     const data = yield call(callApiNewMovieList, action.pageNum);
-    yield put(actions.setNewMovieList(data));
+    if (data !== undefined) {
+      yield put(actions.setNewMovieList(data));
+    }
   } catch(error) {
     yield put(actions.setValue('error', error));
   }
@@ -61,7 +69,9 @@ export function* popularData(action) {
   yield put(actions.setValue('error', ''));
   try {
     const data = yield call(callApiPopularMovieList, action.pageNum);
-    yield put(actions.setPopularMovieList(data));
+    if (data !== undefined) {
+      yield put(actions.setPopularMovieList(data));
+    }
   } catch(error) {
     yield put(actions.setValue('error', error));
   }
@@ -73,7 +83,9 @@ export function* rankData(action) {
   yield put(actions.setValue('error', ''));
   try {
     const data = yield call(callApiRankMovieList, action.pageNum);
-    yield put(actions.setRankMovieList(data));
+    if (data !== undefined) {
+      yield put(actions.setRankMovieList(data));
+    }
   } catch(error) {
     yield put(actions.setValue('error', error));
   }
@@ -85,7 +97,9 @@ export function* ganreData(action) {
   yield put(actions.setValue('error', ''));
   try {
     const data = yield call(callApiGanreMovieList, action.ganre, action.pageNum);
-    yield put(actions.setGanreMovieList(data));
+    if (data !== undefined) {
+      yield put(actions.setGanreMovieList(data));
+    }
   } catch(error) {
     yield put(actions.setValue('error', error));
   }
@@ -96,7 +110,9 @@ export function* ganreData2(action) {
   yield put(actions.setGanreLoading2(true));
   try {
     const data = yield call(callApiGanreMovieList, action.ganre, action.pageNum);
-    yield put(actions.setGanreMovieList2(data));
+    if (data !== undefined) {
+      yield put(actions.setGanreMovieList2(data));
+    }
   } catch(error) {
   }
   yield put(actions.setGanreLoading2(false));
@@ -106,7 +122,9 @@ export function* ganreData3(action) {
   yield put(actions.setGanreLoading3(true));
   try {
     const data = yield call(callApiGanreMovieList, action.ganre, action.pageNum);
-    yield put(actions.setGanreMovieList3(data));
+    if (data !== undefined) {
+      yield put(actions.setGanreMovieList3(data));
+    }
   } catch(error) {
   }
   yield put(actions.setGanreLoading3(false));
@@ -116,7 +134,9 @@ export function* countryData(action) {
   yield put(actions.setCountryLoading(true));
   try {
     const data = yield call(callApiCountryMovieList, action.country, action.pageNum);
-    yield put(actions.setCountryMovieList(data));
+    if (data !== undefined) {
+      yield put(actions.setCountryMovieList(data));
+    }
   } catch(error) {
   }
   yield put(actions.setCountryLoading(false));
@@ -126,7 +146,9 @@ export function* countryData2(action) {
   yield put(actions.setCountryLoading2(true));
   try {
     const data = yield call(callApiCountryMovieList, action.country, action.pageNum);
-    yield put(actions.setCountryMovieList2(data));
+    if (data !== undefined) {
+      yield put(actions.setCountryMovieList2(data));
+    }
   } catch(error) {
   }
   yield put(actions.setCountryLoading2(false));
@@ -136,8 +158,10 @@ export function* countryData3(action) {
   yield put(actions.setCountryLoading3(true));
   try {
     const data = yield call(callApiCountryMovieList, action.country, action.pageNum);
-    yield put(actions.setCountryMovieList3(data));
-  } catch(error) {
+    if (data !== undefined) {
+      yield put(actions.setCountryMovieList3(data));
+    }
+    } catch(error) {
   }
   yield put(actions.setCountryLoading3(false));
 } 
@@ -147,7 +171,9 @@ export function* addData(action) {
   yield put(actions.setValue('error', ''));
   try {
     const data = yield call(callApiContentMovieList, action.pageNum, action.userNo);
-    yield put(actions.addMovieList(data));
+    if (data !== undefined) {
+      yield put(actions.addMovieList(data));
+    }
   } catch(error) {
     yield put(actions.setValue('error', error));
   }
@@ -158,7 +184,9 @@ export function* addCountryData(action) {
   yield put(actions.setInfinite(true));
   try {
     const data = yield call(callApiCountryMovieList, action.country, action.pageNum);
-    yield put(actions.addMovieList(data));
+    if (data !== undefined) {
+      yield put(actions.addMovieList(data));
+    }
   } catch(error) {
   }
   yield put(actions.setInfinite(false));
@@ -168,8 +196,11 @@ export function* addGanreData(action) {
   yield put(actions.setInfinite(true));
   try {
     const data = yield call(callApiGanreMovieList, action.ganre, action.pageNum);
-    yield put(actions.addMovieList(data));
+    if (data !== undefined) {
+      yield put(actions.addMovieList(data));
+    }
   } catch(error) {
+    console.log("??")
   }
   yield put(actions.setInfinite(false));
 }

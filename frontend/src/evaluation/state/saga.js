@@ -7,7 +7,9 @@ export function* fetchData(action) {
   yield put(actions.setValue('error', ''));
   try {
     const data = yield call(callApiContentMovieList, action.pageNum, action.userNo);
-    yield put(actions.setMovieList(data))
+    if (data !== undefined) {
+      yield put(actions.setMovieList(data));
+    }
   } catch(error) {
     yield put(actions.setValue('error', error))
   }
@@ -19,7 +21,9 @@ export function* addData(action) {
   yield put(actions.setValue('error', ''));
   try {
     const data = yield call(callApiContentMovieList, action.pageNum, action.userNo);
-    yield put(actions.addMovieList(data))
+    if (data !== undefined) {
+      yield put(actions.addMovieList(data));
+    }
   } catch(error) {
     yield put(actions.setValue('error', error))
   }
