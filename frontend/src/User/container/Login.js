@@ -142,13 +142,11 @@ export default function Login(props) {
       <div className={classes.login_back}>
         <div className={classes.login_page}>
           <header>
-            <Link to={"/"}>
-              <img
-                src={"../images/netcha.png"}
-                style={{ height: "90px", marginRight: "10px" }}
-                alt="netcha"
-              />
-            </Link>
+            <img
+              src={"../images/netcha.png"}
+              style={{ height: "90px", marginRight: "10px" }}
+              alt="netcha"
+            />
           </header>
           <div className={classes.login_div_back}>
             <div className={classes.login_div}>
