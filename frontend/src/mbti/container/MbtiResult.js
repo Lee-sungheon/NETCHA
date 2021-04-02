@@ -65,7 +65,7 @@ export default function MbtiResult(props) {
 
     axios
       .post(
-        "http://j4d105.p.ssafy.io:9000/netcha/user/changeUser",
+        "netcha/user/changeUser",
         JSON.stringify(body),
         {
           headers: {
@@ -76,7 +76,7 @@ export default function MbtiResult(props) {
       .then((res) => {
         console.log(res);
         axios
-          .post("http://j4d105.p.ssafy.io:9000/netcha/user/info", userId, {
+          .post("netcha/user/info", userId, {
             headers: {
               "Content-Type": "application/json",
             },
