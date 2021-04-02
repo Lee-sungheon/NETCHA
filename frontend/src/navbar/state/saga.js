@@ -7,7 +7,9 @@ export function* fetchData() {
   yield put(actions.setValue('error', ''));
   try {
     const data = yield call(callApiMovieList);
-    yield put(actions.setMovieList(data))
+    if (data !== undefined) {
+      yield put(actions.setMovieList(data));
+    }
   } catch(error) {
     yield put(actions.setValue('error', error))
   }
