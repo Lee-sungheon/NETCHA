@@ -48,7 +48,7 @@ export const listScoreMovies = () => {
 
 // 헤더 검색한 영화 자동완성
 export const listAutoCompletesMovies = (keyword) => {
-  if(keyword == null || keyword.length == 0) return {data: []};
+  if(!keyword || keyword.length == 0) return {data: []};
 
   const titles = new Set();
   {movies_title.map((title) => {

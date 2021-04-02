@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({userId}) => {
+const Header = ({ user }) => {
   const classes = useStyles();
 
   return (
@@ -93,7 +93,19 @@ const Header = ({userId}) => {
           >
             평가하기
           </Button>
-          <Link to={`/user/${userId}`}>
+          {user ? (
+            <Link to={`/user/${user.userId}`}>
+              <img
+                src="/images/profileIcon.jpg"
+                className="profileIconImg"
+                style={{
+                  width: "28px",
+                  borderRadius: "60%",
+                  border: "1px solid #e6e6e6",
+                }}
+              />
+            </Link>
+          ) : (
             <img
               src="/images/profileIcon.jpg"
               className="profileIconImg"
@@ -102,8 +114,8 @@ const Header = ({userId}) => {
                 borderRadius: "60%",
                 border: "1px solid #e6e6e6",
               }}
-              />
-              </Link>
+            />
+          )}
         </Toolbar>
       </AppBar>
     </div>
