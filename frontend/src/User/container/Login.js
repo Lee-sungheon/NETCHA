@@ -96,15 +96,11 @@ export default function Login(props) {
       password: inputData.password,
     };
     axios
-      .post(
-        "http://j4d105.p.ssafy.io:9000/netcha/user/login",
-        JSON.stringify(body),
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .post("netcha/user/login", JSON.stringify(body), {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then(async (res) => {
         console.log(res);
         if (res.data.response === "success") {
@@ -135,7 +131,6 @@ export default function Login(props) {
     //   JSON.parse(JSON.parse(window.sessionStorage.getItem("persist:root")).user)
     //     .userData.token
     // );
-
     history.push({
       pathname: "/",
     });

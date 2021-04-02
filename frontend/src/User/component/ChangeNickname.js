@@ -27,7 +27,7 @@ export default function ChangeNickname() {
     };
     axios
       .post(
-        "http://j4d105.p.ssafy.io:9000/netcha/user/changeUser",
+        "netcha/user/changeUser",
         JSON.stringify(body),
         {
           headers: {
@@ -37,7 +37,7 @@ export default function ChangeNickname() {
       )
       .then((res) => {
         axios
-          .post("http://j4d105.p.ssafy.io:9000/netcha/user/info", body.userId, {
+          .post("netcha/user/info", body.userId, {
             headers: {
               "Content-Type": "application/json",
             },
