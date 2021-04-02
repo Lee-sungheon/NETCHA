@@ -28,7 +28,7 @@ export default function ContentBased({ loading, idx, user }) {
             <Slider.Item movie={movie} key={movie.no} idx={idx}></Slider.Item>
           ))}
         </Slider>
-        }
+      )}
     </div>
   );
 }
