@@ -25,15 +25,11 @@ export default function ChangePhone() {
       userId: userId,
     };
     axios
-      .post(
-        "netcha/user/changeUser",
-        JSON.stringify(body),
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .post("netcha/user/changeUser", JSON.stringify(body), {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         axios
           .post("netcha/user/info", body.userId, {
@@ -51,18 +47,48 @@ export default function ChangePhone() {
   };
   return (
     <div>
-      <h1>전화번호 변경</h1>
-      <div>
-        <label>새 전화번호 : </label>
-        <input
-          id="phone"
-          type="tel"
-          value={inputData.phone}
-          onChange={onPhoneHandeler}
-        ></input>
+      <div
+        style={{
+          fontFamily: "Bazzi",
+          margin: "100px auto",
+          width: "300px",
+          textAlign: "center",
+        }}
+      >
+        <h1>전화번호 변경</h1>
+        <div
+          style={{
+            marginTop: "20px",
+          }}
+        >
+          <label>새 전화번호 : </label>
+          <input
+            id="phone"
+            type="tel"
+            value={inputData.phone}
+            onChange={onPhoneHandeler}
+          ></input>
 
-        <br />
-        <button onClick={changePhone}>전화번호 변경</button>
+          <br />
+          <div
+            style={{
+              marginTop: "30px",
+            }}
+          >
+            <button
+              style={{
+                backgroundColor: "#bdbdbd",
+                border: "none",
+                borderRadius: "3px",
+                color: "white",
+                height: "30px",
+              }}
+              onClick={changePhone}
+            >
+              전화번호 변경
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
