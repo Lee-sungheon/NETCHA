@@ -96,22 +96,23 @@ export default function Login(props) {
       password: inputData.password,
     };
     axios
-      .post("/netcha/user/login", JSON.stringify(body), {
-        headers: {
-          "Content-Type": "application/json",
-          // withCredentials: "true",
-        },
-      })
-      .then((res) => {
+      .post(
+        "http://j4d105.p.ssafy.io:9000/netcha/user/login",
+        JSON.stringify(body),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(async (res) => {
         console.log(res);
         if (res.data.response === "success") {
           console.log("로그인성공");
 
-          dispatch(actions.userLogin(res.data.data));
-          history.push({
-            pathname: "/",
-          });
-          alert("로그인되었습니다.");
+          await dispatch(actions.userLogin(res.data.data));
+
+          login_(res.data.data);
         } else {
           console.log("로그인실패");
           alert("아이디/비밀번호가 틀렸습니다.");
@@ -120,6 +121,25 @@ export default function Login(props) {
       .catch((err) => {
         console.log(err);
       });
+  };
+  const login_ = (res) => {
+    window.sessionStorage.setItem("userId", res.member.userId);
+    window.sessionStorage.setItem("token", res.token);
+    // window.sessionStorage.setItem(
+    //   "userId",
+    //   JSON.parse(JSON.parse(window.sessionStorage.getItem("persist:root")).user)
+    //     .userData.member.userId
+    // );
+    // window.sessionStorage.setItem(
+    //   "token",
+    //   JSON.parse(JSON.parse(window.sessionStorage.getItem("persist:root")).user)
+    //     .userData.token
+    // );
+
+    history.push({
+      pathname: "/",
+    });
+    alert("로그인되었습니다.");
   };
 
   return (

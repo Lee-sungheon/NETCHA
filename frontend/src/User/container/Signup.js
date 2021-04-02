@@ -79,11 +79,15 @@ export default function Signup(props) {
   const onStart = (e) => {
     e.preventDefault();
     axios
-      .post("/netcha/user/checkId", inputData.userId, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      .post(
+        "http://j4d105.p.ssafy.io:9000/netcha/user/checkId",
+        inputData.userId,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => {
         console.log(res);
         console.log(res.data.data);
@@ -141,6 +145,11 @@ export default function Signup(props) {
                   }}
                   value={inputData.userId}
                   onChange={onUserIdHandler}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      onStart(e);
+                    }
+                  }}
                   variant="filled"
                   style={{
                     backgroundColor: "white",
