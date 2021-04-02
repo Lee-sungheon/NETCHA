@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Provider } from "react-redux";
 import store from "./common/store";
 // import { createBrowserHistory } from 'history';
@@ -30,25 +30,28 @@ const persistor = persistStore(store);
 function App() {
   const [isHeader, setIsHeader] = useState(true);
   const [toggleButton, setToggleButton] = useState(false);
+  const [isLogin, setIsLogin] = useState("");
+
   const toggleIsHeader = (e) => {
     setIsHeader(e);
   };
+
   return (
     <BrowserRouter>
       <Provider store={store}>
+        {window.sessionStorage.getItem("token") ? (
+          <Redirect to="/" />
+        ) : (
+          <Redirect to="/login" />
+        )}
         <PersistGate loading={null} persistor={persistor}>
           <div className={cx("App", { "App--toggle": toggleButton })}>
-            {isHeader ? (
+            {isHeader && window.sessionStorage.getItem("token") ? (
               <Header
                 toggleButton={toggleButton}
                 setToggleButton={setToggleButton}
               />
             ) : null}
-            {window.sessionStorage.getItem("userId") ? (
-              <Redirect to="/" />
-            ) : (
-              <Redirect to="/login" />
-            )}
             <Route path="/login">
               <Login toggleIsHeader={toggleIsHeader} />
             </Route>

@@ -16,6 +16,7 @@ import Search from "../component/search/Search";
 import "./Header.scss";
 import axios from "axios";
 import { useHistory } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   Brightness4Icon: {
@@ -70,6 +71,9 @@ export default function Header({ toggleButton, setToggleButton }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [activeValue, setActiveValue] = useState("홈");
   const history = useHistory();
+  const { nickname } = useSelector((state) => ({
+    nickname: state.user.userData.member.nickname,
+  }));
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -123,16 +127,16 @@ export default function Header({ toggleButton, setToggleButton }) {
     window.sessionStorage.removeItem("persist:root");
     window.sessionStorage.removeItem("userId");
     window.sessionStorage.removeItem("token");
-    axios
-      .get("netcha/user/logout")
-      .then((res) => {
-        // history.push({
-        //   pathname: "/login",
-        // });
-        window.location.href = "/login";
-      });
+    axios.get("netcha/user/logout").then((res) => {
+      // history.push({
+      //   pathname: "/login",
+      // });
+      window.location.href = "/login";
+    });
   };
   const goAccount = () => {
+    setAnchorEl(null);
+
     history.push({
       pathname: "/account",
     });
@@ -207,9 +211,11 @@ export default function Header({ toggleButton, setToggleButton }) {
               className={classes.small}
               src="https://ww.namu.la/s/7afd3dd8186b6098081d52af9ba76b4b633331079cba253db56054f5d2a90fea37714c9f060074bbf86626a7f3016d89dc50d7f0c662ce806552ebb3f23f52d5968d07a1e25c8996f649d7364e995ae970190dd4ca6cb37dfb9bc0201e53540a1e5f2d2df2636376d26f60e96d9df172"
             />
-            <Typography className="title" variant="subtitle2" noWrap>
-              싸피
-            </Typography>
+            {window.sessionStorage.token ? (
+              <Typography className="title" variant="subtitle2" noWrap>
+                {nickname} 님
+              </Typography>
+            ) : null}
             <IconButton
               aria-controls="customized-menu"
               aria-haspopup="true"
