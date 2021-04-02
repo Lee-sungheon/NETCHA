@@ -6,6 +6,7 @@ import createRequestSaga, {
 } from "../lib/createRequestSaga";
 import { takeLatest } from "redux-saga/effects";
 
+// 영화 검색
 const [
   LIST_SEARCH_MOVIES,
   LIST_SEARCH_MOVIES_SUCCESS,
@@ -26,6 +27,7 @@ export function* searchMoviesSaga() {
   yield takeLatest(LIST_SEARCH_MOVIES, listsearchMoviesSaga);
 }
 
+// 넷챠 영화 순위
 const [
   NETCHA_RANKING_MOVIES,
   NETCHA_RANKING_MOVIES_SUCCESS,
@@ -45,6 +47,7 @@ export function* netchaRankingMoviesSaga() {
   yield takeLatest(NETCHA_RANKING_MOVIES, listNetChaRankingMoviesSaga);
 }
 
+// 사용자별 별점 준 영화 목록
 const [
   LIST_SCORE_MOVIES,
   LIST_SCORE_MOVIES_SUCCESS,
@@ -54,16 +57,16 @@ const [
 export const listScoreMovies = createAction(
   LIST_SCORE_MOVIES,
   moviesAPI.listNetChaRankingMovies
-  );
-  
-  // 사용지별 별점 준 영화 사가 생성
-  const listScoreMoviesSaga = createRequestSaga(
-    LIST_SCORE_MOVIES,
-    moviesAPI.listScoreMovies
-  );
-  export function* scoreMoviesSaga() {
-    yield takeLatest(LIST_SCORE_MOVIES, listScoreMoviesSaga);
-  }
+);
+
+// 사용지별 별점 준 영화 사가 생성
+const listScoreMoviesSaga = createRequestSaga(
+  LIST_SCORE_MOVIES,
+  moviesAPI.listScoreMovies
+);
+export function* scoreMoviesSaga() {
+  yield takeLatest(LIST_SCORE_MOVIES, listScoreMoviesSaga);
+}
 
 
 const initialState = {

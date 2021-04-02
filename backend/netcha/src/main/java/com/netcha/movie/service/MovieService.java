@@ -1,6 +1,7 @@
 package com.netcha.movie.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -134,6 +135,7 @@ public class MovieService {
 		}		
 		List<float[]> scoreList = new ArrayList<float[]>();
 		for(Movie movie : movieList) {
+			if(movie.getOpen().compareTo("1995-01-01") < 0) continue;
 			float score = 0;
 			String[] ganres = movie.getGanre().split(",");
 			for(int i=1; i<=ganres.length; i++) {
@@ -194,6 +196,20 @@ public class MovieService {
 	}
 	
 	@Transactional
+	public List<MovieResponseDto> findMovieByCountry(int pageNum, String country) {
+		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
+		List<Movie> movieR = movieRepository.findByCountryOrderByTotalViewDesc("1995-01-01", country, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
+		for(Movie m : movieR) {
+			if(m.getRating().equals("")) {
+				String[] result = crawling(m);
+				m.updateCrawling(result[0], result[1], result[2]);
+			}
+			movies.add(new MovieResponseDto(m));
+		}
+		return movies;
+	}
+	
+	@Transactional
 	public void updateRank(long userId, long movieNo, float ranking) {
 		MovieRank movieRank = movieRankRepository.findByUserIdAndMovieNo(userId, movieNo);
 		// 한번도 평점 체크한적 없으면 새로 만들기
@@ -216,6 +232,24 @@ public class MovieService {
 			}
 			movies.add(new MovieResponseDto(m));
 		}
+		return movies;
+	}
+	
+	@Transactional
+	public List<MovieResponseDto> findMovieByNoNotInNo(int userId, int pageNum) {
+		List<MovieRank> movieRanks = movieRankRepository.findAllByUserId(userId);
+		List<Long> movieNos = new ArrayList<Long>();
+		for(int i=0; i<movieRanks.size(); i++) movieNos.add(movieRanks.get(i).getMovie().getNo());
+		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
+		List<Movie> movieR = movieRepository.findByNoNotIn(movieNos, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
+		for(Movie m : movieR) {
+			if(m.getRating().equals("")) {
+				String[] result = crawling(m);
+				m.updateCrawling(result[0], result[1], result[2]);
+			}
+			movies.add(new MovieResponseDto(m));
+		}
+		Collections.shuffle(movies);
 		return movies;
 	}
 	
