@@ -85,10 +85,12 @@ export default function MovieFilter() {
       const clientHeight = document.documentElement.clientHeight;
       if (scrollTop + clientHeight + 1 >= scrollHeight && !isInfinite) {
         // 페이지 끝에 도달하면 추가 데이터를 받아온다
-        if (countryText !== "국가") {
-          dispatch(actions.requestAddCountryMovieList(countryText, pageNum));
+        if (countryText !== "국가" && ganreText !== "장르") {
+          dispatch(actions.requestAddCountryGanreMovieList(countryText, ganreText, pageNum, user.seq));
+        } else if (countryText !== "국가") {
+          dispatch(actions.requestAddCountryMovieList(countryText, pageNum, user.seq));
         } else if (ganreText !== "장르") {
-          dispatch(actions.requestAddGanreMovieList(ganreText, pageNum));
+          dispatch(actions.requestAddGanreMovieList(ganreText, pageNum, user.seq));
         } else {
           dispatch(actions.requestAddMovieList(pageNum, user.seq));
         }
@@ -174,10 +176,17 @@ export default function MovieFilter() {
       <div className="movie-filter__top-bar__container">
         <div className="movie-filter__top-bar__area">
           <div className="movie-filter__top-bar__left">
-            <GanreFilter ganreText={ganreText} setGanreText={setGanreText} />
+            <GanreFilter 
+              ganreText={ganreText} 
+              setGanreText={setGanreText} 
+              countryText={countryText} 
+              user={user} 
+            />
             <CountryFilter
               countryText={countryText}
+              ganreText={ganreText}
               setCountryText={setCountryText}
+              user={user}
             />
           </div>
           <div className="movie-filter__top-bar__right">

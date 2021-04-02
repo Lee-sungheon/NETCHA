@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import Slider from "../../slider";
 import { actions } from "../../../state";
 
-export default function GanreBased2({loading, idx, ganre}) {
+export default function GanreBased2({loading, idx, ganre, user}) {
   const movieLists = useSelector(state => state.home.ganreMovieLists2);
   const isLoading = useSelector(state => state.home.isGanreLoading2);
   const dispatch = useDispatch();
   useEffect(() =>{
     if (movieLists.length === 0) {
-      dispatch(actions.requestGanreMovieList2(ganre, 0));
+      dispatch(actions.requestGanreMovieList2(ganre, 0, user.seq));
     }
   }, [])
   
