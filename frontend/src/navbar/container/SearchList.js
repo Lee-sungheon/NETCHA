@@ -19,6 +19,7 @@ export default function SearchList({location}) {
   const isLoading = useSelector(state => state.search.isLoading);
   const isInfinite = useSelector((state) => state.search.isInfinite);
   const isInfiniteEnd = useSelector((state) => state.search.infiniteEnd);
+  const user = useSelector((state) => state.user.userData.member);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -42,11 +43,9 @@ export default function SearchList({location}) {
       if (scrollTop + clientHeight + 1 >= scrollHeight && !isInfinite) {
         // 페이지 끝에 도달하면 추가 데이터를 받아온다
         if (search[0] === "country") {
-          dispatch(actions.requestAddCountryMovieList(search[1], pageNum));
+          dispatch(actions.requestAddCountryMovieList(search[1], pageNum, user.seq));
         } else if (search[0] === "ganre") {
-          dispatch(actions.requestAddGanreMovieList(search[1], pageNum));
-        } else {
-          dispatch(actions.requestMovieList());
+          dispatch(actions.requestAddGanreMovieList(search[1], pageNum, user.seq));
         }
         if (!loadingPage) {
           pageNum += 1;
@@ -56,9 +55,13 @@ export default function SearchList({location}) {
     }
     window.addEventListener("scroll", handleScroll);
     if (search[0] === 'ganre'){
-      dispatch(actions.requestGanreMovieList(search[1], 0));
+      dispatch(actions.requestGanreMovieList(search[1], 0, user.seq));
     } else if (search[0] === 'country'){
-      dispatch(actions.requestCountryMovieList(search[1], 0));
+      dispatch(actions.requestCountryMovieList(search[1], 0, user.seq));
+    } else if (search[0] === 'cast'){
+      dispatch(actions.requestCastMovieList(search[1], 0));
+    } else if (search[0] === 'director'){
+      dispatch(actions.requestDirectorMovieList(search[1], 0));
     } else{
       dispatch(actions.requestMovieList());
     }

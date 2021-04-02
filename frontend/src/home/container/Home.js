@@ -28,9 +28,9 @@ export default function Home() {
 
   useEffect(() => {
     if (movieLists.length === 0) {
-      dispatch(actions.requestMovieList(0, 0));
+      dispatch(actions.requestMovieList(0, user.seq));
     } else if (isFilter) {
-      dispatch(actions.requestMovieList(0, 0));
+      dispatch(actions.requestMovieList(0, user.seq));
       dispatch(actions.setIsFilter(false));
     }
   }, []);

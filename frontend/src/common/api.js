@@ -11,8 +11,8 @@ export function callApiMovieList() {
     });
 }
 
-export function callApiNewMovieList(pageNum) {
-  const url = `netcha/movie/list_newContents?pageNum=${pageNum}`;
+export function callApiNewMovieList(pageNum, userId) {
+  const url = `netcha/movie/list_newContents?pageNum=${pageNum}&userId=${userId}`;
   return axios
     .get(url)
     .then((Response) => {
@@ -23,8 +23,8 @@ export function callApiNewMovieList(pageNum) {
     });
 }
 
-export function callApiPopularMovieList(pageNum) {
-  const url = `netcha/movie/list_totalView?pageNum=${pageNum}`;
+export function callApiPopularMovieList(pageNum, userId) {
+  const url = `netcha/movie/list_totalView?pageNum=${pageNum}&userId=${userId}`;
   return axios
     .get(url)
     .then((Response) => {
@@ -47,8 +47,8 @@ export function callApiContentMovieList(pageNum, id) {
     });
 }
 
-export function callApiRankMovieList(pageNum) {
-  const url = `netcha/movie/list_avgRank?pageNum=${pageNum}`;
+export function callApiRankMovieList(pageNum, userId) {
+  const url = `netcha/movie/list_avgRank?pageNum=${pageNum}&userId=${userId}`;
   return axios
     .get(url)
     .then((Response) => {
@@ -59,8 +59,8 @@ export function callApiRankMovieList(pageNum) {
     });
 }
 
-export function callApiGanreMovieList(ganre, pageNum) {
-  const url = `netcha/movie/list_ganre?ganre=${ganre}&pageNum=${pageNum}`;
+export function callApiCountryGanreMovieList(country, ganre, pageNum, userId) {
+  const url = `netcha/movie/list_ganreAndCountry?country=${country}&ganre=${ganre}&pageNum=${pageNum}&userId=${userId}`;
   return axios
     .get(url)
     .then((Response) => {
@@ -71,8 +71,8 @@ export function callApiGanreMovieList(ganre, pageNum) {
     });
 }
 
-export function callApiCountryMovieList(country, pageNum) {
-  const url = `netcha/movie/list_country?country=${country}&pageNum=${pageNum}`;
+export function callApiGanreMovieList(ganre, pageNum, userId) {
+  const url = `netcha/movie/list_ganre?ganre=${ganre}&pageNum=${pageNum}&userId=${userId}`;
   return axios
     .get(url)
     .then((Response) => {
@@ -83,8 +83,44 @@ export function callApiCountryMovieList(country, pageNum) {
     });
 }
 
-export function callApiKeywordMovieList(keyword, pageNum) {
-  const url = `netcha/movie/list_keyword?keyword=${keyword}&pageNum=${pageNum}`;
+export function callApiCountryMovieList(country, pageNum, userId) {
+  const url = `netcha/movie/list_country?country=${country}&pageNum=${pageNum}&userId=${userId}`;
+  return axios
+    .get(url)
+    .then((Response) => {
+      return Response.data;
+    })
+    .catch((Error) => {
+      console.log(Error);
+    });
+}
+
+export function callApiCastMovieList(cast, userId) {
+  const url = `netcha/movie/list_cast?cast=${cast}&userId=${userId}`;
+  return axios
+    .get(url)
+    .then((Response) => {
+      return Response.data;
+    })
+    .catch((Error) => {
+      console.log(Error);
+    });
+}
+
+export function callApiDirectorMovieList(director, userId) {
+  const url = `netcha/movie/list_director?director=${director}&userId=${userId}`;
+  return axios
+    .get(url)
+    .then((Response) => {
+      return Response.data;
+    })
+    .catch((Error) => {
+      console.log(Error);
+    });
+}
+
+export function callApiKeywordMovieList(keyword, pageNum, userId) {
+  const url = `netcha/movie/list_keyword?keyword=${keyword}&pageNum=${pageNum}&userId=${userId}`;
   return axios
     .get(url)
     .then((Response) => {
