@@ -1,15 +1,19 @@
 package com.netcha.member.data;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,6 +25,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.netcha.config.UserRole;
 import com.netcha.member.data.Request.RequestChangeUser;
+import com.netcha.movie.data.MovieLike;
+import com.netcha.movie.data.MovieRank;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -61,6 +67,14 @@ public class Member {
     @JoinColumn(name = "salt_id")
     private Salt salt;
 
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<MovieRank> movieRank = new ArrayList<MovieRank>();
+    
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<MovieLike> movieLike = new ArrayList<MovieLike>();
+    
+//    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+//    private List<MovieRank> movieRank = new ArrayList<MovieRank>();
     
     public void updateUser( RequestChangeUser member ) {
 		if(member.getMbti() != null) {
