@@ -7,22 +7,23 @@ export default function ContentBased({ loading, idx }) {
   const movieLists = useSelector((state) => state.home.movieLists);
   const isLoading = useSelector((state) => state.home.isLoading);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    if (movieLists && movieLists.length === 0) {
-      dispatch(actions.requestMovieList());
+    if (movieLists.length === 0) {
+      dispatch(actions.requestMovieList(0, 0));
     }
   }, []);
 
   return (
     <div className="home__container" id={idx}>
-      {loading && isLoading && (
+      {isLoading && (
         <Slider title={"SSAFY님의 취향저격 콘텐츠"} idx={idx}>
           {loading.map((movie, idx) => (
             <Slider.Item movie={movie} key={movie.no} idx={idx}></Slider.Item>
           ))}
         </Slider>
       )}
-      {movieLists && !isLoading && (
+      {!isLoading && (
         <Slider title={"SSAFY님의 취향저격 콘텐츠"} idx={idx}>
           {movieLists.slice(0, 40).map((movie, idx) => (
             <Slider.Item movie={movie} key={movie.no} idx={idx}></Slider.Item>

@@ -34,20 +34,11 @@ function App() {
   };
   return (
     <BrowserRouter>
-      <div className={cx("App", { "App--toggle": toggleButton })}>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            {isHeader ? (
-              <Header
-                toggleButton={toggleButton}
-                setToggleButton={setToggleButton}
-              />
-            ) : null}
-            {/* {!sessionStorage.getItem("userId") ? (
-              <Redirect to="/login" />
-            ) : (
-              <Redirect to="/" />
-            )} */}
+
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <div className={cx('App', { 'App--toggle': toggleButton})}>
+            {isHeader ? <Header toggleButton={toggleButton} setToggleButton={setToggleButton}/> : null}
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/movielist">
@@ -88,10 +79,10 @@ function App() {
                 <EmptyPage />
               </Route>
             </Switch>
-          </PersistGate>
-        </Provider>
-        {isHeader ? <Footer /> : null}
-      </div>
+            {isHeader ? <Footer /> : null}
+          </div>
+        </PersistGate>
+      </Provider>
     </BrowserRouter>
   );
 }

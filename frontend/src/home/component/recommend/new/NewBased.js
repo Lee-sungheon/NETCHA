@@ -7,22 +7,23 @@ export default function NewBased({ loading, idx }) {
   const movieLists = useSelector((state) => state.home.newMovieLists);
   const isLoading = useSelector((state) => state.home.isNewLoading);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    if (movieLists && movieLists.length === 0) {
-      dispatch(actions.requestNewMovieList());
+    if (movieLists.length === 0) {
+      dispatch(actions.requestNewMovieList(0));
     }
   }, []);
 
   return (
     <div className="home__container" id={idx}>
-      {loading && isLoading && (
+      {isLoading && (
         <Slider title={"Netcha 최신 콘텐츠"} idx={idx}>
           {loading.map((movie, idx) => (
             <Slider.Item movie={movie} key={movie.no} idx={idx}></Slider.Item>
           ))}
         </Slider>
       )}
-      {movieLists && !isLoading && (
+      {!isLoading && (
         <Slider title={"Netcha 최신 콘텐츠"} idx={idx}>
           {movieLists.map((movie, idx) => (
             <Slider.Item movie={movie} key={movie.no} idx={idx}></Slider.Item>
