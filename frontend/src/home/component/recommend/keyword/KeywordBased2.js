@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import Slider from "../../slider";
 import { actions } from "../../../state";
 
-export default function KeywordBased2({loading, idx, keyword}) {
+export default function KeywordBased2({loading, idx, keyword, user}) {
   const movieLists = useSelector(state => state.home.keywordMovieLists2);
   const isLoading = useSelector(state => state.home.isKeywordLoading2);
   const dispatch = useDispatch();
   useEffect(() =>{
     if (movieLists.length === 0) {
-      dispatch(actions.requestKeywordMovieList2(keyword, 0));
+      dispatch(actions.requestKeywordMovieList2(keyword, 0, user.seq));
     }
   }, [])
   

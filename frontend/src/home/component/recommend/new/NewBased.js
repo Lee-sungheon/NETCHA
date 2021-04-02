@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import Slider from "../../../component/slider";
 import { actions } from "../../../state";
 
-export default function NewBased({ loading, idx }) {
+export default function NewBased({ loading, idx, user }) {
   const movieLists = useSelector((state) => state.home.newMovieLists);
   const isLoading = useSelector((state) => state.home.isNewLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (movieLists.length === 0) {
-      dispatch(actions.requestNewMovieList(0));
+      dispatch(actions.requestNewMovieList(0, user.seq));
     }
   }, []);
 
