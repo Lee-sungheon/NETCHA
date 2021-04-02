@@ -3,14 +3,16 @@ import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
 import movie, { movieSaga } from './movie';
 import loading from './loading';
-import movies, { searchMoviesSaga, netchaRankingMoviesSaga, scoreMoviesSaga } from './movies';
+import movies, { searchMoviesSaga, scoreMoviesSaga } from './movies';
 import actors, { actorsSaga } from './actors';
 import directors, { directorsSaga } from './directors';
 import countries, { countriesSaga } from './countries';
 import genres, { genresSaga } from './genres';
 import tags, { tagsSaga } from './tags';
 import stars, { starsSaga } from './stars';
+import netchaRankingMovies, { netchaRankingMoviesSaga } from './netchaRankingMovies';
 import newMovies, { newMoviesSaga } from './newMovies';
+import autoCompletesMovies, { autoCompletesMoviesSaga, initializeSaga, changeSearchKeywordSaga } from './autoCompletesMovies';
 
 const rootReducer = combineReducers({
   loading,
@@ -22,7 +24,9 @@ const rootReducer = combineReducers({
   genres,
   tags,
   stars,
+  netchaRankingMovies,
   newMovies,
+  autoCompletesMovies,
 });
 
 export function* rootSaga() {
@@ -38,6 +42,9 @@ export function* rootSaga() {
     tagsSaga(),
     starsSaga(),
     newMoviesSaga(),
+    autoCompletesMoviesSaga(),
+    initializeSaga(),
+    changeSearchKeywordSaga(),
   ]);
 }
 
