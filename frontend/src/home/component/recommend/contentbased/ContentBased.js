@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import Slider from "../../../component/slider";
 import { actions } from "../../../state";
 
@@ -11,14 +11,13 @@ export default function ContentBased({loading, idx, user}) {
     if (movieLists.length === 0){
       dispatch(actions.requestMovieList(user.seq, 0));
     }
-  }, [])
-  
+  }, []);
+
   return (
     <div className="home__container" id={idx}>
         {isLoading && <Slider title={`${user.name}님의 취향저격 콘텐츠`} idx={idx}>
           {loading.map((movie, idx) => (
-              <Slider.Item movie={movie} key={movie.no} idx={idx}>
-              </Slider.Item>
+            <Slider.Item movie={movie} key={movie.no} idx={idx}></Slider.Item>
           ))}
         </Slider>}
         {!isLoading && <Slider title={`${user.name}님의 취향저격 콘텐츠`} idx={idx}>
@@ -26,7 +25,8 @@ export default function ContentBased({loading, idx, user}) {
               <Slider.Item movie={movie} key={movie.no} idx={idx} >
               </Slider.Item>
           ))}
-        </Slider>}
+        </Slider>
+      )}
     </div>
-  )
+  );
 }

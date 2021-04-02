@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.0.20",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
@@ -14,6 +15,9 @@
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "diff": "^4.0.2",
+    "express": "^4.17.1",
+    "fluent-ffmpeg": "^2.1.2",
+    "hls-server": "^1.5.0",
     "http-proxy-middleware": "^1.1.0",
     "immer": "^8.0.1",
     "node-sass": "^5.0.0",

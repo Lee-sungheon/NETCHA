@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Banner from "../component/banner/banner";
-import DehazeIcon from '@material-ui/icons/Dehaze';
-import ViewModuleIcon from '@material-ui/icons/ViewModule';
+import DehazeIcon from "@material-ui/icons/Dehaze";
+import ViewModuleIcon from "@material-ui/icons/ViewModule";
 import { actions } from "../state";
-import { useSelector, useDispatch } from 'react-redux';
-import "./Home.scss"
+import { useSelector, useDispatch } from "react-redux";
+import "./Home.scss";
 import ContentBased from "../component/recommend/contentbased/ContentBased";
 import NewBased from "../component/recommend/new/NewBased";
 import PopularBased from "../component/recommend/popular/PopularBased";
@@ -25,23 +25,32 @@ export default function Home() {
   const isFilter = useSelector(state => state.home.isFilter);
   const user = useSelector(state => state.user.userData.member);
   const dispatch = useDispatch();
-  useEffect(() =>{
-    if (movieLists.length === 0){
+
+  useEffect(() => {
+    if (movieLists.length === 0) {
       dispatch(actions.requestMovieList(0, 0));
     } else if (isFilter) {
       dispatch(actions.requestMovieList(0, 0));
       dispatch(actions.setIsFilter(false));
     }
-  })
+  }, []);
 
   return (
     <>
       <div className="home__top-bar__container">
         <div className="home__top-bar__area">
           <div className="home__top-bar__left"></div>
-          <div className="home__top-bar__right" >
-            <Link to={"/"}><div className="home__top-bar__button1" ><DehazeIcon /></div></Link>
-            <Link to={"/movielist"}><div className="home__top-bar__button2"><ViewModuleIcon /></div></Link>
+          <div className="home__top-bar__right">
+            <Link to={"/"}>
+              <div className="home__top-bar__button1">
+                <DehazeIcon />
+              </div>
+            </Link>
+            <Link to={"/movielist"}>
+              <div className="home__top-bar__button2">
+                <ViewModuleIcon />
+              </div>
+            </Link>
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ import { Route } from "react-router-dom";
 import AccountMain from "../component/AccountMain";
 import ChangePassword from "../component/ChangePassword";
 import ChangePhone from "../component/ChangePhone";
+import ChangeNinkname from "../component/ChangeNickname";
 
 const useStyles = makeStyles((theme) => ({
   account_page: {
@@ -63,11 +64,14 @@ export default function Account() {
         <Route exact path="/account">
           <AccountMain />
         </Route>
-        <Route path="/account/changepassword/">
+        <Route path="/account/changepassword">
           <ChangePassword />
         </Route>
-        <Route path="/account/changephone/">
+        <Route path="/account/changephone">
           <ChangePhone />
+        </Route>
+        <Route path="/account/ChangeNinkname">
+          <ChangeNinkname />
         </Route>
       </div>
     </div>

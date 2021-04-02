@@ -18,6 +18,17 @@ export const listSearchMovies = ({page, keyword}) => {
   // return client.get(`/api/searchMovies/${queryString}`)
   // return client.get(`/movie/list_totalView`)
 }
+// // 영화 검색 목록
+// export const listSearchMovies = ({page, keyword}) => {
+//   console.log('keyword:' + keyword);
+//   const queryString = qs.stringify({
+//     page,
+//     keyword,
+//   });
+//   return (movies);
+//   // return client.get(`/api/searchMovies/${queryString}`)
+//   // return client.get(`/movie/list_totalView`)
+// }
 
 // 메인페이지 넷챠 영화 순위 목록
 export const listNetChaRankingMovies = () => {
@@ -35,10 +46,47 @@ export const listScoreMovies = () => {
   return (movies);
 }
 
+// 헤더 검색한 영화 자동완성
+export const listAutoCompletesMovies = (keyword) => {
+  if(keyword == null || keyword.length == 0) return {data: []};
+
+  const titles = new Set();
+  {movies_title.map((title) => {
+    var titleArray = title.split('');
+    var keywordArray = keyword.split('');
+    {titleArray.map((c) => {
+      {keywordArray.map((k) => {
+        if(k === c) {
+          titles.add(title);
+        }
+      })}
+    })}
+  })}
+  // return client.get(`/movie/listautoCompletesMovies?${keyword}`);
+  return {data: Array.from(titles)};
+}
+
 
 const movie = {
   data: { title: '미나리' },
 };
+
+const movies_title = [
+// {
+  // data: [
+  "고질라 VS. 콩",
+  "극장판 귀멸의 칼날 무한열차편",
+  "자산어보",
+  "미나리",
+  "최면",
+  "파이터",
+  "디 아더 사이드",
+  "국카스텐 콘서트 실황 : 해프닝",
+  "더 박스",
+  "스파이의 아내",
+// ]
+// };
+];
 
 const movies = { data: [
   {

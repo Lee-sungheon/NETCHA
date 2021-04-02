@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Provider } from 'react-redux';
-import store from './common/store';
+import React, { useState } from "react";
+import { Provider } from "react-redux";
+import store from "./common/store";
 // import { createBrowserHistory } from 'history';
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Home from "./home/container/Home";
 import MovieFilter from "./moviefliter/container/MovieFilter";
 import Header from "./navbar/container/Header";
@@ -20,7 +20,8 @@ import Signup from "./user/container/Signup";
 import SignupDetail from "./user/container/SignupDetail";
 import ProfileList from "./user/container/ProfileList";
 import MbtiResult from "./mbti/container/MbtiResult";
-import cx from 'classnames';
+import Movie from "./movie/container/Movie";
+import cx from "classnames";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 
@@ -36,8 +37,24 @@ function App() {
     <BrowserRouter>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <div className={cx('App', { 'App--toggle': toggleButton})}>
-            {isHeader ? <Header toggleButton={toggleButton} setToggleButton={setToggleButton}/> : null}
+          <div className={cx("App", { "App--toggle": toggleButton })}>
+            {isHeader ? (
+              <Header
+                toggleButton={toggleButton}
+                setToggleButton={setToggleButton}
+              />
+            ) : null}
+            {window.sessionStorage.getItem("userId") ? (
+              <Redirect to="/" />
+            ) : (
+              <Redirect to="/login" />
+            )}
+            <Route path="/login">
+              <Login toggleIsHeader={toggleIsHeader} />
+            </Route>
+            <Route path="/signup">
+              <Signup toggleIsHeader={toggleIsHeader} />
+            </Route>
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/movielist">
@@ -53,12 +70,7 @@ function App() {
               <Route path="/account">
                 <Account />
               </Route>
-              <Route path="/login">
-                <Login toggleIsHeader={toggleIsHeader} />
-              </Route>
-              <Route path="/signup">
-                <Signup toggleIsHeader={toggleIsHeader} />
-              </Route>
+
               <Route path="/signupdetail">
                 <SignupDetail toggleIsHeader={toggleIsHeader} />
               </Route>
@@ -73,6 +85,9 @@ function App() {
               </Route>
               <Route path="/mbti">
                 <Mbti toggleIsHeader={toggleIsHeader} />
+              </Route>
+              <Route path="/movie">
+                <Movie toggleIsHeader={toggleIsHeader} />
               </Route>
               <Route>
                 <EmptyPage />

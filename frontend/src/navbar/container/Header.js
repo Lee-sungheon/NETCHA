@@ -12,8 +12,10 @@ import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import Search from '../component/search/Search';
-import './Header.scss';
+import Search from "../component/search/Search";
+import "./Header.scss";
+import axios from "axios";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   Brightness4Icon: {
@@ -49,7 +51,6 @@ const StyledMenu = withStyles({
     }}
     {...props}
   />
-  
 ));
 
 const StyledMenuItem = withStyles((theme) => ({
@@ -63,11 +64,11 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-export default function Header({toggleButton, setToggleButton}) {
+export default function Header({ toggleButton, setToggleButton }) {
   const classes = useStyles();
   const [activeValue, setActiveValue] = useState("홈");
   const [anchorEl, setAnchorEl] = useState(null);
-
+  const history = useHistory();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -77,9 +78,9 @@ export default function Header({toggleButton, setToggleButton}) {
   };
 
   const onClick = () => {
-    setToggleButton(!toggleButton)
-    console.log(toggleButton)
-  }
+    setToggleButton(!toggleButton);
+    console.log(toggleButton);
+  };
 
   function handleChange(event) {
     setActiveValue(event.target.innerText);
@@ -91,7 +92,7 @@ export default function Header({toggleButton, setToggleButton}) {
       if (window.pageYOffset > 0) {
         if (!toggleButton) {
           header.style.backgroundColor = "black";
-        } else{
+        } else {
           header.style.backgroundColor = "white";
         }
       } else {
@@ -116,6 +117,25 @@ export default function Header({toggleButton, setToggleButton}) {
       setActiveValue("홈");
     }
   }, [toggleButton]);
+
+  const logiout = () => {
+    window.sessionStorage.removeItem("persist:root");
+    window.sessionStorage.removeItem("userId");
+    window.sessionStorage.removeItem("token");
+    axios
+      .get("netcha/user/logout")
+      .then((res) => {
+        // history.push({
+        //   pathname: "/login",
+        // });
+        window.location.href = "/login";
+      });
+  };
+  const goAccount = () => {
+    history.push({
+      pathname: "/account",
+    });
+  };
 
   return (
     <div className="root">
@@ -173,17 +193,13 @@ export default function Header({toggleButton, setToggleButton}) {
             </Link>
           </div>
 
-          <Typography
-            className="title"
-            variant="subtitle2"
-            noWrap
-          ></Typography>
+          <Typography className="title" variant="subtitle2" noWrap></Typography>
 
           <Search activeValue={activeValue} setActiveValue={setActiveValue} />
 
           <Link to={"/"}>
             <div className={classes.Brightness4Icon}>
-              <Brightness4Icon className="ld-button" onClick={onClick}/>
+              <Brightness4Icon className="ld-button" onClick={onClick} />
             </div>
           </Link>
           <div className={classes.Brightness4Icon}>
@@ -203,7 +219,7 @@ export default function Header({toggleButton, setToggleButton}) {
               onClick={handleClick}
               style={{ paddingLeft: "0px" }}
             >
-              <ArrowDropDownIcon className="arrow-icon"/>
+              <ArrowDropDownIcon className="arrow-icon" />
             </IconButton>
             <StyledMenu
               id="customized-menu"
@@ -214,20 +230,20 @@ export default function Header({toggleButton, setToggleButton}) {
             >
               <StyledMenuItem>
                 <Link
-                  to="/account"
                   style={{
                     color: "white",
                   }}
+                  onClick={goAccount}
                 >
                   <ListItemText primary="계정" />
                 </Link>
               </StyledMenuItem>
               <StyledMenuItem>
                 <Link
-                  to=""
                   style={{
                     color: "white",
                   }}
+                  onClick={logiout}
                 >
                   <ListItemText primary="로그아웃" />
                 </Link>
