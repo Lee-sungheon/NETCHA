@@ -16,6 +16,8 @@ const SearchMovieListContainer = ({ location }) => {
     const { keyword, page } = qs.parse(location.search, {
       ignoreQueryPrefix: true,
     });
+    console.log('keyword: ' + keyword);
+    console.log('page: ' + page);
     dispatch(listSearchMovies({ keyword, page }));
   }, [dispatch, location.search]);
 

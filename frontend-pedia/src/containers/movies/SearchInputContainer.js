@@ -1,54 +1,38 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import SearchInput from "../../components/common/SearchInput";
-import { initializeInput, searchMovies } from "../../modules/movies";
+import { listAutoCompletesMovies, initialize, changeSearchKeyword } from "../../modules/autoCompletesMovies";
 
-export default function SearchInputContainer({history}) {
-  // const dispatch = useDispatch();
-  // const keyword = useSelector(({movies}) => ({
-  //   keyword: movies.keyword
-  // }));
+export default function SearchInputContainer() {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { keyword, autoCompletesMovies, error } = useSelector(({ autoCompletesMovies }) => ({
+    keyword: autoCompletesMovies.keyword,
+    autoCompletesMovies : autoCompletesMovies.autoCompletesMovies,
+    error: autoCompletesMovies.error,
+  }));
 
-  // //인풋 변경 이벤트 핸들러
-  // const onChange = e => {
-  //   const {value} = e.target;
-  //   dispatch(
-  //     changeSearchKeyword({
-  //       keyword: value
-  //     })
-  //   )
-  // }
-
-  // // 검색 엔터 이벤트 핸들러
-  // const onKeyPress = e => {
-  //   if(e.key === 'Enter'){
-  //     // onSubmit();
-  //     dispatch(searchMovies({movies}))
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   dispatch(initializeInput(''));
-  // }, [dispatch]);
+  //인풋 변경 이벤트 핸들러
+  const onChange = e => {
+    dispatch(changeSearchKeyword({keyword: e.target.value}));
+    dispatch(listAutoCompletesMovies(e.target.value));
+  };
+  
+  // 검색 엔터 이벤트 핸들러
+  const onKeyPress = e => {
+    if(e.key === 'Enter') {
+      history.push(`/searchMovie?keyword=${keyword.keyword}&page=0`);
+    }
+  };
+  
+  useEffect(() => {
+    // dispatch(listAutoCompletesMovies(keyword))
+    return() => {
+      dispatch(initialize());
+    };
+  }, [dispatch]);
 
 
-  return (
-    <>
-      {/* <SearchInput movies={movies} keyword={keyword} onChange={onChange} onKeyPress={onKeyPress} /> */}
-      <SearchInput movies={movies} />
-    </>
-  );
+  return <SearchInput keyword={keyword} movies={autoCompletesMovies} onChange={onChange} onKeyPress={onKeyPress} error={error} />;
 }
-
-const movies = [
-  "고질라 VS. 콩",
-  "극장판 귀멸의 칼날 무한열차편",
-  "자산어보",
-  "미나리",
-  "최면",
-  "파이터",
-  "디 아더 사이드",
-  "국카스텐 콘서트 실황 : 해프닝",
-  "더 박스",
-  "스파이의 아내",
-];

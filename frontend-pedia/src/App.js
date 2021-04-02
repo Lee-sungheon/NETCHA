@@ -14,7 +14,7 @@ const App = () => {
         <Route exact path="/user/:id" component={User} />
         <Route exact path="/user/statics/:id" component={UserStatics} />
         <Route exact path="/movieDetail/:movieId" component={MovieDetail} />
-        <Route exact path="/searchMovie/:searchKeyword" component={SearchMovieListPage} />
+        <Route exact path="/searchMovie" component={SearchMovieListPage} />
       </BrowserRouter>
     </div>
   );
