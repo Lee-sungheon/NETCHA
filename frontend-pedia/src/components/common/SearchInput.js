@@ -1,9 +1,7 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import { InputBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
-import { changeSearchKeyword } from "../../modules/autoCompletesMovies";
 
 const useStyles = makeStyles((theme) => ({
   inputRoot: {
@@ -50,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    color: "action",
+    color: "#e6e6e6",
   },
   movieli: {
     height: 40,

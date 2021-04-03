@@ -66,8 +66,8 @@ export default function SmallSlider({ movies, title, error, loading }) {
                       <div className="smallmovieTitle">
                         <p title={movie.title}>{movie.title}</p>
                       </div>
-                      <div className="smallmovieRate">
-                        <span className="smallmovieScore">평가함&nbsp;</span>
+                      <div className="smallmovieRate" style={movie.isRating === '평균'? {color: "#ff0073"} : {}}>
+                        <span className="smallmovieScore">{movie.isRating}&nbsp;</span>
                         <span className="smallmovieScore">★&nbsp;5.0</span>
                       </div>
                     </div>

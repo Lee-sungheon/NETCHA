@@ -12,6 +12,7 @@ export default function LikeList() {
   const [likeList, setLikeList] = useState([]);
   const movieLists = useSelector(state => state.like.movieLists);
   const isLoading = useSelector(state => state.like.isLoading);
+  const user = useSelector(state => state.user.userData.member);
   const dispatch = useDispatch();
 
   useEffect(() => {

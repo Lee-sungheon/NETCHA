@@ -47,6 +47,14 @@ export default function BasicInformation({ movie }) {
       callApiRequestEvaluation(user.seq, movie.no, tmpScore)
     }
   }
+  function onCastSearch(e) {
+    const text = e.target.innerText;
+    history.push(`/search?cast=${text}`);
+  }
+  function onDirectorSearch(e) {
+    const text = e.target.innerText;
+    history.push(`/search?director=${text}`);
+  }
   function onGanreSearch(e) {
     const text = e.target.innerText;
     history.push(`/search?ganre=${text}`);
@@ -70,7 +78,7 @@ export default function BasicInformation({ movie }) {
           감독
         </div>
         <div className="content__information__content">
-          <span className="content__information__member" >{ movie.directors[0] }</span>
+          <span className="content__information__member" onClick={onDirectorSearch}>{ movie.directors[0] }</span>
         </div>
       </div>
       <div className="content__information">
@@ -80,7 +88,7 @@ export default function BasicInformation({ movie }) {
         <div className="content__information__content">
           { movie.casts.slice(0,3).map((member, idx) => (
             <span key={member}>{idx !== 0 && <span>, </span>}
-            <span className="content__information__member" >
+            <span className="content__information__member" onClick={onCastSearch}>
               {member.split('(')[0]}</span>
             </span>
           ))}

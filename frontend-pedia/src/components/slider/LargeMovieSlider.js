@@ -54,7 +54,7 @@ export default function LargeMovieSlider({ movies, title }) {
         <Slider {...settings}>
           {movies.map((movie, index) => {
             return (
-              <div className="MovieBox" key={movie.id}>
+              <div className="MovieBox" key={index}>
                 <div className="movieAllWrap">
                   <div className="moviePosterInside">
                     <img

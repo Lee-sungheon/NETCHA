@@ -5,16 +5,16 @@ import { listTags } from "../../modules/tags";
 import WordCloud from "../../components/user/WordCloud";
 
 const WordCloudContainer = () => {
-  const userId = 99999;
   const dispatch = useDispatch();
-  const { tags, error, loading } = useSelector(({ tags, loading }) => ({
+  const { userId, tags, error, loading } = useSelector(({ user, tags, loading }) => ({
+    userId: user.user.userId,
     tags: tags.tags,
     error: tags.error,
     loading: loading["tags/LIST_TAGS"],
   }));
   useEffect(() => {
-    dispatch(listTags({ userId }));
-  }, [dispatch]);
+    dispatch(listTags({userId}));
+  }, [dispatch, userId]);
 
   return (
     <WordCloud tags={tags} error={error} loading={loading} />

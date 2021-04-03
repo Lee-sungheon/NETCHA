@@ -5,6 +5,7 @@ export const types = {
   REQUEST_ADD_MOVIELIST: 'home/REQUEST_ADD_MOVIELIST',
   REQUEST_ADD_COUNTRYMOVIELIST: 'home/REQUEST_ADD_COUNTRYMOVIELIST',
   REQUEST_ADD_GANREMOVIELIST: 'home/REQUEST_ADD_GANREMOVIELIST',
+  REQUEST_ADD_COUNTRYGANREMOVIELIST: 'home/REQUEST_ADD_COUNTRYGANREMOVIELIST',
   ADD_MOVIELIST: 'home/ADD_MOVIELIST',
   SET_INFINITE: 'home/SET_INFINITE',
   SET_END: 'home/SET_END',
@@ -67,6 +68,7 @@ export const types = {
   // 영화 필터링
   REQUEST_FILTERCOUNTRYMOVIELIST: 'home/REQUEST_FILTERCOUNTRYMOVIELIST',
   REQUEST_FILTERGANREMOVIELIST: 'home/REQUEST_FILTERGANREMOVIELIST',
+  REQUEST_FILTERCOUNTRYGANREMOVIELIST: 'home/REQUEST_FILTERCOUNTRYGANREMOVIELIST',
   SET_ISFILTER: 'home/SET_ISFILTER',
   // 값 변경
   SET_VALUE: 'home/SET_VALUE',
@@ -75,8 +77,9 @@ export const types = {
 export const actions = {
   // 영화 인피니트 스크롤
   requestAddMovieList: (pageNum, userNo) => ({ type: types.REQUEST_ADD_MOVIELIST, pageNum, userNo }),
-  requestAddCountryMovieList: (country, pageNum) => ({ type: types.REQUEST_ADD_COUNTRYMOVIELIST, country, pageNum }),
-  requestAddGanreMovieList: (ganre, pageNum) => ({ type: types.REQUEST_ADD_GANREMOVIELIST, ganre, pageNum }),
+  requestAddCountryMovieList: (country, pageNum, userNo) => ({ type: types.REQUEST_ADD_COUNTRYMOVIELIST, country, pageNum, userNo }),
+  requestAddGanreMovieList: (ganre, pageNum, userNo) => ({ type: types.REQUEST_ADD_GANREMOVIELIST, ganre, pageNum, userNo }),
+  requestAddCountryGanreMovieList: (country, ganre, pageNum, userNo) => ({ type: types.REQUEST_ADD_COUNTRYGANREMOVIELIST, country,  ganre, pageNum, userNo }),
   addMovieList: data => ({ type: types.ADD_MOVIELIST, data }),
   setInfinite: isInfinite => ({
     type: types.SET_INFINITE,
@@ -94,99 +97,100 @@ export const actions = {
     isLoading,
   }),
   // 최신 영화
-  requestNewMovieList: (pageNum) => ({ type: types.REQUEST_NEWMOVIELIST, pageNum }),
+  requestNewMovieList: (pageNum, userNo) => ({ type: types.REQUEST_NEWMOVIELIST, pageNum, userNo }),
   setNewMovieList: data => ({ type: types.SET_NEWMOVIELIST, data }),
   setNewLoading: isNewLoading => ({
     type: types.SET_NEWLOADING,
     isNewLoading,
   }),
   // 인기 영화
-  requestPopularMovieList: (pageNum) => ({ type: types.REQUEST_POPULARMOVIELIST, pageNum }),
+  requestPopularMovieList: (pageNum, userNo) => ({ type: types.REQUEST_POPULARMOVIELIST, pageNum, userNo }),
   setPopularMovieList: data => ({ type: types.SET_POPULARMOVIELIST, data }),
   setPopularLoading: isPopularLoading => ({
     type: types.SET_POPULARLOADING,
     isPopularLoading,
   }),
   // 랭크 영화
-  requestRankMovieList: (pageNum) => ({ type: types.REQUEST_RANKMOVIELIST, pageNum }),
+  requestRankMovieList: (pageNum, userNo) => ({ type: types.REQUEST_RANKMOVIELIST, pageNum, userNo }),
   setRankMovieList: data => ({ type: types.SET_RANKMOVIELIST, data }),
   setRankLoading: isRankLoading => ({
     type: types.SET_RANKLOADING,
     isRankLoading,
   }),
   // 장르 영화
-  requestGanreMovieList: (ganre, pageNum) => ({ type: types.REQUEST_GANREMOVIELIST, ganre, pageNum }),
+  requestGanreMovieList: (ganre, pageNum, userNo) => ({ type: types.REQUEST_GANREMOVIELIST, ganre, pageNum, userNo }),
   setGanreMovieList: data => ({ type: types.SET_GANREMOVIELIST, data }),
   setGanreLoading: isGanreLoading => ({
     type: types.SET_GANRELOADING,
     isGanreLoading,
   }),
   // 장르 영화2
-  requestGanreMovieList2: (ganre, pageNum) => ({ type: types.REQUEST_GANREMOVIELIST2, ganre, pageNum }),
+  requestGanreMovieList2: (ganre, pageNum, userNo) => ({ type: types.REQUEST_GANREMOVIELIST2, ganre, pageNum, userNo }),
   setGanreMovieList2: data => ({ type: types.SET_GANREMOVIELIST2, data }),
   setGanreLoading2: isGanreLoading2 => ({
     type: types.SET_GANRELOADING2,
     isGanreLoading2,
   }),
   // 장르 영화3
-  requestGanreMovieList3: (ganre, pageNum) => ({ type: types.REQUEST_GANREMOVIELIST3, ganre, pageNum }),
+  requestGanreMovieList3: (ganre, pageNum, userNo) => ({ type: types.REQUEST_GANREMOVIELIST3, ganre, pageNum, userNo }),
   setGanreMovieList3: data => ({ type: types.SET_GANREMOVIELIST3, data }),
   setGanreLoading3: isGanreLoading3 => ({
     type: types.SET_GANRELOADING3,
     isGanreLoading3,
   }),
   // 국가 영화
-  requestCountryMovieList: (country, pageNum) => ({ type: types.REQUEST_COUNTRYMOVIELIST, country, pageNum }),
+  requestCountryMovieList: (country, pageNum, userNo) => ({ type: types.REQUEST_COUNTRYMOVIELIST, country, pageNum, userNo }),
   setCountryMovieList: data => ({ type: types.SET_COUNTRYMOVIELIST, data }),
   setCountryLoading: isCountryLoading => ({
     type: types.SET_COUNTRYLOADING,
     isCountryLoading,
   }),
   // 국가 영화2
-  requestCountryMovieList2: (country, pageNum) => ({ type: types.REQUEST_COUNTRYMOVIELIST2, country, pageNum }),
+  requestCountryMovieList2: (country, pageNum, userNo) => ({ type: types.REQUEST_COUNTRYMOVIELIST2, country, pageNum, userNo }),
   setCountryMovieList2: data => ({ type: types.SET_COUNTRYMOVIELIST2, data }),
   setCountryLoading2: isCountryLoading2 => ({
     type: types.SET_COUNTRYLOADING2,
     isCountryLoading2,
   }),
   // 국가 영화3
-  requestCountryMovieList3: (country, pageNum) => ({ type: types.REQUEST_COUNTRYMOVIELIST3, country, pageNum }),
+  requestCountryMovieList3: (country, pageNum, userNo) => ({ type: types.REQUEST_COUNTRYMOVIELIST3, country, pageNum, userNo }),
   setCountryMovieList3: data => ({ type: types.SET_COUNTRYMOVIELIST3, data }),
   setCountryLoading3: isCountryLoading3 => ({
     type: types.SET_COUNTRYLOADING3,
     isCountryLoading3,
   }),
   // 키워드 영화
-  requestKeywordMovieList: (keyword, pageNum) => ({ type: types.REQUEST_KEYWORDMOVIELIST, keyword, pageNum }),
+  requestKeywordMovieList: (keyword, pageNum, userNo) => ({ type: types.REQUEST_KEYWORDMOVIELIST, keyword, pageNum, userNo }),
   setKeywordMovieList: data => ({ type: types.SET_KEYWORDMOVIELIST, data }),
   setKeywordLoading: isKeywordLoading => ({
     type: types.SET_KEYWORDLOADING,
     isKeywordLoading,
   }),
   // 키워드 영화2
-  requestKeywordMovieList2: (keyword, pageNum) => ({ type: types.REQUEST_KEYWORDMOVIELIST2, keyword, pageNum }),
+  requestKeywordMovieList2: (keyword, pageNum, userNo) => ({ type: types.REQUEST_KEYWORDMOVIELIST2, keyword, pageNum, userNo }),
   setKeywordMovieList2: data => ({ type: types.SET_KEYWORDMOVIELIST2, data }),
   setKeywordLoading2: isKeywordLoading2 => ({
     type: types.SET_KEYWORDLOADING2,
     isKeywordLoading2,
   }),
   // 키워드 영화3
-  requestKeywordMovieList3: (keyword, pageNum) => ({ type: types.REQUEST_KEYWORDMOVIELIST3, keyword, pageNum }),
+  requestKeywordMovieList3: (keyword, pageNum, userNo) => ({ type: types.REQUEST_KEYWORDMOVIELIST3, keyword, pageNum, userNo }),
   setKeywordMovieList3: data => ({ type: types.SET_KEYWORDMOVIELIST3, data }),
   setKeywordLoading3: isKeywordLoading3 => ({
     type: types.SET_KEYWORDLOADING3,
     isKeywordLoading3,
   }),
   // 비슷한 영화
-  requestSimilarMovieList: (ganre, pageNum) => ({ type: types.REQUEST_SIMILARMOVIELIST, ganre, pageNum }),
+  requestSimilarMovieList: (ganre, pageNum, userNo) => ({ type: types.REQUEST_SIMILARMOVIELIST, ganre, pageNum, userNo }),
   setSimilarMovieList: data => ({ type: types.SET_SIMILARMOVIELIST, data }),
   setSimilarLoading: isSimilarLoading => ({
     type: types.SET_SIMILARLOADING,
     isSimilarLoading,
   }),
   //영화 필터링
-  requestFilterCountryMovieList: (country, pageNum) => ({ type: types.REQUEST_FILTERCOUNTRYMOVIELIST, country, pageNum }),
-  requestFilterGanreMovieList: (ganre, pageNum) => ({ type: types.REQUEST_FILTERGANREMOVIELIST, ganre, pageNum }),
+  requestFilterCountryMovieList: (country, pageNum, userNo) => ({ type: types.REQUEST_FILTERCOUNTRYMOVIELIST, country, pageNum, userNo }),
+  requestFilterGanreMovieList: (ganre, pageNum, userNo) => ({ type: types.REQUEST_FILTERGANREMOVIELIST, ganre, pageNum, userNo }),
+  requestFilterCountryGanreMovieList: (country, ganre, pageNum, userNo) => ({ type: types.REQUEST_FILTERCOUNTRYGANREMOVIELIST, country, ganre, pageNum, userNo }),
   setIsFilter: isFilter => ({
     type: types.SET_ISFILTER,
     isFilter,

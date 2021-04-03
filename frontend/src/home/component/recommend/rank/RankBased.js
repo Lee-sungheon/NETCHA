@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import Slider from "../../../component/slider";
 import { actions } from "../../../state";
 
-export default function RankBased({loading, idx}) {
+export default function RankBased({loading, idx, user}) {
   const movieLists = useSelector(state => state.home.rankMovieLists);
   const isLoading = useSelector(state => state.home.isRankLoading);
   const dispatch = useDispatch();
   useEffect(() =>{
     if (movieLists.length === 0){
-      dispatch(actions.requestRankMovieList(0));
+      dispatch(actions.requestRankMovieList(0, user.seq));
     }
   }, [])
   
