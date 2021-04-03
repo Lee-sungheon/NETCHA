@@ -1,10 +1,8 @@
-import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Banner from "../component/banner/Banner";
 import DehazeIcon from "@material-ui/icons/Dehaze";
 import ViewModuleIcon from "@material-ui/icons/ViewModule";
-import { actions } from "../state";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import "./Home.scss";
 import ContentBased from "../component/recommend/contentbased/ContentBased";
 import NewBased from "../component/recommend/new/NewBased";
@@ -21,19 +19,7 @@ import KeywordBased2 from "../component/recommend/keyword/KeywordBased2";
 import KeywordBased3 from "../component/recommend/keyword/KeywordBased3";
 
 export default function Home() {
-  const movieLists = useSelector((state) => state.home.movieLists);
-  const isFilter = useSelector((state) => state.home.isFilter);
   const user = useSelector((state) => state.user.userData.member);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (movieLists.length === 0) {
-      dispatch(actions.requestMovieList(0, user.seq));
-    } else if (isFilter) {
-      dispatch(actions.requestMovieList(0, user.seq));
-      dispatch(actions.setIsFilter(false));
-    }
-  }, []);
 
   return (
     <>
