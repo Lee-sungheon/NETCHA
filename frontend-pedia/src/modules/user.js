@@ -3,7 +3,7 @@ import { createAction, handleActions } from "redux-actions";
 import createRequestSaga, {
   createRequestActionTypes,
 } from "../lib/createRequestSaga";
-import { takeLatest, put, takeEvery } from "redux-saga/effects";
+import { takeLatest, put, takeEvery, call } from "redux-saga/effects";
 import * as authAPI from "../lib/api/auth";
 
 const INITIALIZE = 'user/INITIALIZE';
@@ -13,22 +13,30 @@ const TEMP_SET_USER = "user/TEMP_SET_USER"; // 새로고침 이후 임시 로그
 const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] = createRequestActionTypes(
   "user/CHECK"
 );
+const LOGOUT = "user/LOGOUT";
 
-export const initialize = createAction(INITIALIZE);
 export const setUser = createAction(SET_USER, (user) => user);
 export const tempSetUser = createAction(TEMP_SET_USER, (user) => user);
 export const check = createAction(CHECK);
+export const logout = createAction(LOGOUT);
 
-export function* initializeSaga() {
-  yield put({type: 'INITIALIZE'});
-}
 export function* setUserSaga() {
   yield takeEvery(SET_USER, setUser);
 }
 
 const checkSaga = createRequestSaga(CHECK, authAPI.check);
+
 export function* userSaga() {
   yield takeLatest(CHECK, checkSaga);
+}
+
+export function* logoutSaga() {
+  try {
+    yield call(authAPI.logout);
+    localStorage.removeItem('user');
+  } catch(e) {
+    console.log(e);
+  }
 }
 
 const initialState = {
@@ -60,6 +68,10 @@ const user = handleActions(
       ...state,
       user: null,
       checkError: error,
+    }),
+    [LOGOUT]: state => ({
+      ...state,
+      user: null,
     }),
   },
   initialState
