@@ -27,6 +27,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	public List<Movie> findByCountryOrderByTotalViewDesc(@Param("open") String open, @Param("country") String country, Pageable page);
 	// 평가 페이지 (40개) : 평가 안한 영화 누적 조회수 순으로
 	public List<Movie> findByNoNotIn(List<Long> no, Pageable page);
+	// 평가한 영화 목록 (40개) : 평가 한 영화 누적 조회수 순으로
+	public List<Movie> findByNoIn(List<Long> no, Pageable page);
 	// 장르, 나라 해당 : 누적 조회수 순으로
 	@Query("select m from Movie m where m.ganre like %:ganre% and m.country like %:country%")
 	public List<Movie> findByGanreLikeAndCountryLike(@Param("ganre") String ganre, @Param("country") String country, Pageable page);

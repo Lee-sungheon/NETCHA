@@ -27,6 +27,9 @@ import com.netcha.config.UserRole;
 import com.netcha.member.data.Request.RequestChangeUser;
 import com.netcha.movie.data.MovieLike;
 import com.netcha.movie.data.MovieRank;
+import com.netcha.movie.data.MovieReview;
+import com.netcha.movie.data.MovieReviewLike;
+import com.netcha.movie.data.MovieZzim;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -73,8 +76,14 @@ public class Member {
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<MovieLike> movieLike = new ArrayList<MovieLike>();
     
-//    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-//    private List<MovieRank> movieRank = new ArrayList<MovieRank>();
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<MovieZzim> movieZzim = new ArrayList<MovieZzim>();
+    
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<MovieReview> movieReview = new ArrayList<MovieReview>();
+    
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<MovieReviewLike> movieReviewLike = new ArrayList<MovieReviewLike>();
     
     public void updateUser( RequestChangeUser member ) {
 		if(member.getMbti() != null) {
