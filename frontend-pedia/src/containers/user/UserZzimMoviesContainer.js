@@ -6,10 +6,11 @@ import { listZzimMovies } from '../../modules/zzimMovies';
 
 const UserZzimMoviesContainer = () => {
   const dispatch = useDispatch();
-  const { userId, movies, error, loading } = useSelector(
-    ({ user, zzimMovies, loading }) => ({
+  const { userId, zzimMovies, ratingMovies, error, loading } = useSelector(
+    ({ user, zzimMovies, ratingMovies, loading }) => ({
       userId: user.user.userId,
-      movies: zzimMovies.movies,
+      ratingMovies: ratingMovies.movies,
+      zzimMovies: zzimMovies.movies,
       error: zzimMovies.error,
       loading: loading['zzimMovies/LIST_ZZIM_MOVIES'],
     })
@@ -18,7 +19,22 @@ const UserZzimMoviesContainer = () => {
     dispatch(listZzimMovies(userId));
   }, [dispatch]);
 
-  return <SmallSlider movies={movies} error={error} loading={loading} />;
+  if (zzimMovies && ratingMovies) {
+    for (let i = 0; i < zzimMovies.length; i++) {
+      for (let j = 0; j < ratingMovies.length; j++) {
+        console.dir(zzimMovies);
+        if (zzimMovies[i].id === ratingMovies[i].id) {
+          zzimMovies[i].isRating = '평가함';
+          break;
+        }
+      }
+    }
+    zzimMovies.map((movie) => {
+      if (!movie.isRating) movie.isRating = '평균';
+    })
+  }
+
+  return <SmallSlider movies={zzimMovies} error={error} loading={loading} />;
 };
 
 export default withRouter(UserZzimMoviesContainer);

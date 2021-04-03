@@ -18,6 +18,12 @@ const UserScoreMoviesContainer = () => {
     dispatch(listRatingMovies(userId));
   }, [dispatch]);
 
+  {
+    movies &&
+      movies.map((movie) => {
+        movie.isRating = '평가함';
+  })}
+
   return <SmallSlider movies={movies} error={error} loading={loading} />;
 };
 
