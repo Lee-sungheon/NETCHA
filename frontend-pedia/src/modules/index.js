@@ -15,7 +15,7 @@ import stars, { starsSaga } from './stars';
 import netchaRankingMovies, { netchaRankingMoviesSaga } from './netchaRankingMovies';
 import newMovies, { newMoviesSaga } from './newMovies';
 import autoCompletesMovies, { autoCompletesMoviesSaga, initializeSaga, changeSearchKeywordSaga } from './autoCompletesMovies';
-import user, { setUserSaga, userSaga } from './user';
+import user, { setUserSaga, userSaga, logoutSaga } from './user';
 
 const rootReducer = combineReducers({
   loading,
@@ -54,6 +54,7 @@ export function* rootSaga() {
     changeSearchKeywordSaga(),
     setUserSaga(),
     userSaga(),
+    logoutSaga(),
   ]);
 }
 
