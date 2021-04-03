@@ -10,7 +10,9 @@ export default function HeaderContainer() {
     dispatch(logout());
   }
   const onLogin = () => {
-    dispatch(setUser({userId: '내가바로아이디', userName: '내가바로이름'}));
+    const newUser = {userId: '내가바로아이디', userName: '내가바로이름'};
+    localStorage.setItem('user', JSON.stringify(newUser));
+    dispatch(setUser(newUser));
   }
 
   return (
