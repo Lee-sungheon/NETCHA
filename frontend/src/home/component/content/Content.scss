@@ -4,7 +4,6 @@
   margin: 30px 0;
   z-index: 5;
   
-
   &__background,
   &__background__shadow,
   &__background__image,
@@ -17,6 +16,7 @@
   &__background {
     left: 0;
     right: 0;
+    background-color: rgb(20, 21, 23);
 
     &__shadow {
       left: 0;

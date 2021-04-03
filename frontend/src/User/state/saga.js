@@ -24,5 +24,5 @@
 // }
 
 // export default function* () {
-//   yield all([takeLeading(types.REQUEST_MOVIELIST, fetchData)]);
+//   yield all([takeLeading(types., fetchData)]);
 // }

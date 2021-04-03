@@ -5,7 +5,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { actions } from "../../home/state";
 
 const StyledMenu = withStyles({
@@ -43,9 +43,8 @@ const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 
-export default function GanreFilter() {
+export default function GanreFilter({ganreText, countryText, setGanreText, user}) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [ganreText, setGanreText] = useState("장르");
   const dispatch = useDispatch();
 
   const handleClick = (event) => {
@@ -54,10 +53,16 @@ export default function GanreFilter() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  function changeFilterText(e) {
+  function changeGanreText(e) {
     setGanreText(e.target.innerText);
     handleClose();
-    dispatch(actions.requestFilterMovieList());
+    if(e.target.innerText !== '장르'){
+      if(countryText !== '국가') {
+        dispatch(actions.requestFilterCountryGanreMovieList(countryText, e.target.innerText, 0, user.seq));
+      } else{
+        dispatch(actions.requestFilterGanreMovieList(e.target.innerText, 0, user.seq));
+      }
+    }
   }
   return (
     <div className="movie-filter__top-bar__left__filter1" style={{padding: '0 10px', width: '85px'}}>
@@ -80,7 +85,7 @@ export default function GanreFilter() {
       >
         {GANRES.map((ganre, idx)=>(
           <StyledMenuItem key={idx}>
-            <ListItemText primary={ganre} onClick={changeFilterText}/>
+            <ListItemText primary={ganre} onClick={changeGanreText}/>
           </StyledMenuItem>
         ))}
       </StyledMenu>
@@ -90,7 +95,6 @@ export default function GanreFilter() {
 
 const GANRES = [
   '장르',
-  '예술', 
   '어드벤처', 
   '공포',
   '활극', 

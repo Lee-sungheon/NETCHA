@@ -10,6 +10,7 @@ import "./Mbti.css";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
+import { actions } from "../../user/state";
 
 const useStyles = makeStyles((theme) => ({
   mbti_back: {
@@ -47,6 +48,8 @@ export default function Mbti(props) {
   }));
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
+
   const [state, setState] = useState({
     mbti: mbti,
   });
@@ -63,12 +66,25 @@ export default function Mbti(props) {
       userId: userId,
     };
     axios
-      .post("netcha/user/changeUser", JSON.stringify(body), {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      .post(
+        "netcha/user/changeUser",
+        JSON.stringify(body),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => {
+        axios
+          .post("netcha/user/info", body.userId, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+          .then((res) => {
+            dispatch(actions.userInfo(res.data.data));
+          });
         history.push({
           pathname: "/account",
         });

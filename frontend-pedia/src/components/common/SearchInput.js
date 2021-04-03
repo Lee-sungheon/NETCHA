@@ -1,13 +1,9 @@
 import React from "react";
-import useAutocomplete from "@material-ui/lab/useAutocomplete";
-// import { useSelector, useDispatch } from "react-redux";
-// import { actions } from "./SearchMovie/state";
-// import { actions as userActions } from "../../user/state";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { InputBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
-import { useHistory } from "react-router";
+import { changeSearchKeyword } from "../../modules/autoCompletesMovies";
 
 const useStyles = makeStyles((theme) => ({
   inputRoot: {
@@ -22,10 +18,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       width: "35ch",
     },
-  },
-  input: {
-    width: 300,
-    height: 50,
   },
   listbox: {
     width: 330,
@@ -42,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#e6e6e6",
       cursor: "pointer",
     },
+    borderRadius: "4px",
     "& li:active": {
       backgroundColor: "#e6e6e6",
     },
@@ -49,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden", // UI를 위해 스크롤 금지 했지만 고민해보고 결정~~!!
   },
   searchIcon: {
+    width: "20px",
     padding: theme.spacing(0, 2),
     height: "100%",
     position: "absolute",
@@ -56,42 +50,25 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    color: "action",
+    color: "#e6e6e6",
   },
   movieli: {
     height: 40,
     lineHeight: "23px",
     fontSize: "14px",
-    padding: "7px 0 0",
+    padding: "7px 0 0 10px",
     caretColor: "rgb(53, 53, 53)",
   },
 }));
 
-const SearchInput = ({ movies, keyword, onChange, onKeyPress }) => {
-  const classes = useStyles();
-  const history = useHistory();
-  const {
-    getRootProps,
-    getInputProps,
-    getListboxProps,
-    getOptionProps,
-    groupedOptions,
-  } = useAutocomplete({
-    id: "use-autocomplete-demo",
-    options: { movies }.movies,
-    getOptionLabel: (option) => option,
-  });
+const SearchInput = ({ keyword, movies, onChange, onKeyPress, error }) => {
+  // console.log('movies_title: ' + movies);
 
-  const onSubmit = () => {
-    // alert('유저 아이디 넣어보자');
-    // set 뭐시기?  
-    const searchKeyword = '안녕';
-    history.push(`/searchMovie/${searchKeyword}`);
-  };
+  const classes = useStyles();
 
   return (
     <>
-      <div {...getRootProps()}>
+      <div>
         <div className={classes.searchIcon}>
           <SearchIcon color="action" />
         </div>
@@ -101,21 +78,17 @@ const SearchInput = ({ movies, keyword, onChange, onKeyPress }) => {
             root: classes.inputRoot,
             input: classes.inputInput,
           }}
-          {...getInputProps()}
+          value={keyword.keyword}
           inputProps={{ "aria-label": "search" }}
           onKeyPress={onKeyPress}
           onChange={onChange}
         />
-        {/* <input className={classes.input} {...getInputProps()} /> */}
       </div>
-      {groupedOptions.length > 0 ? (
-        <ul className={classes.listbox} {...getListboxProps()}>
-          {groupedOptions.map((option, index) => (
-            <li
-              className={classes.movieli}
-              {...getOptionProps({ option, index })}
-            >
-              {option}
+      {!error && movies && movies.length > 0 ? (
+        <ul className={classes.listbox}>
+          {movies.map((movieTitle, index) => (
+            <li className={classes.movieli} key={index}>
+              {movieTitle}
             </li>
           ))}
         </ul>
