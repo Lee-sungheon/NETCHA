@@ -35,7 +35,7 @@ const UserZzimMoviesContainer = () => {
 
   return (
     <>
-      <h3 style={{ display: "inline-block" }}>보고싶어요</h3>&nbsp;&nbsp;{zzimMovies.length}
+      <h3 style={{ display: "inline-block" }}>보고싶어요</h3>&nbsp;&nbsp;{zzimMovies? zzimMovies.length : ''}
       <SmallSlider movies={zzimMovies} error={error} loading={loading} />
     </>
   );
