@@ -13,16 +13,20 @@ import SimilarMovies from '../../components/movieDetail/SimilarMovies';
 import Gallery from '../../components/movieDetail/Gallery';
 import Video from '../../components/movieDetail/Video';
 import WriteComment from '../../components/movieDetail/Comment/WriteComment';
+import MyComment from '../../components/movieDetail/Comment/MyComment';
 
 const MovieDetailContainer = ({ match }) => {
   // 처음 마운트될 때 무비 읽기 API 요청
   const { movieId } = match.params;
   const dispatch = useDispatch();
-  const { movie, error, loading } = useSelector(({ movie, loading }) => ({
-    movie: movie.movie,
-    error: movie.error,
-    loading: loading['movie/READ_MOVIE'],
-  }));
+  const { movie, user, error, loading } = useSelector(
+    ({ movie, user, loading }) => ({
+      movie: movie.movie,
+      error: movie.error,
+      user: user.user,
+      loading: loading['movie/READ_MOVIE'],
+    })
+  );
 
   useEffect(() => {
     dispatch(readMovie(movieId));
@@ -32,29 +36,53 @@ const MovieDetailContainer = ({ match }) => {
     };
   }, [dispatch, movieId]);
 
-  const [formData, setFormData] = useState({
-    userId: '1',
-    movieNo: '1',
-    ranking: 1,
+  const [rankData, setRankData] = useState({
+    userId: 1,
+    movieNo: 1,
+    ranking: null,
   });
 
+  const [zzimData, setZzimData] = useState({
+    userId: 1,
+    movieNo: 1,
+    isZzim: false,
+  });
+
+  const [commentData, setCommentData] = useState({
+    userId: 1,
+    movieNo: 1,
+    content: '',
+  });
   return (
     <div className="movieDetail">
       <div className="headerWrapper">
         {/* 영화 이미지, 포스터, 제목, 장르 별점 */}
         <MovieHeader
           movie={movie}
-          formData={formData}
-          setFormData={setFormData}
+          rankData={rankData}
+          setRankData={setRankData}
+          zzimData={zzimData}
+          setZzimData={setZzimData}
           loading={loading}
           error={error}
         />
       </div>
       <div className="contentWrapper">
         <div className="contentBox">
-          {!!formData.ranking && (
+          {!commentData.content && !!rankData.ranking && (
             <div className="commentWrapper">
-              <WriteComment />
+              <WriteComment
+                commentData={commentData}
+                setCommentData={setCommentData}
+              />
+            </div>
+          )}
+          {commentData.content && (
+            <div className="myCommentWrapper">
+              <MyComment
+                commentData={commentData}
+                setCommentData={setCommentData}
+              />
             </div>
           )}
           <div className="sideBlock">
@@ -75,14 +103,14 @@ const MovieDetailContainer = ({ match }) => {
 };
 
 const actors = [
-  { name: 'sdfsw', role: '감독' },
-  { name: '이상진', role: '배우' },
-  { name: 'sdfsw', role: '감독' },
-  { name: '이상진', role: '배우' },
-  { name: 'sdfsw', role: '감독' },
-  { name: '이상진', role: '배우' },
-  { name: 'sdfsw', role: '감독' },
-  { name: '이상진', role: '배우' },
+  { id: 1, name: 'sdfsw', role: '감독' },
+  { id: 2, name: '이상진', role: '배우' },
+  { id: 3, name: 'sdfsw', role: '감독' },
+  { id: 4, name: '이상진', role: '배우' },
+  { id: 5, name: 'sdfsw', role: '감독' },
+  { id: 6, name: '이상진', role: '배우' },
+  { id: 7, name: 'sdfsw', role: '감독' },
+  { id: 8, name: '이상진', role: '배우' },
 ];
 
 const imgs = [
