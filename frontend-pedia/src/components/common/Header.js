@@ -35,32 +35,9 @@ const useStyles = makeStyles((theme) => ({
       width: "auto",
     },
   },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "action",
-  },
-  inputRoot: {
-    backgroundColor: "default",
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "35ch",
-    },
-  },
 }));
 
-const Header = ({userId}) => {
+const Header = ({ user }) => {
   const classes = useStyles();
 
   return (
@@ -87,23 +64,35 @@ const Header = ({userId}) => {
           <div className={classes.search}>
             <SearchInputContainer />
           </div>
-          <Button
-            color="action"
-            style={{ margin: "0px 24px 0px 24px", color: "grey" }}
-          >
+          <Button style={{ margin: "0px 24px 0px 24px", color: "#6A6A6A" }}>
             평가하기
           </Button>
-          <Link to={`/user/${userId}`}>
+          {user ? (
+            <Link to={`/user/${user.userId}`}>
+              <img
+                src="/images/profileIcon.jpg"
+                className="profileIconImg"
+                alt="마이페이지"
+                title="마이페이지"
+                style={{
+                  width: "28px",
+                  borderRadius: "60%",
+                  border: "1px solid #e6e6e6",
+                }}
+              />
+            </Link>
+          ) : (
             <img
               src="/images/profileIcon.jpg"
               className="profileIconImg"
+              alt="검색"
               style={{
                 width: "28px",
                 borderRadius: "60%",
                 border: "1px solid #e6e6e6",
               }}
-              />
-              </Link>
+            />
+          )}
         </Toolbar>
       </AppBar>
     </div>

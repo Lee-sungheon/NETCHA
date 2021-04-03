@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import Slider from "../../../component/slider";
 import { actions } from "../../../state";
 
-export default function PopularBased({ loading, idx }) {
+export default function PopularBased({ loading, idx, user }) {
   const movieLists = useSelector((state) => state.home.popularMovieLists);
   const isLoading = useSelector((state) => state.home.isPopularLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (movieLists.length === 0) {
-      dispatch(actions.requestPopularMovieList(0));
+      dispatch(actions.requestPopularMovieList(0, user.seq));
     }
   }, []);
 

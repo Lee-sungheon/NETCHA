@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import Slider from "../../../component/slider";
 import { actions } from "../../../state";
 
-export default function CountryBased({loading, idx, country}) {
+export default function CountryBased({loading, idx, country, user}) {
   const movieLists = useSelector(state => state.home.countryMovieLists);
   const isLoading = useSelector(state => state.home.isCountryLoading);
   const dispatch = useDispatch();
   useEffect(() =>{
     if (movieLists.length === 0) {
-      dispatch(actions.requestCountryMovieList(country, 0));
+      dispatch(actions.requestCountryMovieList(country, 0, user.seq));
     }
   }, [])
   

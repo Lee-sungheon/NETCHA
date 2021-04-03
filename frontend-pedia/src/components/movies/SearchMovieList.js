@@ -7,7 +7,7 @@ const MovieItem = ({ movie }) => {
   return (
     <Link to={`/movieDetail/${id}`}>
       <div className="movieWrap">
-        <img className="moviePoster" src={image} />
+        <img className="moviePoster" src={image} alt={title} />
         <div className="movieInfo">
           <div className="movieTitle">{title}</div>
           <div className="movieInfo">
@@ -33,7 +33,7 @@ const SearchMovieList = ({ loading, movies, error }) => {
         <div className="movieHeaderWrap">
           {/* <button className="beforeArrow" onClick={() => history.goBack(1)}> */}
           <button className="beforeArrow" onClick={() => history.goBack()}>
-            <img className="beforeArrowImage" src="/images/beforeArrow.png" />
+            <img className="beforeArrowImage" src="/images/beforeArrow.png" alt="이전페이지" />
           </button>
           <div className="movieHeader">영화</div>
         </div>

@@ -43,7 +43,7 @@ const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 
-export default function GanreFilter({ganreText, setGanreText}) {
+export default function GanreFilter({ganreText, countryText, setGanreText, user}) {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
 
@@ -56,8 +56,12 @@ export default function GanreFilter({ganreText, setGanreText}) {
   function changeGanreText(e) {
     setGanreText(e.target.innerText);
     handleClose();
-    if (e.target.innerText!=='장르'){
-      dispatch(actions.requestFilterGanreMovieList(e.target.innerText, 0));
+    if(e.target.innerText !== '장르'){
+      if(countryText !== '국가') {
+        dispatch(actions.requestFilterCountryGanreMovieList(countryText, e.target.innerText, 0, user.seq));
+      } else{
+        dispatch(actions.requestFilterGanreMovieList(e.target.innerText, 0, user.seq));
+      }
     }
   }
   return (

@@ -1,7 +1,7 @@
 .smallSlider {
   
   .slick-prev:before {
-    left: 10px;
+    left: 12px;
   }
   
   .slick-next:before {
@@ -56,6 +56,9 @@
 
     .smallmovieScore {
       font-size: 13px;
+    }
+    .smallmovieScorePink {
+      color: #ff0073;
     }
   }
 }

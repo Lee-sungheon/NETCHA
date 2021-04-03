@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.netcha.member.data.Member;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -20,7 +22,6 @@ public class MovieRank {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long no;
-	private long userId;
 	private float ranking;
 	private String ganre;
 
@@ -28,8 +29,12 @@ public class MovieRank {
 	@JoinColumn(name = "movie_id")
 	private Movie movie;
 	
-	public MovieRank(long userId, float ranking, String ganre, Movie movie) {
-		this.userId = userId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private Member member;
+	
+	public MovieRank(Member member, float ranking, String ganre, Movie movie) {
+		this.member = member;
 		this.ranking = ranking;
 		this.ganre = ganre;
 		this.movie = movie;
