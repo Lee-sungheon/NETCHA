@@ -27,7 +27,7 @@ const UserStatics = ({user}) => {
             <img src={netchapediaImg} alt="netchapedia" className="logoImage" />
             <div className="usText">취향분석</div>
             <div className="profile">
-              <img src="/images/profileIcon.jpg" className="profileIconImg" />
+              <img src="/images/profileIcon.jpg" className="profileIconImg" alt="" />
               <div style={{ display: 'inline-block' }}>
                 <h3 style={{ color: 'white' }}>{user.userName}</h3>
               </div>

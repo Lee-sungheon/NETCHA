@@ -14,7 +14,7 @@ const CountryListContainer = () => {
   }));
   useEffect(() => {
     dispatch(listCountries({ userId }));
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   return (
     <CountryAndGenreList data={countries} error={error} loading={loading} />
