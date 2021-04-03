@@ -25,6 +25,10 @@ import com.netcha.movie.data.MovieRank;
 import com.netcha.movie.data.MovieRankRepository;
 import com.netcha.movie.data.MovieRepository;
 import com.netcha.movie.data.MovieResponseDto;
+import com.netcha.movie.data.MovieReview;
+import com.netcha.movie.data.MovieReviewLike;
+import com.netcha.movie.data.MovieReviewLikeRepository;
+import com.netcha.movie.data.MovieReviewRepository;
 import com.netcha.movie.data.MovieZzim;
 import com.netcha.movie.data.MovieZzimRepository;
 
@@ -37,6 +41,8 @@ public class MovieService {
 	private final MovieRankRepository movieRankRepository;
 	private final MovieLikeRepository movieLikeRepository;
 	private final MovieZzimRepository movieZzimRepository;
+	private final MovieReviewRepository movieReviewRepository;
+	private final MovieReviewLikeRepository movieReviewLikeRepository;
 	private final MemberRepository memberRepository;
 	
 	// 크롤링
@@ -464,18 +470,69 @@ public class MovieService {
 	// 찜하기
 	@Transactional
 	public void updateZzim(int userId, long movieNo) {
-		Movie movie = movieRepository.findById(movieNo).get();
-		Member member = memberRepository.findById(userId).get();
-		movieZzimRepository.save(new MovieZzim(member, movie));
+		MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, movieNo);
+		if(movieZzim == null) {
+			Movie movie = movieRepository.findById(movieNo).get();
+			Member member = memberRepository.findById(userId).get();
+			movieZzimRepository.save(new MovieZzim(member, movie));			
+		}
 	}
 	
 	// 찜하기 취소
 	@Transactional
 	public void deleteZzim(int userId, long movieNo) {
-		movieZzimRepository.delete(movieZzimRepository.findByMemberSeqAndMovieNo(userId, movieNo));
+		MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, movieNo);
+		if(movieZzim != null)
+			movieZzimRepository.delete(movieZzim);
 	}
 	
+	// 리뷰 달기
+	@Transactional
+	public void insertReview(int userId, long movieNo, String content) {
+		MovieReview movieReview = movieReviewRepository.findByMemberSeqAndMovieNo(userId, movieNo);
+		if(movieReview == null) {
+			Movie movie = movieRepository.findById(movieNo).get();
+			Member member = memberRepository.findById(userId).get();
+			movieReview = new MovieReview(member, movie, content);
+			movieReviewRepository.save(movieReview);
+		}
+	}
 	
+	// 리뷰 수정
+	@Transactional
+	public void updateReview(int userId, long movieNo, String content) {
+		MovieReview movieReview = movieReviewRepository.findByMemberSeqAndMovieNo(userId, movieNo);
+		if(movieReview != null) 
+			movieReview.update(content);
+	}
+	
+	// 리뷰 삭제
+	@Transactional
+	public void deleteReview(int userId, long movieNo) {
+		MovieReview movieReview = movieReviewRepository.findByMemberSeqAndMovieNo(userId, movieNo);
+		if(movieReview != null) 
+			movieReviewRepository.delete(movieReview);
+	}
+	
+	// 리뷰 좋아요
+	@Transactional
+	public void insertReviewLike(int userId, long reviewNo) {
+		MovieReviewLike movieReviewLike = movieReviewLikeRepository.findByMemberSeqAndMovieReviewNo(userId, reviewNo);
+		if(movieReviewLike == null) {
+			Member member = memberRepository.findById(userId).get();
+			MovieReview movieReview = movieReviewRepository.findById(reviewNo).get();
+			movieReviewLike = new MovieReviewLike(member, movieReview);
+			movieReviewLikeRepository.save(movieReviewLike);
+		}			
+	}
+	
+	// 리뷰 좋아요 취소
+	@Transactional
+	public void deleteReviewLike(int userId, long reviewNo) {
+		MovieReviewLike movieReviewLike = movieReviewLikeRepository.findByMemberSeqAndMovieReviewNo(userId, reviewNo);
+		if(movieReviewLike != null) 
+			movieReviewLikeRepository.delete(movieReviewLike);
+	}
 	
 	public void test() {
 		Movie movie = movieRepository.findById((long)3).get();
