@@ -3,8 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import PropTypes from "prop-types";
-import { callApiRequestEvaluation, callApiDeleteEvaluation } from '../../common/api';
+import { callApiRequestEvaluation, callApiDeleteEvaluation, callApiRequestZzim, callApiDeleteZzim } from '../../common/api';
 import { useSelector } from "react-redux";
 
 MovieItem.propTypes = {
@@ -54,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     color: "white",
+    cursor: "pointer"
   },
 }));
 
@@ -64,6 +66,8 @@ export default function MovieItem({ tile, pickNum, setPickNum }) {
   const [isFinish, setIsFinish] = useState(false);
   const [isHover, setIsHover] = useState(false);
   const [score, setScore] = useState(7);
+  const [isZzim, setIsZzim] = useState(tile.userDidZzim);
+  const zzimList = useSelector(state => state.search.isZzim);
   function setHover() {
     if (isFinish) {
       setIsHover(true);
@@ -80,8 +84,8 @@ export default function MovieItem({ tile, pickNum, setPickNum }) {
   function onClick(e) {
     if (e.target.name !== "size-large") {
       if (tmpScore === score && isFinish) {
-        console.log(user.seq, tile.no)
-        callApiDeleteEvaluation(user.seq, tile.no)
+        console.log(user.seq, tile.no);
+        callApiDeleteEvaluation(user.seq, tile.no);
         setPickNum(pickNum - 1);
         setIsFinish(false);
         return;
@@ -91,9 +95,17 @@ export default function MovieItem({ tile, pickNum, setPickNum }) {
         setPickNum(pickNum + 1);
       }
       setScore(tmpScore);
-      
-      console.log(user.seq, tile.no)
-      callApiRequestEvaluation(user.seq, tile.no, tmpScore)
+      callApiRequestEvaluation(user.seq, tile.no, tmpScore);
+    }
+  }
+  function toggleZzim() {
+    if(!isZzim) {
+      callApiRequestZzim(user.seq, tile.no);
+      setIsZzim(!isZzim);
+    } 
+    else {
+      callApiDeleteZzim(user.seq, tile.no);
+      setIsZzim(!isZzim);
     }
   }
   return (
@@ -119,10 +131,16 @@ export default function MovieItem({ tile, pickNum, setPickNum }) {
             value={score}
           />
         </div>
-        <div className={customClasses.likeBox}>
-          <FavoriteIcon style={{ margin: "0 2px 4px 2px", color: "red" }} />
-          <Typography variant="subtitle2">찜하기</Typography>
+        {isZzim ? 
+        <div className={customClasses.likeBox} onClick={toggleZzim}>
+          <FavoriteIcon style={{ margin: "0 2px 4px 2px", color: "red", cursor: "pointer" }} />
+          <Typography variant="subtitle2">찜한 영화</Typography>
         </div>
+        :
+        <div className={customClasses.likeBox} onClick={toggleZzim}>
+          <FavoriteBorderIcon style={{ margin: "0 2px 4px 2px", color: "red"}} />
+          <Typography variant="subtitle2">찜하기</Typography>
+        </div>}
       </div>
     </div>
   );
