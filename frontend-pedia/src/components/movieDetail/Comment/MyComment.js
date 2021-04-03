@@ -1,12 +1,24 @@
-import './WriteComment.scss';
+import './MyComment.scss';
+import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
+import CreateTwoToneIcon from '@material-ui/icons/CreateTwoTone';
 import { useState } from 'react';
 import CommentModal from './CommentModal';
 import * as commentApi from '../../../lib/api/comment';
-const WriteComment = ({ commentData, setCommentData }) => {
+
+const MyComment = ({ commentData, setCommentData }) => {
   const [modal, setModal] = useState(false);
   const onWriteClick = () => {
     setModal(true);
   };
+  const onDeleteClick = async (e) => {
+    try {
+      commentApi.deleteComment(commentData);
+    } catch (e) {
+      console.log(e);
+    }
+    setCommentData({ ...commentData, content: '' });
+  };
+
   const onConfirm = async (e) => {
     if (inputs.content.trim()) setModal(false);
     try {
@@ -46,11 +58,23 @@ const WriteComment = ({ commentData, setCommentData }) => {
   };
 
   return (
-    <>
-      <div className="commentBlock">
-        이 작품에 대한 강민창 님의 평가를 글로 남겨보세요.
-        <button onClick={onWriteClick} className="commentButton">
-          코멘트 남기기
+    <div className="myCommentBlock">
+      <img
+        src="/images/profileIcon.jpg"
+        className="profileIconImg"
+        style={{
+          width: '40px',
+          borderRadius: '60%',
+          border: '1px solid #e6e6e6',
+        }}
+      />
+      <div className="content">{commentData.content}</div>
+      <div className="modify">
+        <button onClick={() => onDeleteClick()}>
+          <DeleteForeverOutlinedIcon className="delete" /> 삭제
+        </button>
+        <button onClick={() => onWriteClick()}>
+          <CreateTwoToneIcon className="update" /> 수정
         </button>
       </div>
       <CommentModal
@@ -61,8 +85,8 @@ const WriteComment = ({ commentData, setCommentData }) => {
         onConfirm={onConfirm}
         onReset={onReset}
       />
-    </>
+    </div>
   );
 };
 
-export default WriteComment;
+export default MyComment;

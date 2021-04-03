@@ -24,9 +24,8 @@ export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
   key,
   value,
 }));
-export const writeComment = createAction(WRITE_COMMENT, ({ title, body }) => ({
-  title,
-  body,
+export const writeComment = createAction(WRITE_COMMENT, ({ comment }) => ({
+  comment,
 }));
 export const setOriginalComment = createAction(
   SET_ORIGINAL_COMMENT,

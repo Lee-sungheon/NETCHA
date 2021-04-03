@@ -18,8 +18,8 @@ const ActorList = ({ actors }) => {
 
   return (
     <Slider {...settings}>
-      {actors.map((actor) => (
-        <div className="actorWrapper">
+      {actors.map((actor, index) => (
+        <div className="actorWrapper" key={index}>
           <div className="actorImage"></div>
           <div className="actorBlock">
             <div className="actorName">{actor.name}</div>

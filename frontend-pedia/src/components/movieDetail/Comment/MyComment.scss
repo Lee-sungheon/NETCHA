@@ -1,0 +1,29 @@
+.myCommentBlock {
+  display: flex;
+  height: 70px;
+  font-size: 15px;
+  align-items: center;
+  .content {
+    width: 70%;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    padding-left: 20px;
+    overflow: hidden;
+  }
+  .modify {
+    button {
+      display: inline-block;
+      cursor: pointer;
+      background-color: white;
+      .delete {
+        position: relative;
+        top: 5px;
+      }
+      .update {
+        position: relative;
+        top: 5px;
+      }
+    }
+  }
+}

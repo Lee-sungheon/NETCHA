@@ -1,7 +1,10 @@
 import './CommentModal.scss';
 
-const CommentModal = ({ visible, onCancel, onConfirm }) => {
-  const isWrite = false;
+const CommentModal = ({ visible, inputs, onCancel, onConfirm, onChange }) => {
+  const {
+    content,
+    // , nickname
+  } = inputs; // 비구조화 할당을 통해 값 추출
   if (!visible) return null;
   return (
     <div className="fullscreen">
@@ -15,7 +18,7 @@ const CommentModal = ({ visible, onCancel, onConfirm }) => {
             <button
               type="submit"
               onClick={onConfirm}
-              className={isWrite ? 'registerButton' : 'registerButton'}
+              className={content.trim() ? 'registerButton' : 'unregisterButton'}
             >
               코멘트 작성
             </button>
@@ -24,6 +27,9 @@ const CommentModal = ({ visible, onCancel, onConfirm }) => {
         <div className="modalContent">
           <textarea
             className="inputForm"
+            value={content}
+            onChange={onChange}
+            name="content"
             placeholder="이 작품에 대한 생각을 자유롭게 표현해주세요."
           ></textarea>
         </div>
