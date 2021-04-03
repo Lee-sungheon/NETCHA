@@ -26,6 +26,7 @@ import com.netcha.movie.data.MovieRankRepository;
 import com.netcha.movie.data.MovieRepository;
 import com.netcha.movie.data.MovieResponseDto;
 import com.netcha.movie.data.MovieReview;
+import com.netcha.movie.data.MovieReviewDto;
 import com.netcha.movie.data.MovieReviewLike;
 import com.netcha.movie.data.MovieReviewLikeRepository;
 import com.netcha.movie.data.MovieReviewRepository;
@@ -415,6 +416,33 @@ public class MovieService {
 		movieRankRepository.delete(movieRankRepository.findByMemberSeqAndMovieNo(userId, movieNo));
 	}
 	
+	// 평가 목록
+	@Transactional
+	public List<MovieResponseDto> listRank(int userId, int pageNum) {
+		List<MovieRank> movieRanks = movieRankRepository.findAllByMemberSeq(userId);
+		List<Long> movieNos = new ArrayList<Long>();
+		for(int i=0; i<movieRanks.size(); i++) movieNos.add(movieRanks.get(i).getMovie().getNo());
+		List<Movie> movieR = movieRepository.findByNoIn(movieNos, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
+		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
+		for(Movie m : movieR) {
+			if(m.getRating().equals("")) {
+				String[] result = crawling(m);
+				m.updateCrawling(result[0], result[1], result[2]);
+			}
+			MovieResponseDto movie = new MovieResponseDto(m);
+			boolean mr = false;
+			int ml = 0;
+			boolean mz = false;
+			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+			if(movieLike != null) ml = (int)movieLike.getLikeHate();
+			MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+			if(movieZzim != null) mz = true;
+			movie.userInfo(mr, ml, mz);
+			movies.add(movie);
+		}
+		return movies;
+	}
+	
 	// 평가하기 페이지
 	@Transactional
 	public List<MovieResponseDto> findMovieByNoNotInNo(int userId, int pageNum) {
@@ -486,6 +514,33 @@ public class MovieService {
 			movieZzimRepository.delete(movieZzim);
 	}
 	
+	// 찜한 목록
+	@Transactional
+	public List<MovieResponseDto> listZzim(int userId, int pageNum) {
+		List<MovieZzim> movieZzims = movieZzimRepository.findAllByMemberSeq(userId);
+		List<Long> movieNos = new ArrayList<Long>();
+		for(int i=0; i<movieZzims.size(); i++) movieNos.add(movieZzims.get(i).getMovie().getNo());
+		List<Movie> movieR = movieRepository.findByNoIn(movieNos, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
+		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
+		for(Movie m : movieR) {
+			if(m.getRating().equals("")) {
+				String[] result = crawling(m);
+				m.updateCrawling(result[0], result[1], result[2]);
+			}
+			MovieResponseDto movie = new MovieResponseDto(m);
+			boolean mr = false;
+			int ml = 0;
+			boolean mz = false;
+			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+			if(movieLike != null) ml = (int)movieLike.getLikeHate();
+			MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+			if(movieZzim != null) mz = true;
+			movie.userInfo(mr, ml, mz);
+			movies.add(movie);
+		}
+		return movies;
+	}
+	
 	// 리뷰 달기
 	@Transactional
 	public void insertReview(int userId, long movieNo, String content) {
@@ -534,10 +589,18 @@ public class MovieService {
 			movieReviewLikeRepository.delete(movieReviewLike);
 	}
 	
+	// 리뷰 목록
+	@Transactional
+	public List<MovieReviewDto> listReview(long movieNo) {
+		List<MovieReview> movieReviews = movieReviewRepository.findByMovieNo(movieNo);
+		List<MovieReviewDto> result = new ArrayList<MovieReviewDto>();
+		for(MovieReview mr : movieReviews) result.add(new MovieReviewDto(mr));
+		return result;
+	}
+	
 	public void test() {
-		Movie movie = movieRepository.findById((long)3).get();
-		for(MovieRank mr : movie.getMovieRank()) {
-			System.out.println(mr.getMember().getNickname()+" "+mr.getMovie().getNo());
-		}
+		MovieReview movieReview = movieReviewRepository.findById((long)1).get();
+		MovieReviewDto mrd = new MovieReviewDto(movieReview);
+		System.out.println(mrd.getTotalLike());
 	}
 }
