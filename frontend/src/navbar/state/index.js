@@ -15,6 +15,9 @@ export const types = {
   SET_VALUE: 'search/SET_VALUE',
   TRY_SET_TEXT: 'search/TRY_SET_TEXT',
 
+  SET_ISZZIM: 'search/SET_ISZZIM',
+  SET_ISLIKE: 'search/SET_ISLIKE',
+
   // 장르 영화
   REQUEST_GANREMOVIELIST: 'search/REQUEST_GANREMOVIELIST',
   // 국가 영화
@@ -36,6 +39,16 @@ export const actions = {
   trySetText: text => ({
     type: types.TRY_SET_TEXT,
     text,
+  }),
+  setIsZzim: (data, isTrue) => ({
+    type: types.SET_ISZZIM,
+    data,
+    isTrue,
+  }),
+  setIsLike: (movieNo, like) => ({
+    type: types.SET_ISLIKE,
+    movieNo, 
+    like
   }),
   // 영화 인피니트 스크롤
   requestAddMovieList: (pageNum, userNo) => ({ type: types.REQUEST_ADD_MOVIELIST, pageNum, userNo }),
@@ -67,6 +80,8 @@ const INITIAL_STATE = {
   error: '', 
   isInfinite: false,
   infiniteEnd: false,
+  isLike: [],
+  isZzim: [],
 };
 const reducer = createReducer(INITIAL_STATE, {
   // 영화 인피니트 스크롤
@@ -75,6 +90,38 @@ const reducer = createReducer(INITIAL_STATE, {
   },
   [types.SET_INFINITE]: (state, action) => (state.isInfinite = action.isInfinite),
   [types.SET_END]: (state, action) => (state.infiniteEnd = action.infiniteEnd),
+
+  [types.SET_ISZZIM]: (state, action) => {
+    if (!action.isTrue){
+      const idx = state.isZzim.indexOf([action.data, false]);
+      if (idx >= 0){
+        state.isZzim[idx][1] = true;
+      } else {
+        state.isZzim = state.isZzim.concat([[action.data, action.isTrue]]);
+      }
+    } else {
+      const idx = state.isZzim.indexOf([action.data, true]);
+      if (idx >= 0){
+        state.isZzim[idx][1] = false;
+      } else {
+        state.isZzim = state.isZzim.concat([[action.data, action.isTrue]]);
+      }
+    }
+  },
+
+  [types.SET_ISLIKE]: (state, action) => {
+    let isBreak = false;
+    for (let i=0; i < state.isLike.length ; i++){
+      if (state.isLike[i][0] === action.movieNo) {
+        state.isLike[i][0] = [action.movieNo, action.like];
+        isBreak = true;
+        break;
+      }
+    }
+    if (!isBreak) {
+      state.isLike = state.isLike.concat([[action.movieNo, action.like]]);
+    }
+  },
 
   [types.SET_MOVIELIST]: (state, action) => {
     state.movieLists = action.data

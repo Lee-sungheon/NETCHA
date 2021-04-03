@@ -3,10 +3,10 @@
   flex: 0 0 16.37%;
   transition: transform 300ms ease 100ms;
   margin-right: 0.3%;
-}
-.item:hover {
-  transition-delay: 0.5s;
-  transition: transform 300ms ease 100ms;
+  :hover {
+    transition-delay: 0.5s;
+    transition: transform 300ms ease 100ms;
+  }
 }
 @media ( max-width: 1280px ) {
   .item {
@@ -74,6 +74,7 @@
 }
 
 .play-button {
+  cursor: pointer;
   color: black;
   margin-right: 3px;
   background-color: white; 
@@ -89,6 +90,7 @@
 }
 
 .common-button {
+  cursor: pointer;
   border-radius: 50%;
   margin-right: 3px;
   border: 2px solid gray;
@@ -102,6 +104,7 @@
 }
 
 .end-button {
+  cursor: pointer;
   border-radius: 50%;
   margin-right: 3px;
   border: 2px solid gray;
