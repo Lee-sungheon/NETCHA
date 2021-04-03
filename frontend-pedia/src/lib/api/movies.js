@@ -1,5 +1,5 @@
 import client from './client';
-import qs from 'qs';
+// import qs from 'qs';
 
 export const readMovie = (id) => {
   console.log(movie);
@@ -9,11 +9,11 @@ export const readMovie = (id) => {
 
 // 영화 검색 목록
 export const listSearchMovies = ({page, keyword}) => {
-  console.log('keyword:' + keyword);
-  const queryString = qs.stringify({
-    page,
-    keyword,
-  });
+  // console.log('keyword:' + keyword);
+  // const queryString = qs.stringify({
+  //   page,
+  //   keyword,
+  // });
   return (movies);
   // return client.get(`/api/searchMovies/${queryString}`)
   // return client.get(`/movie/list_totalView`)
@@ -45,20 +45,20 @@ export const listZzimMovies = (userId) => {
 
 // 헤더 검색한 영화 자동완성
 export const listAutoCompletesMovies = (keyword) => {
-  if(!keyword || keyword.length == 0) return {data: []};
+  if(!keyword || keyword.length === 0) return {data: []};
 
   const titles = new Set();
-  {movies_title.map((title) => {
+  movies_title.forEach((title) => {
     var titleArray = title.split('');
     var keywordArray = keyword.split('');
-    {titleArray.map((c) => {
-      {keywordArray.map((k) => {
+    titleArray.forEach((c) => {
+      keywordArray.forEach((k) => {
         if(k === c) {
           titles.add(title);
         }
-      })}
-    })}
-  })}
+      })
+    })
+  })
   // return client.get(`/movie/listautoCompletesMovies?${keyword}`);
   return {data: Array.from(titles)};
 }

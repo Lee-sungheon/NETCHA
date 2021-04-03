@@ -14,7 +14,7 @@ const WordCloudContainer = () => {
   }));
   useEffect(() => {
     dispatch(listTags({userId}));
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   return (
     <WordCloud tags={tags} error={error} loading={loading} />
