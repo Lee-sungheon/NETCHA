@@ -51,8 +51,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function TestMbtiItem(props) {
-  const [
-    questionNum, setQuestionNum] = useState(0);
+  const [questionNum, setQuestionNum] = useState(0);
   const classes = useStyles();
 
   const onClickChoice_1 = (e) => {

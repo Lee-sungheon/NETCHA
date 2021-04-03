@@ -123,7 +123,7 @@ export default function Header({ toggleButton, setToggleButton }) {
     }
   }, [toggleButton]);
 
-  const logiout = () => {
+  const logout = () => {
     window.sessionStorage.removeItem("persist:root");
     window.sessionStorage.removeItem("userId");
     window.sessionStorage.removeItem("token");
@@ -209,7 +209,7 @@ export default function Header({ toggleButton, setToggleButton }) {
             <Avatar
               alt="Travis Howard"
               className={classes.small}
-              src="https://ww.namu.la/s/7afd3dd8186b6098081d52af9ba76b4b633331079cba253db56054f5d2a90fea37714c9f060074bbf86626a7f3016d89dc50d7f0c662ce806552ebb3f23f52d5968d07a1e25c8996f649d7364e995ae970190dd4ca6cb37dfb9bc0201e53540a1e5f2d2df2636376d26f60e96d9df172"
+              src="https://occ-0-4807-395.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABZAl_RHxQaFudkiao5vPLVFhEyGG1QqTCFxjdy4hEOrxzY9GGUa2IoZyznfP4TitB2zLMNPgY_RK74GZJufj7ek.png?r=a41"
             />
             {window.sessionStorage.token ? (
               <Typography className="title" variant="subtitle2" noWrap>
@@ -235,7 +235,6 @@ export default function Header({ toggleButton, setToggleButton }) {
             >
               <StyledMenuItem>
                 <Link
-                  to={"/"}
                   style={{
                     color: "white",
                   }}
@@ -246,11 +245,10 @@ export default function Header({ toggleButton, setToggleButton }) {
               </StyledMenuItem>
               <StyledMenuItem>
                 <Link
-                  to={"/"}
                   style={{
                     color: "white",
                   }}
-                  onClick={logiout}
+                  onClick={logout}
                 >
                   <ListItemText primary="로그아웃" />
                 </Link>

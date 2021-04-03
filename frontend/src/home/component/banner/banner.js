@@ -3,16 +3,24 @@ import Button from "@material-ui/core/Button";
 import "./Banner.scss";
 import ReactHlsPlayer from "react-hls-player";
 import SoundButton from "./SoundButton";
+import { useHistory } from "react-router";
+
 export default function Banner() {
+  const history = useHistory();
   const SoundToggle = () => {
     const player = document.getElementById("player");
     // setMuted(!muted);
     player.muted = !player.muted;
   };
+  const playMovie = () => {
+    history.push({
+      pathname: "/movie",
+    });
+  };
   return (
     <div
       style={{
-        height: "40vw",
+        height: "43vw",
         fontSize: "1vw",
       }}
     >
@@ -113,6 +121,7 @@ export default function Banner() {
             height: "49.25vw",
             position: "relative",
             overflow: "hidden",
+            position: "absolute",
           }}
         >
           <ReactHlsPlayer
@@ -125,6 +134,11 @@ export default function Banner() {
               zIndex: "1",
             }}
             muted
+            loop
+            hlsConfig={{
+              startPosition: 10,
+              // nextLoadPosition:
+            }}
           />
         </div>
       </div>
@@ -133,13 +147,73 @@ export default function Banner() {
         style={{
           color: "black",
           position: "absolute",
-          marginTop: "-500px",
-          marginLeft: "50px",
-          height: "40px",
-          width: "40px",
+          marginLeft: "90vw",
+          top: "35vw",
         }}
       >
         <SoundButton />
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          top: "25vw",
+          left: "3vw",
+          color: "white",
+          textAlign: "left",
+        }}
+      >
+        <div
+          style={{
+            fontWeight: "bold",
+
+            fontSize: "2em",
+          }}
+        >
+          오늘 한국에서 콘텐츠 순위 3위
+        </div>
+        <div
+          style={{
+            marginTop: "20px",
+            fontSize: "1.3em",
+            width: "33vw",
+          }}
+        >
+          누구더냐,탄지로에게 칼을 들게 한 자가. 산에 사는 화목한 숯장수
+          가족에게 닥친 참극. 살아남은 아이는 복수를 위해 세상의 혈귀를 모조리
+          베어 버릴 검사가 된다.
+        </div>
+        <div>
+          <Button
+            variant="contained"
+            style={{
+              width: "8vw",
+              backgroundColor: "white",
+              color: "black",
+              marginTop: "25px",
+              height: "45px",
+              fontWeight: "bold",
+              fontSize: "1.3em",
+            }}
+            onClick={playMovie}
+          >
+            ▶ 재생
+          </Button>
+          <Button
+            variant="contained"
+            style={{
+              width: "9vw",
+              backgroundColor: "gray",
+              color: "white",
+              marginTop: "25px",
+              height: "45px",
+              fontWeight: "bold",
+              fontSize: "1.3em",
+              marginLeft: "10px",
+            }}
+          >
+            상세정보
+          </Button>
+        </div>
       </div>
     </div>
   );

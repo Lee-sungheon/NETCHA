@@ -51,6 +51,12 @@ const useStyles = makeStyles((theme) => ({
     listStyle: "none",
     paddingLeft: "0",
   },
+  link_: {
+    color: "#42a5f5",
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
 }));
 
 export default function AccountMain() {
@@ -91,29 +97,36 @@ export default function AccountMain() {
 
                 <div className={classes.account_div_section_div2}>
                   <div>
-                    <Link
-                      href=""
-                      style={{
-                        textDecorationColor: "primary",
-                      }}
-                    >
-                      이메일 주소 변경
-                    </Link>
+                    <Link className={classes.link_}>이메일 주소 변경</Link>
                   </div>
                   <div>
                     <br />
                   </div>
                   <div>
-                    <Link to="/account/changeninkname">닉네임 변경</Link>
+                    <Link
+                      to="/account/changeninkname"
+                      className={classes.link_}
+                    >
+                      닉네임 변경
+                    </Link>
                   </div>
                   <div>
-                    <Link to="/account/changepassword">비밀번호 변경</Link>
+                    <Link
+                      to="/account/changepassword"
+                      className={classes.link_}
+                    >
+                      비밀번호 변경
+                    </Link>
                   </div>
                   <div>
-                    <Link to="/account/changephone">휴대폰 번호 변경</Link>
+                    <Link to="/account/changephone" className={classes.link_}>
+                      휴대폰 번호 변경
+                    </Link>
                   </div>
                   <div>
-                    <Link to="mbti">MBTI 변경</Link>
+                    <Link to="mbti" className={classes.link_}>
+                      MBTI 변경
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -131,13 +144,13 @@ export default function AccountMain() {
 
                 <div className={classes.account_div_section_div2}>
                   <div>
-                    <Link href="">결제 정보 관리</Link>
+                    <Link className={classes.link_}>결제 정보 관리</Link>
                   </div>
                   <div>
-                    <Link href="">결제 상세 정보</Link>
+                    <Link className={classes.link_}>결제 상세 정보</Link>
                   </div>
                   <div>
-                    <Link href="">결제일 변경</Link>
+                    <Link className={classes.link_}>결제일 변경</Link>
                   </div>
                 </div>
               </div>
@@ -146,10 +159,12 @@ export default function AccountMain() {
               <div className={classes.account_div_section_div}>
                 <div account_div_section_div2>
                   <div>
-                    <Link href="">기프트카드 또는 할인 코드 입력</Link>
+                    <Link className={classes.link_}>
+                      기프트카드 또는 할인 코드 입력
+                    </Link>
                   </div>
                   <div>
-                    <Link href="">기프트카드 판매처</Link>
+                    <Link className={classes.link_}>기프트카드 판매처</Link>
                   </div>
                 </div>
               </div>
@@ -167,7 +182,7 @@ export default function AccountMain() {
                 </div>
                 <div className={classes.account_div_section_div2}>
                   <div>
-                    <Link href="">멤버십 변경</Link>
+                    <Link className={classes.link_}>멤버십 변경</Link>
                   </div>
                 </div>
               </div>
@@ -180,25 +195,25 @@ export default function AccountMain() {
             </header>
             <section className={classes.account_div_section}>
               <div>
-                <Link href="">Netflix 테스터로 참여</Link>
+                <Link className={classes.link_}>Netflix 테스터로 참여</Link>
               </div>
               <div>
-                <Link href="">Netflix 테스터로 참여</Link>
+                <Link className={classes.link_}>Netflix 테스터로 참여</Link>
               </div>
               <div>
-                <Link href="">Netflix 테스터로 참여</Link>
+                <Link className={classes.link_}>Netflix 테스터로 참여</Link>
               </div>
               <div>
-                <Link href="">Netflix 테스터로 참여</Link>
+                <Link className={classes.link_}>Netflix 테스터로 참여</Link>
               </div>
               <div>
-                <Link href="">Netflix 테스터로 참여</Link>
+                <Link className={classes.link_}>Netflix 테스터로 참여</Link>
               </div>
               <div>
-                <Link href="">Netflix 테스터로 참여</Link>
+                <Link className={classes.link_}>Netflix 테스터로 참여</Link>
               </div>
               <div>
-                <Link href="">Netflix 테스터로 참여</Link>
+                <Link className={classes.link_}>Netflix 테스터로 참여</Link>
               </div>
             </section>
           </div>
