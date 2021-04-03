@@ -1,14 +1,21 @@
-.slick-prev:before,
-.slick-next:before {
-  color: #ddd !important;
-  font-size: 23px;
-  position: relative;
-  top: -10px;
-}
-
 .peopleSlider {
+
+  .slick-prev:before {
+    left: 7px;
+  }
+  
+  .slick-next:before {
+    right: 9px;
+  }
+
+  .slick-prev:before,
+  .slick-next:before {
+    color: #ddd !important;
+    font-size: 23px;
+    position: relative;
+    top: -10px;
+  }
   .actorWrap {
-    width: 100%;
     margin: 0 0 10px 0;
     height: 76px;
     position: relative;
@@ -17,7 +24,7 @@
       display: inline-block;
       align-items: center;
       height: 56px;
-      width: 10%;
+      width: 56px;
       border: 1px solid #e6e6e6;
       border-radius: 50%;
       position: relative;
@@ -25,7 +32,6 @@
     
     .actorName {
       display: inline-block;
-      width: 80%;
       padding: 0 0 20px 10px;
       border-bottom: 1px solid #f0f0f0;
       color: #1e1e1e;

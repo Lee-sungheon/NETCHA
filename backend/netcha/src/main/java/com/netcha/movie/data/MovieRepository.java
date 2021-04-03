@@ -22,4 +22,18 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	// 키워드별 (40개) : 누적 조회수 순으로 추천
 	@Query("select m from Movie m where m.open >= :open and m.keywords like %:keyword%")
 	public List<Movie> findByKeywordOrderByTotalViewDesc(@Param("open") String open, @Param("keyword") String keyword, Pageable page);
+	// 나라별 (40개) : 누적 조회수 순으로 추천
+	@Query("select m from Movie m where m.open >= :open and m.country like %:country%")
+	public List<Movie> findByCountryOrderByTotalViewDesc(@Param("open") String open, @Param("country") String country, Pageable page);
+	// 평가 페이지 (40개) : 평가 안한 영화 누적 조회수 순으로
+	public List<Movie> findByNoNotIn(List<Long> no, Pageable page);
+	// 장르, 나라 해당 : 누적 조회수 순으로
+	@Query("select m from Movie m where m.ganre like %:ganre% and m.country like %:country%")
+	public List<Movie> findByGanreLikeAndCountryLike(@Param("ganre") String ganre, @Param("country") String country, Pageable page);
+	// 감독별 (40개) : 누적 조회수 순으로
+	@Query("select m from Movie m where m.directors like %:director% order by m.totalView desc")
+	public List<Movie> findByDirectorLike(@Param("director") String director);
+	// 배우별 (40개) : 누적 조회수 순으로
+	@Query("select m from Movie m where m.casts like %:cast% order by m.totalView desc")
+	public List<Movie> findByCastLike(@Param("cast") String cast);
 }

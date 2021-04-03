@@ -5,7 +5,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { actions } from "../../home/state";
 
 const StyledMenu = withStyles({
@@ -43,9 +43,8 @@ const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 
-export default function CountryFilter() {
+export default function CountryFilter({countryText, ganreText, setCountryText, user}) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [countryText, setCountryText] = useState("국가");
   const dispatch = useDispatch();
 
   const handleClick = (event) => {
@@ -57,7 +56,13 @@ export default function CountryFilter() {
   function changeCountryText(e) {
     setCountryText(e.target.innerText);
     handleClose();
-    dispatch(actions.requestFilterMovieList());
+    if (e.target.innerText!=='국가'){
+      if (ganreText !== '장르'){
+        dispatch(actions.requestFilterCountryGanreMovieList(e.target.innerText, ganreText, 0, user.seq));
+      } else{
+        dispatch(actions.requestFilterCountryMovieList(e.target.innerText, 0, user.seq));
+      }
+    }
   }
   return (
     <div className="movie-filter__top-bar__left__filter1" style={{padding: '0 10px', marginLeft: '10px', width: '85px'}}>
@@ -80,7 +85,7 @@ export default function CountryFilter() {
       >
         {COUNTRYS.map((country, idx)=>(
           <StyledMenuItem key={idx}>
-            <ListItemText primary={country} onClick={setCountryText}/>
+            <ListItemText primary={country} onClick={changeCountryText}/>
           </StyledMenuItem>
         ))}
       </StyledMenu>
@@ -125,6 +130,6 @@ const COUNTRYS = [
   '벨기에',
   '영국',
   '홍콩',
-  '한국',
+  '대한민국',
   '북한',
 ]

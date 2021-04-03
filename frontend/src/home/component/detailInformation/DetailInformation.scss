@@ -10,6 +10,12 @@
     font-weight: 600;
     margin: 0.1vw 0;
     color: rgba(255, 255, 255, 0.5);
+    &__member {
+      cursor: pointer;
+      &:hover {
+        color: rgba(255, 255, 255, 1) !important;
+      }
+    }
   }
 
   &__comment {

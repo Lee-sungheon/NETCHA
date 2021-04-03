@@ -64,11 +64,15 @@ export default function MbtiResult(props) {
     };
 
     axios
-      .post("netcha/user/changeUser", JSON.stringify(body), {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      .post(
+        "netcha/user/changeUser",
+        JSON.stringify(body),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => {
         console.log(res);
         axios

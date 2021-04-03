@@ -21,10 +21,10 @@ const Content = ({ movie, onClose, tabNo, setTabNumber }) => (
       <div className="content__rating_container">
         <div className="content__rating_container__rating_box">
           <div className="content__rating_container__rating_box__title">평균 별점</div>
-          <div className="content__rating_container__rating_box__rating">4.7</div>
+          <div className="content__rating_container__rating_box__rating">{movie.avgRank}</div>
         </div>
         <div className="content__rating_container__information">
-          { movie.rating !== "" && movie.rating !== undefined && <img style={{width: '12%', margin: '0 5px'}} src={`/images/${movie.rating.slice(0,2)}.svg`} />} 
+          { movie.rating !== "" && movie.rating !== undefined && <img style={{width: '12%', margin: '0 5px'}} src={`/images/${RATING[movie.rating.slice(0,2)]}.svg`} />} 
           <span>{movie.time}분</span>
         </div>
       </div>
@@ -65,3 +65,16 @@ const Content = ({ movie, onClose, tabNo, setTabNumber }) => (
 );
 
 export default Content;
+
+const RATING = {
+  '15' : '15',
+  '12' : '12',
+  '18' : '18',
+  전체 : 'all',
+  모두 : 'all',
+  고등 : '15',
+  미성 : '18',
+  연소 : '18',
+  중학 : '12',
+  청소 : '18',
+}

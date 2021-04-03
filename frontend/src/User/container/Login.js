@@ -96,22 +96,19 @@ export default function Login(props) {
       password: inputData.password,
     };
     axios
-      .post("/netcha/user/login", JSON.stringify(body), {
+      .post("netcha/user/login", JSON.stringify(body), {
         headers: {
           "Content-Type": "application/json",
-          // withCredentials: "true",
         },
       })
-      .then((res) => {
+      .then(async (res) => {
         console.log(res);
         if (res.data.response === "success") {
           console.log("로그인성공");
 
-          dispatch(actions.userLogin(res.data.data));
-          history.push({
-            pathname: "/",
-          });
-          alert("로그인되었습니다.");
+          await dispatch(actions.userLogin(res.data.data));
+
+          login_(res.data.data);
         } else {
           console.log("로그인실패");
           alert("아이디/비밀번호가 틀렸습니다.");
@@ -121,19 +118,35 @@ export default function Login(props) {
         console.log(err);
       });
   };
+  const login_ = (res) => {
+    window.sessionStorage.setItem("userId", res.member.userId);
+    window.sessionStorage.setItem("token", res.token);
+    // window.sessionStorage.setItem(
+    //   "userId",
+    //   JSON.parse(JSON.parse(window.sessionStorage.getItem("persist:root")).user)
+    //     .userData.member.userId
+    // );
+    // window.sessionStorage.setItem(
+    //   "token",
+    //   JSON.parse(JSON.parse(window.sessionStorage.getItem("persist:root")).user)
+    //     .userData.token
+    // );
+    history.push({
+      pathname: "/",
+    });
+    alert("로그인되었습니다.");
+  };
 
   return (
     <div>
       <div className={classes.login_back}>
         <div className={classes.login_page}>
           <header>
-            <Link to={"/"}>
-              <img
-                src={"../images/netcha.png"}
-                style={{ height: "90px", marginRight: "10px" }}
-                alt="netcha"
-              />
-            </Link>
+            <img
+              src={"../images/netcha.png"}
+              style={{ height: "90px", marginRight: "10px" }}
+              alt="netcha"
+            />
           </header>
           <div className={classes.login_div_back}>
             <div className={classes.login_div}>

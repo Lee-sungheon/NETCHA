@@ -12,11 +12,15 @@ import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import Search from '../component/search/Search';
-import './Header.scss';
+import Search from "../component/search/Search";
+import "./Header.scss";
+import axios from "axios";
+import { useHistory } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   Brightness4Icon: {
+    cursor: "pointer",
     padding: theme.spacing(0, 1),
     height: "100%",
     display: "flex",
@@ -49,7 +53,6 @@ const StyledMenu = withStyles({
     }}
     {...props}
   />
-  
 ));
 
 const StyledMenuItem = withStyles((theme) => ({
@@ -63,11 +66,14 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-export default function Header({toggleButton, setToggleButton}) {
+export default function Header({ toggleButton, setToggleButton }) {
   const classes = useStyles();
-  const [activeValue, setActiveValue] = useState("홈");
   const [anchorEl, setAnchorEl] = useState(null);
-
+  const [activeValue, setActiveValue] = useState("홈");
+  const history = useHistory();
+  const { nickname } = useSelector((state) => ({
+    nickname: state.user.userData.member.nickname,
+  }));
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -77,9 +83,9 @@ export default function Header({toggleButton, setToggleButton}) {
   };
 
   const onClick = () => {
-    setToggleButton(!toggleButton)
-    console.log(toggleButton)
-  }
+    setToggleButton(!toggleButton);
+    console.log(toggleButton);
+  };
 
   function handleChange(event) {
     setActiveValue(event.target.innerText);
@@ -91,7 +97,7 @@ export default function Header({toggleButton, setToggleButton}) {
       if (window.pageYOffset > 0) {
         if (!toggleButton) {
           header.style.backgroundColor = "black";
-        } else{
+        } else {
           header.style.backgroundColor = "white";
         }
       } else {
@@ -116,6 +122,25 @@ export default function Header({toggleButton, setToggleButton}) {
       setActiveValue("홈");
     }
   }, [toggleButton]);
+
+  const logiout = () => {
+    window.sessionStorage.removeItem("persist:root");
+    window.sessionStorage.removeItem("userId");
+    window.sessionStorage.removeItem("token");
+    axios.get("netcha/user/logout").then((res) => {
+      // history.push({
+      //   pathname: "/login",
+      // });
+      window.location.href = "/login";
+    });
+  };
+  const goAccount = () => {
+    setAnchorEl(null);
+
+    history.push({
+      pathname: "/account",
+    });
+  };
 
   return (
     <div className="root">
@@ -173,28 +198,24 @@ export default function Header({toggleButton, setToggleButton}) {
             </Link>
           </div>
 
-          <Typography
-            className="title"
-            variant="subtitle2"
-            noWrap
-          ></Typography>
+          <Typography className="title" variant="subtitle2" noWrap></Typography>
 
           <Search activeValue={activeValue} setActiveValue={setActiveValue} />
 
-          <Link to={"/"}>
-            <div className={classes.Brightness4Icon}>
-              <Brightness4Icon className="ld-button" onClick={onClick}/>
-            </div>
-          </Link>
+          <div className={classes.Brightness4Icon}>
+            <Brightness4Icon className="ld-button" onClick={onClick} />
+          </div>
           <div className={classes.Brightness4Icon}>
             <Avatar
               alt="Travis Howard"
               className={classes.small}
               src="https://ww.namu.la/s/7afd3dd8186b6098081d52af9ba76b4b633331079cba253db56054f5d2a90fea37714c9f060074bbf86626a7f3016d89dc50d7f0c662ce806552ebb3f23f52d5968d07a1e25c8996f649d7364e995ae970190dd4ca6cb37dfb9bc0201e53540a1e5f2d2df2636376d26f60e96d9df172"
             />
-            <Typography className="title" variant="subtitle2" noWrap>
-              싸피
-            </Typography>
+            {window.sessionStorage.token ? (
+              <Typography className="title" variant="subtitle2" noWrap>
+                {nickname} 님
+              </Typography>
+            ) : null}
             <IconButton
               aria-controls="customized-menu"
               aria-haspopup="true"
@@ -203,7 +224,7 @@ export default function Header({toggleButton, setToggleButton}) {
               onClick={handleClick}
               style={{ paddingLeft: "0px" }}
             >
-              <ArrowDropDownIcon className="arrow-icon"/>
+              <ArrowDropDownIcon className="arrow-icon" />
             </IconButton>
             <StyledMenu
               id="customized-menu"
@@ -214,20 +235,22 @@ export default function Header({toggleButton, setToggleButton}) {
             >
               <StyledMenuItem>
                 <Link
-                  to="/account"
+                  to={"/"}
                   style={{
                     color: "white",
                   }}
+                  onClick={goAccount}
                 >
                   <ListItemText primary="계정" />
                 </Link>
               </StyledMenuItem>
               <StyledMenuItem>
                 <Link
-                  to=""
+                  to={"/"}
                   style={{
                     color: "white",
                   }}
+                  onClick={logiout}
                 >
                   <ListItemText primary="로그아웃" />
                 </Link>

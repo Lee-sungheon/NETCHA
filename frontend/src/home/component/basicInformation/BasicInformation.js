@@ -1,15 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddIcon from '@material-ui/icons/Add';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import Rating from '@material-ui/lab/Rating';
+import { callApiRequestEvaluation, callApiDeleteEvaluation } from '../../../common/api';
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import './BasicInformation.scss';
 
+
 export default function BasicInformation({ movie }) {
-  const [ score, setScore ] = useState(null)
-  const [ scoreText, setScoreText] = useState('이미 본 작품인가요?')
+  const [ score, setScore ] = useState(null);
+  const [isFinish, setIsFinish] = useState(false);
+  const [ scoreText, setScoreText] = useState('이미 본 작품인가요?');
+  const user = useSelector(state => state.user.userData.member);
+  const history = useHistory();
+  useEffect(()=> {
+    if (!isFinish) {
+      setScore(null);
+    }
+  }, [isFinish])
   function onChange(e, v) {
     if(v>0){
       tmpScore = v
@@ -21,12 +33,35 @@ export default function BasicInformation({ movie }) {
       }
     }
   }
-  function onClick() {
-    console.log(tmpScore)
-    if (tmpScore !== null){
-      console.log(movie)
-      setScore(tmpScore)
+  function onClick(e) {
+    if (e.target.name !== "custom-empty") {
+      if (tmpScore === score && isFinish) {
+        callApiDeleteEvaluation(user.seq, movie.no)
+        setIsFinish(false);
+        return;
+      }
+      if (!isFinish) {
+        setIsFinish(true);
+      }
+      setScore(tmpScore);
+      callApiRequestEvaluation(user.seq, movie.no, tmpScore)
     }
+  }
+  function onCastSearch(e) {
+    const text = e.target.innerText;
+    history.push(`/search?cast=${text}`);
+  }
+  function onDirectorSearch(e) {
+    const text = e.target.innerText;
+    history.push(`/search?director=${text}`);
+  }
+  function onGanreSearch(e) {
+    const text = e.target.innerText;
+    history.push(`/search?ganre=${text}`);
+  }
+  function onCountrySearch(e) {
+    const text = e.target.innerText;
+    history.push(`/search?country=${text}`);
   }
 
   return (
@@ -43,7 +78,7 @@ export default function BasicInformation({ movie }) {
           감독
         </div>
         <div className="content__information__content">
-          { movie.directors[0] }
+          <span className="content__information__member" onClick={onDirectorSearch}>{ movie.directors[0] }</span>
         </div>
       </div>
       <div className="content__information">
@@ -52,7 +87,10 @@ export default function BasicInformation({ movie }) {
         </div>
         <div className="content__information__content">
           { movie.casts.slice(0,3).map((member, idx) => (
-            <span key={member}>{idx !== 0 && <span>, </span>}{member.split('(')[0]}</span>
+            <span key={member}>{idx !== 0 && <span>, </span>}
+            <span className="content__information__member" onClick={onCastSearch}>
+              {member.split('(')[0]}</span>
+            </span>
           ))}
         </div>
       </div>
@@ -62,9 +100,9 @@ export default function BasicInformation({ movie }) {
         </div>
         <div className="content__information__content">
           { movie.ganre.slice(0,3).map((gan, idx) => (
-            <span key={gan}>{idx !== 0 && <span> • </span>}{gan}</span>
+            <span key={gan}>{idx !== 0 && <span> • </span>}<span className="content__information__member" onClick={onGanreSearch}>{gan}</span></span>
           ))}
-          <span> | </span> { movie.country[0] } <span> | </span> {movie.open}
+          <span> | </span> <span className="content__information__member" onClick={onCountrySearch}>{ movie.country[0] }</span><span> | </span> {movie.open}
         </div>
       </div>
       <div className="content__button_box">
