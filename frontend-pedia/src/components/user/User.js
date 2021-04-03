@@ -50,16 +50,10 @@ const User = ({ user }) => {
               <h2>영화</h2>
             </div>
             <hr />
-            <div>
-              <h3 style={{ display: 'inline-block' }}>평가</h3>&nbsp;&nbsp;36
-            </div>
             <div className="smallSliderWrap">
               <UserRatingMoviesContainer />
             </div>
             <hr />
-            <div>
-              <h3>보고싶어요</h3>
-            </div>
             <div className="smallSliderWrap">
               <UserZzimMoviesContainer />
             </div>

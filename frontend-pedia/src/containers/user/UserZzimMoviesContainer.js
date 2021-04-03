@@ -1,8 +1,8 @@
-import SmallSlider from '../../components/slider/SmallSlider';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { withRouter } from 'react-router';
-import { listZzimMovies } from '../../modules/zzimMovies';
+import SmallSlider from "../../components/slider/SmallSlider";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { withRouter } from "react-router";
+import { listZzimMovies } from "../../modules/zzimMovies";
 
 const UserZzimMoviesContainer = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const UserZzimMoviesContainer = () => {
       ratingMovies: ratingMovies.movies,
       zzimMovies: zzimMovies.movies,
       error: zzimMovies.error,
-      loading: loading['zzimMovies/LIST_ZZIM_MOVIES'],
+      loading: loading["zzimMovies/LIST_ZZIM_MOVIES"],
     })
   );
   useEffect(() => {
@@ -22,19 +22,23 @@ const UserZzimMoviesContainer = () => {
   if (zzimMovies && ratingMovies) {
     for (let i = 0; i < zzimMovies.length; i++) {
       for (let j = 0; j < ratingMovies.length; j++) {
-        console.dir(zzimMovies);
-        if (zzimMovies[i].id === ratingMovies[i].id) {
-          zzimMovies[i].isRating = '평가함';
+        if (zzimMovies[i].id === ratingMovies[j].id) {
+          zzimMovies[i].isRating = "평가함";
           break;
         }
       }
     }
     zzimMovies.map((movie) => {
-      if (!movie.isRating) movie.isRating = '평균';
-    })
+      if (!movie.isRating) movie.isRating = "평균";
+    });
   }
 
-  return <SmallSlider movies={zzimMovies} error={error} loading={loading} />;
+  return (
+    <>
+      <h3 style={{ display: "inline-block" }}>보고싶어요</h3>&nbsp;&nbsp;{zzimMovies.length}
+      <SmallSlider movies={zzimMovies} error={error} loading={loading} />
+    </>
+  );
 };
 
 export default withRouter(UserZzimMoviesContainer);
