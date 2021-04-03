@@ -29,22 +29,16 @@ const MovieList = ({ children, activeSlide, idx, num }) => {
     onSelectSlide: handleSelect,
     onCloseSlide: handleClose,
     currentSlide,
+    num,
+    escapeLeft, 
+    setEscapeLeft,
+    escapeRight, 
+    setEscapeRight
   };
   useEffect(() => {
     setSliderWrap(document.getElementById(idx))
   }, [idx])
   const enterSetShow = (e) => {
-    // 맨왼쪽, 맨오른쪽 아이템 트랜지션 변경
-    if (e.target.id % num === 0) {
-      setEscapeLeft(true)
-    } else {
-      setEscapeLeft(false)
-    }
-    if (e.target.id % num === num-1) {
-      setEscapeRight(true)
-    } else {
-      setEscapeRight(false)
-    }
     if (e.target.className === 'slider__container'){
       if (sliderWrap){
         sliderWrap.style.zIndex = 1

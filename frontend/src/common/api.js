@@ -28,6 +28,7 @@ export function callApiPopularMovieList(pageNum, userId) {
   return axios
     .get(url)
     .then((Response) => {
+      console.log(Response.data)
       return Response.data;
     })
     .catch((Error) => {
@@ -156,12 +157,56 @@ export function callApiRequestEvaluation(userId, movieNo, ranking) {
 }
 
 export function callApiDeleteEvaluation(userId, movieNo) {
-  const url = `netcha/movie/rank_delete`
+  const url = `netcha/movie/rank_delete?userId=${userId}&movieNo=${movieNo}`
+  return axios.delete(url)
+  .then((Response)=>{
+    console.log(Response.data)
+    return Response.data
+  })
+  .catch((Error)=>{console.log(Error)})
+}
+
+export function callApiRequestZzim(userId, movieNo) {
+  const url = `netcha/movie/zzim_update`
   const data = {
     userId: userId,
     movieNo: movieNo
   }
-  return axios.delete(url, data)
+  return axios.post(url, data)
+    .then((Response)=>{
+      console.log(Response.data)
+      return Response.data
+    })
+    .catch((Error)=>{console.log(Error)})
+}
+
+export function callApiLikeMovieList(pageNum, userId) {
+  const url = `netcha/movie/zzim_list?pageNum=${pageNum}&userId=${userId}`;
+  return axios.get(url)
+    .then((Response)=>{
+      return Response.data
+    })
+    .catch((Error)=>{console.log(Error)})
+}
+
+export function callApiDeleteZzim(userId, movieNo) {
+  const url = `netcha/movie/zzim_delete?movieNo=${movieNo}&userId=${userId}`
+  return axios.delete(url)
+    .then((Response)=>{
+      console.log(Response.data)
+      return Response.data
+    })
+    .catch((Error)=>{console.log(Error)})
+}
+
+export function callApiLike(userId, movieNo, like) {
+  const url = `netcha/movie/like_update`
+  const data = {
+    userId: userId,
+    movieNo: movieNo,
+    like: like
+  }
+  return axios.post(url, data)
     .then((Response)=>{
       console.log(Response.data)
       return Response.data

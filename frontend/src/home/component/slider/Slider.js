@@ -42,33 +42,14 @@ const Slider = ({ children, activeSlide, title, idx }) => {
     onCloseSlide: handleClose,
     elementRef,
     currentSlide,
+    escapeLeft,
+    escapeRight,
+    setEscapeLeft,
+    setEscapeRight
   };
   
   const sliderWrap = document.getElementById(idx)
   const enterSetShow = (e) => {
-    // 맨왼쪽, 맨오른쪽 아이템 트랜지션 변경
-    let num = 6
-    if (e.view.innerWidth > 1280) {
-      num = 6
-    } else if (e.view.innerWidth > 1023) {
-      num = 5
-    } else if (e.view.innerWidth > 767) {
-      num = 4
-    } else if (e.view.innerWidth > 600) {
-      num = 3
-    } else {
-      num = 2
-    }
-    if (e.target.id % num === 0) {
-      setEscapeLeft(true)
-    } else {
-      setEscapeLeft(false)
-    }
-    if (e.target.id % num === num-1) {
-      setEscapeRight(true)
-    } else {
-      setEscapeRight(false)
-    }
     if (e.clientX < 47 || e.clientX > e.view.innerWidth-47 || e.target.className === 'slider__container'){
       if (showButton === false){
         setShowButton(true)
@@ -107,7 +88,7 @@ const Slider = ({ children, activeSlide, title, idx }) => {
           { 'slider--left': !escapeLeft},
           { 'slider--right': !escapeRight}
           )}>
-          <div ref={containerRef} 
+          <div ref={containerRef}
             className="slider__container" {...slideProps} 
             onMouseMove={enterSetShow}
             onMouseLeave={leaveSetShow}
