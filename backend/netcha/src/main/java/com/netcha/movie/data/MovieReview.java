@@ -37,7 +37,6 @@ public class MovieReview {
 	@Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     private Date regtime;
-	private long totalLike;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "movie_id")
