@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../state";
 import { useHistory } from "react-router";
 import axios from "axios";
+import LoginForm from "../component/LoginForm";
 
 const useStyles = makeStyles((theme) => ({
   login_back: {
@@ -121,16 +122,6 @@ export default function Login(props) {
   const login_ = (res) => {
     window.sessionStorage.setItem("userId", res.member.userId);
     window.sessionStorage.setItem("token", res.token);
-    // window.sessionStorage.setItem(
-    //   "userId",
-    //   JSON.parse(JSON.parse(window.sessionStorage.getItem("persist:root")).user)
-    //     .userData.member.userId
-    // );
-    // window.sessionStorage.setItem(
-    //   "token",
-    //   JSON.parse(JSON.parse(window.sessionStorage.getItem("persist:root")).user)
-    //     .userData.token
-    // );
     history.push({
       pathname: "/",
     });
@@ -153,7 +144,14 @@ export default function Login(props) {
               <div>
                 <div>
                   <h1 className={classes.login_div_login}>로그인</h1>
-                  <form autoComplete="off">
+                  <LoginForm
+                    inputData={inputData}
+                    onUserIdHandler={onUserIdHandler}
+                    login={login}
+                    onPasswordHandler={onPasswordHandler}
+                    classes={classes}
+                  />
+                  {/* <form autoComplete="off">
                     <TextField
                       id="userId"
                       type="email"
@@ -189,7 +187,7 @@ export default function Login(props) {
                     >
                       로그인
                     </Button>
-                  </form>
+                  </form> */}
                   <div className={classes.login_div2}>
                     <div>
                       <span className={classes.login_div2_span}>

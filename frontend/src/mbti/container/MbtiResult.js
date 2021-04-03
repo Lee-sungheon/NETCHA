@@ -32,6 +32,15 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     textAlign: "center",
     fontSize: "2.5vw",
+    border: "1px solid black",
+    borderRadius: "10%",
+  },
+  mbti_button: {
+    color: "#42a5f5",
+    "&:hover": {
+      textDecoration: "underline",
+    },
+    fontSize: "2vw",
   },
 }));
 
@@ -64,15 +73,11 @@ export default function MbtiResult(props) {
     };
 
     axios
-      .post(
-        "netcha/user/changeUser",
-        JSON.stringify(body),
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .post("netcha/user/changeUser", JSON.stringify(body), {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         console.log(res);
         axios
@@ -178,9 +183,19 @@ export default function MbtiResult(props) {
               ) : null}
               {/* {MBTI.E_I + MBTI.N_S + MBTI.T_F + MBTI.J_P} 입니다. */}
             </div>
-            <Link to="/">
-              <button>메인페이지로</button>
-            </Link>
+            <div
+              style={{
+                backgroundColor: "none",
+                marginTop: "-4vw",
+                textAlign: "center",
+                color: "white",
+                fontStyle: "none",
+              }}
+            >
+              <Link to="/" className={classes.mbti_button}>
+                메인페이지로
+              </Link>
+            </div>
           </div>
         </div>
       </div>
