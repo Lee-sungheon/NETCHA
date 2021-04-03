@@ -113,12 +113,14 @@ public class MovieService {
 			boolean mr = false;
 			int ml = 0;
 			boolean mz = false;
-			MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieRank != null) mr = true;
-			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieLike != null) ml = (int)movieLike.getLikeHate();
-			MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieZzim != null) mz = true;
+			if(userId != -1) {
+				MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieRank != null) mr = true;
+				MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieLike != null) ml = (int)movieLike.getLikeHate();
+				MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieZzim != null) mz = true;
+			}
 			movie.userInfo(mr, ml, mz);
 			movies.add(movie);
 		}
@@ -139,12 +141,14 @@ public class MovieService {
 			boolean mr = false;
 			int ml = 0;
 			boolean mz = false;
-			MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieRank != null) mr = true;
-			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieLike != null) ml = (int)movieLike.getLikeHate();
-			MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieZzim != null) mz = true;
+			if(userId != -1) {
+				MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieRank != null) mr = true;
+				MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieLike != null) ml = (int)movieLike.getLikeHate();
+				MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieZzim != null) mz = true;
+			}
 			movie.userInfo(mr, ml, mz);
 			movies.add(movie);
 		}
@@ -214,6 +218,139 @@ public class MovieService {
 		return result;
 	}
 	
+	// MBTI 기반 추천
+	@Transactional
+	public List<MovieResponseDto> recommendMovieByMBTI(int userId, long pageNum) {
+		Member member = memberRepository.findById(userId).get();
+		Map<String, String[]> mbti = new HashMap<String, String[]>();
+		mbti.put("ESTJ", new String[] {"액션", "멜로/로맨스"});
+		mbti.put("ESTP", new String[] {"전쟁", "범죄"});
+	    mbti.put("ESFJ", new String[] {"가족", "코미디"});
+	    mbti.put("ESFP", new String[] {"음악", "모험"});
+	    mbti.put("ENTJ", new String[] {"스릴러", "범죄"});
+	    mbti.put("ENTP", new String[] {"다큐멘터리", "미스터리"});
+	    mbti.put("ENFJ", new String[] {"액션", "드라마"});
+	    mbti.put("ENFP", new String[] {"판타지", "액션"});
+	    mbti.put("ISTJ", new String[] {"다큐멘터리", "가족"});
+	    mbti.put("ISTP", new String[] {"SF", "액션"});
+	    mbti.put("ISFJ", new String[] {"멜로/로맨스", "애니메이션"});
+	    mbti.put("ISFP", new String[] {"멜로/로맨스", "판타지"}); 
+	    mbti.put("INTJ", new String[] {"SF", "판타지"});
+	    mbti.put("INFJ", new String[] {"SF", "미스터리"});
+	    mbti.put("INFJ", new String[] {"드라마", "역사"});
+	    mbti.put("INFP", new String[] {"공포", "스릴러"});
+	    
+	    Map<String, Integer> userMbti = new HashMap<String, Integer>();
+	    userMbti.put(mbti.get(member.getMbti())[0], 6);
+	    userMbti.put(mbti.get(member.getMbti())[1], 4);
+	    
+	    List<Movie> movieList = movieRepository.findAll();
+	    List<int[]> scoreList = new ArrayList<int[]>();
+	    for(Movie movie : movieList) {
+			if(movie.getOpen().compareTo("1995-01-01") < 0) continue;
+			int score = 0;
+			String[] ganres = movie.getGanre().split(",");
+			for(String ganre : ganres)
+				if(userMbti.containsKey(ganre)) score += userMbti.get(ganre);
+			scoreList.add(new int[] {(int)movie.getNo(), score});
+	    }
+	    scoreList.sort(new Comparator<int[]>() {
+			@Override
+			public int compare(int[] o1, int[] o2) {
+				return Integer.compare(o2[1], o1[1]);
+			}
+		});
+		List<MovieResponseDto> result = new ArrayList<MovieResponseDto>();
+		int idx = (int)pageNum*40;
+		for(int i=idx; i<idx+40; i++) {
+			Movie m = movieRepository.findById((long)scoreList.get(i)[0]).get();
+			if(m.getRating().equals("")) {
+				String[] temp = crawling(m);
+				m.updateCrawling(temp[0], temp[1], temp[2]);
+			}
+			MovieResponseDto movie = new MovieResponseDto(m);
+			boolean mr = false;
+			int ml = 0;
+			boolean mz = false;
+			MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+			if(movieRank != null) mr = true;
+			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+			if(movieLike != null) ml = (int)movieLike.getLikeHate();
+			MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+			if(movieZzim != null) mz = true;
+			movie.userInfo(mr, ml, mz);
+			result.add(movie);
+		}
+		return result;
+	}
+	
+	// 비슷한 영화
+	@Transactional
+	public List<MovieResponseDto> recommendMovieBySimilar(int userId, long movieNo, long pageNum, int pageCnt) {
+		Movie selectMovie = movieRepository.findById(movieNo).get();
+		String[] companies = selectMovie.getCompany().split(",");
+		Map<String, Integer> companyMap = new HashMap<String, Integer>();
+		String[] countries = selectMovie.getCountry().split(",");
+		Map<String, Integer> countryMap = new HashMap<String, Integer>();
+		String[] ganres = selectMovie.getGanre().split(",");
+		Map<String, Integer> ganreMap = new HashMap<String, Integer>();
+		String[] keywords = selectMovie.getKeywords().split(",");
+		Map<String, Integer> keywordMap = new HashMap<String, Integer>();
+		for(String company : companies) companyMap.put(company, 100); 
+		for(String country : countries) countryMap.put(country, 50);
+		for(String ganre : ganres) ganreMap.put(ganre, 10);
+		for(String keyword : keywords) keywordMap.put(keyword, 5);
+		
+		List<Movie> movieList = movieRepository.findByNoNot(movieNo);
+	    List<int[]> scoreList = new ArrayList<int[]>();
+	    for(Movie movie : movieList) {
+	    	int score = 0;
+	    	String[] cps = movie.getCompany().split(",");
+	    	for(String cp : cps)
+	    		if(companyMap.containsKey(cp)) score += companyMap.get(cp);
+	    	String[] cs = movie.getCountry().split(",");
+	    	for(String c : cs) 
+	    		if(countryMap.containsKey(c)) score += countryMap.get(c);
+	    	String[] gs = movie.getGanre().split(",");
+	    	for(String g : gs)
+	    		if(ganreMap.containsKey(g)) score += ganreMap.get(g);
+	    	if(keywords.length != 0) {
+	    		String[] ks = movie.getKeywords().split(",");
+	    		for(String k : ks)
+	    			if(keywordMap.containsKey(k)) score += keywordMap.get(k);
+	    	}
+	    	scoreList.add(new int[] {(int)movie.getNo(), score});
+	    }	
+	    scoreList.sort(new Comparator<int[]>() {
+			@Override
+			public int compare(int[] o1, int[] o2) {
+				return Integer.compare(o2[1], o1[1]);
+			}
+		});
+	    List<MovieResponseDto> result = new ArrayList<MovieResponseDto>();
+		int idx = (int)pageNum*pageCnt;
+		for(int i=idx; i<idx+pageCnt; i++) {
+			Movie m = movieRepository.findById((long)scoreList.get(i)[0]).get();
+			if(m.getRating().equals("")) {
+				String[] temp = crawling(m);
+				m.updateCrawling(temp[0], temp[1], temp[2]);
+			}
+			MovieResponseDto movie = new MovieResponseDto(m);
+			boolean mr = false;
+			int ml = 0;
+			boolean mz = false;
+			MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+			if(movieRank != null) mr = true;
+			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+			if(movieLike != null) ml = (int)movieLike.getLikeHate();
+			MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+			if(movieZzim != null) mz = true;
+			movie.userInfo(mr, ml, mz);
+			result.add(movie);
+		}
+		return result;
+	}
+	
 	// 장르별 
 	@Transactional
 	public List<MovieResponseDto> findMovieByGanre(int userId, int pageNum, String ganre) {
@@ -228,12 +365,14 @@ public class MovieService {
 			boolean mr = false;
 			int ml = 0;
 			boolean mz = false;
-			MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieRank != null) mr = true;
-			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieLike != null) ml = (int)movieLike.getLikeHate();
-			MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieZzim != null) mz = true;
+			if(userId != -1) {
+				MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieRank != null) mr = true;
+				MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieLike != null) ml = (int)movieLike.getLikeHate();
+				MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieZzim != null) mz = true;
+			}
 			movie.userInfo(mr, ml, mz);
 			movies.add(movie);
 		}
@@ -254,12 +393,14 @@ public class MovieService {
 			boolean mr = false;
 			int ml = 0;
 			boolean mz = false;
-			MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieRank != null) mr = true;
-			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieLike != null) ml = (int)movieLike.getLikeHate();
-			MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieZzim != null) mz = true;
+			if(userId != -1) {
+				MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieRank != null) mr = true;
+				MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieLike != null) ml = (int)movieLike.getLikeHate();
+				MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieZzim != null) mz = true;
+			}
 			movie.userInfo(mr, ml, mz);
 			movies.add(movie);
 		}
@@ -280,12 +421,14 @@ public class MovieService {
 			boolean mr = false;
 			int ml = 0;
 			boolean mz = false;
-			MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieRank != null) mr = true;
-			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieLike != null) ml = (int)movieLike.getLikeHate();
-			MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieZzim != null) mz = true;
+			if(userId != -1) {
+				MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieRank != null) mr = true;
+				MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieLike != null) ml = (int)movieLike.getLikeHate();
+				MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieZzim != null) mz = true;
+			}
 			movie.userInfo(mr, ml, mz);
 			movies.add(movie);
 		}
@@ -306,12 +449,14 @@ public class MovieService {
 			boolean mr = false;
 			int ml = 0;
 			boolean mz = false;
-			MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieRank != null) mr = true;
-			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieLike != null) ml = (int)movieLike.getLikeHate();
-			MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieZzim != null) mz = true;
+			if(userId != -1) {
+				MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieRank != null) mr = true;
+				MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieLike != null) ml = (int)movieLike.getLikeHate();
+				MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieZzim != null) mz = true;
+			}
 			movie.userInfo(mr, ml, mz);
 			movies.add(movie);
 		}
@@ -332,12 +477,14 @@ public class MovieService {
 			boolean mr = false;
 			int ml = 0;
 			boolean mz = false;
-			MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieRank != null) mr = true;
-			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieLike != null) ml = (int)movieLike.getLikeHate();
-			MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieZzim != null) mz = true;
+			if(userId != -1) {
+				MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieRank != null) mr = true;
+				MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieLike != null) ml = (int)movieLike.getLikeHate();
+				MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieZzim != null) mz = true;
+			}
 			movie.userInfo(mr, ml, mz);
 			movies.add(movie);
 		}
@@ -358,12 +505,14 @@ public class MovieService {
 			boolean mr = false;
 			int ml = 0;
 			boolean mz = false;
-			MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieRank != null) mr = true;
-			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieLike != null) ml = (int)movieLike.getLikeHate();
-			MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieZzim != null) mz = true;
+			if(userId != -1) {
+				MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieRank != null) mr = true;
+				MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieLike != null) ml = (int)movieLike.getLikeHate();
+				MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieZzim != null) mz = true;
+			}
 			movie.userInfo(mr, ml, mz);
 			movies.add(movie);
 		}
@@ -384,12 +533,14 @@ public class MovieService {
 			boolean mr = false;
 			int ml = 0;
 			boolean mz = false;
-			MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieRank != null) mr = true;
-			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieLike != null) ml = (int)movieLike.getLikeHate();
-			MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieZzim != null) mz = true;
+			if(userId != -1) {
+				MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieRank != null) mr = true;
+				MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieLike != null) ml = (int)movieLike.getLikeHate();
+				MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+				if(movieZzim != null) mz = true;
+			}
 			movie.userInfo(mr, ml, mz);
 			movies.add(movie);
 		}
@@ -413,7 +564,8 @@ public class MovieService {
 	// 평가 삭제
 	@Transactional
 	public void deleteRank(int userId, long movieNo) {
-		movieRankRepository.delete(movieRankRepository.findByMemberSeqAndMovieNo(userId, movieNo));
+		MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, movieNo);
+		if(movieRank != null) movieRankRepository.delete(movieRank);
 	}
 	
 	// 평가 목록
@@ -591,16 +743,73 @@ public class MovieService {
 	
 	// 리뷰 목록
 	@Transactional
-	public List<MovieReviewDto> listReview(long movieNo) {
+	public List<MovieReviewDto> listReview(int userId, long movieNo) {
 		List<MovieReview> movieReviews = movieReviewRepository.findByMovieNo(movieNo);
 		List<MovieReviewDto> result = new ArrayList<MovieReviewDto>();
-		for(MovieReview mr : movieReviews) result.add(new MovieReviewDto(mr));
+		for(MovieReview mr : movieReviews) {
+			MovieReviewDto mrd = new MovieReviewDto(mr);
+			MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, movieNo);
+			if(mr.getMember().getSeq() == userId) mrd.update(true, movieRank.getRanking());
+			result.add(mrd);
+		}
 		return result;
 	}
 	
+	// 영화 상세정보
+	@Transactional
+	public Map<String, Object> getMovieDetail(int userId, long movieNo) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		Movie movie = movieRepository.findById(movieNo).get();
+		result.put("movie_info", new MovieResponseDto(movie));
+		
+		MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, movieNo);
+		if(movieRank == null) result.put("user_rank", -1);
+		else result.put("user_rank", movieRank.getRanking());
+		
+		MovieReview movieReview = movieReviewRepository.findByMemberSeqAndMovieNo(userId, movieNo);
+		if(movieReview == null) result.put("user_review", null);
+		else result.put("user_review", movieReview.getContent());
+		
+		result.put("movie_review", listReview(userId, movieNo));
+		
+		List<MovieRank> ranks = movieRankRepository.findAllByMovieNo(movieNo);
+		Map<Float, Integer> userRank = new HashMap<Float, Integer>();
+		userRank.put((float)0.5, 0);
+		userRank.put((float)1, 0);
+		userRank.put((float)1.5, 0);
+		userRank.put((float)2, 0);
+		userRank.put((float)2.5, 0);
+		userRank.put((float)3, 0);
+		userRank.put((float)3.5, 0);
+		userRank.put((float)4, 0);
+		userRank.put((float)4.5, 0);
+		userRank.put((float)5, 0);
+		for(MovieRank rank : ranks) userRank.put(rank.getRanking(), userRank.get(rank.getRanking()) + 1);
+		result.put("movie_rank", userRank);
+		
+		result.put("similar_movie", recommendMovieBySimilar(userId, movieNo, 0, 16));
+		
+		return result;
+	}
+	
+	// 사용자의 영화 평가 개수
+	@Transactional
+	public int getCntByRank(int userId) {
+		return movieRankRepository.findAllByMemberSeq(userId).size();
+	}
+	
 	public void test() {
-		MovieReview movieReview = movieReviewRepository.findById((long)1).get();
-		MovieReviewDto mrd = new MovieReviewDto(movieReview);
-		System.out.println(mrd.getTotalLike());
+		List<Movie> movies = movieRepository.findAll();
+		int max = Integer.MIN_VALUE;
+		long no = 0;
+		for(Movie movie : movies) {
+			String[] keywords = movie.getKeywords().split(",");
+			if(max < keywords.length) {
+				max = keywords.length;
+				no = movie.getNo();
+			}
+		}
+		System.out.println(no);
 	}
 }
