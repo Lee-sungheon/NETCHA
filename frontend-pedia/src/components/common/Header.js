@@ -72,6 +72,8 @@ const Header = ({ user }) => {
               <img
                 src="/images/profileIcon.jpg"
                 className="profileIconImg"
+                alt="마이페이지"
+                title="마이페이지"
                 style={{
                   width: "28px",
                   borderRadius: "60%",
@@ -83,6 +85,7 @@ const Header = ({ user }) => {
             <img
               src="/images/profileIcon.jpg"
               className="profileIconImg"
+              alt="검색"
               style={{
                 width: "28px",
                 borderRadius: "60%",

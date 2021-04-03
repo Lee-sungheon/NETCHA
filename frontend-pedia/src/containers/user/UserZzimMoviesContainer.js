@@ -17,7 +17,7 @@ const UserZzimMoviesContainer = () => {
   );
   useEffect(() => {
     dispatch(listZzimMovies(userId));
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   if (zzimMovies && ratingMovies) {
     for (let i = 0; i < zzimMovies.length; i++) {
@@ -28,14 +28,14 @@ const UserZzimMoviesContainer = () => {
         }
       }
     }
-    zzimMovies.map((movie) => {
+    zzimMovies.forEach((movie) => {
       if (!movie.isRating) movie.isRating = "평균";
     });
   }
 
   return (
     <>
-      <h3 style={{ display: "inline-block" }}>보고싶어요</h3>&nbsp;&nbsp;{zzimMovies.length}
+      <h3 style={{ display: "inline-block" }}>보고싶어요</h3>&nbsp;&nbsp;{zzimMovies? zzimMovies.length : ''}
       <SmallSlider movies={zzimMovies} error={error} loading={loading} />
     </>
   );

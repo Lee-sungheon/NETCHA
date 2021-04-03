@@ -1,9 +1,7 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import { InputBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
-import { changeSearchKeyword } from "../../modules/autoCompletesMovies";
 
 const useStyles = makeStyles((theme) => ({
   inputRoot: {

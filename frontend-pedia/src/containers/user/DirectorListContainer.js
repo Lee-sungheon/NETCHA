@@ -16,7 +16,7 @@ const DirectorListContainer = () => {
   );
   useEffect(() => {
     dispatch(listDirectors({ userId }));
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   return (
     <ActorAndDirectorList data={directors} error={error} loading={loading} />
