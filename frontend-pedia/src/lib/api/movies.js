@@ -21,12 +21,12 @@ export const listSearchMovies = ({page, keyword}) => {
 
 // 메인페이지 넷챠 영화 순위 목록
 export const listNetChaRankingMovies = () => {
-  return client.get(`/movie/list_totalView?pageNum=0`);
+  return client.get(`/movie/list_totalView?pageNum=0&userId=1`);
 }
 
 // 메인페이지 최신 개봉 영화 목록
 export const listNewMovies = () => {
-  return client.get(`/movie/list_newContents?pageNum=0`);
+  return client.get(`/movie/list_newContents?pageNum=0&userId=1`);
 }
 
 // 사용자페이지 별점 준 영화 목록

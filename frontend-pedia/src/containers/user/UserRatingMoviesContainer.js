@@ -27,7 +27,7 @@ const UserScoreMoviesContainer = () => {
 
   return (
     <>
-      <h3 style={{ display: "inline-block" }}>평가</h3>&nbsp;&nbsp;{movies.length}
+      <h3 style={{ display: "inline-block" }}>평가</h3>&nbsp;&nbsp;{movies? movies.length: ''}
       <SmallSlider movies={movies} error={error} loading={loading} />
     </>
   );
