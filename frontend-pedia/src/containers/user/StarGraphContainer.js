@@ -33,7 +33,7 @@ const StarGraphContainer = () => {
     dispatch(listStars({ userId }));
     if(stars !== null)
       getValues(stars);
-  }, [stars]);
+  }, [dispatch, userId, stars]);
 
   return (
     <StarGraph

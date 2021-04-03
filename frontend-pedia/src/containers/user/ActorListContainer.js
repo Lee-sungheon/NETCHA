@@ -14,7 +14,7 @@ const ActorListContainer = () => {
   }));
   useEffect(() => {
     dispatch(listActors({ userId }));
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   return (
     <PeopleList data={actors} error={error} loading={loading} />

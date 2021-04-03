@@ -19,7 +19,7 @@ const App = () => {
       setCookie('user', {userId: '내가바로아이디', userName: '내가바로이름'}, {maxAge: 2000});
     }
     dispatch(setUser(cookies.user)); // 넷챠에서 온 쿠키로 state.user 에 user 정보 저장
-  });
+  }, []);
 
   if(user) {
     console.dir(user);

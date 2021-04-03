@@ -16,18 +16,17 @@ const UserScoreMoviesContainer = () => {
   );
   useEffect(() => {
     dispatch(listRatingMovies(userId));
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
-  {
-    movies &&
-      movies.map((movie) => {
-        movie.isRating = "평가함";
-      });
-  }
+  movies &&
+    movies.forEach((movie) => {
+      movie.isRating = "평가함";
+    });
 
   return (
     <>
-      <h3 style={{ display: "inline-block" }}>평가</h3>&nbsp;&nbsp;{movies? movies.length: ''}
+      <h3 style={{ display: "inline-block" }}>평가</h3>&nbsp;&nbsp;
+      {movies ? movies.length : ""}
       <SmallSlider movies={movies} error={error} loading={loading} />
     </>
   );
