@@ -1,39 +1,80 @@
 import React, { useState, useEffect } from "react";
-import Hls from "hls-server";
-export default function Movie() {
-  const video = document.getElementById("video");
-  const videoSrc = "/videos/output.m3u8";
+import ReactHlsPlayer from "react-hls-player";
+import { useHistory } from "react-router";
+import { makeStyles } from "@material-ui/core/styles";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import "./Movie.scss";
 
+const useStyles = makeStyles((theme) => ({}));
+
+export default function Movie(props) {
+  const classes = useStyles();
+  const history = useHistory();
   useEffect(() => {
-    if (Hls.isSupported()) {
-      const hls = new Hls();
+    props.toggleIsHeader(false);
 
-      hls.loadSource(videoSrc)
-      hls.attachMedia(video)
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        video.onplay()
-      })
-    }else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = videoSrc
-      video.addEventListener('loademetadata', () => {
-        video.play()
-      })
-    }
-    return () => {};
-    
+    return () => {
+      props.toggleIsHeader(true);
+    };
   }, []);
+  const goBack = (e) => {
+    e.preventDefault();
+    history.goBack();
+  };
   return (
     <div>
       <div
         style={{
-          color: "white",
+          height: "100vh",
+          textAlign: "center",
+          marginTop: "-64px",
         }}
       >
-        영상 재생
-      </div>
+        <div
+          className="movie-div"
+          style={{
+            position: "relative",
+            height: "100%",
+          }}
+        >
+          <ReactHlsPlayer
+            id="player"
+            src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+            // src="http://j4f002.p.ssafy.io:8082/b"
+            autoPlay={true}
+            height="100%"
+            style={{
+              zIndex: "1",
+              // position: "relative",
+              top: 0,
+              left: 0,
+            }}
+            controls
+            hlsConfig={{
+              startPosition: 0,
+              // nextLoadPosition:
+            }}
+          ></ReactHlsPlayer>
 
-      <div>
-        <video id="video" width="500" height="500" controls></video>
+          <div
+            style={{
+              zIndex: "2",
+              position: "relative",
+              color: "white",
+              marginTop: "-90vh",
+              marginLeft: "-90vw",
+            }}
+          >
+            <ArrowBackIosIcon
+              className="arrowBackButton"
+              style={{
+                height: "50px",
+                width: "50px",
+              }}
+              onClick={goBack}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
