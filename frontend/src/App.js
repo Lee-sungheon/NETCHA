@@ -37,7 +37,7 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename = {process.env.PUBLIC_URL}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <div className={cx("App", { "App--toggle": toggleButton })}>

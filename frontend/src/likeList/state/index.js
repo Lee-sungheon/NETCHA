@@ -11,9 +11,11 @@ export const types = {
   SET_MOVIELIST: 'like/SET_MOVIELIST',
   SET_LOADING: 'like/SET_LOADING',
   SET_VALUE: 'like/SET_VALUE',
+
+  DELETE_LIKE: 'like/DELTE_LIKE'
 };
 
-export const actions = {
+export const likeactions = {
   requestMovieList: (pageNum, userNo) => ({ type: types.REQUEST_MOVIELIST, pageNum, userNo }),
   setMovieList: data => ({ type: types.SET_MOVIELIST, data }),
   setLoading: isLoading => ({
@@ -32,6 +34,7 @@ export const actions = {
     type: types.SET_END,
     infiniteEnd,
   }),
+  deleteLike: movieNo => ({ type: types.DELETE_LIKE, movieNo })
 }
 
 const INITIAL_STATE = { movieLists: [], isLoading: false, error: '', isInfinite: false, infiniteEnd: false,};
@@ -47,5 +50,14 @@ const reducer = createReducer(INITIAL_STATE, {
   },
   [types.SET_INFINITE]: (state, action) => (state.isInfinite = action.isInfinite),
   [types.SET_END]: (state, action) => (state.infiniteEnd = action.infiniteEnd),
+
+  [types.DELETE_LIKE]: (state, action) => {
+    for (let i=0 ; i<state.movieLists.length ; i++){  
+      if(state.movieLists[i].no === action.movieNo){
+        state.movieLists.splice(i, 1);
+        break;
+      }
+    }
+  }
 });
 export default reducer;

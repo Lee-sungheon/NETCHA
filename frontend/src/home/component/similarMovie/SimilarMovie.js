@@ -13,7 +13,6 @@ export default function SimilarMovie({ movie }) {
   const similarMovie = useSelector(state => state.home.similarMovieLists);
   const isLoading = useSelector(state => state.home.isSimilarLoading);
   const user = useSelector((state) => state.user.userData.member);
-  // const user = useSelector(state => state.user.userData.member);
   const dispatch = useDispatch();
   function indexLeft() {
     if (index > 1) {

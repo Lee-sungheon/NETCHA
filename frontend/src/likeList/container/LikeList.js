@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './LikeList.scss';
 import MovieList from '../component/movieList/MovieList';
 import MovieItem from '../component/movieList/MovieItem';
-import { actions } from "../state";
+import { likeactions } from "../state";
 import { useSelector, useDispatch } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import DesktopAccessDisabledIcon from '@material-ui/icons/DesktopAccessDisabled';
@@ -24,7 +24,7 @@ export default function LikeList() {
 
   useEffect(() => {
     checkWindowInner()
-    dispatch(actions.requestMovieList(0, user.seq));
+    dispatch(likeactions.requestMovieList(0, user.seq));
     window.addEventListener('resize', function(){
       checkWindowInner()
     });
@@ -35,7 +35,7 @@ export default function LikeList() {
       const clientHeight = document.documentElement.clientHeight;
       if (scrollTop + clientHeight + 1 >= scrollHeight && !isInfinite) {
         // 페이지 끝에 도달하면 추가 데이터를 받아온다
-        dispatch(actions.requestAddMovieList(pageNum, user.seq));
+        dispatch(likeactions.requestAddMovieList(pageNum, user.seq));
         if (!loadingPage) {
           pageNum += 1;
         }

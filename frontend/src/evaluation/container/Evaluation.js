@@ -162,9 +162,13 @@ export default function Evaluation() {
       setText('훌륭해요! 이 기세로 쭉쭉 밀고 나가봐요!');
     } else if (pickNum < 70){
       setText('평가를 많이 할수록 예상별점이 정확해져요. 자, 힘내세요!');
-    } else {
+    } else if (pickNum < 85){
       setText('이제 웬만한 친구보다 제가 회원님의 취향을 더 잘 알걸요?');
-    } 
+    } else if (pickNum < 100){
+      setText('제가 무슨 말을 할지 궁금하지 않으세요??');
+    } else {
+      setText('100개라니! 끈기와 투지에 박수를 보냅니다.');
+    }
   }, [pickNum])
 
   return (
