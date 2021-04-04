@@ -31,16 +31,21 @@ export const listNewMovies = () => {
 
 // 사용자페이지 별점 준 영화 목록
 export const listRatingMovies = (userId) => {
-  // return client.get(`/movie/list_totalView`);
   console.log('listRatingMovies ' + userId);
-  return (movies);
+  // return (movies);
+  return client.get(`/movie/rank_list?pageNum=0&userId=1`);
+}
+
+export const countRatingMovies = (userId) => {
+  console.log('countRatingMovies: ' + userId);
+  return client.get(`/movie/rank_count?pageNum=0&userId=${userId}`);
 }
 
 // 사용자페이지 찜한 영화 목록
 export const listZzimMovies = (userId) => {
-  // return client.get(`/movie/list_totalView`);
   console.log('listZzimMovies ' + userId);
-  return (zzimMovies);
+  // return (zzimMovies);
+  return client.get(`/movie/zzim_list?pageNum=0&userId=1`);
 }
 
 // 헤더 검색한 영화 자동완성

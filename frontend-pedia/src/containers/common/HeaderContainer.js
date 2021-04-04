@@ -7,12 +7,14 @@ export default function HeaderContainer() {
   const {user} = useSelector(({user}) => ({user}.user));
   const dispatch = useDispatch();
   const onLogout = () => {
+    console.log('로그아웃들어옴');
     dispatch(logout());
   }
   const onLogin = () => {
-    const newUser = {userId: '내가바로아이디', userName: '내가바로이름'};
+    console.log('로그인들어옴');
+    const newUser = {userId: 1, userName: '내가바로이름'};
     localStorage.setItem('user', JSON.stringify(newUser));
-    dispatch(setUser(newUser));
+    dispatch(setUser(JSON.parse(localStorage.getItem('user'))));
   }
 
   return (

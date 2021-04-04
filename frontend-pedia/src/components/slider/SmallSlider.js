@@ -56,11 +56,11 @@ export default function SmallSlider({ movies, title, error, loading }) {
             <Slider {...settings}>
               {movies.map((movie) => {
                 return (
-                  <div className="smallMovieBox" key={movie.id}>
+                  <div className="smallMovieBox" key={movie.no}>
                     <img
                       className="smallimage" // onClick={goToMovieDetail(movie.title)}
                       alt={movie.title}
-                      src={movie.image}
+                      src={movie.posterUrl}
                     />
                     <div className="smallmovieInfo">
                       <div className="smallmovieTitle">

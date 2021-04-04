@@ -16,9 +16,11 @@ const store = createStore(
 
 function loadUser() {
   try {
-    const user = localStorage.getItem('user');
+    console.log('자동로그인');
+    const user = JSON.parse(localStorage.getItem('user'));
     if(!user) return;
-
+    // console.log('user!!!!!!')
+    // console.dir(user);
     store.dispatch(setUser(user));
   } catch(e) {
     console.log('로그인 에러');
