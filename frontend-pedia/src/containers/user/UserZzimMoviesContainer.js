@@ -22,7 +22,7 @@ const UserZzimMoviesContainer = () => {
   if (zzimMovies && ratingMovies) {
     for (let i = 0; i < zzimMovies.length; i++) {
       for (let j = 0; j < ratingMovies.length; j++) {
-        if (zzimMovies[i].id === ratingMovies[j].id) {
+        if (zzimMovies[i].no === ratingMovies[j].no) {
           zzimMovies[i].isRating = "평가함";
           break;
         }

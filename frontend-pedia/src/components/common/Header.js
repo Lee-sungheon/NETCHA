@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({ user }) => {
+const Header = ({ user, onLogout, onLogin }) => {
   const classes = useStyles();
 
   return (
@@ -64,9 +64,15 @@ const Header = ({ user }) => {
           <div className={classes.search}>
             <SearchInputContainer />
           </div>
-          <Button style={{ margin: "0px 24px 0px 24px", color: "#6A6A6A" }}>
-            평가하기
-          </Button>
+          {user ? (
+            <Button style={{ margin: "0px 24px 0px 24px", color: "#6A6A6A" }} onClick={onLogout}>
+              로그아웃
+            </Button>
+          ) : (
+            <Button style={{ margin: "0px 24px 0px 24px", color: "#6A6A6A" }} onClick={onLogin}>
+              로그인
+            </Button>
+          )}
           {user ? (
             <Link to={`/user/${user.userId}`}>
               <img

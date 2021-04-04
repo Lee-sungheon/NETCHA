@@ -146,7 +146,7 @@ export default function Header({ toggleButton, setToggleButton }) {
     <div className="root">
       <AppBar position="fixed" className="root" id="header">
         <Toolbar>
-          <Link to={"/"}>
+          <Link to={"/home"}>
             <img
               src={"../images/netcha.png"}
               style={{ height: "52px", marginRight: "10px" }}
@@ -155,7 +155,7 @@ export default function Header({ toggleButton, setToggleButton }) {
             />
           </Link>
           <div>
-            <Link to={"/"}>
+            <Link to={"/home"}>
               <Typography
                 className="menu"
                 variant="subtitle2"
