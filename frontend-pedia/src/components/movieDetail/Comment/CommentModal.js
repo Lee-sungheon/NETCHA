@@ -1,6 +1,13 @@
 import './CommentModal.scss';
 
-const CommentModal = ({ visible, inputs, onCancel, onConfirm, onChange }) => {
+const CommentModal = ({
+  visible,
+  inputs,
+  onCancel,
+  onConfirm,
+  onChange,
+  myCommentData,
+}) => {
   const {
     content,
     // , nickname
@@ -14,7 +21,7 @@ const CommentModal = ({ visible, inputs, onCancel, onConfirm, onChange }) => {
             <span className="span1" onClick={onCancel}>
               X
             </span>
-            <span>영화제목영화제목영화제목</span>
+            <span>{myCommentData.title}</span>
             <button
               type="submit"
               onClick={onConfirm}

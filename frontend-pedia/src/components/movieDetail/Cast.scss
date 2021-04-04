@@ -33,6 +33,11 @@
   text-overflow: ellipsis;
 }
 
+.actorName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .actorWrapper {
   margin-top: 15px;
 }

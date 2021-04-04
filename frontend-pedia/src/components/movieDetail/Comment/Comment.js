@@ -1,8 +1,8 @@
-import Slider from 'react-slick';
-import './Comment.scss';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import Slider from 'react-slick';
 import * as commentApi from '../../../lib/api/comment';
+import './Comment.scss';
 
 export default function Comment({ requestData }) {
   const settings = {
@@ -18,18 +18,38 @@ export default function Comment({ requestData }) {
   };
   const [comments, setComments] = useState(null);
 
-  const fetchComments = async (e) => {
+  const fetchComments = async () => {
     try {
       const response = await commentApi.readComments(requestData);
-      console.log(response.data);
       setComments(response.data);
     } catch (e) {
       console.log(e);
     }
   };
+
+  const insertLike = async (comment, index) => {
+    try {
+      await commentApi.insertCommentLike({
+        userId: requestData.userId,
+        reviewNo: comment.no,
+      });
+      comments[index].myLike = !comments[index].myLike;
+    } catch (e) {}
+  };
+
+  const deleteLike = async (comment, index) => {
+    try {
+      await commentApi.deleteCommentLike({
+        userId: requestData.userId,
+        reviewNo: comment.no,
+      });
+      comments[index].myLike = !comments[index].myLike;
+    } catch (e) {}
+  };
   useEffect(() => {
-    if (requestData.movieNo && requestData.userId) fetchComments();
-  }, [requestData]);
+    fetchComments();
+  }, [comments]);
+
   return (
     <div className="comment">
       <div className="infoHeader">코멘트</div>
@@ -41,7 +61,7 @@ export default function Comment({ requestData }) {
                 {comment.userNickname}
                 <div>
                   <span>★</span>
-                  <span className="score">5.0</span>
+                  <span className="score">{comment.ranking}</span>
                 </div>
               </div>
 
@@ -52,7 +72,22 @@ export default function Comment({ requestData }) {
                 />
                 {comment.totalLike}
               </div>
-              <div className="footer2">좋아요</div>
+              {!comment.mine && !comment.myLike && (
+                <div
+                  className="commentUnlike"
+                  onClick={() => insertLike(comment, index)}
+                >
+                  좋아요
+                </div>
+              )}
+              {!comment.mine && comment.myLike && (
+                <div
+                  className="commentLike"
+                  onClick={() => deleteLike(comment, index)}
+                >
+                  좋아요
+                </div>
+              )}
             </div>
           ))}
       </Slider>

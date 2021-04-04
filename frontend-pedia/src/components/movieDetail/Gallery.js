@@ -18,7 +18,7 @@ const Gallery = ({ imgs }) => {
       <Slider {...settings}>
         {imgs.map((img, index) => (
           <div className="Slider" key={index}>
-            <img width="140px" height="100px" src={img}></img>
+            <img alt="movieImg" width="140px" height="90px" src={img}></img>
           </div>
         ))}
       </Slider>
