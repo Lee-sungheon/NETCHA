@@ -64,6 +64,7 @@ export default function Movie(props) {
               marginTop: "-90vh",
               marginLeft: "-90vw",
             }}
+            onClick={goBack}
           >
             <ArrowBackIosIcon
               className="arrowBackButton"
@@ -71,7 +72,6 @@ export default function Movie(props) {
                 height: "50px",
                 width: "50px",
               }}
-              onClick={goBack}
             />
           </div>
         </div>
