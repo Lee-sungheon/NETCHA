@@ -20,17 +20,21 @@ const PeopleList = ({ data, error, loading }) => {
     return <h2>에러가 발생했습니다.</h2>;
   }
 
+  if (data) {
+    console.dir(data);
+  }
+
   return (
     <>
       {!loading && data && (
         <div className="peopleSlider">
           <Slider {...settings}>
-            {data.map((data, index) => {
+            {data.map((name, index) => {
               return (
                 <div className="actorWrap" key={index}>
-                  <img className="actorImage" src={data.image} alt={data.name} title={data.name} />
+                  <img className="actorImage" src="/images/profileIcon.jpg" alt={name} title={name} />
                   <div className="actorName">
-                    <span>{data.name}</span>
+                    <span>{name}</span>
                   </div>
                 </div>
               );

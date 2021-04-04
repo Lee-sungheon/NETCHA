@@ -1,27 +1,27 @@
-// import client from './client';
+import client from './client';
 
 export const listLikeActors = ({ userId }) => {
   console.log('listLikeActors:' + userId);
-  return actors;
-  // return client.get(`/actors/${userId}`)
+  // return actors;
+  return client.get(`/movie/userFavor_cast?userId=${userId}`)
 };
 
 export const listLikeDirectors = ({ userId }) => {
   console.log('listLikeDirectors:' + userId);
-  return directors;
-  // return client.get(`/directors/${userId}`)
+  // return directors;
+  return client.get(`/movie/userFavor_director?userId=${userId}`)
 };
 
 export const listCountries = ({ userId }) => {
   console.log('listCountries:' + userId);
-  return country;
-  // return client.get(`/country/${userId}`)
+  // return country;
+  return client.get(`/movie/userFavor_country?userId=${userId}`)
 }
 
 export const listGenres = ({ userId }) => {
   console.log('listGenres:' + userId);
-  return genre;
-  // return client.get(`/country/${userId}`)
+  // return genre;
+  return client.get(`/movie/userFavor_ganre?userId=${userId}`)
 }
 
 export const listTags = ({ userId }) => {
