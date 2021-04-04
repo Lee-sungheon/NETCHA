@@ -15,7 +15,6 @@
     z-index: 10;
     transition-delay: 0.5s;
   }
-
   &:not(&--left) .item:hover {
     transform: scale(1.5) translateY(-50%) translateX(16.5%) !important;
     z-index: 10;

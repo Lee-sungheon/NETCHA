@@ -38,4 +38,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	// 배우별 (40개) : 누적 조회수 순으로
 	@Query("select m from Movie m where m.casts like %:cast% order by m.totalView desc")
 	public List<Movie> findByCastLike(@Param("cast") String cast);
+	// 비슷한 영화 : 입력받은 영화 제외 모든 영화
+	public List<Movie> findByNoNot(Long no);
 }

@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
-import AddIcon from '@material-ui/icons/Add';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import Rating from '@material-ui/lab/Rating';
 import { callApiRequestEvaluation, callApiDeleteEvaluation } from '../../../common/api';
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import Buttons from './Buttons';
 import './BasicInformation.scss';
 
 
@@ -111,9 +109,7 @@ export default function BasicInformation({ movie }) {
             <PlayArrowIcon className="content__play_box__play-button"/>
             <div className="content__play_box__text">재생</div>
           </div>
-          <AddIcon className="content__common-button"/>
-          <ThumbUpAltIcon className="content__common-button"/>
-          <ThumbDownIcon className="content__common-button"/>
+          <Buttons movie={movie} />
         </div>
       </div>
       <div className="content__score_box">

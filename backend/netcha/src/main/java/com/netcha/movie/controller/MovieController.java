@@ -49,6 +49,22 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "MBTI 기반 추천 (40개) : MBTI 기반 추천 알고리즘", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
+	@GetMapping("/list_MBTI")
+	public ResponseEntity<?> getListByRecommendMBTI(@RequestParam long userId, @RequestParam long pageNum) {
+		List<MovieResponseDto> movies = movieService.recommendMovieByMBTI((int)userId, pageNum);
+		System.out.println("MBTI 기반 추천 : "+movies.size());
+		return new ResponseEntity<>(movies, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "비슷한 영화 추천 (??개) : 국가, 장르, 키워드가 비슷한 영화 추천", notes = "입력값 : userId(유저고유번호), movieNo(영화고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
+	@GetMapping("/list_similar")
+	public ResponseEntity<?> getListByRecommendSimilar(@RequestParam long userId, @RequestParam long movieNo) {
+		List<MovieResponseDto> movies = movieService.recommendMovieBySimilar((int)userId, movieNo, 0, 16);
+		System.out.println("비슷한 영화 : "+movies.size());
+		return new ResponseEntity<>(movies, HttpStatus.OK);
+	}
+	
 	@ApiOperation(value = "새로운 컨텐츠 (40개) : 개봉일 얼마 안된 순으로 추천", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
 	@GetMapping("/list_newContents")
 	public ResponseEntity<?> getListByNewContents(@RequestParam long userId, @RequestParam long pageNum) {
@@ -156,6 +172,13 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "내가 평가한 영화 개수 : 평가한 영화 개수", notes = "입력값 : userId(유저고유번호)")
+	@GetMapping("/rank_count")
+	public ResponseEntity<?> getCountRanking(@RequestParam long userId) {
+		int count = movieService.getCntByRank((int)userId);
+		return new ResponseEntity<>(count, HttpStatus.OK);
+	}
+	
 	//  영화 좋아요/싫어요 관련 API   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	@ApiOperation(value = "좋아요 (추가,수정,삭제 포함) : 그냥 좋아요는 1, 싫어요는 -1 보내면 알아서 추가,수정,삭제", notes = "입력값 : userId(유저고유번호), movieNo(영화고유번호), like(좋아요:1, 싫어요:-1)")
@@ -239,16 +262,26 @@ public class MovieController {
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "리뷰 목록", notes = "입력값 : movieNo(영화고유번호)")
+	@ApiOperation(value = "내가 작성한 리뷰 목록", notes = "입력값 : userId(유저고유번호), movieNo(영화고유번호)")
 	@GetMapping("/review_list")
-	public ResponseEntity<?> getListReview(@RequestParam long movieNo) {
-		List<MovieReviewDto> result = movieService.listReview(movieNo);
+	public ResponseEntity<?> getListReview(@RequestParam long userId, @RequestParam long movieNo) {
+		List<MovieReviewDto> result = movieService.listReview((int)userId, movieNo);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
-//	@GetMapping("/test")
-//	public ResponseEntity<?> test() {
-//		movieService.test();
-//		return new ResponseEntity<>("", HttpStatus.OK);
-//	}
+	//  넷챠피디아 API   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@ApiOperation(value = "영화 상세정보", notes = "입력값 : userId(유저고유번호), movieNo(영화고유번호)")
+	@GetMapping("/movie_detail")
+	public ResponseEntity<?> getMovieDetail(@RequestParam long userId, @RequestParam long movieNo) {
+		Map<String, Object> result = movieService.getMovieDetail((int)userId, movieNo);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	
+	@GetMapping("/test")
+	public ResponseEntity<?> test() {
+		movieService.test();
+		return new ResponseEntity<>("", HttpStatus.OK);
+	}
 }

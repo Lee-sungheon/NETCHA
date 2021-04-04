@@ -15,6 +15,8 @@ public class MovieReviewDto {
 	private String content;
 	private Date regtime;
 	private int totalLike;
+	private boolean isMine;
+	private float ranking;
 	
 	public MovieReviewDto(MovieReview movieReview) {
 		this.no = movieReview.getNo();
@@ -24,5 +26,11 @@ public class MovieReviewDto {
 		this.content = movieReview.getContent();
 		this.regtime = movieReview.getRegtime();
 		this.totalLike = movieReview.getMovieReviewLike().size();
+		this.isMine = false;
+	}
+	
+	public void update(boolean mine, float ranking) {
+		this.isMine = mine;
+		this.ranking = ranking;
 	}
 }
