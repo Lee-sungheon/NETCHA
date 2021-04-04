@@ -5,6 +5,7 @@ import DehazeIcon from "@material-ui/icons/Dehaze";
 import ViewModuleIcon from "@material-ui/icons/ViewModule";
 import { useSelector } from "react-redux";
 import "./Home.scss";
+import { callApiEvaluation } from "../../common/api";
 import ContentBased from "../component/recommend/contentbased/ContentBased";
 import NewBased from "../component/recommend/new/NewBased";
 import PopularBased from "../component/recommend/popular/PopularBased";
@@ -19,13 +20,19 @@ import CountryBased3 from "../component/recommend/country/CountryBased3";
 import KeywordBased from "../component/recommend/keyword/KeywordBased";
 import KeywordBased2 from "../component/recommend/keyword/KeywordBased2";
 import KeywordBased3 from "../component/recommend/keyword/KeywordBased3";
+import { useHistory } from "react-router-dom";
 
 let loadingPage = false;
 export default function Home() {
   const user = useSelector((state) => state.user.userData.member);
+  const history = useHistory();
   const [pageNum, setPageNum] = useState(1);
   const [isloading, setIsloading] = useState(1);
-  useEffect(()=>{
+  useEffect(async()=>{
+    if (await callApiEvaluation(user.seq) <= 5){
+      alert('영화 추천을 위해서 영화 평가를 해주세요!');
+      history.push(`/eval`);
+    }
     window.scrollTo(0, 0);
   }, [])
   useEffect(()=> {

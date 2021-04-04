@@ -253,3 +253,12 @@ export function callApiEvaluation(userId) {
     })
     .catch((Error)=>{console.log(Error)})
 }
+
+export function callApiMovieReview(movieNo, userId) {
+  const url = `netcha/movie/movie_detail?movieNo=${movieNo}&userId=${userId}`;
+  return axios.get(url)
+    .then((Response)=>{
+      return Response.data.movie_review
+    })
+    .catch((Error)=>{console.log(Error)})
+}
