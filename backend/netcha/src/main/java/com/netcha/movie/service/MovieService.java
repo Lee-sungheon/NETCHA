@@ -1026,7 +1026,7 @@ public class MovieService {
 		case 1:
 			String[] directors = movie.getDirectors().split(",");
 			for(String director : directors) {
-				String dr = director.split("(")[0].replace(" ", "");
+				String dr = director.split("\\(")[0].replace(" ", "");
 				if(favorDirector.containsKey(dr)) favorDirector.put(dr, favorDirector.get(dr)+1);
 				else favorDirector.put(dr, 1);
 			}
@@ -1034,7 +1034,7 @@ public class MovieService {
 		case 2:
 			String[] casts = movie.getCasts().split(",");
 			for(String cast : casts) {
-				String ct = cast.split("(")[0].replace(" ", "");
+				String ct = cast.split("\\(")[0].replace(" ", "");
 				if(favorCast.containsKey(ct)) favorCast.put(ct, favorCast.get(ct)+1);
 				else favorCast.put(ct, 1);
 			}
@@ -1042,7 +1042,7 @@ public class MovieService {
 		case 3:
 			String[] countrys = movie.getCountry().split(",");
 			for(String country : countrys) {
-				String ctr = country.split("(")[0].replace(" ", "");
+				String ctr = country.split("\\(")[0].replace(" ", "");
 				if(favorCountry.containsKey(ctr)) favorCountry.put(ctr, favorCountry.get(ctr)+1);
 				else favorCountry.put(ctr, 1);
 			}
@@ -1057,7 +1057,7 @@ public class MovieService {
 		case 5:
 			String[] keywords = movie.getKeywords().split(",");
 			for(String keyword : keywords) {
-				String kd = keyword.split("(")[0].replace(" ", "");
+				String kd = keyword.split("\\(")[0].replace(" ", "");
 				if(favorKeyword.containsKey(kd)) favorKeyword.put(kd, favorKeyword.get(kd)+1);
 				else favorKeyword.put(kd, 1);
 			}
