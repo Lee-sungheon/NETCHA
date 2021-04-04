@@ -1,10 +1,8 @@
 import client from './client';
 import qs from 'qs';
 
-export const readMovie = (id) => {
-  console.log(movie);
-  return movie;
-  // client.get(`/api/posts/${id}`)
+export const readMovie = (formData) => {
+  return client.get('/movie/movie_detail', { params: { ...formData } });
 };
 
 // 영화 검색 목록
@@ -34,6 +32,11 @@ export const listRatingMovies = (userId) => {
   // return client.get(`/movie/list_totalView`);
   console.log('listRatingMovies ' + userId);
   return movies;
+};
+
+// 해당 영화와 비슷한 영화 목록
+export const listSimilarMovies = (formData) => {
+  return client.get(`/movie/list_similar`, { params: { ...formData } });
 };
 
 // 사용자페이지 찜한 영화 목록
@@ -77,7 +80,7 @@ export const listAutoCompletesMovies = (keyword) => {
 };
 
 const movie = {
-  data: { title: '미나리' },
+  data: { title: '미나리', movieNo: 1 },
 };
 
 const movies_title = [

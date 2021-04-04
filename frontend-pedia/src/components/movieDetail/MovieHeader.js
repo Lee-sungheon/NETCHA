@@ -4,28 +4,27 @@ import Rating from '@material-ui/lab/Rating';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import * as rankApi from '../../lib/api/rank';
 import * as moviesApi from '../../lib/api/movies';
+import { useEffect, useState } from 'react';
 
 const MovieHeader = ({
   movie,
   rankData,
   setRankData,
+  requestData,
   zzimData,
   setZzimData,
 }) => {
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(null);
-
   const updateZzim = async () => {
     if (zzimData.isZzim == false) {
       try {
-        await moviesApi.updateZzimMovies(zzimData);
+        await moviesApi.updateZzimMovies(...zzimData, ...requestData);
       } catch (e) {}
     } else {
       try {
-        await moviesApi.deleteZzimMovies(zzimData);
+        await moviesApi.deleteZzimMovies(...zzimData, ...requestData);
       } catch (e) {}
     }
-    setZzimData({ ...zzimData, isZzim: !zzimData.isZzim });
+    setZzimData({ isZzim: !zzimData.isZzim });
   };
 
   const updateRank = async (e) => {
@@ -41,16 +40,15 @@ const MovieHeader = ({
       // loading 상태를 true 로 바꿉니다.
       // setLoading(true);
       const response = rankApi.updateRank({
-        ...rankData,
+        ...requestData,
         ranking: tempRanking,
       });
-      setRankData({ ...rankData, ranking: tempRanking });
+      setRankData({ ranking: tempRanking });
     } catch (e) {
       // setError(e);
     }
     // setLoading(false);
   };
-
   const onClickZzim = () => {
     updateZzim();
   };
@@ -60,7 +58,6 @@ const MovieHeader = ({
       updateRank(e);
     }
   };
-
   return (
     <div className="MovieHeaderWrapper">
       <div className="MovieHeaderTop">
@@ -69,15 +66,17 @@ const MovieHeader = ({
 
       <div className="MovieHeaderBottom">
         <div className="posterImg">
-          <img src="https://an2-img.amz.wtchn.net/image/v2/1a5dc00efec3b2d32c0836e35f630250.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKaVlXTnJaM0p2ZFc1a0lqcDdJbklpT2pJMU5Td2laeUk2TWpVMUxDSmlJam95TlRWOUxDSmpjbTl3SWpwMGNuVmxMQ0pvWldsbmFIUWlPalF3TUN3aWNHRjBhQ0k2SWk5Mk1pOXpkRzl5WlM5cGJXRm5aUzh4TmpFek16YzNOakF6TkRRME9EZzROemcwSWl3aWNYVmhiR2wwZVNJNk9EQXNJbmRwWkhSb0lqb3lPREI5LklNVE5ocjVRNV9kTm1BblBpemx5OUJqRHZOU19xQzBpWXM0X2dlUU9BS3c"></img>
+          <img src={movie.movie_info.posterUrl}></img>
           <div className="posterDetail">
             <div className="posterTitle">
-              {movie && movie.title}
+              {movie.movie_info.title}
               <div className="posterTitleDetail">2019 드라마 미국 프랑스</div>
             </div>
 
             <div className="posterBottom">
-              <div className="averageScore">평균 ★3.0 (3292명)</div>
+              <div className="averageScore">
+                평균 ★{movie.movie_info.avgRank} (3292명)
+              </div>
               <div className="ratingContent">
                 <div className="buttonContainer" onClick={onClickZzim}>
                   <button className={!zzimData.isZzim ? 'zzim' : 'unZzim'}>

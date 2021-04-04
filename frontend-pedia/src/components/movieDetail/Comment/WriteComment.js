@@ -2,8 +2,12 @@ import './WriteComment.scss';
 import { useState } from 'react';
 import CommentModal from './CommentModal';
 import * as commentApi from '../../../lib/api/comment';
-const WriteComment = ({ commentData, setCommentData }) => {
+const WriteComment = ({ requestData, myCommentData, setMyCommentData }) => {
   const [modal, setModal] = useState(false);
+  const [inputs, setInputs] = useState({
+    content: myCommentData.content,
+    // nickname: '',
+  });
   const onWriteClick = () => {
     setModal(true);
   };
@@ -11,24 +15,19 @@ const WriteComment = ({ commentData, setCommentData }) => {
     if (inputs.content.trim()) setModal(false);
     try {
       await commentApi.insertComment({
-        ...commentData,
+        ...requestData,
         content: inputs.content,
       });
     } catch (e) {
       console.log(e);
     }
-    setCommentData({ ...commentData, content: inputs.content });
+    setMyCommentData({ content: inputs.content });
   };
 
   const onCancel = () => {
     onReset();
     setModal(false);
   };
-
-  const [inputs, setInputs] = useState({
-    content: commentData.content,
-    // nickname: '',
-  });
 
   const onChange = (e) => {
     const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
