@@ -65,7 +65,7 @@ export default function Home() {
         <div className="home__top-bar__area">
           <div className="home__top-bar__left"></div>
           <div className="home__top-bar__right">
-            <Link to={"/"}>
+            <Link to={"/home"}>
               <div className="home__top-bar__button1">
                 <DehazeIcon />
               </div>
