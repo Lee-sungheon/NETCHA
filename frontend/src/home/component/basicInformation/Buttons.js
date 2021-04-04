@@ -6,9 +6,10 @@ import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined';
 import CheckIcon from '@material-ui/icons/Check';
-import { callApiRequestZzim, callApiDeleteZzim, callApiLike, callApiLikeMovieList } from '../../../common/api';
+import { callApiRequestZzim, callApiDeleteZzim, callApiLike } from '../../../common/api';
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../../../navbar/state";
+import { likeactions } from "../../../likeList/state";
 
 
 export default function Buttons({ movie }) {
@@ -43,6 +44,7 @@ export default function Buttons({ movie }) {
     else {
       callApiDeleteZzim(user.seq, movie.no);
       dispatch(actions.setIsZzim(movie.no, false));
+      dispatch(likeactions.deleteLike(movie.no));
       setIsZzim(!isZzim);
     }
   }

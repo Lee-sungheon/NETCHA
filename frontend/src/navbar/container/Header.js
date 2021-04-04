@@ -114,9 +114,10 @@ export default function Header({ toggleButton, setToggleButton }) {
     };
     const nowUrl = window.location.href.split("/");
     const nowLocation = nowUrl[nowUrl.length - 1];
+    console.log(nowLocation)
     if (nowLocation === "eval") {
       setActiveValue("평가하기");
-    } else if (nowLocation === "mylike") {
+    } else if (nowLocation === "mylike" || nowLocation === "myLike") {
       setActiveValue("내가 찜한 콘텐츠");
     } else {
       setActiveValue("홈");

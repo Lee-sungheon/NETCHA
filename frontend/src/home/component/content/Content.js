@@ -5,8 +5,12 @@ import DetailInformation from '../detailInformation/DetailInformation';
 import SimilarMovie from '../similarMovie/SimilarMovie';
 import IconCross from '../Icons/IconCross';
 import ReactHlsPlayer from "react-hls-player";
+import { useSelector } from 'react-redux';
 
-const Content = ({ movie, onClose, tabNo, setTabNumber }) => (
+
+const Content = ({ movie, onClose, tabNo, setTabNumber }) => {
+  const bufferTime = useSelector(state => state.home.bufferTime);
+  return (
   <div className="content">
     <div className="content__background">
       <div className="content__background__shadow" />
@@ -25,10 +29,10 @@ const Content = ({ movie, onClose, tabNo, setTabNumber }) => (
             position: 'absolute',
             zIndex: "1",
             top: 0,
-            right: 0,
+            right: -60,
           }}
           hlsConfig={{
-            startPosition: 0,
+            startPosition: bufferTime,
           }}
         ></ReactHlsPlayer>
       </div>}
@@ -79,7 +83,7 @@ const Content = ({ movie, onClose, tabNo, setTabNumber }) => (
       </div>
     </div>
   </div>
-);
+)};
 
 export default Content;
 

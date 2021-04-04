@@ -64,9 +64,9 @@ const MovieList = ({ children, activeSlide, idx, num }) => {
       <MovieWrapper idx={idx}>
         <div
           className={cx('slider', 
-          { 'slider--open': currentSlide != null }, 
-          { 'slider--left': !escapeLeft},
-          { 'slider--right': !escapeRight}
+          { 'slider--open': currentSlide != null },
+          { 'slider--left': !escapeLeft || currentSlide != null},
+          { 'slider--right': !escapeRight || currentSlide != null }
           )}>
           <div 
             // ref={containerRef} 
