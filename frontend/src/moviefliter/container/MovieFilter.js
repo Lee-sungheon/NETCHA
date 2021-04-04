@@ -12,7 +12,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from "react-redux";
-import { actions } from "../../home/state";
+import { actions } from "../state";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import GanreFilter from "../component/GanreFilter.js";
 import CountryFilter from "../component/CountryFilter.js";
@@ -63,10 +63,10 @@ export default function MovieFilter() {
   const [ganreText, setGanreText] = useState("장르");
   const [filterList, setFilterList] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
-  const movieLists = useSelector((state) => state.home.movieLists);
-  const isInfinite = useSelector((state) => state.home.isInfinite);
-  const isLoading = useSelector((state) => state.home.isLoading);
-  const isInfiniteEnd = useSelector((state) => state.home.infiniteEnd);
+  const movieLists = useSelector((state) => state.filter.movieLists);
+  const isInfinite = useSelector((state) => state.filter.isInfinite);
+  const isLoading = useSelector((state) => state.filter.isLoading);
+  const isInfiniteEnd = useSelector((state) => state.filter.infiniteEnd);
   const user = useSelector(state => state.user.userData.member)
   const dispatch = useDispatch();
 
