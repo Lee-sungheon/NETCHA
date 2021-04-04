@@ -6,7 +6,8 @@ import MovieRanking from "../../components/movies/MovieRanking";
 
 const MovieRankingContainer = ({title}) => {
   const dispatch = useDispatch();
-  const { movies, error, loading } = useSelector(({ netchaRankingMovies, loading }) => ({
+  const { user, movies, error, loading } = useSelector(({ user, netchaRankingMovies, loading }) => ({
+    user: user.user,
     movies: netchaRankingMovies.movies,
     error: netchaRankingMovies.error,
     loading: loading["netchaRankingMovies/NETCHA_RANKING_MOVIES"],
@@ -16,7 +17,7 @@ const MovieRankingContainer = ({title}) => {
   }, [dispatch]);
 
   return (
-    <MovieRanking title={title} loading={loading} error={error} movies={movies} />
+    <MovieRanking user={user} title={title} loading={loading} error={error} movies={movies} />
   );
 };
 
