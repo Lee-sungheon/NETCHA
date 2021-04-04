@@ -13,11 +13,11 @@ const NewMovieContainer = ({title}) => {
     loading: loading["newMovies/LIST_NEW_MOVIES"],
   }));
   useEffect(() => {
-    dispatch(listNewMovies());
+    dispatch(listNewMovies(user ? user.userId : -1));
   }, [dispatch]);
 
   return (
-    <MovieRanking user={user} title={title} loading={loading} error={error} movies={newMovies} />
+    <MovieRanking title={title} loading={loading} error={error} movies={newMovies} />
   );
 };
 
