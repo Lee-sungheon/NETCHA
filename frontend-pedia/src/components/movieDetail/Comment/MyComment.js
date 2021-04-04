@@ -16,7 +16,7 @@ const MyComment = ({ requestData, myCommentData, setMyCommentData }) => {
     } catch (e) {
       console.log(e);
     }
-    setMyCommentData({ content: '' });
+    setMyCommentData({ ...myCommentData, content: '' });
   };
 
   const onConfirm = async (e) => {
@@ -33,7 +33,6 @@ const MyComment = ({ requestData, myCommentData, setMyCommentData }) => {
   };
 
   const onCancel = () => {
-    onReset();
     setModal(false);
   };
 
@@ -62,6 +61,7 @@ const MyComment = ({ requestData, myCommentData, setMyCommentData }) => {
       <img
         src="/images/profileIcon.jpg"
         className="profileIconImg"
+        alt="profile"
         style={{
           width: '40px',
           borderRadius: '60%',
@@ -80,6 +80,7 @@ const MyComment = ({ requestData, myCommentData, setMyCommentData }) => {
       <CommentModal
         inputs={inputs}
         visible={modal}
+        myCommentData={myCommentData}
         onChange={onChange}
         onCancel={onCancel}
         onConfirm={onConfirm}

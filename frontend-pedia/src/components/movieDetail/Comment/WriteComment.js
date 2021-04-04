@@ -5,7 +5,7 @@ import * as commentApi from '../../../lib/api/comment';
 const WriteComment = ({ requestData, myCommentData, setMyCommentData }) => {
   const [modal, setModal] = useState(false);
   const [inputs, setInputs] = useState({
-    content: myCommentData.content,
+    content: myCommentData.content || '',
     // nickname: '',
   });
   const onWriteClick = () => {
@@ -21,7 +21,7 @@ const WriteComment = ({ requestData, myCommentData, setMyCommentData }) => {
     } catch (e) {
       console.log(e);
     }
-    setMyCommentData({ content: inputs.content });
+    setMyCommentData({ ...myCommentData, content: inputs.content });
   };
 
   const onCancel = () => {
@@ -40,7 +40,6 @@ const WriteComment = ({ requestData, myCommentData, setMyCommentData }) => {
   const onReset = () => {
     setInputs({
       content: '',
-      // nickname: '',
     });
   };
 
@@ -55,6 +54,7 @@ const WriteComment = ({ requestData, myCommentData, setMyCommentData }) => {
       <CommentModal
         inputs={inputs}
         visible={modal}
+        myCommentData={myCommentData}
         onChange={onChange}
         onCancel={onCancel}
         onConfirm={onConfirm}

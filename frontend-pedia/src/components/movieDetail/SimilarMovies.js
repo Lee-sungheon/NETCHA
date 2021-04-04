@@ -10,14 +10,13 @@ const SimilarMovies = ({ history, requestData }) => {
     try {
       const response = await moviesApi.listSimilarMovies({ ...requestData });
       setMovies(response.data);
-      console.log(response.data);
     } catch (e) {
       console.log(e);
     }
   };
 
   useEffect(() => {
-    if (requestData.userId && requestData.movieNo) getListMovies();
+    getListMovies();
   }, []);
 
   return (
@@ -25,6 +24,8 @@ const SimilarMovies = ({ history, requestData }) => {
       <div className="similarMovies">
         <div className="infoHeader">비슷한 작품</div>
         <div className="similarWrapper">
+          {!movies && <div className="spinner"></div>}
+
           {movies &&
             movies.map((movie, index) => {
               return (
@@ -33,7 +34,12 @@ const SimilarMovies = ({ history, requestData }) => {
                   onClick={() => history.push('/movieDetail/' + movie.no)}
                   key={index}
                 >
-                  <img src={movie.posterUrl} width="150px" height="200px" />
+                  <img
+                    alt="poster"
+                    src={movie.posterUrl}
+                    width="150px"
+                    height="200px"
+                  />
                   <div className="similarTitle">{movie.title}</div>
                   <div className="similarRank">평균 ★ {movie.avgRank}</div>
                 </div>

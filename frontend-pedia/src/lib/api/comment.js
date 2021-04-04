@@ -11,3 +11,13 @@ export const deleteComment = (formData) => {
 export const readComments = (formData) => {
   return client.get('/movie/review_list', { params: { ...formData } });
 };
+
+export const insertCommentLike = (formData) => {
+  return client.post('/movie/review_like_insert', formData);
+};
+
+export const deleteCommentLike = (formData) => {
+  return client.delete('/movie/review_like_delete', {
+    params: { ...formData },
+  });
+};
