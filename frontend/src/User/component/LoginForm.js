@@ -22,6 +22,11 @@ export default function LoginForm(props) {
           variant="filled"
           onChange={onUserIdHandler}
           className="login_div_textfield"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              login(e);
+            }
+          }}
         />
 
         <TextField
