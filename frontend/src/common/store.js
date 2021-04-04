@@ -3,6 +3,8 @@ import createSagaMiddleware from "redux-saga";
 import { all } from "@redux-saga/core/effects";
 import searchReducer from "../navbar/state";
 import searchSaga from "../navbar/state/saga";
+import filterReducer from "../moviefliter/state";
+import filterSaga from "../moviefliter/state/saga";
 import homeReducer from "../home/state";
 import homeSaga from "../home/state/saga";
 import likeReducer from "../likeList/state";
@@ -29,6 +31,7 @@ const reducer = combineReducers({
   like: likeReducer,
   evaluation: evaluationReducer,
   user: userReducer,
+  filter: filterReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
@@ -39,7 +42,7 @@ const store = createStore(
 );
 
 function* rootSaga() {
-  yield all([searchSaga(), homeSaga(), likeSaga(), evaluationSaga()]);
+  yield all([searchSaga(), homeSaga(), likeSaga(), evaluationSaga(), filterSaga()]);
 }
 sagaMiddleware.run(rootSaga);
 
