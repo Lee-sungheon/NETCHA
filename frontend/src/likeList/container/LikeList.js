@@ -52,11 +52,12 @@ export default function LikeList() {
   }, [])
   
   useEffect(() => {
-    repeat = []
+    repeat = [];
     for (let i=0 ; i<=movieLists.length/tabNo ; i++){
-      repeat.push(movieLists.slice(i*tabNo, (i+1)*tabNo))
+      repeat.push(movieLists.slice(i*tabNo, (i+1)*tabNo));
     }
-    setLikeList([...repeat])
+    setLikeList([...repeat]);
+    loadingPage = false;
   }, [movieLists, tabNo])
   
   function checkWindowInner() {

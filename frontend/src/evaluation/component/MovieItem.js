@@ -84,7 +84,6 @@ export default function MovieItem({ tile, pickNum, setPickNum }) {
   function onClick(e) {
     if (e.target.name !== "size-large") {
       if (tmpScore === score && isFinish) {
-        console.log(user.seq, tile.no);
         callApiDeleteEvaluation(user.seq, tile.no);
         setPickNum(pickNum - 1);
         setIsFinish(false);

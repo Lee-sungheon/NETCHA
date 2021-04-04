@@ -26,7 +26,7 @@ export default function SimilarMovie({ movie }) {
     }
   }
   useEffect(() => {
-    dispatch(actions.requestSimilarMovieList(movie.ganre[0], 0, user.seq));
+    dispatch(actions.requestSimilarMovieList(movie.no, user.seq));
   }, [])
   useEffect(() => {
     if (similarMovie.length > 3) {
