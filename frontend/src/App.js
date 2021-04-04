@@ -39,11 +39,11 @@ function App() {
   return (
     <BrowserRouter>
       <Provider store={store}>
-        {window.sessionStorage.getItem("token") ? (
+        {/* {window.sessionStorage.getItem("token") ? (
           <Redirect to="/" />
         ) : (
           <Redirect to="/login" />
-        )}
+        )} */}
         <PersistGate loading={null} persistor={persistor}>
           <div className={cx("App", { "App--toggle": toggleButton })}>
             {isHeader && window.sessionStorage.getItem("token") ? (
