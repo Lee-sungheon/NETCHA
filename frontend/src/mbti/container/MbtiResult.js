@@ -192,7 +192,7 @@ export default function MbtiResult(props) {
                 fontStyle: "none",
               }}
             >
-              <Link to="/" className={classes.mbti_button}>
+              <Link to="/home" className={classes.mbti_button}>
                 메인페이지로
               </Link>
             </div>
