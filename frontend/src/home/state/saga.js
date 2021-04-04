@@ -8,13 +8,11 @@ import {
   callApiGanreMovieList,
   callApiCountryMovieList,
   callApiKeywordMovieList,
-  callApiCountryGanreMovieList,
   callApiSimilarMovieList,
   callApiMbtiMovieList
 } from '../../common/api';
 
 export function* contentData(action) {
-  yield put(actions.setEnd(false));
   yield put(actions.setLoading(true));
   yield put(actions.setValue('error', ''));
   try {
@@ -28,50 +26,7 @@ export function* contentData(action) {
   yield put(actions.setLoading(false));
 } 
 
-export function* filterCountryData(action) {
-  yield put(actions.setEnd(false));
-  yield put(actions.setLoading(true));
-  try {
-    const data = yield call(callApiCountryMovieList, action.country, action.pageNum, action.userNo);
-    if (data !== undefined) {
-      yield put(actions.setIsFilter(true));
-      yield put(actions.setMovieList(data));
-    }
-  } catch(error) {
-  }
-  yield put(actions.setLoading(false));
-} 
-
-export function* filterGanreData(action) {
-  yield put(actions.setEnd(false));
-  yield put(actions.setLoading(true));
-  try {
-    const data = yield call(callApiGanreMovieList, action.ganre, action.pageNum, action.userNo);
-    if (data !== undefined) {
-      yield put(actions.setIsFilter(true));
-      yield put(actions.setMovieList(data));
-    }
-  } catch(error) {
-  }
-  yield put(actions.setLoading(false));
-} 
-
-export function* filterCountryGanreData(action) {
-  yield put(actions.setEnd(false));
-  yield put(actions.setLoading(true));
-  try {
-    const data = yield call(callApiCountryGanreMovieList, action.country, action.ganre, action.pageNum, action.userNo);
-    if (data !== undefined) {
-      yield put(actions.setIsFilter(true));
-      yield put(actions.setMovieList(data));
-    }
-  } catch(error) {
-  }
-  yield put(actions.setLoading(false));
-} 
-
 export function* newData(action) {
-  yield put(actions.setEnd(false));
   yield put(actions.setNewLoading(true));
   yield put(actions.setValue('error', ''));
   try {
@@ -86,7 +41,6 @@ export function* newData(action) {
 } 
 
 export function* popularData(action) {
-  yield put(actions.setEnd(false));
   yield put(actions.setPopularLoading(true));
   yield put(actions.setValue('error', ''));
   try {
@@ -101,7 +55,6 @@ export function* popularData(action) {
 } 
 
 export function* mbtiData(action) {
-  yield put(actions.setEnd(false));
   yield put(actions.setMbtiLoading(true));
   yield put(actions.setValue('error', ''));
   try {
@@ -116,7 +69,6 @@ export function* mbtiData(action) {
 } 
 
 export function* rankData(action) {
-  yield put(actions.setEnd(false));
   yield put(actions.setRankLoading(true));
   yield put(actions.setValue('error', ''));
   try {
@@ -128,10 +80,9 @@ export function* rankData(action) {
     yield put(actions.setValue('error', error));
   }
   yield put(actions.setRankLoading(false));
-} 
+}
 
 export function* ganreData(action) {
-  yield put(actions.setEnd(false));
   yield put(actions.setGanreLoading(true));
   yield put(actions.setValue('error', ''));
   try {
@@ -170,7 +121,6 @@ export function* ganreData3(action) {
 } 
 
 export function* countryData(action) {
-  yield put(actions.setEnd(false));
   yield put(actions.setCountryLoading(true));
   try {
     const data = yield call(callApiCountryMovieList, action.country, action.pageNum, action.userNo);
@@ -207,7 +157,6 @@ export function* countryData3(action) {
 } 
 
 export function* keywordData(action) {
-  yield put(actions.setEnd(false));
   yield put(actions.setKeywordLoading(true));
   try {
     const data = yield call(callApiKeywordMovieList, action.keyword, action.pageNum, action.userNo);
@@ -255,64 +204,6 @@ export function* similarData(action) {
   yield put(actions.setSimilarLoading(false));
 } 
 
-export function* addData(action) {
-  yield put(actions.setInfinite(true));
-  yield put(actions.setValue('error', ''));
-  try {
-    const data = yield call(callApiContentMovieList, action.pageNum, action.userNo);
-    if (data !== undefined) {
-      yield put(actions.addMovieList(data));
-    } else {
-      yield put(actions.setEnd(true));
-    }
-  } catch(error) {
-    yield put(actions.setValue('error', error));
-  }
-  yield put(actions.setInfinite(false));
-}
-
-export function* addCountryData(action) {
-  yield put(actions.setInfinite(true));
-  try {
-    const data = yield call(callApiCountryMovieList, action.country, action.pageNum, action.userNo);
-    if (data !== undefined) {
-      yield put(actions.addMovieList(data));
-    } else {
-      yield put(actions.setEnd(true));
-    }
-  } catch(error) {
-  }
-  yield put(actions.setInfinite(false));
-}
-
-export function* addGanreData(action) {
-  yield put(actions.setInfinite(true));
-  try {
-    const data = yield call(callApiGanreMovieList, action.ganre, action.pageNum, action.userNo);
-    if (data !== undefined) {
-      yield put(actions.addMovieList(data));
-    } else {
-      yield put(actions.setEnd(true));
-    }
-  } catch(error) {
-  }
-  yield put(actions.setInfinite(false));
-}
-
-export function* addCountryGanreData(action) {
-  yield put(actions.setInfinite(true));
-  try {
-    const data = yield call(callApiCountryGanreMovieList, action.country, action.ganre, action.pageNum, action.userNo);
-    if (data !== undefined) {
-      yield put(actions.addMovieList(data));
-    } else {
-      yield put(actions.setEnd(true));
-    }
-  } catch(error) {
-  }
-  yield put(actions.setInfinite(false));
-}
-
 export default function* () {
   yield all([
     takeLeading(types.REQUEST_MOVIELIST, contentData),
@@ -329,13 +220,6 @@ export default function* () {
     takeLeading(types.REQUEST_KEYWORDMOVIELIST, keywordData),
     takeLeading(types.REQUEST_KEYWORDMOVIELIST2, keywordData2),
     takeLeading(types.REQUEST_KEYWORDMOVIELIST3, keywordData3),
-    takeLeading(types.REQUEST_FILTERCOUNTRYMOVIELIST, filterCountryData),
-    takeLeading(types.REQUEST_FILTERGANREMOVIELIST, filterGanreData),
-    takeLeading(types.REQUEST_FILTERCOUNTRYGANREMOVIELIST, filterCountryGanreData),
     takeLeading(types.REQUEST_SIMILARMOVIELIST, similarData),
-    takeLeading(types.REQUEST_ADD_MOVIELIST, addData),
-    takeLeading(types.REQUEST_ADD_COUNTRYMOVIELIST, addCountryData),
-    takeLeading(types.REQUEST_ADD_GANREMOVIELIST, addGanreData),
-    takeLeading(types.REQUEST_ADD_COUNTRYGANREMOVIELIST, addCountryGanreData),
   ]);
 }

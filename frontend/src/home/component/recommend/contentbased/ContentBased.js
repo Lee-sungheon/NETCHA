@@ -6,14 +6,10 @@ import { actions } from "../../../state";
 export default function ContentBased({ loading, idx, user }) {
   const movieLists = useSelector((state) => state.home.movieLists);
   const isLoading = useSelector((state) => state.home.isLoading);
-  const isFilter = useSelector((state) => state.home.isFilter);
   const dispatch = useDispatch();
   useEffect(() => {
     if (movieLists.length === 0) {
       dispatch(actions.requestMovieList(0, user.seq));
-    } else if (isFilter) {
-      dispatch(actions.requestMovieList(0, user.seq));
-      dispatch(actions.setIsFilter(false));
     }
   }, []);
 

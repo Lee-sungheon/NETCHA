@@ -6,7 +6,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
 import { useDispatch } from 'react-redux';
-import { actions } from "../../home/state";
+import { actions } from "../state";
 
 const StyledMenu = withStyles({
   paper: {
