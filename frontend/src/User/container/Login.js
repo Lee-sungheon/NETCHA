@@ -8,7 +8,6 @@ import LoginSection from "../component/LoginSection";
 import Footer from "../../navbar/container/Footer";
 import "./Login.scss";
 
-
 export default function Login(props) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -63,9 +62,15 @@ export default function Login(props) {
   const login_ = (res) => {
     window.sessionStorage.setItem("userId", res.member.userId);
     window.sessionStorage.setItem("token", res.token);
-    history.push({
-      pathname: "/",
-    });
+    if (res.member.mbti) {
+      history.push({
+        pathname: "/home",
+      });
+    } else {
+      history.push({
+        pathname: "/mbti",
+      });
+    }
     alert("로그인되었습니다.");
   };
 

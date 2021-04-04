@@ -169,7 +169,7 @@ export default function SignupDetail(props) {
         }}
       >
         <header>
-          <Link to={"/"}>
+          <Link to={"/home"}>
             <img
               src={"../images/netcha.png"}
               style={{ height: "90px", marginRight: "10px" }}
