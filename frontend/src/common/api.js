@@ -29,7 +29,7 @@ export function callApiPopularMovieList(pageNum, userId) {
   return axios
     .get(url)
     .then((Response) => {
-      console.log(Response.data)
+      console.log(Response.data);
       return Response.data;
     })
     .catch((Error) => {
@@ -255,10 +255,10 @@ export function callApiEvaluation(userId) {
 }
 
 export function callApiMovieReview(movieNo, userId) {
-  const url = `netcha/movie/movie_detail?movieNo=${movieNo}&userId=${userId}`;
+  const url = `netcha/movie/review_list?movieNo=${movieNo}&userId=${userId}`;
   return axios.get(url)
     .then((Response)=>{
-      return Response.data.movie_review
+      return Response.data
     })
     .catch((Error)=>{console.log(Error)})
 }

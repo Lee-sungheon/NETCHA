@@ -207,6 +207,7 @@ const INITIAL_STATE = {
   isSimilarLoading: false,
   mbtiMovieLists: [],
   isMbtiLoading: false,
+  bufferTime: 0,
 };
 
 const reducer = createReducer(INITIAL_STATE, {
@@ -224,6 +225,7 @@ const reducer = createReducer(INITIAL_STATE, {
   [types.SET_POPULARMOVIELIST]: (state, action) => {
     state.popularMovieLists = action.data
   },
+  [types.SET_POPULARLOADING]: (state, action) => (state.isPopularLoading = action.isPopularLoading),
   // MBTI 영화
   [types.SET_MBTIMOVIELIST]: (state, action) => {
     state.mbtiMovieLists = action.data

@@ -50,6 +50,7 @@
       "react-app/jest"
     ]
   },
+  "homepage": "https://netcha.netlify.app/",
   "browserslist": {
     "production": [
       ">0.2%",

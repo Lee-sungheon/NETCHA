@@ -11,9 +11,10 @@ import CheckIcon from '@material-ui/icons/Check';
 import { callApiRequestZzim, callApiDeleteZzim, callApiLike } from '../../../common/api';
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../../../navbar/state";
+import { likeactions } from "../../../likeList/state";
 
 
-export default function Buttons({ movie, onSelectSlide }) {
+export default function Buttons({ movie, onSelectSlide, isdetail, setIsdetail }) {
   const [ isLike, setIsLike ] = useState(movie.userDidLike);
   const [ isZzim, setIsZzim ] = useState(movie.userDidZzim);
   const user = useSelector(state => state.user.userData.member);
@@ -45,6 +46,7 @@ export default function Buttons({ movie, onSelectSlide }) {
     else {
       callApiDeleteZzim(user.seq, movie.no);
       dispatch(actions.setIsZzim(movie.no, false));
+      dispatch(likeactions.deleteLike(movie.no));
       setIsZzim(!isZzim);
     }
   }
@@ -69,6 +71,10 @@ export default function Buttons({ movie, onSelectSlide }) {
       dispatch(actions.setIsLike(movie.no, 0));
       setIsLike(0);
     }
+  }
+  function onClick() {
+    setIsdetail(!isdetail);
+    onSelectSlide(movie);
   }
 
   return (
@@ -98,7 +104,7 @@ export default function Buttons({ movie, onSelectSlide }) {
         className='common-button' 
         onClick={toggleDislike}
       />}
-      <ExpandMoreIcon className='end-button' onClick={() => onSelectSlide(movie)} />
+      <ExpandMoreIcon className='end-button' onClick={onClick} />
     </div>
   )
 };
