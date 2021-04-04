@@ -914,17 +914,20 @@ public class MovieService {
 		case 5:
 			for(MovieRank mr : ranks) {
 				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
+				if(movie.getKeywords().equals("")) continue;
 				Map<String, Integer> map = findFavor(movie, ord);
 				map.forEach((k,v) -> favorKeyword.merge(k, v, (v1, v2) -> v1+v2));
 			}
 			for(MovieLike mr : likes) {
 				if(mr.getLikeHate() < 0) continue;
 				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
+				if(movie.getKeywords().equals("")) continue;
 				Map<String, Integer> map = findFavor(movie, ord);
 				map.forEach((k,v) -> favorKeyword.merge(k, v, (v1, v2) -> v1+v2));
 			}
 			for(MovieZzim mr : zzims) {
 				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
+				if(movie.getKeywords().equals("")) continue;
 				Map<String, Integer> map = findFavor(movie, ord);
 				map.forEach((k,v) -> favorKeyword.merge(k, v, (v1, v2) -> v1+v2));
 			}
@@ -977,7 +980,7 @@ public class MovieService {
 			for(int i=0; i<size; i++) {
 				Entry<String, Integer> entry = list_entry.get(i);
 				result.add(entry.getKey());
-				count.add(entry.getValue());
+				count.add(entry.getValue()/3);
 			}
 			answer.put("country", result);
 			answer.put("count", count);
@@ -996,7 +999,7 @@ public class MovieService {
 			for(int i=0; i<size; i++) {
 				Entry<String, Integer> entry = list_entry.get(i);
 				result.add(entry.getKey());
-				count.add(entry.getValue());
+				count.add(entry.getValue()/3);
 			}
 			answer.put("ganre", result);
 			answer.put("count", count);
@@ -1076,6 +1079,25 @@ public class MovieService {
 		case 5: return favorKeyword;
 		}
 		return null;
+	}
+	
+	// 사용자 평점 리스트
+	@Transactional
+	public Map<Float, Integer> getRankByUser(int userId) {
+		List<MovieRank> ranks = movieRankRepository.findAllByMemberSeq(userId);
+		Map<Float, Integer> userRank = new HashMap<Float, Integer>();
+		userRank.put((float)0.5, 0);
+		userRank.put((float)1, 0);
+		userRank.put((float)1.5, 0);
+		userRank.put((float)2, 0);
+		userRank.put((float)2.5, 0);
+		userRank.put((float)3, 0);
+		userRank.put((float)3.5, 0);
+		userRank.put((float)4, 0);
+		userRank.put((float)4.5, 0);
+		userRank.put((float)5, 0);
+		for(MovieRank rank : ranks) userRank.put(rank.getRanking(), userRank.get(rank.getRanking()) + 1);
+		return userRank;
 	}
 	
 	public void test() {

@@ -146,6 +146,7 @@ public class MovieController {
 		long movieNo = Long.parseLong(param.get("movieNo"));
 		float ranking = Float.parseFloat(param.get("ranking"));
 		movieService.updateRank(userId, movieNo, ranking);
+		System.out.println("평점 매기기");
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
@@ -153,6 +154,7 @@ public class MovieController {
 	@DeleteMapping("/rank_delete")
 	public ResponseEntity<?> deleteRank(@RequestParam long userId, @RequestParam long movieNo) {
 		movieService.deleteRank((int)userId, movieNo);
+		System.out.println("평점 삭제");
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
@@ -176,6 +178,7 @@ public class MovieController {
 	@GetMapping("/rank_count")
 	public ResponseEntity<?> getCountRanking(@RequestParam long userId) {
 		int count = movieService.getCntByRank((int)userId);
+		System.out.println("평가한 영화 개수 : "+count);
 		return new ResponseEntity<>(count, HttpStatus.OK);
 	}
 	
@@ -188,6 +191,7 @@ public class MovieController {
 		long movieNo = Long.parseLong(param.get("movieNo"));
 		long like = Long.parseLong(param.get("like"));
 		movieService.updateLike(userId, movieNo, like);
+		System.out.println("좋아요 : "+like);
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
@@ -199,6 +203,7 @@ public class MovieController {
 		int userId = Integer.parseInt(param.get("userId"));
 		long movieNo = Long.parseLong(param.get("movieNo"));
 		movieService.updateZzim(userId, movieNo);
+		System.out.println("찜하기");
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
@@ -206,6 +211,7 @@ public class MovieController {
 	@DeleteMapping("/zzim_delete")
 	public ResponseEntity<?> deleteZzim(@RequestParam long userId, @RequestParam long movieNo) {
 		movieService.deleteZzim((int)userId, movieNo);
+		System.out.println("찜하기 취소");
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
@@ -226,6 +232,7 @@ public class MovieController {
 		long movieNo = Long.parseLong(param.get("movieNo"));
 		String content = param.get("content");
 		movieService.insertReview(userId, movieNo, content);
+		System.out.println("리뷰 달기");
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
@@ -236,6 +243,7 @@ public class MovieController {
 		long movieNo = Long.parseLong(param.get("movieNo"));
 		String content = param.get("content");
 		movieService.updateReview(userId, movieNo, content);
+		System.out.println("리뷰 수정");
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
@@ -243,6 +251,7 @@ public class MovieController {
 	@DeleteMapping("/review_delete")
 	public ResponseEntity<?> deleteReview(@RequestParam long userId, @RequestParam long movieNo) {
 		movieService.deleteReview((int)userId, movieNo);
+		System.out.println("리뷰 삭제");
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
@@ -252,6 +261,7 @@ public class MovieController {
 		int userId = Integer.parseInt(param.get("userId"));
 		long reviewNo = Long.parseLong(param.get("reviewNo"));
 		movieService.insertReviewLike(userId, reviewNo);
+		System.out.println("리뷰 좋아요");
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
@@ -259,6 +269,7 @@ public class MovieController {
 	@DeleteMapping("/review_like_delete")
 	public ResponseEntity<?> insertReviewLike(@RequestParam long userId, @RequestParam long reviewNo) {
 		movieService.deleteReviewLike((int)userId, reviewNo);
+		System.out.println("리뷰 좋아요 취소");
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
@@ -266,6 +277,7 @@ public class MovieController {
 	@GetMapping("/review_list")
 	public ResponseEntity<?> getListReview(@RequestParam long userId, @RequestParam long movieNo) {
 		List<MovieReviewDto> result = movieService.listReview((int)userId, movieNo);
+		System.out.println("영화 리뷰 목록");
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
@@ -275,6 +287,7 @@ public class MovieController {
 	@GetMapping("/movie_detail")
 	public ResponseEntity<?> getMovieDetail(@RequestParam long userId, @RequestParam long movieNo) {
 		Map<String, Object> result = movieService.getMovieDetail((int)userId, movieNo);
+		System.out.println("영화 상세정보");
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
@@ -282,6 +295,7 @@ public class MovieController {
 	@GetMapping("/userFavor_director")
 	public ResponseEntity<?> getDirectorByUser(@RequestParam long userId) {
 		Map<String, Object> result = movieService.userFavor((int)userId, 1);
+		System.out.println("사용자 별 선호 영화 감독");
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
@@ -289,6 +303,7 @@ public class MovieController {
 	@GetMapping("/userFavor_cast")
 	public ResponseEntity<?> getCastByUser(@RequestParam long userId) {
 		Map<String, Object> result = movieService.userFavor((int)userId, 2);
+		System.out.println("사용자 별 선호 영화 배우");
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
@@ -296,6 +311,7 @@ public class MovieController {
 	@GetMapping("/userFavor_country")
 	public ResponseEntity<?> getCountryByUser(@RequestParam long userId) {
 		Map<String, Object> result = movieService.userFavor((int)userId, 3);
+		System.out.println("사용자 별 선호 영화 국가");
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
@@ -303,6 +319,7 @@ public class MovieController {
 	@GetMapping("/userFavor_ganre")
 	public ResponseEntity<?> getGanreByUser(@RequestParam long userId) {
 		Map<String, Object> result = movieService.userFavor((int)userId, 4);
+		System.out.println("사용자 별 선호 영화 장르");
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
@@ -310,12 +327,21 @@ public class MovieController {
 	@GetMapping("/userFavor_keyword")
 	public ResponseEntity<?> getKeywordByUser(@RequestParam long userId) {
 		Map<String, Object> result = movieService.userFavor((int)userId, 5);
+		System.out.println("사용자 별 선호 영화 키워드");
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
-	@GetMapping("/test")
-	public ResponseEntity<?> test() {
-		movieService.test();
-		return new ResponseEntity<>("", HttpStatus.OK);
+	@ApiOperation(value = "사용자의 영화 평점 현황 (0.5 ~ 5)", notes = "입력값 : userId(유저고유번호)")
+	@GetMapping("/rank_user")
+	public ResponseEntity<?> getRankByUser(@RequestParam long userId) {
+		Map<Float, Integer> result = movieService.getRankByUser((int)userId);
+		System.out.println("사용자 영화 평점 현황");
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
+	
+//	@GetMapping("/test")
+//	public ResponseEntity<?> test() {
+//		movieService.test();
+//		return new ResponseEntity<>("", HttpStatus.OK);
+//	}
 }
