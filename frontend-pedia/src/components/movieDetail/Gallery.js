@@ -16,9 +16,9 @@ const Gallery = ({ imgs }) => {
     <div className="gallery">
       <div className="infoHeader">갤러리</div>
       <Slider {...settings}>
-        {imgs.map((img) => (
-          <div className="Slider" key={img.id}>
-            <img width="125px" height="94px" src={img.url}></img>
+        {imgs.map((img, index) => (
+          <div className="Slider" key={index}>
+            <img width="140px" height="100px" src={img}></img>
           </div>
         ))}
       </Slider>

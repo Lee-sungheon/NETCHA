@@ -1,0 +1,19 @@
+.similarBlock {
+  width: 150px;
+  margin-top: 20px;
+  display: inline-block;
+  flex-direction: column;
+  margin-right: 30px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.similarBlock:nth-child(3n + 1) {
+  margin-left: 30px;
+}
+
+.similarTitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
