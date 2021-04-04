@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cx from 'classnames';
 import MovieListContext from './context'
 import './MovieItem.scss'
@@ -7,13 +7,20 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Buttons from '../../../home/component/slider/Buttons';
+import ReactHlsPlayer from "react-hls-player";
 
-
+let timer = null;
 export default function MovieItem({ movie, idx }) {
+  const [ isHover, setIsHover ] = useState(false);
   return (
     <MovieListContext.Consumer>
       {function Itemsetup({ onSelectSlide, currentSlide, elementRef, num, setEscapeLeft, setEscapeRight, escapeLeft, escapeRight }) {
-        function onMouse(e) {
+        function onMouse() {
+          if (!isHover){
+            timer = setTimeout(function() {
+              setIsHover(true)
+            }, 1000);
+          }
           if (idx % num === 0 && !escapeLeft) {
             setEscapeLeft(true)
           } else {
@@ -25,7 +32,9 @@ export default function MovieItem({ movie, idx }) {
             setEscapeRight(false)
           }
         }
-        function onMouseLeave(e) {
+        function onMouseLeave() {
+          setIsHover(false);
+          clearTimeout(timer);
         }
         const isActive = currentSlide && currentSlide.no === movie.no;
         return (
@@ -39,11 +48,27 @@ export default function MovieItem({ movie, idx }) {
             <Card style={isActive === true ? {border: 'solid 2px white'}:{}} >
               <CardActionArea style={{zIndex: 5}}>
                 <div className='movie-image-box'>
-                  <CardMedia
+                  {!isHover && <CardMedia
                     component="img"
                     image={ movie.imageUrl[0] !== 'default' ? movie.imageUrl[0] : "/images/netchar2.png" }
                     className='movie-image-style'
-                  />
+                  />}
+                  {isHover && <ReactHlsPlayer
+                    id="player"
+                    src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+                    autoPlay={true}
+                    muted
+                    width="100%"
+                    style={{
+                      position: 'absolute',
+                      zIndex: "1",
+                      top: 0,
+                      left: 0,
+                    }}
+                    hlsConfig={{
+                      startPosition: 0,
+                    }}
+                  ></ReactHlsPlayer>}
                 </div>
               </CardActionArea>
               <CardContent className="movie-show-card-content" style={{paddingBottom: '10px'}}>

@@ -24,7 +24,7 @@ public class MovieResponseDto {
 	private String[] imageUrl;
 	private long totalView;
 	private float avgRank;
-	private boolean userDidRank;
+	private float userDidRank;
 	private int userDidLike;
 	private boolean userDidZzim;
 	
@@ -47,12 +47,12 @@ public class MovieResponseDto {
 		this.imageUrl = movie.getImageUrl().split(",");
 		this.totalView = movie.getTotalView();
 		this.avgRank = movie.getAvgRank();
-		this.userDidRank = false;
+		this.userDidRank = 0;
 		this.userDidLike = 0;
 		this.userDidZzim = false;
 	}
 	
-	public void userInfo(boolean isR, int isL, boolean isZ) {
+	public void userInfo(float isR, int isL, boolean isZ) {
 		this.userDidRank = isR;
 		this.userDidLike = isL;
 		this.userDidZzim = isZ;

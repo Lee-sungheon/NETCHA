@@ -63,6 +63,7 @@ export default function MovieFilter() {
   const [ganreText, setGanreText] = useState("장르");
   const [filterList, setFilterList] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
+  const homeMovieLists = useSelector((state) => state.home.movieLists);
   const movieLists = useSelector((state) => state.filter.movieLists);
   const isInfinite = useSelector((state) => state.filter.isInfinite);
   const isLoading = useSelector((state) => state.filter.isLoading);
@@ -102,7 +103,11 @@ export default function MovieFilter() {
     }
     checkWindowInner();
     if (movieLists.length === 0 && filterText === "추천 콘텐츠"){
-      dispatch(actions.requestMovieList(0, user.seq));
+      if (homeMovieLists.length > 0) {
+        dispatch(actions.setMovieList(homeMovieLists));
+      } else{
+        dispatch(actions.requestMovieList(0, user.seq));
+      }
     }
     pageNum = movieLists.length / 40;
     window.addEventListener("resize", function () {
