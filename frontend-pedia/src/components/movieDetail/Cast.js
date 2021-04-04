@@ -22,8 +22,8 @@ const ActorList = ({ actors }) => {
         <div className="actorWrapper" key={index}>
           <div className="actorImage"></div>
           <div className="actorBlock">
-            <div className="actorName">{actor.name}</div>
-            <div className="actorRole">{actor.role}</div>
+            <div className="actorName">{actor}</div>
+            <div className="actorRole">출연자</div>
           </div>
         </div>
       ))}

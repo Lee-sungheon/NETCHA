@@ -17,88 +17,105 @@ import MyComment from '../../components/movieDetail/Comment/MyComment';
 
 const MovieDetailContainer = ({ match }) => {
   // 처음 마운트될 때 무비 읽기 API 요청
-  const { movieId } = match.params;
+  const { movieNo } = match.params;
   const dispatch = useDispatch();
-  const { movie, user, error, loading } = useSelector(
+  const [rankData, setRankData] = useState({ ranking: 0 });
+  const [zzimData, setZzimData] = useState({ isZzim: false });
+  const [myCommentData, setMyCommentData] = useState({ content: '' });
+
+  const { movie, user, requestData, error, loading } = useSelector(
     ({ movie, user, loading }) => ({
       movie: movie.movie,
       error: movie.error,
       user: user.user,
+      requestData: {
+        movieNo: match.params.movieNo,
+        userId: user.user.userId,
+      },
       loading: loading['movie/READ_MOVIE'],
     })
   );
-
   useEffect(() => {
-    dispatch(readMovie(movieId));
+    if (requestData.movieNo && requestData.userId)
+      dispatch(readMovie(requestData));
     // 언마운트될 때 리덕스에서 포스트 데이터 없애기
     return () => {
       dispatch(unloadMovie());
     };
-  }, [dispatch, movieId]);
+  }, [dispatch, movieNo]);
 
-  const [rankData, setRankData] = useState({
-    userId: 1,
-    movieNo: 1,
-    ranking: null,
-  });
+  useEffect(() => {
+    if (movie) {
+      setRankData({ ranking: movie.user_rank });
+      setZzimData({ isZzim: movie.movie_info.userDidZzim });
+    }
+  }, [movie]);
 
-  const [zzimData, setZzimData] = useState({
-    userId: 1,
-    movieNo: 1,
-    isZzim: false,
-  });
+  // ranking: null,
+  // isZzim: false,
+  // content: '',
 
-  const [commentData, setCommentData] = useState({
-    userId: 1,
-    movieNo: 1,
-    content: '',
-  });
   return (
-    <div className="movieDetail">
-      <div className="headerWrapper">
-        {/* 영화 이미지, 포스터, 제목, 장르 별점 */}
-        <MovieHeader
-          movie={movie}
-          rankData={rankData}
-          setRankData={setRankData}
-          zzimData={zzimData}
-          setZzimData={setZzimData}
-          loading={loading}
-          error={error}
-        />
-      </div>
-      <div className="contentWrapper">
-        <div className="contentBox">
-          {!commentData.content && !!rankData.ranking && (
-            <div className="commentWrapper">
-              <WriteComment
-                commentData={commentData}
-                setCommentData={setCommentData}
-              />
-            </div>
-          )}
-          {commentData.content && (
-            <div className="myCommentWrapper">
-              <MyComment
-                commentData={commentData}
-                setCommentData={setCommentData}
-              />
-            </div>
-          )}
-          <div className="sideBlock">
-            <Gallery imgs={imgs} />
-            <Video />
+    <>
+      {movie && (
+        <div className="movieDetail">
+          <div className="headerWrapper">
+            {/* 영화 이미지, 포스터, 제목, 장르 별점 */}
+            <MovieHeader
+              movie={movie}
+              rankData={rankData}
+              requestData={requestData}
+              setRankData={setRankData}
+              zzimData={zzimData}
+              setZzimData={setZzimData}
+              loading={loading}
+              error={error}
+            />
           </div>
-          <div className="contentBlock">
-            <BasicInfo movie={movie} loading={loading} error={error} />
-            <Cast actors={actors} />
-            <StarGraph />
-            <Comment />
-            <SimilarMovies />
+          <div className="contentWrapper">
+            <div className="contentBox">
+              {!myCommentData.content &&
+                rankData.ranking !== -1 &&
+                rankData.ranking !== 0 && (
+                  <div className="commentWrapper">
+                    <WriteComment
+                      requestData={requestData}
+                      myCommentData={myCommentData}
+                      setMyCommentData={setMyCommentData}
+                    />
+                  </div>
+                )}
+              {myCommentData.content && (
+                <div className="myCommentWrapper">
+                  <MyComment
+                    requestData={requestData}
+                    myCommentData={myCommentData}
+                    setMyCommentData={setMyCommentData}
+                  />
+                </div>
+              )}
+              <div className="sideBlock">
+                <Gallery imgs={movie.movie_info.imageUrl} />
+                <Video />
+              </div>
+              <div className="contentBlock">
+                <BasicInfo movie={movie} loading={loading} error={error} />
+                <Cast actors={movie.movie_info.casts} />
+                <StarGraph
+                  movieRank={movie.movie_rank}
+                  avgRank={movie.movie_info.avgRank}
+                />
+                <Comment
+                  requestData={requestData}
+                  myCommentData={myCommentData}
+                />
+                <SimilarMovies requestData={requestData} />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

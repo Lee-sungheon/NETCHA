@@ -7,3 +7,7 @@ export const insertComment = (formData) => {
 export const deleteComment = (formData) => {
   return client.delete('/movie/review_delete', { params: { ...formData } });
 };
+
+export const readComments = (formData) => {
+  return client.get('/movie/review_list', { params: { ...formData } });
+};

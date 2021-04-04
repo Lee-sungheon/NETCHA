@@ -5,31 +5,31 @@ import { useState } from 'react';
 import CommentModal from './CommentModal';
 import * as commentApi from '../../../lib/api/comment';
 
-const MyComment = ({ commentData, setCommentData }) => {
+const MyComment = ({ requestData, myCommentData, setMyCommentData }) => {
   const [modal, setModal] = useState(false);
   const onWriteClick = () => {
     setModal(true);
   };
-  const onDeleteClick = async (e) => {
+  const onDeleteClick = async () => {
     try {
-      commentApi.deleteComment(commentData);
+      await commentApi.deleteComment({ ...requestData });
     } catch (e) {
       console.log(e);
     }
-    setCommentData({ ...commentData, content: '' });
+    setMyCommentData({ content: '' });
   };
 
   const onConfirm = async (e) => {
     if (inputs.content.trim()) setModal(false);
     try {
       await commentApi.insertComment({
-        ...commentData,
+        ...requestData,
         content: inputs.content,
       });
     } catch (e) {
       console.log(e);
     }
-    setCommentData({ ...commentData, content: inputs.content });
+    setMyCommentData({ content: inputs.content });
   };
 
   const onCancel = () => {
@@ -38,7 +38,7 @@ const MyComment = ({ commentData, setCommentData }) => {
   };
 
   const [inputs, setInputs] = useState({
-    content: commentData.content,
+    content: myCommentData.content,
     // nickname: '',
   });
 
@@ -68,7 +68,7 @@ const MyComment = ({ commentData, setCommentData }) => {
           border: '1px solid #e6e6e6',
         }}
       />
-      <div className="content">{commentData.content}</div>
+      <div className="content">{myCommentData.content}</div>
       <div className="modify">
         <button onClick={() => onDeleteClick()}>
           <DeleteForeverOutlinedIcon className="delete" /> 삭제

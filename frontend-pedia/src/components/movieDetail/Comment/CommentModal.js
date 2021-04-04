@@ -18,7 +18,11 @@ const CommentModal = ({ visible, inputs, onCancel, onConfirm, onChange }) => {
             <button
               type="submit"
               onClick={onConfirm}
-              className={content.trim() ? 'registerButton' : 'unregisterButton'}
+              className={
+                content && content.trim()
+                  ? 'registerButton'
+                  : 'unregisterButton'
+              }
             >
               코멘트 작성
             </button>
