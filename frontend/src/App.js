@@ -39,11 +39,6 @@ function App() {
   return (
     <BrowserRouter>
       <Provider store={store}>
-        {window.sessionStorage.getItem("token") ? (
-          <Redirect to="/" />
-        ) : (
-          <Redirect to="/login" />
-        )}
         <PersistGate loading={null} persistor={persistor}>
           <div className={cx("App", { "App--toggle": toggleButton })}>
             {isHeader && window.sessionStorage.getItem("token") ? (
@@ -52,6 +47,14 @@ function App() {
                 setToggleButton={setToggleButton}
               />
             ) : null}
+            <Route exact path="/">
+              {window.sessionStorage.getItem("token") ? (
+                <Redirect to="/home" />
+              ) : (
+                <Redirect to="/login" />
+              )}
+              <Login toggleIsHeader={toggleIsHeader} />
+            </Route>
             <Route path="/login">
               <Login toggleIsHeader={toggleIsHeader} />
             </Route>
@@ -59,11 +62,11 @@ function App() {
               <Signup toggleIsHeader={toggleIsHeader} />
             </Route>
             <Switch>
-              <Route exact path="/" component={Home} />
+              <Route path="/home" component={Home} />
               <Route path="/movielist">
                 <MovieFilter />
               </Route>
-              <Route path="/search" component={SearchList}/>
+              <Route path="/search" component={SearchList} />
               <Route path="/mylike">
                 <LikeList />
               </Route>

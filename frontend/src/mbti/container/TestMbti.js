@@ -145,7 +145,7 @@ export default function TestMBTI(props) {
       <div className={classes.mbti_back}>
         <div className={classes.mbti_page}>
           <header>
-            <Link to={"/"}>
+            <Link to={"/home"}>
               <img
                 src={"../images/netcha.png"}
                 style={{ height: "90px", marginRight: "10px" }}
