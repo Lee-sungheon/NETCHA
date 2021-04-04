@@ -26,18 +26,19 @@ export function* setUserSaga() {
 
 const checkSaga = createRequestSaga(CHECK, authAPI.check);
 
-export function* userSaga() {
-  yield takeLatest(CHECK, checkSaga);
-}
-
-export function* logoutSaga() {
+function* logoutSaga() {
   try {
-    yield call(authAPI.logout);
     localStorage.removeItem('user');
+    yield call(authAPI.logout);
   } catch(e) {
     console.log(e);
   }
 }
+export function* userSaga() {
+  yield takeLatest(CHECK, checkSaga);
+  yield takeLatest(LOGOUT, logoutSaga);
+}
+
 
 const initialState = {
   user: null,

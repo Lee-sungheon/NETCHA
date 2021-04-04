@@ -16,7 +16,6 @@ const store = createStore(
 
 function loadUser() {
   try {
-    console.log('자동로그인');
     const user = JSON.parse(localStorage.getItem('user'));
     if(!user) return;
     // console.log('user!!!!!!')

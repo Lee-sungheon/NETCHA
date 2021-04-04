@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./LargeMovieSlider.scss";
 import { useHistory } from "react-router";
 
-export default function LargeMovieSlider({ movies, title }) {
+export default function LargeMovieSlider({ user, movies, title }) {
   
   var settings = {
     dots: false,
@@ -61,8 +61,8 @@ export default function LargeMovieSlider({ movies, title }) {
                       className="image"
                       // onClick={goToMovieDetail(movie.title)}
                       alt={movie.title}
-                      src={movie.posterUrl}
-                      onClick={() => history.push(`/movieDetail/${movie.id}`)}
+                      src={movie.posterUrl === "default" ? "../../images/defaultPoster.png" : movie.posterUrl}
+                      onClick={() => history.push(`/movieDetail/${movie.no}`)}
                     />
                     <div className="rankingNumber">{index+1}</div>
                     <div className="movieInfo">
@@ -70,7 +70,7 @@ export default function LargeMovieSlider({ movies, title }) {
                       <div className="movieDate">{movie.open.split('-')[0]} · {movie.country}</div>
                       <div className="movieRate">
                         <span className="movieScore">평점</span>
-                        <span className="movieScore">&nbsp;★5</span>
+                        <span className="movieScore">&nbsp;★{movie.avgRank === 0 ? 4.2 : movie.avgRank}</span>
                       </div>
                     </div>
                   </div>
