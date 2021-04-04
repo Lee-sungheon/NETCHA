@@ -40,6 +40,11 @@ export const countRatingMovies = (userId) => {
   return client.get(`/movie/rank_count?pageNum=0&userId=${userId}`);
 };
 
+// 해당 영화와 비슷한 영화 목록
+export const listSimilarMovies = (formData) => {
+  return client.get(`/movie/list_similar`, { params: { ...formData } });
+};
+
 // 사용자페이지 찜한 영화 목록
 export const listZzimMovies = (userId) => {
   console.log('listZzimMovies ' + userId);
@@ -47,28 +52,37 @@ export const listZzimMovies = (userId) => {
   return client.get(`/movie/zzim_list?pageNum=0&userId=${userId}`);
 };
 
-// 헤더 검색한 영화 자동완성
-export const listAutoCompletesMovies = (keyword) => {
-  if (!keyword || keyword.length === 0) return { data: [] };
-
-  const titles = new Set();
-  movies_title.forEach((title) => {
-    var titleArray = title.split('');
-    var keywordArray = keyword.split('');
-    titleArray.forEach((c) => {
-      keywordArray.forEach((k) => {
-        if (k === c) {
-          titles.add(title);
-        }
-      });
-    });
-  });
-  // return client.get(`/movie/listautoCompletesMovies?${keyword}`);
-  return { data: Array.from(titles) };
+export const updateZzimMovies = (zzimData) => {
+  return client.post('movie/zzim_update', zzimData);
+};
+export const deleteZzimMovies = (zzimData) => {
+  return client.post('movie/zzim_delete', zzimData);
 };
 
-const movie = {
-  data: { title: '미나리', movieNo: 1 },
+// 헤더 검색한 영화 자동완성
+export const listAutoCompletesMovies = (keyword) => {
+  if (!keyword || keyword.length == 0) return { data: [] };
+
+  const titles = new Set();
+  {
+    movies_title.map((title) => {
+      var titleArray = title.split('');
+      var keywordArray = keyword.split('');
+      {
+        titleArray.map((c) => {
+          {
+            keywordArray.map((k) => {
+              if (k === c) {
+                titles.add(title);
+              }
+            });
+          }
+        });
+      }
+    });
+  }
+  // return client.get(`/movie/listautoCompletesMovies?${keyword}`);
+  return { data: Array.from(titles) };
 };
 
 const movies_title = [
@@ -98,6 +112,13 @@ const movies = {
       country: '한국',
     },
     {
+      id: 2,
+      image: '/images/2.jpg',
+      title: '극장판 귀멸의 칼날 무한열차편',
+      year: '2021',
+      country: '한국',
+    },
+    {
       id: 3,
       image: '/images/3.jpg',
       title: '자산어보',
@@ -108,6 +129,13 @@ const movies = {
       id: 4,
       image: '/images/4.jpg',
       title: '미나리',
+      year: '2021',
+      country: '한국',
+    },
+    {
+      id: 5,
+      image: '/images/5.jpg',
+      title: '최면',
       year: '2021',
       country: '한국',
     },
