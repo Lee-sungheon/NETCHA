@@ -1,18 +1,21 @@
-const CountryAndGenreList = ({ data, error, loading }) => {
+const CountryList = ({ data, error, loading }) => {
   if (error) {
     return <h2>에러가 발생했습니다.</h2>;
   }
 
+  if (data) {
+    console.dir(data);
+  }
   return (
     <>
       {!loading && data && (
         <div className="gcWrap">
           <ul className="gcUl">
-            {data.map((data, index) => {
+            {data.country.map((country, index) => {
               return (
                 <li className="gcli" key={index}>
-                  <div className="gcBoldText">{data.name}</div>
-                  <div className="gcText">{data.count}편</div>
+                  <div className="gcBoldText">{country}</div>
+                  <div className="gcText">{data.count[index]}편</div>
                 </li>
               );
             })}
@@ -23,4 +26,4 @@ const CountryAndGenreList = ({ data, error, loading }) => {
   );
 };
 
-export default CountryAndGenreList;
+export default CountryList;

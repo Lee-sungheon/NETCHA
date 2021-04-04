@@ -1,17 +1,25 @@
-import React from "react";
-import { Link, useHistory } from "react-router-dom";
-import "./SearchMovieList.scss";
+import React, { useCallback, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import './SearchMovieList.scss';
 
 const MovieItem = ({ movie }) => {
-  const { image, title, year, country, id } = movie;
+  const { posterUrl, title, open, country, no } = movie;
   return (
-    <Link to={`/movieDetail/${id}`}>
+    <Link to={`/movieDetail/${no}`}>
       <div className="movieWrap">
-        <img className="moviePoster" src={image} alt={title} />
+        <img
+          className="moviePoster"
+          src={
+            posterUrl === 'default'
+              ? '../../images/defaultPoster.png'
+              : posterUrl
+          }
+          alt={title}
+        />
         <div className="movieInfo">
           <div className="movieTitle">{title}</div>
           <div className="movieInfo">
-            {year} · {country}
+            {open? open.split('-')[0] : ''} · {country}
           </div>
         </div>
         <hr />
@@ -20,33 +28,45 @@ const MovieItem = ({ movie }) => {
   );
 };
 
-const SearchMovieList = ({ loading, movies, error }) => {
+const SearchMovieList = ({ movies }) => {
   const history = useHistory();
 
-  if (error) {
-    return <h2>에러가 발생했습니다.</h2>;
-  }
+  // if (error) {
+  //   return <h2 style={{ paddingTop: '100px' }}>에러가 발생했습니다.</h2>;
+  // }
+
+
 
   return (
     <>
       <div className="searchMovieListWrap">
         <div className="movieHeaderWrap">
-          {/* <button className="beforeArrow" onClick={() => history.goBack(1)}> */}
           <button className="beforeArrow" onClick={() => history.goBack()}>
-            <img className="beforeArrowImage" src="/images/beforeArrow.png" alt="이전페이지" />
+            <img
+              className="beforeArrowImage"
+              src="/images/beforeArrow.png"
+              alt="이전페이지"
+            />
           </button>
           <div className="movieHeader">영화</div>
         </div>
         <hr />
         {/* 로딩 중이 아니고, 영화 리스트가 존재할 때만 보여준다.*/}
-        {!loading && movies && (
+        {/* {!loading && movies && ( */}
+        {movies && (
           <div className="movieListWrap">
-            {movies.map((movie) => {
-              return <MovieItem movie={movie} key={movie.id} />;
+            {movies.map((movie, index) => {
+              return <MovieItem movie={movie} key={index} />;
             })}
+            {/* <div ref={setTarget} className="last-item">
+              <Loader size="s" />
+            </div> */}
           </div>
         )}
       </div>
+      {/* <div>
+        <button onClick={fetchMoreData}>더보기</button>
+      </div> */}
     </>
   );
 };

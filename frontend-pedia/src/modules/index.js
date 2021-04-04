@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
 import movie, { movieSaga } from './movie';
 import loading from './loading';
-import searchMovies, { searchMoviesSaga } from './searchMovies';
+import searchMovies, { searchMoviesSaga, setPageSaga } from './searchMovies';
 import ratingMovies, { ratingMoviesSaga, ratingMoviescountSaga } from './ratingMovies';
 import zzimMovies, { zzimMoviesSaga } from './zzimMovies';
 import actors, { actorsSaga } from './actors';
@@ -39,6 +39,7 @@ export function* rootSaga() {
   yield all([
     movieSaga(), 
     searchMoviesSaga(), 
+    setPageSaga(),
     netchaRankingMoviesSaga(),
     ratingMoviesSaga(),
     ratingMoviescountSaga(),
