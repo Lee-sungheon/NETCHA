@@ -15,7 +15,7 @@ const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] = createRequestActionTypes(
 );
 const LOGOUT = "user/LOGOUT";
 
-export const setUser = createAction(SET_USER, (user) => user);
+export const setUser = createAction(SET_USER, ({userId, userName}) => ({userId, userName}));
 export const tempSetUser = createAction(TEMP_SET_USER, (user) => user);
 export const check = createAction(CHECK);
 export const logout = createAction(LOGOUT);
@@ -41,10 +41,6 @@ export function* logoutSaga() {
 
 const initialState = {
   user: null,
-  // user: {
-  //   userId: '내가바로아이디',
-  //   userName: '내가바로이름',
-  // },
   checkError: null,
 };
 
