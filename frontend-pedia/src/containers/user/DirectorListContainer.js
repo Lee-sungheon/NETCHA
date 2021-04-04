@@ -19,7 +19,7 @@ const DirectorListContainer = () => {
   }, [dispatch, userId]);
 
   return (
-    <ActorAndDirectorList data={directors} error={error} loading={loading} />
+    <ActorAndDirectorList data={directors? directors.director : null} error={error} loading={loading} />
   );
 };
 

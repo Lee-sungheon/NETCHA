@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router";
-import CountryAndGenreList from "../../components/user/CountryAndGenreList";
+import CountryList from "../../components/user/CountryList";
 import { listCountries } from "../../modules/countries";
 
 const CountryListContainer = () => {
@@ -17,7 +17,7 @@ const CountryListContainer = () => {
   }, [dispatch, userId]);
 
   return (
-    <CountryAndGenreList data={countries} error={error} loading={loading} />
+    <CountryList data={countries} error={error} loading={loading} />
   );
 };
 

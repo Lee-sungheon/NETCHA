@@ -13,11 +13,12 @@ const ActorListContainer = () => {
     loading: loading["actors/LIST_ACTORS"],
   }));
   useEffect(() => {
+    if (actors) return;
     dispatch(listActors({ userId }));
   }, [dispatch, userId]);
 
   return (
-    <PeopleList data={actors} error={error} loading={loading} />
+    <PeopleList data={actors? actors.cast : null} error={error} loading={loading} />
   );
 };
 
