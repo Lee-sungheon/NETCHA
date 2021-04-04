@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -634,6 +635,12 @@ public class MovieService {
 		return movies;
 	}
 	
+	// 사용자의 영화 평가 개수
+	@Transactional
+	public int getCntByRank(int userId) {
+		return movieRankRepository.findAllByMemberSeq(userId).size();
+	}
+	
 	// 좋아요/싫어요
 	@Transactional
 	public void updateLike(int userId, long movieNo, long like) {
@@ -753,7 +760,12 @@ public class MovieService {
 		for(MovieReview mr : movieReviews) {
 			MovieReviewDto mrd = new MovieReviewDto(mr);
 			MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, movieNo);
-			if(mr.getMember().getSeq() == userId) mrd.update(true, movieRank.getRanking());
+			MovieReviewLike movieLike = movieReviewLikeRepository.findByMemberSeqAndMovieReviewNo(userId, mr.getNo());
+			boolean mine = false;
+			boolean like = false;
+			if(mr.getMember().getSeq() == userId) mine = true;
+			if(movieLike != null) like = true; 
+			mrd.update(mine, like, movieRank.getRanking());
 			result.add(mrd);
 		}
 		return result;
@@ -765,17 +777,32 @@ public class MovieService {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		Movie movie = movieRepository.findById(movieNo).get();
-		result.put("movie_info", new MovieResponseDto(movie));
+		float mr = 0;
+		int ml = 0;
+		boolean mz = false;
 		
 		MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, movieNo);
-		if(movieRank == null) result.put("user_rank", -1);
-		else result.put("user_rank", movieRank.getRanking());
+		if(movieRank == null)
+			result.put("user_rank", -1);
+		else {
+			mr = movieRank.getRanking();
+			result.put("user_rank", movieRank.getRanking());
+		}
+		
+		MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, movie.getNo());
+		if(movieLike != null) ml = (int)movieLike.getLikeHate();
+		MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, movie.getNo());
+		if(movieZzim != null) mz = true;
 		
 		MovieReview movieReview = movieReviewRepository.findByMemberSeqAndMovieNo(userId, movieNo);
 		if(movieReview == null) result.put("user_review", null);
 		else result.put("user_review", movieReview.getContent());
 		
 		result.put("movie_review", listReview(userId, movieNo));
+
+		MovieResponseDto movieDto = new MovieResponseDto(movie);
+		movieDto.userInfo(mr, ml, mz);
+		result.put("movie_info", movieDto);
 		
 		List<MovieRank> ranks = movieRankRepository.findAllByMovieNo(movieNo);
 		Map<Float, Integer> userRank = new HashMap<Float, Integer>();
@@ -797,10 +824,253 @@ public class MovieService {
 		return result;
 	}
 	
-	// 사용자의 영화 평가 개수
+	// 사용자 선호 감독, 배우, 국가, 장르, 태그
 	@Transactional
-	public int getCntByRank(int userId) {
-		return movieRankRepository.findAllByMemberSeq(userId).size();
+	public Map<String, Object> userFavor(int userId, int ord) {
+		Map<String, Object> answer = new HashMap<String, Object>();
+		List<MovieRank> ranks = movieRankRepository.findAllByMemberSeq(userId);
+		List<MovieLike> likes = movieLikeRepository.findAllByMemberSeq(userId);
+		List<MovieZzim> zzims = movieZzimRepository.findAllByMemberSeq(userId);
+		
+		Map<String, Integer> favorDirector = new HashMap<String, Integer>();
+		Map<String, Integer> favorCast = new HashMap<String, Integer>();
+		Map<String, Integer> favorCountry = new HashMap<String, Integer>();
+		Map<String, Integer> favorGanre = new HashMap<String, Integer>();
+		Map<String, Integer> favorKeyword = new HashMap<String, Integer>();
+		
+		switch(ord) {
+		case 1:
+			for(MovieRank mr : ranks) {
+				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
+				Map<String, Integer> map = findFavor(movie, ord);
+				map.forEach((k,v) -> favorDirector.merge(k, v, (v1, v2) -> v1+v2));
+			}
+			for(MovieLike mr : likes) {
+				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
+				Map<String, Integer> map = findFavor(movie, ord);
+				map.forEach((k,v) -> favorDirector.merge(k, v, (v1, v2) -> v1+v2));
+			}
+			for(MovieZzim mr : zzims) {
+				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
+				Map<String, Integer> map = findFavor(movie, ord);
+				map.forEach((k,v) -> favorDirector.merge(k, v, (v1, v2) -> v1+v2));
+			}
+			break;
+		case 2:
+			for(MovieRank mr : ranks) {
+				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
+				Map<String, Integer> map = findFavor(movie, ord);
+				map.forEach((k,v) -> favorCast.merge(k, v, (v1, v2) -> v1+v2));
+			}
+			for(MovieLike mr : likes) {
+				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
+				Map<String, Integer> map = findFavor(movie, ord);
+				map.forEach((k,v) -> favorCast.merge(k, v, (v1, v2) -> v1+v2));
+			}
+			for(MovieZzim mr : zzims) {
+				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
+				Map<String, Integer> map = findFavor(movie, ord);
+				map.forEach((k,v) -> favorCast.merge(k, v, (v1, v2) -> v1+v2));
+			}
+			break;
+		case 3:
+			for(MovieRank mr : ranks) {
+				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
+				Map<String, Integer> map = findFavor(movie, ord);
+				map.forEach((k,v) -> favorCountry.merge(k, v, (v1, v2) -> v1+v2));
+			}
+			for(MovieLike mr : likes) {
+				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
+				Map<String, Integer> map = findFavor(movie, ord);
+				map.forEach((k,v) -> favorCountry.merge(k, v, (v1, v2) -> v1+v2));
+			}
+			for(MovieZzim mr : zzims) {
+				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
+				Map<String, Integer> map = findFavor(movie, ord);
+				map.forEach((k,v) -> favorCountry.merge(k, v, (v1, v2) -> v1+v2));
+			}
+			break;
+		case 4:
+			for(MovieRank mr : ranks) {
+				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
+				Map<String, Integer> map = findFavor(movie, ord);
+				map.forEach((k,v) -> favorGanre.merge(k, v, (v1, v2) -> v1+v2));
+			}
+			for(MovieLike mr : likes) {
+				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
+				Map<String, Integer> map = findFavor(movie, ord);
+				map.forEach((k,v) -> favorGanre.merge(k, v, (v1, v2) -> v1+v2));
+			}
+			for(MovieZzim mr : zzims) {
+				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
+				Map<String, Integer> map = findFavor(movie, ord);
+				map.forEach((k,v) -> favorGanre.merge(k, v, (v1, v2) -> v1+v2));
+			}
+			break;
+		case 5:
+			for(MovieRank mr : ranks) {
+				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
+				Map<String, Integer> map = findFavor(movie, ord);
+				map.forEach((k,v) -> favorKeyword.merge(k, v, (v1, v2) -> v1+v2));
+			}
+			for(MovieLike mr : likes) {
+				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
+				Map<String, Integer> map = findFavor(movie, ord);
+				map.forEach((k,v) -> favorKeyword.merge(k, v, (v1, v2) -> v1+v2));
+			}
+			for(MovieZzim mr : zzims) {
+				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
+				Map<String, Integer> map = findFavor(movie, ord);
+				map.forEach((k,v) -> favorKeyword.merge(k, v, (v1, v2) -> v1+v2));
+			}
+		}
+		List<String> result = new ArrayList<String>();
+		switch(ord) {
+		case 1: 
+			List<Entry<String, Integer>> list_entry = new ArrayList<Entry<String,Integer>>(favorDirector.entrySet());
+			Collections.sort(list_entry, new Comparator<Entry<String, Integer>>() {
+				@Override
+				public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
+					return o2.getValue().compareTo(o1.getValue());
+				}
+			});
+			int size = 9;
+			if(list_entry.size() < 9) size = list_entry.size();
+			for(int i=0; i<size; i++) {
+				Entry<String, Integer> entry = list_entry.get(i);
+				result.add(entry.getKey());
+			}
+			answer.put("director", result);
+			break;
+		case 2: 
+			list_entry = new ArrayList<Entry<String,Integer>>(favorCast.entrySet());
+			Collections.sort(list_entry, new Comparator<Entry<String, Integer>>() {
+				@Override
+				public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
+					return o2.getValue().compareTo(o1.getValue());
+				}
+			});
+			size = 9;
+			if(list_entry.size() < 9) size = list_entry.size();
+			for(int i=0; i<size; i++) {
+				Entry<String, Integer> entry = list_entry.get(i);
+				result.add(entry.getKey());
+			}
+			answer.put("cast", result);
+			break;
+		case 3: 
+			List<Long> count = new ArrayList<Long>();
+			list_entry = new ArrayList<Entry<String,Integer>>(favorCountry.entrySet());
+			Collections.sort(list_entry, new Comparator<Entry<String, Integer>>() {
+				@Override
+				public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
+					return o2.getValue().compareTo(o1.getValue());
+				}
+			});
+			size = 3;
+			if(list_entry.size() < 3) size = list_entry.size();
+			for(int i=0; i<size; i++) {
+				Entry<String, Integer> entry = list_entry.get(i);
+				count.add(movieRepository.countByCountryLike(entry.getKey()));
+				result.add(entry.getKey());
+			}
+			answer.put("country", result);
+			answer.put("count", count);
+			break;
+		case 4: 
+			count = new ArrayList<Long>();
+			list_entry = new ArrayList<Entry<String,Integer>>(favorGanre.entrySet());
+			Collections.sort(list_entry, new Comparator<Entry<String, Integer>>() {
+				@Override
+				public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
+					return o2.getValue().compareTo(o1.getValue());
+				}
+			});
+			size = 3;
+			if(list_entry.size() < 3) size = list_entry.size();
+			for(int i=0; i<size; i++) {
+				Entry<String, Integer> entry = list_entry.get(i);
+				count.add(movieRepository.countByGanreLike(entry.getKey()));
+				result.add(entry.getKey());
+			}
+			answer.put("ganre", result);
+			answer.put("count", count);
+			break;
+		case 5: 
+			list_entry = new ArrayList<Entry<String,Integer>>(favorCountry.entrySet());
+			Collections.sort(list_entry, new Comparator<Entry<String, Integer>>() {
+				@Override
+				public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
+					return o2.getValue().compareTo(o1.getValue());
+				}
+			});
+			size = 9;
+			if(list_entry.size() < 9) size = list_entry.size();
+			for(int i=0; i<size; i++) {
+				Entry<String, Integer> entry = list_entry.get(i);
+				result.add(entry.getKey());
+			}
+			answer.put("keyword", result);
+		}
+		return answer;
+	}
+	
+	public Map<String, Integer> findFavor(Movie movie, int ord) {
+		Map<String, Integer> favorDirector = new HashMap<String, Integer>();
+		Map<String, Integer> favorCast = new HashMap<String, Integer>();
+		Map<String, Integer> favorCountry = new HashMap<String, Integer>();
+		Map<String, Integer> favorGanre = new HashMap<String, Integer>();
+		Map<String, Integer> favorKeyword = new HashMap<String, Integer>();
+			
+		switch(ord) {
+		case 1:
+			String[] directors = movie.getDirectors().split(",");
+			for(String director : directors) {
+				String dr = director.split("(")[0].replace(" ", "");
+				if(favorDirector.containsKey(dr)) favorDirector.put(dr, favorDirector.get(dr)+1);
+				else favorDirector.put(dr, 1);
+			}
+			break;
+		case 2:
+			String[] casts = movie.getCasts().split(",");
+			for(String cast : casts) {
+				String ct = cast.split("(")[0].replace(" ", "");
+				if(favorCast.containsKey(ct)) favorCast.put(ct, favorCast.get(ct)+1);
+				else favorCast.put(ct, 1);
+			}
+			break;
+		case 3:
+			String[] countrys = movie.getCountry().split(",");
+			for(String country : countrys) {
+				String ctr = country.split("(")[0].replace(" ", "");
+				if(favorCountry.containsKey(ctr)) favorCountry.put(ctr, favorCountry.get(ctr)+1);
+				else favorCountry.put(ctr, 1);
+			}
+			break;
+		case 4:
+			String[] ganres = movie.getGanre().split(",");
+			for(String ganre : ganres) {
+				if(favorGanre.containsKey(ganre)) favorGanre.put(ganre, favorGanre.get(ganre)+1);
+				else favorGanre.put(ganre, 1);
+			}
+			break;
+		case 5:
+			String[] keywords = movie.getKeywords().split(",");
+			for(String keyword : keywords) {
+				String kd = keyword.split("(")[0].replace(" ", "");
+				if(favorKeyword.containsKey(kd)) favorKeyword.put(kd, favorKeyword.get(kd)+1);
+				else favorKeyword.put(kd, 1);
+			}
+		}
+		
+		switch(ord) {
+		case 1: return favorDirector;
+		case 2: return favorCast;
+		case 3: return favorCountry;
+		case 4: return favorGanre;
+		case 5: return favorKeyword;
+		}
+		return null;
 	}
 	
 	public void test() {

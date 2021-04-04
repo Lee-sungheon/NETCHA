@@ -262,7 +262,7 @@ public class MovieController {
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "내가 작성한 리뷰 목록", notes = "입력값 : userId(유저고유번호), movieNo(영화고유번호)")
+	@ApiOperation(value = "영화 리뷰 목록 : 본인이 작성한 리뷰는 따로 표시", notes = "입력값 : userId(유저고유번호), movieNo(영화고유번호)")
 	@GetMapping("/review_list")
 	public ResponseEntity<?> getListReview(@RequestParam long userId, @RequestParam long movieNo) {
 		List<MovieReviewDto> result = movieService.listReview((int)userId, movieNo);
@@ -278,6 +278,40 @@ public class MovieController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "사용자별 선호 영화감독 (9명)", notes = "입력값 : userId(유저고유번호)")
+	@GetMapping("/userFavor_director")
+	public ResponseEntity<?> getDirectorByUser(@RequestParam long userId) {
+		Map<String, Object> result = movieService.userFavor((int)userId, 1);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "사용자별 선호 영화배우 (9명)", notes = "입력값 : userId(유저고유번호)")
+	@GetMapping("/userFavor_cast")
+	public ResponseEntity<?> getCastByUser(@RequestParam long userId) {
+		Map<String, Object> result = movieService.userFavor((int)userId, 2);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "사용자별 선호 영화 국가, 국가별 영화 편수 (3개)", notes = "입력값 : userId(유저고유번호)")
+	@GetMapping("/userFavor_country")
+	public ResponseEntity<?> getCountryByUser(@RequestParam long userId) {
+		Map<String, Object> result = movieService.userFavor((int)userId, 3);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "사용자별 선호 영화 장르, 장르별 영화 편수 (3개)", notes = "입력값 : userId(유저고유번호)")
+	@GetMapping("/userFavor_ganre")
+	public ResponseEntity<?> getGanreByUser(@RequestParam long userId) {
+		Map<String, Object> result = movieService.userFavor((int)userId, 4);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "사용자별 선호 영화 키워드 (9개)", notes = "입력값 : userId(유저고유번호)")
+	@GetMapping("/userFavor_keyword")
+	public ResponseEntity<?> getKeywordByUser(@RequestParam long userId) {
+		Map<String, Object> result = movieService.userFavor((int)userId, 5);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
 	
 	@GetMapping("/test")
 	public ResponseEntity<?> test() {
