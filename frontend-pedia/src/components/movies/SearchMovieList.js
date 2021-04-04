@@ -20,12 +20,31 @@ const MovieItem = ({ movie }) => {
   );
 };
 
-const SearchMovieList = ({ loading, movies, error, fetchMoreData }) => {
+const SearchMovieList = ({ loading, movies, error, page, fetchMoreData }) => {
   const history = useHistory();
 
   if (error) {
     return <h2 style={{paddingTop: "100px"}}>에러가 발생했습니다.</h2>;
   }
+
+
+  const _infiniteScroll = useCallback(() => {
+    let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+    let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
+    let clientHeight = document.documentElement.clientHeight;
+
+    if(scrollTop + clientHeight === scrollHeight) {
+      // setItemIndex(itemIndex + 100);
+      // setResult(movies.concat(video_list.slice(itemIndex+100, itemIndex+200)));
+      fetchMoreData();
+    }
+  }, [page]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', _infiniteScroll, true);
+    return () => window.removeEventListener('scroll', _infiniteScroll, true);
+  }, [_infiniteScroll]);
+
 
   return (
     <>
