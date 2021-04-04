@@ -13,11 +13,11 @@ const MovieRankingContainer = ({title}) => {
     loading: loading["netchaRankingMovies/NETCHA_RANKING_MOVIES"],
   }));
   useEffect(() => {
-    dispatch(listNetChaRankingMovies());
+    dispatch(listNetChaRankingMovies(user ? user.userId : -1));
   }, [dispatch]);
 
   return (
-    <MovieRanking user={user} title={title} loading={loading} error={error} movies={movies} />
+    <MovieRanking title={title} loading={loading} error={error} movies={movies} />
   );
 };
 

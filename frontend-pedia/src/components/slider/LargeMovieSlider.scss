@@ -94,13 +94,15 @@
 
           .movieRate {
             display: flex;
-            color: navy;
             margin-top: 2px;
             height: 12px;
-
-            .movieScore {
+            font-size: 13px;
+            
+            .movieScorePink {
               color: #ff0073;
-              font-size: 13px;
+            }
+            .movieScoreOrange {
+              color: orange;
             }
           }
         }
