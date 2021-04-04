@@ -6,24 +6,30 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import Rating from '@material-ui/lab/Rating';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { callApiMovieReview } from '../../../common/api';
 
 export default function DetailInformation({ movie }) {
-  const [ index, SetIndex ] = useState(1)
-  const [ commentList1,setCommentList1 ] = useState([])
-  const [ commentList2,setCommentList2 ] = useState([])
+  const [ index, SetIndex ] = useState(1);
+  const [ reviews, setReviews ] = useState([]);
+  const [ commentList1,setCommentList1 ] = useState([]);
+  const [ commentList2,setCommentList2 ] = useState([]);
+  const user = useSelector(state => state.user.userData.member);
   const history = useHistory();
-  useEffect(() => {
-    const comments = COMMENTS.slice((index-1)*4, index*4)
-    setCommentList1(comments.slice(0, 2))
-    setCommentList2(comments.slice(2, 4))
-  }, [index])
+  useEffect(async() => {
+    const tmp_reviews = await callApiMovieReview(movie.no, user.seq);
+    setReviews(tmp_reviews);
+    const comments = reviews.slice((index-1)*4, index*4);
+    setCommentList1(comments.slice(0, 2));
+    setCommentList2(comments.slice(2, 4));
+  }, [index, reviews])
   function indexLeft() {
     if (index > 1) {
       SetIndex(index-1)
     }
   }
   function indexRight() {
-    if (index <= COMMENTS.length/4) {
+    if (index <= reviews.length/4) {
       SetIndex(index+1)
     }
   }
@@ -59,13 +65,13 @@ export default function DetailInformation({ movie }) {
             <Rating 
               name="custom-empty"
               precision={0.2} 
-              value={4.2}
+              value={movie.avgRank}
               style={{color: 'white'}}
               readOnly
               emptyIcon={<StarBorderIcon fontSize="inherit" style={{color: 'gray'}} />}
             />
-            <div className="detail__title" style={{ marginLeft: '0.5vw' }}>4.2</div>
-            <div className="detail__people" style={{ marginLeft: '1vw', lineHeight: '2vw'}}>525256명</div>
+            <div className="detail__title" style={{ marginLeft: '0.5vw' }}>{movie.avgRank}</div>
+            <div className="detail__people" style={{ marginLeft: '1vw', lineHeight: '2vw'}}>{reviews.length}명</div>
           </div>
           <div style={{display: 'flex', flexDirection: 'column'}}>
             <div style={{display: 'flex', margin: '0.625vw 1vw 0px'}}>
@@ -100,12 +106,11 @@ export default function DetailInformation({ movie }) {
                 </div>
               ))}
             </div>
-
           </div>
         </div>
         <div className="detail__chevron-box" 
           onClick={indexRight}
-          style={index < COMMENTS.length/4 ? {visibility: 'visible'}:{visibility: 'hidden'}}
+          style={index < reviews.length/4 ? {visibility: 'visible'}:{visibility: 'hidden'}}
         >
           <ChevronRightIcon className="detail__chevron" />
         </div>

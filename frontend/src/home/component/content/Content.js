@@ -4,17 +4,34 @@ import BasicInformation from '../basicInformation/BasicInformation';
 import DetailInformation from '../detailInformation/DetailInformation';
 import SimilarMovie from '../similarMovie/SimilarMovie';
 import IconCross from '../Icons/IconCross';
+import ReactHlsPlayer from "react-hls-player";
 
 const Content = ({ movie, onClose, tabNo, setTabNumber }) => (
   <div className="content">
     <div className="content__background">
       <div className="content__background__shadow" />
-      <div
+      {(tabNo === 2 || tabNo === 3) && <div
         className="content__background__image"
-        style={tabNo === 2 || tabNo === 3 ? 
-          { 'backgroundImage': `url(${ movie.imageUrl[0] !== 'default' ? movie.imageUrl[1]? movie.imageUrl[1] : movie.imageUrl[0] : "/images/netchar2.png" })`, filter: 'blur(6px)', opacity: 0.2 }
-          : { 'backgroundImage': `url(${ movie.imageUrl[0] !== 'default' ? movie.imageUrl[1]? movie.imageUrl[1] : movie.imageUrl[0] : "/images/netchar2.png" })`}}
-      />
+        style={{'backgroundImage': `url(${ movie.imageUrl[0] !== 'default' ? movie.imageUrl[1]? movie.imageUrl[1] : movie.imageUrl[0] : "/images/netchar2.png" })`, filter: 'blur(6px)', opacity: 0.2 }}
+      />}
+      {tabNo === 1 && <div className="content__background_image">
+        <ReactHlsPlayer
+          id="player"
+          src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+          autoPlay={true}
+          muted
+          height="100%"
+          style={{
+            position: 'absolute',
+            zIndex: "1",
+            top: 0,
+            right: 0,
+          }}
+          hlsConfig={{
+            startPosition: 0,
+          }}
+        ></ReactHlsPlayer>
+      </div>}
     </div>
     <div className="content__area">
       <div className="content__title">{movie.title}</div>
