@@ -11,12 +11,12 @@ export const readMovie = (id) => {
 export const listSearchMovies = ({page, keyword}) => {
   // console.log('keyword:' + keyword);
   // const queryString = qs.stringify({
-  //   page,
   //   keyword,
   // });
-  return (movies);
-  // return client.get(`/api/searchMovies/${queryString}`)
-  // return client.get(`/movie/list_totalView`)
+  // return (movies);
+  return client.get(`/movie/list_avgRank?pageNum=${page}&userId=1`)
+  // return client.get(`/movie/list_avgRank/${queryString}&page=${page}`)
+  // return client.get(`/api/searchMovies/${queryString}&page=${page}`)
 }
 
 // 메인페이지 넷챠 영화 순위 목록
