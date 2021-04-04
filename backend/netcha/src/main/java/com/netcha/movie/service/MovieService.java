@@ -110,12 +110,12 @@ public class MovieService {
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
 			MovieResponseDto movie = new MovieResponseDto(m);
-			boolean mr = false;
+			float mr = 0;
 			int ml = 0;
 			boolean mz = false;
 			if(userId != -1) {
 				MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-				if(movieRank != null) mr = true;
+				if(movieRank != null) mr = movieRank.getRanking();
 				MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
 				if(movieLike != null) ml = (int)movieLike.getLikeHate();
 				MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
@@ -138,12 +138,12 @@ public class MovieService {
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
 			MovieResponseDto movie = new MovieResponseDto(m);
-			boolean mr = false;
+			float mr = 0;
 			int ml = 0;
 			boolean mz = false;
 			if(userId != -1) {
 				MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-				if(movieRank != null) mr = true;
+				if(movieRank != null) mr = movieRank.getRanking();
 				MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
 				if(movieLike != null) ml = (int)movieLike.getLikeHate();
 				MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
@@ -203,11 +203,11 @@ public class MovieService {
 				m.updateCrawling(temp[0], temp[1], temp[2]);
 			}
 			MovieResponseDto movie = new MovieResponseDto(m);
-			boolean mr = false;
+			float mr = 0;
 			int ml = 0;
 			boolean mz = false;
 			MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieRank != null) mr = true;
+			if(movieRank != null) mr = movieRank.getRanking();
 			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
 			if(movieLike != null) ml = (int)movieLike.getLikeHate();
 			MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
@@ -269,11 +269,11 @@ public class MovieService {
 				m.updateCrawling(temp[0], temp[1], temp[2]);
 			}
 			MovieResponseDto movie = new MovieResponseDto(m);
-			boolean mr = false;
+			float mr = 0;
 			int ml = 0;
 			boolean mz = false;
 			MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieRank != null) mr = true;
+			if(movieRank != null) mr = movieRank.getRanking();
 			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
 			if(movieLike != null) ml = (int)movieLike.getLikeHate();
 			MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
@@ -336,11 +336,11 @@ public class MovieService {
 				m.updateCrawling(temp[0], temp[1], temp[2]);
 			}
 			MovieResponseDto movie = new MovieResponseDto(m);
-			boolean mr = false;
+			float mr = 0;
 			int ml = 0;
 			boolean mz = false;
 			MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-			if(movieRank != null) mr = true;
+			if(movieRank != null) mr = movieRank.getRanking();
 			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
 			if(movieLike != null) ml = (int)movieLike.getLikeHate();
 			MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
@@ -362,12 +362,12 @@ public class MovieService {
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
 			MovieResponseDto movie = new MovieResponseDto(m);
-			boolean mr = false;
+			float mr = 0;
 			int ml = 0;
 			boolean mz = false;
 			if(userId != -1) {
 				MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-				if(movieRank != null) mr = true;
+				if(movieRank != null) mr = movieRank.getRanking();
 				MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
 				if(movieLike != null) ml = (int)movieLike.getLikeHate();
 				MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
@@ -390,12 +390,12 @@ public class MovieService {
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
 			MovieResponseDto movie = new MovieResponseDto(m);
-			boolean mr = false;
+			float mr = 0;
 			int ml = 0;
 			boolean mz = false;
 			if(userId != -1) {
 				MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-				if(movieRank != null) mr = true;
+				if(movieRank != null) mr = movieRank.getRanking();
 				MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
 				if(movieLike != null) ml = (int)movieLike.getLikeHate();
 				MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
@@ -418,12 +418,12 @@ public class MovieService {
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
 			MovieResponseDto movie = new MovieResponseDto(m);
-			boolean mr = false;
+			float mr = 0;
 			int ml = 0;
 			boolean mz = false;
 			if(userId != -1) {
 				MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-				if(movieRank != null) mr = true;
+				if(movieRank != null) mr = movieRank.getRanking();
 				MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
 				if(movieLike != null) ml = (int)movieLike.getLikeHate();
 				MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
@@ -446,12 +446,12 @@ public class MovieService {
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
 			MovieResponseDto movie = new MovieResponseDto(m);
-			boolean mr = false;
+			float mr = 0;
 			int ml = 0;
 			boolean mz = false;
 			if(userId != -1) {
 				MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-				if(movieRank != null) mr = true;
+				if(movieRank != null) mr = movieRank.getRanking();
 				MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
 				if(movieLike != null) ml = (int)movieLike.getLikeHate();
 				MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
@@ -474,12 +474,12 @@ public class MovieService {
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
 			MovieResponseDto movie = new MovieResponseDto(m);
-			boolean mr = false;
+			float mr = 0;
 			int ml = 0;
 			boolean mz = false;
 			if(userId != -1) {
 				MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-				if(movieRank != null) mr = true;
+				if(movieRank != null) mr = movieRank.getRanking();
 				MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
 				if(movieLike != null) ml = (int)movieLike.getLikeHate();
 				MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
@@ -502,12 +502,12 @@ public class MovieService {
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
 			MovieResponseDto movie = new MovieResponseDto(m);
-			boolean mr = false;
+			float mr = 0;
 			int ml = 0;
 			boolean mz = false;
 			if(userId != -1) {
 				MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-				if(movieRank != null) mr = true;
+				if(movieRank != null) mr = movieRank.getRanking();
 				MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
 				if(movieLike != null) ml = (int)movieLike.getLikeHate();
 				MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
@@ -530,12 +530,12 @@ public class MovieService {
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
 			MovieResponseDto movie = new MovieResponseDto(m);
-			boolean mr = false;
+			float mr = 0;
 			int ml = 0;
 			boolean mz = false;
 			if(userId != -1) {
 				MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-				if(movieRank != null) mr = true;
+				if(movieRank != null) mr = movieRank.getRanking();
 				MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
 				if(movieLike != null) ml = (int)movieLike.getLikeHate();
 				MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
@@ -573,7 +573,11 @@ public class MovieService {
 	public List<MovieResponseDto> listRank(int userId, int pageNum) {
 		List<MovieRank> movieRanks = movieRankRepository.findAllByMemberSeq(userId);
 		List<Long> movieNos = new ArrayList<Long>();
-		for(int i=0; i<movieRanks.size(); i++) movieNos.add(movieRanks.get(i).getMovie().getNo());
+		List<Float> rankFloat = new ArrayList<Float>();
+		for(int i=0; i<movieRanks.size(); i++) {
+			movieNos.add(movieRanks.get(i).getMovie().getNo());
+			rankFloat.add(movieRanks.get(i).getRanking());
+		}
 		List<Movie> movieR = movieRepository.findByNoIn(movieNos, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		for(Movie m : movieR) {
@@ -582,7 +586,7 @@ public class MovieService {
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
 			MovieResponseDto movie = new MovieResponseDto(m);
-			boolean mr = false;
+			float mr = 0;
 			int ml = 0;
 			boolean mz = false;
 			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
@@ -616,7 +620,7 @@ public class MovieService {
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
 			MovieResponseDto movie = new MovieResponseDto(m);
-			boolean mr = false;
+			float mr = 0;
 			int ml = 0;
 			boolean mz = false;
 			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
@@ -680,7 +684,7 @@ public class MovieService {
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
 			MovieResponseDto movie = new MovieResponseDto(m);
-			boolean mr = false;
+			float mr = 0;
 			int ml = 0;
 			boolean mz = false;
 			MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
@@ -788,7 +792,7 @@ public class MovieService {
 		for(MovieRank rank : ranks) userRank.put(rank.getRanking(), userRank.get(rank.getRanking()) + 1);
 		result.put("movie_rank", userRank);
 		
-		result.put("similar_movie", recommendMovieBySimilar(userId, movieNo, 0, 16));
+		//result.put("similar_movie", recommendMovieBySimilar(userId, movieNo, 0, 16));
 		
 		return result;
 	}
