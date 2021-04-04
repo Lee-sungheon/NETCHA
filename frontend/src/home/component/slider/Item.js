@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 import SliderContext from './context'
 import './Item.scss'
@@ -8,17 +8,34 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Buttons from './Buttons';
 import ReactHlsPlayer from "react-hls-player";
+import { actions } from "../../../home/state";
+import { useDispatch } from 'react-redux';
+
 
 let timer = null;
+let buffer = null;
+let bufferTime = 0;
 export default function Item({ movie, idx }) {
   const [ isHover, setIsHover ] = useState(false);
+  const [ isdetail, setIsdetail ] = useState(false);
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(actions.setValue('bufferTime', bufferTime));
+    clearInterval(buffer);
+    clearTimeout(timer);
+    setIsHover(false);
+    bufferTime = 0;
+  }, [isdetail])
   return (
     <SliderContext.Consumer>
       {function Itemsetup({ onSelectSlide, currentSlide, elementRef, setEscapeLeft, setEscapeRight, escapeLeft, escapeRight }) {
         function onMouse(e) {
-          if (!isHover){
+          if (!isHover && !currentSlide){
             timer = setTimeout(function() {
-              setIsHover(true)
+              setIsHover(true);
+              buffer = setInterval(function() {
+                bufferTime += 1;
+              }, 1000);
             }, 1000);
           }
           let num = 6
@@ -33,20 +50,27 @@ export default function Item({ movie, idx }) {
           } else {
             num = 2
           }
-          if (idx % num === 0 && !escapeLeft) {
-            setEscapeLeft(true)
-          } else {
-            setEscapeLeft(false)
-          }
-          if (idx % num === num-1 && !escapeRight) {
-            setEscapeRight(true)
-          } else {
-            setEscapeRight(false)
+          if (!currentSlide) {
+            if (idx % num === 0 && !escapeLeft) {
+              setEscapeLeft(true)
+            } else {
+              setEscapeLeft(false)
+            }
+            if (idx % num === num-1 && !escapeRight) {
+              setEscapeRight(true)
+            } else {
+              setEscapeRight(false)
+            }
           }
         }
         function onMouseLeave(e) {
-          setIsHover(false);
-          clearTimeout(timer);
+          if (!currentSlide){
+            setIsHover(false);
+            clearTimeout(timer);
+            clearInterval(buffer);
+            bufferTime = 0;
+
+          }
         }
         const isActive = currentSlide && currentSlide.no === movie.no;
         return (
@@ -84,7 +108,7 @@ export default function Item({ movie, idx }) {
                 </div>
               </CardActionArea>
               <CardContent className="show-card-content" style={{paddingBottom: '10px'}}>
-                <Buttons movie={movie} onSelectSlide={onSelectSlide}/>
+                <Buttons movie={movie} onSelectSlide={onSelectSlide} isdetail={isdetail} setIsdetail={setIsdetail} />
                 <h5 style={{textAlign: 'center', margin:'5px', textAlign: 'start'}} >{movie.title}</h5>
                 <div style={{display: 'flex', alignItems: 'center'}} >
                   {movie.rating !== "" && movie.rating !== undefined && <img style={{width: '12%', margin: '0 5px'}} src={`/images/${RATING[movie.rating.slice(0,2)]}.svg`} id={idx}/>}

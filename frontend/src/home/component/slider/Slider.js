@@ -50,31 +50,34 @@ const Slider = ({ children, activeSlide, title, idx }) => {
   
   const sliderWrap = document.getElementById(idx)
   const enterSetShow = (e) => {
-    if (e.clientX < 47 || e.clientX > e.view.innerWidth-47 || e.target.className === 'slider__container'){
-      if (showButton === false){
-        setShowButton(true)
+    if (e.clientX < 47 || e.clientX > e.view.innerWidth-47 || e.target.className === 'slider__container'){   
+      if (currentSlide == null) {
+        if (showButton === false){
+          setShowButton(true);
+        }
+        if (sliderWrap){
+          sliderWrap.style.zIndex = 1;
+        }
       }
-      if (sliderWrap){
-        sliderWrap.style.zIndex = 1
-      }
-      return
     }
     else {
-      if (showButton === true){
-        setShowButton(false)
-      }
+      setShowButton(false);
       if (!currentSlide && sliderWrap) {
-        sliderWrap.style.zIndex = 10
+        sliderWrap.style.zIndex = 10;
       }
     }
   }
 
   const leaveSetShow = (e) => {
-    if (showButton === false){
-      setShowButton(true)
-    }
-    if (sliderWrap){
-      sliderWrap.style.zIndex = 1
+    if (currentSlide == null){
+      if (showButton === false){
+        setShowButton(true);
+      }
+      if (sliderWrap){
+        sliderWrap.style.zIndex = 1;
+      }
+    } else {
+      setShowButton(false);
     }
   }
 
@@ -84,9 +87,9 @@ const Slider = ({ children, activeSlide, title, idx }) => {
         <h4 style={{ color: 'white', margin: '0 0 10px 4%' }}>{title}</h4>
         <div
           className={cx('slider', 
-          { 'slider--open': currentSlide != null || showButton}, 
-          { 'slider--left': !escapeLeft},
-          { 'slider--right': !escapeRight}
+          { 'slider--open': currentSlide != null}, 
+          { 'slider--left': !escapeLeft || currentSlide != null},
+          { 'slider--right': !escapeRight || currentSlide != null }
           )}>
           <div ref={containerRef}
             className="slider__container" {...slideProps} 

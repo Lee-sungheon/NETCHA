@@ -8,17 +8,24 @@ import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { callApiMovieReview } from '../../../common/api';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import SpeakerNotesOffIcon from '@material-ui/icons/SpeakerNotesOff';
 
 export default function DetailInformation({ movie }) {
   const [ index, SetIndex ] = useState(1);
   const [ reviews, setReviews ] = useState([]);
-  const [ commentList1,setCommentList1 ] = useState([]);
-  const [ commentList2,setCommentList2 ] = useState([]);
+  const [ commentList1, setCommentList1 ] = useState([]);
+  const [ commentList2, setCommentList2 ] = useState([]);
+  const [ isLoading, setIsLoading ] = useState(false);
   const user = useSelector(state => state.user.userData.member);
   const history = useHistory();
-  useEffect(async() => {
+  useEffect(async()=> {
+    await setIsLoading(true);
     const tmp_reviews = await callApiMovieReview(movie.no, user.seq);
+    await setIsLoading(false);
     setReviews(tmp_reviews);
+  }, [])
+  useEffect(() => {
     const comments = reviews.slice((index-1)*4, index*4);
     setCommentList1(comments.slice(0, 2));
     setCommentList2(comments.slice(2, 4));
@@ -74,10 +81,18 @@ export default function DetailInformation({ movie }) {
             <div className="detail__people" style={{ marginLeft: '1vw', lineHeight: '2vw'}}>{reviews.length}명</div>
           </div>
           <div style={{display: 'flex', flexDirection: 'column'}}>
+            { isLoading &&
+            <div style={{height: '30vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+              <CircularProgress color="secondary" />
+            </div>}
+            { !isLoading &&<> { reviews.length === 0 && 
+            <div style={{
+              display: 'flex', justifyContent: 'center', alignItems: 'center', height: '30vh', color: 'white'}}
+            ><SpeakerNotesOffIcon style={{marginRight: '0.5vw'}}/>댓글이 없습니다!</div>}
             <div style={{display: 'flex', margin: '0.625vw 1vw 0px'}}>
               {commentList1.map((comment, index) => (
-                <div style={{display: 'flex', flex: '1 1 0%',  flexDirection: 'column', margin: '0px 1.64062vw 0.625vw'}} key={comment.id}>
-                  <div className="detail__people">{comment.name}</div>
+                <div style={{display: 'flex', flex: '1 1 0%',  flexDirection: 'column', margin: '0px 1.64062vw 0.625vw'}} key={index}>
+                  <div className="detail__people">{comment.userNickname}</div>
                   <div className="detail__comment" >
                     {comment.content.slice(0,60)}
                     {comment.content.length > 60 && <span>...</span>}
@@ -85,15 +100,15 @@ export default function DetailInformation({ movie }) {
                   </div>
                   <div className="detail__thumb" >
                     <ThumbUpAltOutlinedIcon style={{height: '1.3vw', cursor: 'pointer'}}/>
-                    <span style={{marginLeft: '0.4vw'}}>7</span>
+                    <span style={{marginLeft: '0.4vw'}}>{comment.totalLike}</span>
                   </div>
                 </div>
               ))}
             </div>
             <div style={{display: 'flex', margin: '0.625vw 1vw 0px'}}>
-              {commentList2.map((comment) => (
-                <div style={{display: 'flex', flex: '1 1 0%',  flexDirection: 'column', margin: '0px 1.64062vw 0.625vw'}} key={comment.id}>
-                  <div className="detail__people">{comment.name}</div>
+              {commentList2.map((comment, index) => (
+                <div style={{display: 'flex', flex: '1 1 0%',  flexDirection: 'column', margin: '0px 1.64062vw 0.625vw'}} key={index}>
+                  <div className="detail__people">{comment.userNickname}</div>
                   <div className="detail__comment" >
                     {comment.content.slice(0,60)}
                     {comment.content.length > 60 && <span>...</span>}
@@ -101,11 +116,12 @@ export default function DetailInformation({ movie }) {
                   </div>
                   <div className="detail__thumb" >
                     <ThumbUpAltOutlinedIcon style={{height: '1.3vw', cursor: 'pointer'}}/>
-                    <span style={{marginLeft: '0.4vw'}}>7</span>
+                    <span style={{marginLeft: '0.4vw'}}>{comment.totalLike}</span>
                   </div>
                 </div>
               ))}
             </div>
+            </>}
           </div>
         </div>
         <div className="detail__chevron-box" 
