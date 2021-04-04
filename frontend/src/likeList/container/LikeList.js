@@ -5,35 +5,59 @@ import MovieItem from '../component/movieList/MovieItem';
 import { actions } from "../state";
 import { useSelector, useDispatch } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import DesktopAccessDisabledIcon from '@material-ui/icons/DesktopAccessDisabled';
+
 
 let repeat = []
+let pageNum = 1;
+let loadingPage = false;
+
 export default function LikeList() {
   const [tabNo, setTabNo] = useState(5);
   const [likeList, setLikeList] = useState([]);
   const movieLists = useSelector(state => state.like.movieLists);
   const isLoading = useSelector(state => state.like.isLoading);
+  const isInfinite = useSelector(state => state.like.isInfinite);
+  const isInfiniteEnd = useSelector(state => state.like.infiniteEnd);
   const user = useSelector(state => state.user.userData.member);
   const dispatch = useDispatch();
 
   useEffect(() => {
     checkWindowInner()
-    dispatch(actions.requestMovieList());
+    dispatch(actions.requestMovieList(0, user.seq));
     window.addEventListener('resize', function(){
       checkWindowInner()
     });
+    window.scrollTo(0, 0);
+    function handleScroll() {
+      const scrollHeight = document.documentElement.scrollHeight;
+      const scrollTop = document.documentElement.scrollTop;
+      const clientHeight = document.documentElement.clientHeight;
+      if (scrollTop + clientHeight + 1 >= scrollHeight && !isInfinite) {
+        // 페이지 끝에 도달하면 추가 데이터를 받아온다
+        dispatch(actions.requestAddMovieList(pageNum, user.seq));
+        if (!loadingPage) {
+          pageNum += 1;
+        }
+        loadingPage = true;
+      }
+    }
+    window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener('resize', function(){
         checkWindowInner()
-    });
+      });
+      window.removeEventListener("scroll", handleScroll);
     }
   }, [])
   
   useEffect(() => {
-    repeat = []
+    repeat = [];
     for (let i=0 ; i<=movieLists.length/tabNo ; i++){
-      repeat.push(movieLists.slice(i*tabNo, (i+1)*tabNo))
+      repeat.push(movieLists.slice(i*tabNo, (i+1)*tabNo));
     }
-    setLikeList([...repeat])
+    setLikeList([...repeat]);
+    loadingPage = false;
   }, [movieLists, tabNo])
   
   function checkWindowInner() {
@@ -50,7 +74,6 @@ export default function LikeList() {
       setTabNo(2)
     }
   }
-
 
   return (
     <>
@@ -72,6 +95,26 @@ export default function LikeList() {
         </div>
         ))}
       </div>
+      {likeList.length === 0 &&
+        <div style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <DesktopAccessDisabledIcon/>
+        <span style={{marginLeft: '8px'}}>찜한 영화가 없습니다!</span>
+      </div>
+      }
+      {isInfinite && !isLoading && !isInfiniteEnd && (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <CircularProgress color="secondary" />
+        </div>
+      )}
+      {isInfiniteEnd && likeList.length !== 0 &&
+        <div style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '5vh'}}>
+          <DesktopAccessDisabledIcon/>
+          <span style={{marginLeft: '8px'}}>더이상 불러올 데이터가 없습니다!</span>
+        </div>
+      }
+      {likeList.length < 3 &&
+        <div style={{height: '40vh'}}></div>
+      }
     </>
   )
 }

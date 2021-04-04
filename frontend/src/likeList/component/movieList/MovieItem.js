@@ -6,24 +6,35 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import AddIcon from '@material-ui/icons/Add';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Buttons from '../../../home/component/slider/Buttons';
 
 
 export default function MovieItem({ movie, idx }) {
   return (
     <MovieListContext.Consumer>
-      {function Itemsetup({ onSelectSlide, currentSlide, elementRef }) {
+      {function Itemsetup({ onSelectSlide, currentSlide, elementRef, num, setEscapeLeft, setEscapeRight, escapeLeft, escapeRight }) {
+        function onMouse(e) {
+          if (idx % num === 0 && !escapeLeft) {
+            setEscapeLeft(true)
+          } else {
+            setEscapeLeft(false)
+          }
+          if (idx % num === num-1 && !escapeRight) {
+            setEscapeRight(true)
+          } else {
+            setEscapeRight(false)
+          }
+        }
+        function onMouseLeave(e) {
+        }
         const isActive = currentSlide && currentSlide.no === movie.no;
         return (
           <div
             ref={elementRef}
-            className={cx('movie-item', {
-              'movie-item--open': isActive,
-            })}
+            className={cx('movie-item')}
+            id={idx}
+            onMouseEnter={onMouse}
+            onMouseLeave={onMouseLeave}
           >
             <Card style={isActive === true ? {border: 'solid 2px white'}:{}} >
               <CardActionArea style={{zIndex: 5}}>
@@ -32,31 +43,24 @@ export default function MovieItem({ movie, idx }) {
                     component="img"
                     image={ movie.imageUrl[0] !== 'default' ? movie.imageUrl[0] : "/images/netchar2.png" }
                     className='movie-image-style'
-                    id={idx}
                   />
                 </div>
               </CardActionArea>
-              <CardContent className="movie-show-card-content" id={idx} style={{paddingBottom: '10px'}}>
-                  <div style={{width:'100%', position: 'relative'}} id={idx}>
-                    <PlayArrowIcon className='play-button'id={idx} />
-                    <AddIcon className='movie-common-button'id={idx} />
-                    <ThumbUpAltIcon className='movie-common-button' id={idx} />
-                    <ThumbDownIcon className='movie-common-button'id={idx} />
-                    <ExpandMoreIcon className='movie-end-button' id={idx} onClick={() => onSelectSlide(movie)}/>
-                  </div>
-                <h5 style={{textAlign: 'center', margin:'5px', textAlign: 'start'}} id={idx}>{movie.title}</h5>
-                <div style={{display: 'flex', alignItems: 'center'}} id={idx}>
+              <CardContent className="movie-show-card-content" style={{paddingBottom: '10px'}}>
+                <Buttons movie={movie} onSelectSlide={onSelectSlide}/>
+                <h5 style={{textAlign: 'center', margin:'5px', textAlign: 'start'}} >{movie.title}</h5>
+                <div style={{display: 'flex', alignItems: 'center'}} >
                   { movie.rating !== "" && movie.rating !== undefined && <img style={{width: '12%', margin: '0 5px'}}src={`/images/${RATING[movie.rating.slice(0,2)]}.svg`} />}
-                  <div id={idx} style={{fontSize: '0.65rem', fontWeight: 900}}>{parseInt(movie.time/60)}시간 {movie.time%60}분</div>
+                  <div style={{fontSize: '0.65rem', fontWeight: 900}}>{parseInt(movie.time/60)}시간 {movie.time%60}분</div>
                 </div>
-                <h6 style={{textAlign: 'center', margin:'5px', textAlign: 'start'}} id={idx}>
+                <h6 style={{textAlign: 'center', margin:'5px', textAlign: 'start'}} >
                   {movie.keywords !== undefined && movie.keywords.slice(0,3).map((keyword, idx) => (
-                    <span key={idx} id={idx}>{idx !== 0 && <span id={idx}> • </span>}{keyword}</span>
+                    <span key={idx} >{idx !== 0 && <span > • </span>}{keyword}</span>
                   ))}
                 </h6>
               </CardContent>
             </Card>
-            {<div className="movie-show-card-title" id={idx} style={isActive ? {opacity: 1}:{opacity: 0.7}}>
+            {<div className="movie-show-card-title" style={isActive ? {opacity: 1}:{opacity: 0.7}}>
               {movie.title.slice(0, 13)}
               {movie.title.length > 13 && '...'}
             </div>}
