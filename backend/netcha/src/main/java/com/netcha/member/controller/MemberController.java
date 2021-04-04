@@ -35,7 +35,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:3001" }, allowCredentials = "true")
+@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:3001","https://netcha.netlify.app"}, allowCredentials = "true")
 @RestController
 @RequestMapping("/user")
 public class MemberController {
