@@ -57,7 +57,7 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "비슷한 영화 추천 (??개) : 국가, 장르, 키워드가 비슷한 영화 추천", notes = "입력값 : userId(유저고유번호), movieNo(영화고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했으면 점수, 안했으면 0), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
+	@ApiOperation(value = "비슷한 영화 추천 (16개) : 국가, 장르, 키워드가 비슷한 영화 추천", notes = "입력값 : userId(유저고유번호), movieNo(영화고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했으면 점수, 안했으면 0), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
 	@GetMapping("/list_similar")
 	public ResponseEntity<?> getListByRecommendSimilar(@RequestParam long userId, @RequestParam long movieNo) {
 		List<MovieResponseDto> movies = movieService.recommendMovieBySimilar((int)userId, movieNo, 0, 16);
