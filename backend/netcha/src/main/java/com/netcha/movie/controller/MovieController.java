@@ -41,7 +41,7 @@ public class MovieController {
 	
 	//   리스트 API   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	@ApiOperation(value = "컨텐츠 기반 추천 (40개) : 컨텐츠 기반 추천 알고리즘", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
+	@ApiOperation(value = "컨텐츠 기반 추천 (40개) : 컨텐츠 기반 추천 알고리즘", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했으면 점수, 안했으면 0), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
 	@GetMapping("/list_recommend")
 	public ResponseEntity<?> getListByRecommendContents(@RequestParam long userId, @RequestParam long pageNum) {
 		List<MovieResponseDto> movies = movieService.recommendMovieByRank((int)userId, pageNum);
@@ -49,7 +49,7 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "MBTI 기반 추천 (40개) : MBTI 기반 추천 알고리즘", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
+	@ApiOperation(value = "MBTI 기반 추천 (40개) : MBTI 기반 추천 알고리즘", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했으면 점수, 안했으면 0), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
 	@GetMapping("/list_MBTI")
 	public ResponseEntity<?> getListByRecommendMBTI(@RequestParam long userId, @RequestParam long pageNum) {
 		List<MovieResponseDto> movies = movieService.recommendMovieByMBTI((int)userId, pageNum);
@@ -57,7 +57,7 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "비슷한 영화 추천 (??개) : 국가, 장르, 키워드가 비슷한 영화 추천", notes = "입력값 : userId(유저고유번호), movieNo(영화고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
+	@ApiOperation(value = "비슷한 영화 추천 (??개) : 국가, 장르, 키워드가 비슷한 영화 추천", notes = "입력값 : userId(유저고유번호), movieNo(영화고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했으면 점수, 안했으면 0), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
 	@GetMapping("/list_similar")
 	public ResponseEntity<?> getListByRecommendSimilar(@RequestParam long userId, @RequestParam long movieNo) {
 		List<MovieResponseDto> movies = movieService.recommendMovieBySimilar((int)userId, movieNo, 0, 16);
@@ -65,7 +65,7 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "새로운 컨텐츠 (40개) : 개봉일 얼마 안된 순으로 추천", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
+	@ApiOperation(value = "새로운 컨텐츠 (40개) : 개봉일 얼마 안된 순으로 추천", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했으면 점수, 안했으면 0), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
 	@GetMapping("/list_newContents")
 	public ResponseEntity<?> getListByNewContents(@RequestParam long userId, @RequestParam long pageNum) {
 		List<MovieResponseDto> movies = movieService.findMovieByNewContents((int)userId, (int)pageNum);
@@ -73,7 +73,7 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "인기 순위 (40개) : 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
+	@ApiOperation(value = "인기 순위 (40개) : 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했으면 점수, 안했으면 0), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
 	@GetMapping("/list_totalView")
 	public ResponseEntity<?> getListByTotalView(@RequestParam long userId, @RequestParam long pageNum) {
 		List<MovieResponseDto> movies = movieService.findMovieByTotalView((int)userId, (int)pageNum);
@@ -81,7 +81,7 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "장르별 (40개) : 장르별 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), ganre(장르명), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
+	@ApiOperation(value = "장르별 (40개) : 장르별 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), ganre(장르명), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했으면 점수, 안했으면 0), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
 	@GetMapping("/list_ganre")
 	public ResponseEntity<?> getListByGanre(@RequestParam long userId, @RequestParam String ganre, @RequestParam long pageNum) {
 		List<MovieResponseDto> movies = movieService.findMovieByGanre((int)userId, (int)pageNum, ganre);
@@ -89,7 +89,7 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "키워드별 (40개) : 장르별 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), keyword(키워드명), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
+	@ApiOperation(value = "키워드별 (40개) : 장르별 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), keyword(키워드명), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했으면 점수, 안했으면 0), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
 	@GetMapping("/list_keyword")
 	public ResponseEntity<?> getListByKeyword(@RequestParam long userId, @RequestParam String keyword, @RequestParam long pageNum) {
 		List<MovieResponseDto> movies = movieService.findMovieByKeyword((int)userId, (int)pageNum, keyword);
@@ -97,7 +97,7 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "나라별 (40개) : 나라별 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), country(나라명), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
+	@ApiOperation(value = "나라별 (40개) : 나라별 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), country(나라명), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했으면 점수, 안했으면 0), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
 	@GetMapping("/list_country")
 	public ResponseEntity<?> getListByCountry(@RequestParam long userId, @RequestParam String country, @RequestParam long pageNum) {
 		List<MovieResponseDto> movies = movieService.findMovieByCountry((int)userId, (int)pageNum, country);
@@ -105,7 +105,7 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "평점 순 (40개) : 평점 순, 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
+	@ApiOperation(value = "평점 순 (40개) : 평점 순, 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했으면 점수, 안했으면 0), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
 	@GetMapping("/list_avgRank")
 	public ResponseEntity<?> getListByAvgRank(@RequestParam long userId, @RequestParam long pageNum) {
 		List<MovieResponseDto> movies = movieService.findMovieByAvgRank((int)userId, (int)pageNum);
@@ -113,7 +113,7 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "장르, 나라별 (40개) : 장르+나라별 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), ganre(장르명), country(나라명), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
+	@ApiOperation(value = "장르, 나라별 (40개) : 장르+나라별 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), ganre(장르명), country(나라명), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했으면 점수, 안했으면 0), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
 	@GetMapping("/list_ganreAndCountry")
 	public ResponseEntity<?> getListByGanreAndCountry(@RequestParam long userId, @RequestParam String ganre, @RequestParam String country, @RequestParam long pageNum) {
 		List<MovieResponseDto> movies = movieService.findMovieByGanreAndCountry((int)userId, (int)pageNum, ganre, country);
@@ -121,7 +121,7 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "감독별 (40개) : 감독별 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), director(감독명)\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
+	@ApiOperation(value = "감독별 (40개) : 감독별 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), director(감독명)\n출력값 : 영화정보, userDidRank(평가했으면 점수, 안했으면 0), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
 	@GetMapping("/list_director")
 	public ResponseEntity<?> getListByDirector(@RequestParam long userId, @RequestParam String director) {
 		List<MovieResponseDto> movies = movieService.findMovieByDirector((int)userId, director);
@@ -129,7 +129,7 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "배우별 (40개) : 배우별 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), cast(배우명)\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
+	@ApiOperation(value = "배우별 (40개) : 배우별 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), cast(배우명)\n출력값 : 영화정보, userDidRank(평가했으면 점수, 안했으면 0), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
 	@GetMapping("/list_cast")
 	public ResponseEntity<?> getListByCast(@RequestParam long userId, @RequestParam String cast) {
 		List<MovieResponseDto> movies = movieService.findMovieByCast((int)userId, cast);
@@ -156,7 +156,7 @@ public class MovieController {
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "평가하기 페이지 (40개) : 평가한적 없는 영화, 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
+	@ApiOperation(value = "평가하기 페이지 (40개) : 평가한적 없는 영화, 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했으면 점수, 안했으면 0), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
 	@GetMapping("/rank_page")
 	public ResponseEntity<?> getListRankingPage(@RequestParam long userId, @RequestParam long pageNum) {
 		List<MovieResponseDto> movies = movieService.findMovieByNoNotInNo((int)userId, (int)pageNum);
@@ -164,7 +164,7 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "내가 평가한 영화 목록 (40개) : 평가한 영화 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
+	@ApiOperation(value = "내가 평가한 영화 목록 (40개) : 평가한 영화 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했으면 점수, 안했으면 0), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
 	@GetMapping("/rank_list")
 	public ResponseEntity<?> getListRanking(@RequestParam long userId, @RequestParam long pageNum) {
 		List<MovieResponseDto> movies = movieService.listRank((int)userId, (int)pageNum);
@@ -209,7 +209,7 @@ public class MovieController {
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "내가 찜한 영화 목록 (40개) : 찜한 영화 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했냐), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
+	@ApiOperation(value = "내가 찜한 영화 목록 (40개) : 찜한 영화 누적 조회수 순으로 추천", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작))\n출력값 : 영화정보, userDidRank(평가했으면 점수, 안했으면 0), userDidLike(좋아요:1,싫어요:-1,안함:0), userDidZzim(찜했냐)")
 	@GetMapping("/zzim_list")
 	public ResponseEntity<?> getListZzim(@RequestParam long userId, @RequestParam long pageNum) {
 		List<MovieResponseDto> movies = movieService.listZzim((int)userId, (int)pageNum);
