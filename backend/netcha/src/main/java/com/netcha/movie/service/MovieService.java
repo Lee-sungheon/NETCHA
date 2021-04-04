@@ -846,6 +846,7 @@ public class MovieService {
 				map.forEach((k,v) -> favorDirector.merge(k, v, (v1, v2) -> v1+v2));
 			}
 			for(MovieLike mr : likes) {
+				if(mr.getLikeHate() < 0) continue;
 				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
 				Map<String, Integer> map = findFavor(movie, ord);
 				map.forEach((k,v) -> favorDirector.merge(k, v, (v1, v2) -> v1+v2));
@@ -863,6 +864,7 @@ public class MovieService {
 				map.forEach((k,v) -> favorCast.merge(k, v, (v1, v2) -> v1+v2));
 			}
 			for(MovieLike mr : likes) {
+				if(mr.getLikeHate() < 0) continue;
 				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
 				Map<String, Integer> map = findFavor(movie, ord);
 				map.forEach((k,v) -> favorCast.merge(k, v, (v1, v2) -> v1+v2));
@@ -880,6 +882,7 @@ public class MovieService {
 				map.forEach((k,v) -> favorCountry.merge(k, v, (v1, v2) -> v1+v2));
 			}
 			for(MovieLike mr : likes) {
+				if(mr.getLikeHate() < 0) continue;
 				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
 				Map<String, Integer> map = findFavor(movie, ord);
 				map.forEach((k,v) -> favorCountry.merge(k, v, (v1, v2) -> v1+v2));
@@ -897,6 +900,7 @@ public class MovieService {
 				map.forEach((k,v) -> favorGanre.merge(k, v, (v1, v2) -> v1+v2));
 			}
 			for(MovieLike mr : likes) {
+				if(mr.getLikeHate() < 0) continue;
 				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
 				Map<String, Integer> map = findFavor(movie, ord);
 				map.forEach((k,v) -> favorGanre.merge(k, v, (v1, v2) -> v1+v2));
@@ -914,6 +918,7 @@ public class MovieService {
 				map.forEach((k,v) -> favorKeyword.merge(k, v, (v1, v2) -> v1+v2));
 			}
 			for(MovieLike mr : likes) {
+				if(mr.getLikeHate() < 0) continue;
 				Movie movie = movieRepository.findById(mr.getMovie().getNo()).get();
 				Map<String, Integer> map = findFavor(movie, ord);
 				map.forEach((k,v) -> favorKeyword.merge(k, v, (v1, v2) -> v1+v2));
@@ -997,7 +1002,7 @@ public class MovieService {
 			answer.put("count", count);
 			break;
 		case 5: 
-			list_entry = new ArrayList<Entry<String,Integer>>(favorCountry.entrySet());
+			list_entry = new ArrayList<Entry<String,Integer>>(favorKeyword.entrySet());
 			Collections.sort(list_entry, new Comparator<Entry<String, Integer>>() {
 				@Override
 				public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
