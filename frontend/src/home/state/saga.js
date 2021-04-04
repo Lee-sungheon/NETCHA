@@ -9,6 +9,8 @@ import {
   callApiCountryMovieList,
   callApiKeywordMovieList,
   callApiCountryGanreMovieList,
+  callApiSimilarMovieList,
+  callApiMbtiMovieList
 } from '../../common/api';
 
 export function* contentData(action) {
@@ -96,6 +98,21 @@ export function* popularData(action) {
     yield put(actions.setValue('error', error));
   }
   yield put(actions.setPopularLoading(false));
+} 
+
+export function* mbtiData(action) {
+  yield put(actions.setEnd(false));
+  yield put(actions.setMbtiLoading(true));
+  yield put(actions.setValue('error', ''));
+  try {
+    const data = yield call(callApiMbtiMovieList, action.pageNum, action.userNo);
+    if (data !== undefined) {
+      yield put(actions.setMbtiMovieList(data));
+    }
+  } catch(error) {
+    yield put(actions.setValue('error', error));
+  }
+  yield put(actions.setMbtiLoading(false));
 } 
 
 export function* rankData(action) {
@@ -229,7 +246,7 @@ export function* keywordData3(action) {
 export function* similarData(action) {
   yield put(actions.setSimilarLoading(true));
   try {
-    const data = yield call(callApiGanreMovieList, action.ganre, action.pageNum, action.userNo);
+    const data = yield call(callApiSimilarMovieList, action.movieNo, action.userNo);
     if (data !== undefined) {
       yield put(actions.setSimilarMovieList(data));
     }
@@ -301,6 +318,7 @@ export default function* () {
     takeLeading(types.REQUEST_MOVIELIST, contentData),
     takeLeading(types.REQUEST_NEWMOVIELIST, newData),
     takeLeading(types.REQUEST_POPULARMOVIELIST, popularData),
+    takeLeading(types.REQUEST_MBTIMOVIELIST, mbtiData),
     takeLeading(types.REQUEST_RANKMOVIELIST, rankData),
     takeLeading(types.REQUEST_GANREMOVIELIST, ganreData),
     takeLeading(types.REQUEST_GANREMOVIELIST2, ganreData2),
