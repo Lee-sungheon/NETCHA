@@ -40,4 +40,10 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	public List<Movie> findByCastLike(@Param("cast") String cast);
 	// 비슷한 영화 : 입력받은 영화 제외 모든 영화
 	public List<Movie> findByNoNot(Long no);
+	// 국가별 영화 편수
+	@Query("select count(m) from Movie m where m.country like %:country%")
+	public long countByCountryLike(@Param("country") String country);
+	// 장르별 영화 편수
+	@Query("select count(m) from Movie m where m.ganre like %:ganre%")
+	public long countByGanreLike(@Param("ganre") String ganre);
 }
