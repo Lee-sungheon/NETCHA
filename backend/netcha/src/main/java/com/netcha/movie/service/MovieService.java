@@ -959,7 +959,7 @@ public class MovieService {
 			answer.put("cast", result);
 			break;
 		case 3: 
-			List<Long> count = new ArrayList<Long>();
+			List<Integer> count = new ArrayList<Integer>();
 			list_entry = new ArrayList<Entry<String,Integer>>(favorCountry.entrySet());
 			Collections.sort(list_entry, new Comparator<Entry<String, Integer>>() {
 				@Override
@@ -971,14 +971,14 @@ public class MovieService {
 			if(list_entry.size() < 3) size = list_entry.size();
 			for(int i=0; i<size; i++) {
 				Entry<String, Integer> entry = list_entry.get(i);
-				count.add(movieRepository.countByCountryLike(entry.getKey()));
 				result.add(entry.getKey());
+				count.add(entry.getValue());
 			}
 			answer.put("country", result);
 			answer.put("count", count);
 			break;
 		case 4: 
-			count = new ArrayList<Long>();
+			count = new ArrayList<Integer>();
 			list_entry = new ArrayList<Entry<String,Integer>>(favorGanre.entrySet());
 			Collections.sort(list_entry, new Comparator<Entry<String, Integer>>() {
 				@Override
@@ -990,8 +990,8 @@ public class MovieService {
 			if(list_entry.size() < 3) size = list_entry.size();
 			for(int i=0; i<size; i++) {
 				Entry<String, Integer> entry = list_entry.get(i);
-				count.add(movieRepository.countByGanreLike(entry.getKey()));
 				result.add(entry.getKey());
+				count.add(entry.getValue());
 			}
 			answer.put("ganre", result);
 			answer.put("count", count);
