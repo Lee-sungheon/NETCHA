@@ -86,7 +86,7 @@ export default function Mbti(props) {
             dispatch(actions.userInfo(res.data.data));
           });
         history.push({
-          pathname: "/account",
+          pathname: "/home",
         });
       });
   };
