@@ -25,6 +25,10 @@ export const types = {
   REQUEST_RANKMOVIELIST: 'home/REQUEST_RANKMOVIELIST',
   SET_RANKMOVIELIST: 'home/SET_RANKMOVIELIST',
   SET_RANKLOADING: 'home/SET_RANKLOADING',
+  // MBTI 영화
+  REQUEST_MBTIMOVIELIST: 'home/REQUEST_MBTIMOVIELIST',
+  SET_MBTIMOVIELIST: 'home/SET_MBTIMOVIELIST',
+  SET_MBTILOADING: 'home/SET_MBTILOADING',
   // 장르 영화
   REQUEST_GANREMOVIELIST: 'home/REQUEST_GANREMOVIELIST',
   SET_GANREMOVIELIST: 'home/SET_GANREMOVIELIST',
@@ -110,6 +114,13 @@ export const actions = {
     type: types.SET_POPULARLOADING,
     isPopularLoading,
   }),
+  // MBTI 영화
+  requestMbtiMovieList: (pageNum, userNo) => ({ type: types.REQUEST_MBTIMOVIELIST, pageNum, userNo }),
+  setMbtiMovieList: data => ({ type: types.SET_MBTIMOVIELIST, data }),
+  setMbtiLoading: isMbtiLoading => ({
+    type: types.SET_MBTILOADING,
+    isMbtiLoading,
+  }),
   // 랭크 영화
   requestRankMovieList: (pageNum, userNo) => ({ type: types.REQUEST_RANKMOVIELIST, pageNum, userNo }),
   setRankMovieList: data => ({ type: types.SET_RANKMOVIELIST, data }),
@@ -181,7 +192,7 @@ export const actions = {
     isKeywordLoading3,
   }),
   // 비슷한 영화
-  requestSimilarMovieList: (ganre, pageNum, userNo) => ({ type: types.REQUEST_SIMILARMOVIELIST, ganre, pageNum, userNo }),
+  requestSimilarMovieList: (movieNo, userNo) => ({ type: types.REQUEST_SIMILARMOVIELIST, movieNo, userNo }),
   setSimilarMovieList: data => ({ type: types.SET_SIMILARMOVIELIST, data }),
   setSimilarLoading: isSimilarLoading => ({
     type: types.SET_SIMILARLOADING,
@@ -231,6 +242,8 @@ const INITIAL_STATE = {
   isKeywordLoading3: false,
   similarMovieLists: [],
   isSimilarLoading: false,
+  mbtiMovieLists: [],
+  isMbtiLoading: false,
   isFilter: false,
 };
 
@@ -255,7 +268,11 @@ const reducer = createReducer(INITIAL_STATE, {
   [types.SET_POPULARMOVIELIST]: (state, action) => {
     state.popularMovieLists = action.data
   },
-  [types.SET_POPULARLOADING]: (state, action) => (state.isPopularLoading = action.isPopularLoading),
+  // MBTI 영화
+  [types.SET_MBTIMOVIELIST]: (state, action) => {
+    state.mbtiMovieLists = action.data
+  },
+  [types.SET_MBTILOADING]: (state, action) => (state.isMbtiLoading = action.isMbtiLoading),
   // 랭크 영화
   [types.SET_RANKMOVIELIST]: (state, action) => {
     state.rankMovieLists = action.data

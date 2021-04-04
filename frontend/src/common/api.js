@@ -48,6 +48,30 @@ export function callApiContentMovieList(pageNum, id) {
     });
 }
 
+export function callApiMbtiMovieList(pageNum, id) {
+  const url = `netcha/movie/list_MBTI?pageNum=${pageNum}&userId=${id}`;
+  return axios
+    .get(url)
+    .then((Response) => {
+      return Response.data;
+    })
+    .catch((Error) => {
+      console.log(Error);
+    });
+}
+
+export function callApiSimilarMovieList(movieNo, id) {
+  const url = `netcha/movie/list_similar?movieNo=${movieNo}&userId=${id}`;
+  return axios  
+    .get(url)
+    .then((Response) => {
+      return Response.data;
+    })
+    .catch((Error) => {
+      console.log(Error);
+    });
+}
+
 export function callApiRankMovieList(pageNum, userId) {
   const url = `netcha/movie/list_avgRank?pageNum=${pageNum}&userId=${userId}`;
   return axios
@@ -209,6 +233,15 @@ export function callApiLike(userId, movieNo, like) {
   return axios.post(url, data)
     .then((Response)=>{
       console.log(Response.data)
+      return Response.data
+    })
+    .catch((Error)=>{console.log(Error)})
+}
+
+export function callApiEvaluation(userId) {
+  const url = `/netcha/movie/rank_count?userId=${userId}`;
+  return axios.get(url)
+    .then((Response)=>{
       return Response.data
     })
     .catch((Error)=>{console.log(Error)})
