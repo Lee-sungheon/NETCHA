@@ -105,14 +105,14 @@ export default function Signup(props) {
         />
         <SignupSubSection />
 
-        <div
+        {/* <div
           style={{
             backgroundColor: "black",
             width: "100%",
             height: "500px",
             borderTop: "solid #222 8px",
           }}
-        ></div>
+        ></div> */}
       </div>
     </div>
   );
