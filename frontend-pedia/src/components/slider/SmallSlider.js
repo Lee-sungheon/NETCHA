@@ -3,8 +3,11 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./SmallSlider.scss";
+import { useHistory } from "react-router";
 
 export default function SmallSlider({ movies, title, error, loading }) {
+  const history = useHistory();
+  
   if (error) {
     return <h2>에러가 발생했습니다.</h2>;
   }
@@ -44,7 +47,7 @@ export default function SmallSlider({ movies, title, error, loading }) {
       },
     ],
   };
-
+  
   return (
     <>
       <div className="smallSlider">
@@ -56,11 +59,11 @@ export default function SmallSlider({ movies, title, error, loading }) {
             <Slider {...settings}>
               {movies.map((movie) => {
                 return (
-                  <div className="smallMovieBox" key={movie.id}>
+                  <div className="smallMovieBox" key={movie.no} onClick={() => history.push(`/movieDetail/${movie.no}`)}>
                     <img
                       className="smallimage" // onClick={goToMovieDetail(movie.title)}
                       alt={movie.title}
-                      src={movie.image}
+                      src={movie.posterUrl}
                     />
                     <div className="smallmovieInfo">
                       <div className="smallmovieTitle">

@@ -6,7 +6,8 @@ import MovieRanking from "../../components/movies/MovieRanking";
 
 const NewMovieContainer = ({title}) => {
   const dispatch = useDispatch();
-  const { newMovies, error, loading } = useSelector(({ newMovies, loading }) => ({
+  const { user, newMovies, error, loading } = useSelector(({ user, newMovies, loading }) => ({
+    user: user.user,
     newMovies: newMovies.newMovies,
     error: newMovies.error,
     loading: loading["newMovies/LIST_NEW_MOVIES"],
@@ -16,7 +17,7 @@ const NewMovieContainer = ({title}) => {
   }, [dispatch]);
 
   return (
-    <MovieRanking title={title} loading={loading} error={error} movies={newMovies} />
+    <MovieRanking user={user} title={title} loading={loading} error={error} movies={newMovies} />
   );
 };
 
