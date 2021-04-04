@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import "./LoginForm.scss";
 
 export default function LoginForm(props) {
   const inputData = props.inputData;
   const onUserIdHandler = props.onUserIdHandler;
   const login = props.login;
   const onPasswordHandler = props.onPasswordHandler;
-  const classes = props.classes;
   return (
     <>
       <form autoComplete="off">
@@ -21,7 +21,7 @@ export default function LoginForm(props) {
           value={inputData.userId}
           variant="filled"
           onChange={onUserIdHandler}
-          className={classes.login_div_textfield}
+          className="login_div_textfield"
         />
 
         <TextField
@@ -31,17 +31,16 @@ export default function LoginForm(props) {
           type="password"
           value={inputData.password}
           onChange={onPasswordHandler}
-          className={classes.login_div_textfield}
+          className="login_div_textfield"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               login(e);
             }
           }}
         />
-
         <Button
           variant="contained"
-          className={classes.login_div_loginbutton}
+          className="login_div_loginbutton"
           onClick={login}
         >
           로그인

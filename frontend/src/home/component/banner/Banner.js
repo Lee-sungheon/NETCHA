@@ -121,7 +121,6 @@ export default function Banner() {
             height: "49.25vw",
             position: "relative",
             overflow: "hidden",
-            position: "absolute",
           }}
         >
           <ReactHlsPlayer
@@ -157,7 +156,7 @@ export default function Banner() {
         style={{
           position: "absolute",
           top: "25vw",
-          left: "3vw",
+          left: "4vw",
           color: "white",
           textAlign: "left",
         }}
