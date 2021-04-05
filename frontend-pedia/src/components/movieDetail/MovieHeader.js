@@ -67,7 +67,7 @@ const MovieHeader = ({
         <img
           className="posterImgg"
           alt="banner"
-          src={movie.movie_info.posterUrl}
+          src={movie.movie_info.imageUrl[0]}
         ></img>
       </div>
 
