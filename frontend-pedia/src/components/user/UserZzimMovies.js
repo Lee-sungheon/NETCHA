@@ -1,6 +1,6 @@
 import React from 'react';
 import SmallSlider from '../slider/SmallSlider';
-import SeeMoreButton from '../common/SeeMoreButton';
+import UserMoviesHeader from './UserMoviesHeader';
 
 const UserZzimMovies = ({ movies, count, error, loading }) => {
   if(movies) {
@@ -8,8 +8,7 @@ const UserZzimMovies = ({ movies, count, error, loading }) => {
   }
   return (
     <>
-      <h3 style={{ display: 'inline-block' }}>보고싶어요</h3>&nbsp;&nbsp;{count}
-      <SeeMoreButton />
+      <UserMoviesHeader count={count} title="보고싶어요" link="/userZzimMoviesList" />
       <SmallSlider movies={movies} error={error} loading={loading} />
     </>
   );

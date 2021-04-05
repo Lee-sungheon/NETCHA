@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import './SearchMovieList.scss';
+import './MovieList.scss';
 
 const MovieItem = ({ movie }) => {
   const { posterUrl, title, open, country, no } = movie;
@@ -28,14 +28,8 @@ const MovieItem = ({ movie }) => {
   );
 };
 
-const SearchMovieList = ({ movies }) => {
+const MovieList = ({ movies, headerTitle }) => {
   const history = useHistory();
-
-  // if (error) {
-  //   return <h2 style={{ paddingTop: '100px' }}>에러가 발생했습니다.</h2>;
-  // }
-
-
 
   return (
     <>
@@ -48,27 +42,22 @@ const SearchMovieList = ({ movies }) => {
               alt="이전페이지"
             />
           </button>
-          <div className="movieHeader">영화</div>
+          <div className="movieHeader">{headerTitle}</div>
         </div>
         <hr />
-        {/* 로딩 중이 아니고, 영화 리스트가 존재할 때만 보여준다.*/}
-        {/* {!loading && movies && ( */}
         {movies && (
           <div className="movieListWrap">
             {movies.map((movie, index) => {
               return <MovieItem movie={movie} key={index} />;
             })}
-            {/* <div ref={setTarget} className="last-item">
-              <Loader size="s" />
-            </div> */}
           </div>
         )}
+        { !movies &&
+          <div className="movieListWrap"  style={{height: 500, fontSize: 20}}>평가한 영화가 없습니다</div>
+        }
       </div>
-      {/* <div>
-        <button onClick={fetchMoreData}>더보기</button>
-      </div> */}
     </>
   );
 };
 
-export default SearchMovieList;
+export default MovieList;

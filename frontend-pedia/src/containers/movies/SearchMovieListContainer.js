@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import qs from 'qs';
-import SearchMovieList from '../../components/movies/SearchMovieList';
+import MovieList from '../../components/movies/MovieList';
 import { withRouter } from 'react-router';
 import * as moviesApi from '../../lib/api/movies';
 
@@ -73,7 +73,7 @@ const SearchMovieListContainer = ({ location }) => {
   return (
     <>
       {/* <SearchMovieList loading={loading} error={error} movies={movies} /> */}
-      <SearchMovieList movies={movies} />
+      <MovieList movies={movies} />
       <button>무한스크롤</button>
     </>
   );
