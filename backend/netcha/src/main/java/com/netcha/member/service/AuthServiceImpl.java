@@ -85,7 +85,7 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public void sendVerificationMail(Member member) throws NotFoundException {
-		String VERIFICATION_LINK = "http://localhost:8080/user/verify/";
+		String VERIFICATION_LINK = "http://j4d105.p.ssafy.io:9000/netcha/user/verify/";
 		if (member == null)
 			throw new NotFoundException("멤버가 조회되지 않음");
 		UUID uuid = UUID.randomUUID();
@@ -126,7 +126,7 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public void requestChangePassword(Member member) throws NotFoundException {
-		String CHANGE_PASSWORD_LINK = "http://localhost:8080/user/password/";
+		String CHANGE_PASSWORD_LINK = "http://j4d105.p.ssafy.io:9000/netcha/user/password/";
 		if (member == null)
 			throw new NotFoundException("멤버가 조회되지 않음.");
 		String key = REDIS_CHANGE_PASSWORD_PREFIX + UUID.randomUUID();
