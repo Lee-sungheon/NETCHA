@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router";
 import { listActors } from "../../modules/actors";
 import Loader from '../../components/common/Loader';
+import crawlingTest from '../../crawlingTest';
+
+const actorArr = [];
 
 const ActorListContainer = () => {
   const dispatch = useDispatch();
@@ -17,9 +20,9 @@ const ActorListContainer = () => {
     if (actors) return;
     dispatch(listActors({ userId }));
   }, [dispatch, userId]);
-
+  
   if (loading) return <Loader type="spin" color="#ff0073" message="LOADING..." />;
-
+  
   return (
     <PeopleList data={actors? actors.cast : null} error={error} loading={loading} />
   );
