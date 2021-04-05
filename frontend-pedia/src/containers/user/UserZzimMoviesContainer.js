@@ -18,7 +18,7 @@ const UserZzimMoviesContainer = () => {
     })
   );
   useEffect(() => {
-    dispatch(listZzimMovies(userId));
+    dispatch(listZzimMovies({page: 0, userId}));
   }, [dispatch, userId]);
 
   if (zzimMovies && ratingMovies) {

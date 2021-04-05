@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import MovieList from "../../components/movies/MovieList";
 import { withRouter } from "react-router";
 import * as moviesApi from "../../lib/api/movies";
@@ -13,7 +13,10 @@ const UserZzimMoviesListContainer = () => {
 
   const getUserZzimMovies = async (newPage) => {
     try {
-      const response = await moviesApi.listZzimMovies({page: newPage, userId});
+      const response = await moviesApi.listZzimMovies({
+        page: newPage,
+        userId,
+      });
       if (movies) {
         setMovies([...movies, ...response.data]);
       } else {
@@ -42,8 +45,10 @@ const UserZzimMoviesListContainer = () => {
 
     if (scrollTop + clientHeight === scrollHeight) {
       console.log("fetchMore");
-      setPage(page + 1);
-      setMovies(movies.concat(getUserZzimMovies(page + 1)));
+      if (movies) {
+        setPage(page + 1);
+        setMovies(movies.concat(getUserZzimMovies(page + 1)));
+      }
     }
   }, [page, movies]);
 
@@ -55,7 +60,9 @@ const UserZzimMoviesListContainer = () => {
   return (
     <>
       <MovieList movies={movies} headerTitle="보고싶어요" />
-      <button>무한스크롤</button>
+      <button style={{ color: "white", backgroundColor: "white" }}>
+        무한스크롤
+      </button>
     </>
   );
 };
