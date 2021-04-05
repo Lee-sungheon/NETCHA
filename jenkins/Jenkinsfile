@@ -13,7 +13,7 @@ pipeline {
 		stage('Build and Test') {
 		// docker image에 명시된 image를 활용하여 steps 수행
 			agent any
-			options { skipDefaultCheckout(false) }
+			options { skipDefaultCheckout(true) }
 			steps {
 				sh 'gradle -v'
 				// sh './gradlew build'
