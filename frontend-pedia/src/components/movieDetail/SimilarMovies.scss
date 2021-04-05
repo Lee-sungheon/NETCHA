@@ -7,7 +7,10 @@
   margin-bottom: 20px;
   cursor: pointer;
 }
-
+.similarMoviesImg {
+  border: 2px solid #e6e6e6;
+  border-radius: 3px;
+}
 .similarBlock:nth-child(3n + 1) {
   margin-left: 30px;
 }
