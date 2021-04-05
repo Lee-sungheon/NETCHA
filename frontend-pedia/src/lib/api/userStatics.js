@@ -19,8 +19,8 @@ export const listGenres = ({ userId }) => {
 
 export const listTags = ({ userId }) => {
   console.log('listTags:' + userId);
-  return tags;
-  // return client.get(`/movie/userFavor_keyword?userId=${userId}`)
+  // return tags;
+  return client.get(`/movie/userFavor_keyword?userId=${userId}`)
 }
 
 export const listStars = ({ userId }) => {
