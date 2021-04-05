@@ -15,7 +15,7 @@ pipeline {
 			agent any
 			options { skipDefaultCheckout(true) }
 			steps {
-				sh 'gradle -v'
+				sh 'sudo gradle -v'
 				// sh './gradlew build'
 				// sh 'gradle build'
 			}
