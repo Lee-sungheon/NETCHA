@@ -3,7 +3,7 @@ import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, {
   createRequestActionTypes,
 } from '../lib/createRequestSaga';
-import { takeLatest, put, takeEvery, call } from 'redux-saga/effects';
+import { takeLatest, takeEvery, call } from 'redux-saga/effects';
 import * as authAPI from '../lib/api/auth';
 
 const INITIALIZE = 'user/INITIALIZE';

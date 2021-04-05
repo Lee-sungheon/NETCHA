@@ -262,3 +262,27 @@ export function callApiMovieReview(movieNo, userId) {
     })
     .catch((Error)=>{console.log(Error)})
 }
+
+export function callApiMovieDetail(movieNo, userId) {
+  const url = `netcha/movie/movie_detail?movieNo=${movieNo}&userId=${userId}`;
+  return axios.get(url)
+    .then((Response)=>{
+      return Response.data
+    })
+    .catch((Error)=>{console.log(Error)})
+}
+
+export function callApiReview(userId, movieNo, content) {
+  const url = `netcha/movie/review_insert`
+  const data = {
+    userId: userId,
+    movieNo: movieNo,
+    content: content
+  }
+  return axios.post(url, data)
+    .then((Response)=>{
+      console.log(Response.data)
+      return Response.data
+    })
+    .catch((Error)=>{console.log(Error)})
+}

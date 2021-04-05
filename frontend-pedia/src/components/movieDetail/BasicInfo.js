@@ -9,6 +9,7 @@ const BasicInformation = ({ movie }) => {
           {movie.movie_info.ganre}
         </div>
         <div>{movie.movie_info.time}분</div>
+        <br />
         <div>{movie.movie_info.scenario}</div>
       </div>
     </div>

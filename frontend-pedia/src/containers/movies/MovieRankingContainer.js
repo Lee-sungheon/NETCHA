@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router";
 import { listNetChaRankingMovies } from "../../modules/netchaRankingMovies";
 import MovieRanking from "../../components/movies/MovieRanking";
+import Loader from '../../components/common/Loader';
 
 const MovieRankingContainer = ({title}) => {
   const dispatch = useDispatch();
@@ -14,7 +15,9 @@ const MovieRankingContainer = ({title}) => {
   }));
   useEffect(() => {
     dispatch(listNetChaRankingMovies(user ? user.userId : -1));
-  }, [dispatch]);
+  }, [dispatch, user]);
+
+  if (loading) return <Loader type="spin" color="#ff0073" message="LOADING..." />;
 
   return (
     <MovieRanking title={title} loading={loading} error={error} movies={movies} />

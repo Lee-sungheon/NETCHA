@@ -297,7 +297,7 @@ export default function MovieFilter() {
           </div>
         }
         {filterList.length < 3 &&
-          <div style={{height: '30vh'}}></div>
+          <div style={{height: '40vh'}}></div>
         }
       </div>
     </>

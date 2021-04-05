@@ -24,7 +24,7 @@ const Content = ({ movie, onClose, tabNo, setTabNumber }) => {
           src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
           autoPlay={true}
           muted
-          height="100%"
+          height="99%"
           style={{
             position: 'absolute',
             zIndex: "1",

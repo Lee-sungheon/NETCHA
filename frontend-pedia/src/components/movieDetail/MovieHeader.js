@@ -4,7 +4,6 @@ import Rating from '@material-ui/lab/Rating';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import * as rankApi from '../../lib/api/rank';
 import * as moviesApi from '../../lib/api/movies';
-import { useEffect, useState } from 'react';
 
 const MovieHeader = ({
   movie,
@@ -15,21 +14,25 @@ const MovieHeader = ({
   setZzimData,
 }) => {
   const updateZzim = async () => {
-    if (zzimData.isZzim == false) {
+    if (zzimData.isZzim === false) {
       try {
-        await moviesApi.updateZzimMovies(...zzimData, ...requestData);
+        await moviesApi.updateZzimMovies(requestData);
       } catch (e) {}
     } else {
       try {
-        await moviesApi.deleteZzimMovies(...zzimData, ...requestData);
+        await moviesApi.deleteZzimMovies(requestData);
       } catch (e) {}
     }
     setZzimData({ isZzim: !zzimData.isZzim });
   };
+  let sumRank = 0;
+  for (let key in movie.movie_rank) {
+    sumRank += movie.movie_rank[key];
+  }
 
   const updateRank = async (e) => {
     let tempRanking = 0;
-    if (e.target.value == rankData.ranking) {
+    if (parseFloat(e.target.value) === rankData.ranking) {
       tempRanking = 0;
     } else {
       tempRanking = parseFloat(e.target.value);
@@ -39,7 +42,7 @@ const MovieHeader = ({
       // setError(null);
       // loading 상태를 true 로 바꿉니다.
       // setLoading(true);
-      const response = rankApi.updateRank({
+      rankApi.updateRank({
         ...requestData,
         ranking: tempRanking,
       });
@@ -54,28 +57,36 @@ const MovieHeader = ({
   };
 
   const onClickRank = (e) => {
-    if (e.target.name == 'size-large') {
+    if (e.target.name === 'size-large') {
       updateRank(e);
     }
   };
   return (
     <div className="MovieHeaderWrapper">
       <div className="MovieHeaderTop">
-        <img src="https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_720,q_80,w_1280/v1576818817/ob8puocgokh3yj7thpdt.jpg"></img>
+        <img
+          className="posterImgg"
+          alt="banner"
+          src={movie.movie_info.imageUrl === "default" ? "../../images/defaultPoster.png" :movie.movie_info.imageUrl[0] }
+        ></img>
       </div>
 
       <div className="MovieHeaderBottom">
         <div className="posterImg">
-          <img src={movie.movie_info.posterUrl}></img>
+          <img alt="poster" src={movie.movie_info.posterUrl === "default" ? "../../images/defaultPoster.png" : movie.movie_info.posterUrl}></img>
           <div className="posterDetail">
             <div className="posterTitle">
               {movie.movie_info.title}
-              <div className="posterTitleDetail">2019 드라마 미국 프랑스</div>
+              <div className="posterTitleDetail">
+                {movie.movie_info.open} {movie.movie_info.ganre}{' '}
+                {movie.movie_info.country}
+              </div>
             </div>
 
             <div className="posterBottom">
               <div className="averageScore">
-                평균 ★{movie.movie_info.avgRank} (3292명)
+                평균 ★{movie.movie_info.avgRank} ({sumRank}
+                명)
               </div>
               <div className="ratingContent">
                 <div className="buttonContainer" onClick={onClickZzim}>
