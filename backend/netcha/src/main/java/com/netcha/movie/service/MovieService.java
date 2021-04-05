@@ -1025,7 +1025,7 @@ public class MovieService {
 			if(list_entry.size() < 9) size = list_entry.size();
 			for(int i=0; i<size; i++) {
 				Entry<String, Integer> entry = list_entry.get(i);
-				maps.put(entry.getKey(), entry.getValue());
+				maps.put(entry.getKey(), entry.getValue()*100);
 			}
 			answer.put("keyword", maps);
 		}
