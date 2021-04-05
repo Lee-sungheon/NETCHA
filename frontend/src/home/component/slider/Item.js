@@ -25,6 +25,9 @@ export default function Item({ movie, idx }) {
     clearTimeout(timer);
     setIsHover(false);
     bufferTime = 0;
+    if (bufferTime !== 0){
+      dispatch(actions.setValue('bannerToggle', false));
+    }
   }, [isdetail])
   return (
     <SliderContext.Consumer>
@@ -32,6 +35,7 @@ export default function Item({ movie, idx }) {
         function onMouse(e) {
           if (!isHover && !currentSlide){
             timer = setTimeout(function() {
+              dispatch(actions.setValue('bannerToggle', false));
               setIsHover(true);
               buffer = setInterval(function() {
                 bufferTime += 1;
@@ -66,6 +70,7 @@ export default function Item({ movie, idx }) {
         function onMouseLeave(e) {
           if (!currentSlide){
             setIsHover(false);
+            dispatch(actions.setValue('bannerToggle', true));
             clearTimeout(timer);
             clearInterval(buffer);
             bufferTime = 0;
