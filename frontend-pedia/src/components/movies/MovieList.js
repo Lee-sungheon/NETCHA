@@ -53,7 +53,7 @@ const MovieList = ({ movies, headerTitle }) => {
           </div>
         )}
         { !movies &&
-          <div className="movieListWrap"  style={{height: 500, fontSize: 20}}>평가한 영화가 없습니다</div>
+          <div className="movieListWrap"  style={{height: 500, fontSize: 20}}>영화가 없습니다</div>
         }
       </div>
     </>

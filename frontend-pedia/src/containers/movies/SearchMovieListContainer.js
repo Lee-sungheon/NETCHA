@@ -73,7 +73,7 @@ const SearchMovieListContainer = ({ location }) => {
   return (
     <>
       {/* <SearchMovieList loading={loading} error={error} movies={movies} /> */}
-      <MovieList movies={movies} />
+      <MovieList movies={movies} headerTitle="영화 검색 결과" />
       <button>무한스크롤</button>
     </>
   );

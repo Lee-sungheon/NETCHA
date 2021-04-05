@@ -5,7 +5,7 @@ import { withRouter } from "react-router";
 import * as moviesApi from "../../lib/api/movies";
 
 const UserRatingMoviesListContainer = () => {
-  const userId = useSelector(({user}) => ({userId : user.user.userId}));
+  const {userId} = useSelector(({user}) => ({userId : user.user.userId}));
   const [page, setPage] = useState(0);
   const [movies, setMovies] = useState(null);
 
@@ -38,7 +38,7 @@ const UserRatingMoviesListContainer = () => {
     );
     let clientHeight = document.documentElement.clientHeight;
 
-    if (scrollTop + clientHeight === scrollHeight) {
+    if (scrollTop + clientHeight >= scrollHeight) {
       console.log("fetchMore");
       if(movies) {
         setPage(page + 1);
