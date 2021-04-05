@@ -30,14 +30,14 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	// 평가한 영화 목록 (40개) : 평가 한 영화 누적 조회수 순으로
 	public List<Movie> findByNoIn(List<Long> no, Pageable page);
 	// 장르, 나라 해당 : 누적 조회수 순으로
-	@Query("select m from Movie m where m.ganre like %:ganre% and m.country like %:country%")
-	public List<Movie> findByGanreLikeAndCountryLike(@Param("ganre") String ganre, @Param("country") String country, Pageable page);
+	@Query("select m from Movie m where m.open >= :open and m.ganre like %:ganre% and m.country like %:country%")
+	public List<Movie> findByGanreLikeAndCountryLike(@Param("open") String open, @Param("ganre") String ganre, @Param("country") String country, Pageable page);
 	// 감독별 (40개) : 누적 조회수 순으로
-	@Query("select m from Movie m where m.directors like %:director% order by m.totalView desc")
-	public List<Movie> findByDirectorLike(@Param("director") String director);
+	@Query("select m from Movie m where m.open >= :open and m.directors like %:director% order by m.totalView desc")
+	public List<Movie> findByDirectorLike(@Param("open") String open, @Param("director") String director);
 	// 배우별 (40개) : 누적 조회수 순으로
-	@Query("select m from Movie m where m.casts like %:cast% order by m.totalView desc")
-	public List<Movie> findByCastLike(@Param("cast") String cast);
+	@Query("select m from Movie m where m.open >= :open and m.casts like %:cast% order by m.totalView desc")
+	public List<Movie> findByCastLike(@Param("open") String open, @Param("cast") String cast);
 	// 비슷한 영화 : 입력받은 영화 제외 모든 영화
 	public List<Movie> findByNoNot(Long no);
 	// 국가별 영화 편수
