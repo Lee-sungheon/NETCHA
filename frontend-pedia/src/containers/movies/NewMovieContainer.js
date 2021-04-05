@@ -14,7 +14,7 @@ const NewMovieContainer = ({title}) => {
   }));
   useEffect(() => {
     dispatch(listNewMovies(user ? user.userId : -1));
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   return (
     <MovieRanking title={title} loading={loading} error={error} movies={newMovies} />
