@@ -45,12 +45,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/user/signup").permitAll()
-                .antMatchers("/user/login/**").permitAll()
+                .antMatchers("/user/login").permitAll()
+                .antMatchers("/user/checkId").permitAll()
                 .antMatchers("/user/verify/**").permitAll()
                 .antMatchers("/user/size").permitAll()
                 .antMatchers("/oauth/**").permitAll()
                 .antMatchers("/test/user").hasRole("USER")
                 .antMatchers("/test/admin").hasRole("ADMIN");
+//                .anyRequest().hasRole("USER");
 //                .anyRequest().authenticated();
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

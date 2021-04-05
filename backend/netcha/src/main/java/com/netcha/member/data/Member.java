@@ -57,7 +57,7 @@ public class Member {
     
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private UserRole role = UserRole.ROLE_NOT_PERMITTED;
+    private UserRole role = UserRole.ROLE_USER;
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
