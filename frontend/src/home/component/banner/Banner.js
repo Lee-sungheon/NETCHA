@@ -5,8 +5,9 @@ import ReactHlsPlayer from "react-hls-player";
 import SoundButton from "./SoundButton";
 import { useHistory } from "react-router";
 
-export default function Banner() {
+export default function Banner(props) {
   const history = useHistory();
+
   const SoundToggle = () => {
     const player = document.getElementById("player");
     // setMuted(!muted);
@@ -132,11 +133,11 @@ export default function Banner() {
             style={{
               zIndex: "1",
             }}
+            state="play"
             muted
             loop
             hlsConfig={{
               startPosition: 10,
-              // nextLoadPosition:
             }}
           />
         </div>
