@@ -22,6 +22,8 @@ import KeywordBased from "../component/recommend/keyword/KeywordBased";
 import KeywordBased2 from "../component/recommend/keyword/KeywordBased2";
 import KeywordBased3 from "../component/recommend/keyword/KeywordBased3";
 import { useHistory } from "react-router-dom";
+// import CreateReview from '../../common/review.js';
+
 
 let loadingPage = false;
 export default function Home() {
@@ -35,6 +37,7 @@ export default function Home() {
       history.push(`/eval`);
     }
     window.scrollTo(0, 0);
+    // CreateReview();
   }, [])
   useEffect(()=> {
     function handleScroll() {
@@ -79,7 +82,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Banner />
+      <Banner user={user}/>
       <div className="home__container">
         <ContentBased loading={loading} idx={"slider-1"} user={user} />
         <MbtiBased loading={loading} idx={"slider-2"} user={user} />
@@ -163,6 +166,7 @@ function shuffle(a) {
     a[j] = x;
   }
 }
+
 shuffle(GANRES);
 shuffle(COUNTRYS);
 shuffle(KEYWORDS);
