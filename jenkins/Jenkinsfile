@@ -15,8 +15,8 @@ pipeline {
 			agent any
 			options { skipDefaultCheckout(false) }
 			steps {
-				sh 'chmod +x /home/ubuntu/s04p23d105/backend/netcha/gradlew'
-				sh './gradlew build'
+				sh '/home/ubuntu/s04p23d105/backend/netcha/gradlew build'
+				// sh './gradlew build'
 				// sh 'gradle build'
 			}
 		}
