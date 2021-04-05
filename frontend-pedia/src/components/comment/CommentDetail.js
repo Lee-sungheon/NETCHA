@@ -1,8 +1,8 @@
-import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
-import { useEffect, useState } from "react";
-import * as commentApi from "../../lib/api/comment";
-import "./CommentDetail.scss";
-
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import { useEffect, useState } from 'react';
+import * as commentApi from '../../lib/api/comment';
+import './CommentDetail.scss';
+// 폴더명
 const CommentDetail = ({ requestData, history }) => {
   const [comment, setComment] = useState(null);
 
@@ -48,7 +48,7 @@ const CommentDetail = ({ requestData, history }) => {
           <div
             className="commentDiv1"
             onClick={() => {
-              history.push("/movieDetail/" + comment.movieId);
+              history.push('/movieDetail/' + comment.movieId);
             }}
           >
             ←
@@ -67,7 +67,7 @@ const CommentDetail = ({ requestData, history }) => {
               <div className="commentContent">{comment.content}</div>
               <div className="footer1">
                 <ThumbUpAltIcon
-                  style={{ fontSize: 15, color: "grey", marginRight: "5px" }}
+                  style={{ fontSize: 15, color: 'grey', marginRight: '5px' }}
                 />
                 {comment.totalLike}
               </div>
