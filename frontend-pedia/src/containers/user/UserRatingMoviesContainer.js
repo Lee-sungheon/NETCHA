@@ -1,7 +1,8 @@
-import SmallSlider from "../../components/slider/SmallSlider";
+
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router";
+import UserRatingMovies from "../../components/user/UserRatingMovies";
 import { listRatingMovies, countRatingMovies } from "../../modules/ratingMovies";
 
 const UserRatingMoviesContainer = () => {
@@ -25,10 +26,7 @@ const UserRatingMoviesContainer = () => {
     });
 
   return (
-    <>
-      <h3 style={{ display: "inline-block" }}>평가</h3>&nbsp;&nbsp;{count}
-      <SmallSlider movies={movies} error={error} loading={loading} />
-    </>
+    <UserRatingMovies movies={movies} count={count} error={error} loading={loading} />
   );
 };
 
