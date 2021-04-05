@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router";
 import { listTags } from "../../modules/tags";
 import WordCloud from "../../components/user/WordCloud";
+import Loader from '../../components/common/Loader';
 
 const WordCloudContainer = () => {
   const dispatch = useDispatch();
@@ -12,9 +13,12 @@ const WordCloudContainer = () => {
     error: tags.error,
     loading: loading["tags/LIST_TAGS"],
   }));
+
   useEffect(() => {
     dispatch(listTags({userId}));
   }, [dispatch, userId]);
+
+  if (loading) return <Loader type="spin" color="#ff0073" message="LOADING..." />;
 
   return (
     <WordCloud tags={tags} error={error} loading={loading} />
