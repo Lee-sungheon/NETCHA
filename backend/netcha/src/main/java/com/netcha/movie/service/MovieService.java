@@ -1091,20 +1091,21 @@ public class MovieService {
 	
 	// 사용자 평점 리스트
 	@Transactional
-	public Map<Float, Integer> getRankByUser(int userId) {
+	public int[] getRankByUser(int userId) {
 		List<MovieRank> ranks = movieRankRepository.findAllByMemberSeq(userId);
-		Map<Float, Integer> userRank = new HashMap<Float, Integer>();
-		userRank.put((float)0.5, 0);
-		userRank.put((float)1, 0);
-		userRank.put((float)1.5, 0);
-		userRank.put((float)2, 0);
-		userRank.put((float)2.5, 0);
-		userRank.put((float)3, 0);
-		userRank.put((float)3.5, 0);
-		userRank.put((float)4, 0);
-		userRank.put((float)4.5, 0);
-		userRank.put((float)5, 0);
-		for(MovieRank rank : ranks) userRank.put(rank.getRanking(), userRank.get(rank.getRanking()) + 1);
+		int[] userRank = new int[10];
+		for(MovieRank rank : ranks) {
+			if(rank.getRanking() == 0.5) userRank[0] += 1;
+			else if(rank.getRanking() == 1) userRank[1] += 1;
+			else if(rank.getRanking() == 1.5) userRank[2] += 1;
+			else if(rank.getRanking() == 2) userRank[3] += 1;
+			else if(rank.getRanking() == 2.5) userRank[4] += 1;
+			else if(rank.getRanking() == 3) userRank[5] += 1;
+			else if(rank.getRanking() == 3.5) userRank[6] += 1;
+			else if(rank.getRanking() == 4) userRank[7] += 1;
+			else if(rank.getRanking() == 4.5) userRank[8] += 1;
+			else if(rank.getRanking() == 5) userRank[9] += 1;
+		}
 		return userRank;
 	}
 	
