@@ -1,28 +1,19 @@
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import { useEffect, useState } from "react";
-import { withRouter } from "react-router-dom";
-import Slider from "react-slick";
-import * as commentApi from "../../../lib/api/comment";
-import "./Comment.scss";
+import * as commentApi from "../../lib/api/comment";
+import "./CommentDetail.scss";
 
-const Comment = ({ requestData, history }) => {
-  const settings = {
-    className: "center",
-    centerMode: true,
-    infinite: true,
-    centerPadding: "5px",
-    slidesToShow: 1,
-    arrows: true,
-    speed: 500,
-    rows: 1,
-    slidesPerRow: 2,
-  };
-  const [comments, setComments] = useState(null);
+const CommentDetail = ({ requestData, history }) => {
+  const [comment, setComment] = useState(null);
 
   const fetchComments = async () => {
     try {
-      const response = await commentApi.readComments(requestData);
-      setComments(response.data);
+      console.log(requestData);
+      const response = await commentApi.readComment({
+        userId: requestData.userId,
+        reviewNo: requestData.commentNo,
+      });
+      setComment(response.data);
     } catch (e) {
       console.log(e);
     }
@@ -50,14 +41,21 @@ const Comment = ({ requestData, history }) => {
   useEffect(() => {
     fetchComments();
   }, [requestData]);
-
   return (
-    <div className="comment">
-      <div className="infoHeader">코멘트</div>
-      <Slider {...settings}>
-        {comments &&
-          comments.map((comment, index) => (
-            <div key={index} className="commentBox">
+    <>
+      {comment && (
+        <>
+          <div
+            className="commentDiv1"
+            onClick={() => {
+              history.push("/movieDetail/" + comment.movieId);
+            }}
+          >
+            ←
+          </div>
+          <div className="commentDiv2">코멘트</div>
+          <div className="commentDetailWrapper">
+            <div className="commentBox">
               <div className="header">
                 {comment.userNickname}
                 <div>
@@ -66,12 +64,7 @@ const Comment = ({ requestData, history }) => {
                 </div>
               </div>
 
-              <div
-                className="content"
-                onClick={() => history.push("/commentDetail/" + comment.no)}
-              >
-                {comment.content}
-              </div>
+              <div className="commentContent">{comment.content}</div>
               <div className="footer1">
                 <ThumbUpAltIcon
                   style={{ fontSize: 15, color: "grey", marginRight: "5px" }}
@@ -81,7 +74,7 @@ const Comment = ({ requestData, history }) => {
               {!comment.mine && !comment.myLike && (
                 <div
                   className="commentUnlike"
-                  onClick={() => insertLike(comment, index)}
+                  onClick={() => insertLike(comment)}
                 >
                   좋아요
                 </div>
@@ -89,16 +82,17 @@ const Comment = ({ requestData, history }) => {
               {!comment.mine && comment.myLike && (
                 <div
                   className="commentLike"
-                  onClick={() => deleteLike(comment, index)}
+                  onClick={() => deleteLike(comment)}
                 >
                   좋아요
                 </div>
               )}
             </div>
-          ))}
-      </Slider>
-    </div>
+          </div>
+        </>
+      )}
+    </>
   );
 };
 
-export default withRouter(Comment);
+export default CommentDetail;
