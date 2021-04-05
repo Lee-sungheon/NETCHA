@@ -1,31 +1,33 @@
-import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
-import { useEffect, useState } from "react";
-import { withRouter } from "react-router-dom";
-import Slider from "react-slick";
-import * as commentApi from "../../../lib/api/comment";
-import "./Comment.scss";
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
+import Slider from 'react-slick';
+import * as commentApi from '../../../lib/api/comment';
+import './Comment.scss';
 
 const Comment = ({ requestData, history }) => {
   const settings = {
-    className: "center",
+    className: 'center',
     centerMode: true,
     infinite: true,
-    centerPadding: "5px",
+    centerPadding: '5px',
     slidesToShow: 1,
     arrows: true,
     speed: 500,
     rows: 1,
     slidesPerRow: 2,
   };
-  const [comments, setComments] = useState("");
+  const [comments, setComments] = useState('');
 
   const fetchComments = async () => {
-    try {
-      const response = await commentApi.readComments(requestData);
-      setComments(response.data);
-    } catch (e) {
-      console.log(e);
-    }
+    setTimeout(async () => {
+      try {
+        const response = await commentApi.readComments(requestData);
+        setComments(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    }, 500);
   };
 
   const insertLike = async (comment) => {
@@ -75,13 +77,13 @@ const Comment = ({ requestData, history }) => {
 
               <div
                 className="content"
-                onClick={() => history.push("/commentDetail/" + comment.no)}
+                onClick={() => history.push('/commentDetail/' + comment.no)}
               >
                 {comment.content}
               </div>
               <div className="footer1">
                 <ThumbUpAltIcon
-                  style={{ fontSize: 15, color: "grey", marginRight: "5px" }}
+                  style={{ fontSize: 15, color: 'grey', marginRight: '5px' }}
                 />
                 {comment.totalLike}
               </div>
