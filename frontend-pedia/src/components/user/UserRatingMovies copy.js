@@ -1,11 +1,11 @@
 import React from 'react';
 import SmallSlider from '../../components/slider/SmallSlider';
-import UserMoviesHeader from './UserMoviesHeader';
+import UserRatingMoviesHeader from './UserMoviesHeader';
 
 const UserRatingMovies = ({ movies, count, error, loading }) => {
   return (
     <>
-      <UserMoviesHeader count={count} title="평가" link="/userRatingMoviesList" />
+      <UserRatingMoviesHeader count={count} title="평가" link="/userRatingMoviesListPage" />
       <SmallSlider movies={movies} error={error} loading={loading} />
     </>
   );

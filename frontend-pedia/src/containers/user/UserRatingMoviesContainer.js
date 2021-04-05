@@ -17,7 +17,7 @@ const UserRatingMoviesContainer = () => {
     })
   );
   useEffect(() => {
-    dispatch(listRatingMovies(userId));
+    dispatch(listRatingMovies(0, userId));
     dispatch(countRatingMovies(userId));
   }, [dispatch, userId]);
 

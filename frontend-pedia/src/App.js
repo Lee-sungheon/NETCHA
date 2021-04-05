@@ -5,7 +5,8 @@ import UserStaticsPage from './pages/UserStaticsPage';
 import MovieDetail from './pages/MovieDetailPage';
 import './App.scss';
 import SearchMovieListPage from './pages/SearchMovieListPage';
-import UserRatingMoviesPage from './pages/UserRatingMoviesPage';
+import UserRatingMoviesListPage from './pages/UserRatingMoviesListPage';
+import UserZzimMoviesListPage from './pages/UserZzimMoviesListPage';
 
 const App = () => {
   return (
@@ -16,7 +17,8 @@ const App = () => {
         <Route exact path="/user/statics/:id" component={UserStaticsPage} />
         <Route exact path="/movieDetail/:movieNo" component={MovieDetail} />
         <Route exact path="/searchMovie" component={SearchMovieListPage} />
-        <Route exact path="/userRatingMoviesPage" component={UserRatingMoviesPage} />
+        <Route exact path="/userRatingMoviesList" component={UserRatingMoviesListPage} />
+        <Route exact path="/userZzimMoviesList" component={UserZzimMoviesListPage} />
       </BrowserRouter>
     </div>
   );

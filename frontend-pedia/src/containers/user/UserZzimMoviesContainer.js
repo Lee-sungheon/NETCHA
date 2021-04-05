@@ -41,7 +41,7 @@ const UserZzimMoviesContainer = () => {
     <>
       {/* <UserZzimMovies moviess={zzimMovies} error={error} loading={loading} count={count} /> */}
       <h3 style={{ display: 'inline-block' }}>보고싶어요</h3>&nbsp;&nbsp;{count}
-      <SeeMoreButton link="/" />
+      <SeeMoreButton link="/userZzimMoviesList" />
       <SmallSlider movies={zzimMovies} error={error} loading={loading} />
     </>
   );
