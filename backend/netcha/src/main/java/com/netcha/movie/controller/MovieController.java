@@ -355,6 +355,14 @@ public class MovieController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "영화별 평점 현황 (0.5 ~ 5)", notes = "입력값 : movieNo(리뷰고유번호)")
+	@GetMapping("/rank_movie")
+	public ResponseEntity<?> getRankByMovie(@RequestParam long movieNo) {
+		Map<Float, Integer> result = movieService.getRankByMovie(movieNo);
+		System.out.println("영화별 평점 현황");
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
 //	@GetMapping("/test")
 //	public ResponseEntity<?> test() {
 //		movieService.test();
