@@ -1130,16 +1130,9 @@ public class MovieService {
 	}
 	
 	public void test() {
-		List<Movie> movies = movieRepository.findAll();
-		int max = Integer.MIN_VALUE;
-		long no = 0;
+		List<Movie> movies = movieRepository.findAllByOpens("2015-01-01");
 		for(Movie movie : movies) {
-			String[] keywords = movie.getKeywords().split(",");
-			if(max < keywords.length) {
-				max = keywords.length;
-				no = movie.getNo();
-			}
+			System.out.println(movie.getNo()+", "+movie.getTitle());
 		}
-		System.out.println(no);
 	}
 }
