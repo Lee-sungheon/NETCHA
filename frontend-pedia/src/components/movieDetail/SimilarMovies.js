@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
-import * as moviesApi from '../../lib/api/movies';
-import './SimilarMovies.scss';
+import { useEffect, useState } from "react";
+import { withRouter } from "react-router-dom";
+import * as moviesApi from "../../lib/api/movies";
+import "./SimilarMovies.scss";
 
 const SimilarMovies = ({ history, requestData }) => {
   const [movies, setMovies] = useState(null);
@@ -31,12 +31,17 @@ const SimilarMovies = ({ history, requestData }) => {
               return (
                 <div
                   className="similarBlock"
-                  onClick={() => history.push('/movieDetail/' + movie.no)}
+                  onClick={() => history.push("/movieDetail/" + movie.no)}
                   key={index}
                 >
                   <img
+                    className="similarMoviesImg"
                     alt="poster"
-                    src={movie.posterUrl === "default" ? "../../images/defaultPoster.png" : movie.posterUrl}
+                    src={
+                      movie.posterUrl === "default"
+                        ? "../../images/defaultPoster.png"
+                        : movie.posterUrl
+                    }
                     width="150px"
                     height="200px"
                   />

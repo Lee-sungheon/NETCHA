@@ -17,7 +17,7 @@ const Comment = ({ requestData, history }) => {
     rows: 1,
     slidesPerRow: 2,
   };
-  const [comments, setComments] = useState(null);
+  const [comments, setComments] = useState("");
 
   const fetchComments = async () => {
     try {
@@ -51,6 +51,13 @@ const Comment = ({ requestData, history }) => {
     fetchComments();
   }, [requestData]);
 
+  if (comments.length == 0)
+    return (
+      <div className="comment">
+        <div className="infoHeader">코멘트</div>
+        <div>아직 평가된 코멘트가 없습니다.</div>
+      </div>
+    );
   return (
     <div className="comment">
       <div className="infoHeader">코멘트</div>
