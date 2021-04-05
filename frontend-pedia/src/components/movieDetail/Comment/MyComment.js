@@ -13,27 +13,26 @@ const MyComment = ({ requestData, myCommentData, setMyCommentData }) => {
   const onDeleteClick = async () => {
     try {
       await commentApi.deleteComment({ ...requestData });
+      setMyCommentData({ ...myCommentData, content: '' });
     } catch (e) {
       console.log(e);
     }
-    setMyCommentData({ content: '' });
   };
 
   const onConfirm = async (e) => {
     if (inputs.content.trim()) setModal(false);
     try {
-      await commentApi.insertComment({
+      await commentApi.updateComment({
         ...requestData,
         content: inputs.content,
       });
+      setMyCommentData({ content: inputs.content });
     } catch (e) {
       console.log(e);
     }
-    setMyCommentData({ content: inputs.content });
   };
 
   const onCancel = () => {
-    onReset();
     setModal(false);
   };
 
@@ -62,6 +61,7 @@ const MyComment = ({ requestData, myCommentData, setMyCommentData }) => {
       <img
         src="/images/profileIcon.jpg"
         className="profileIconImg"
+        alt="profile"
         style={{
           width: '40px',
           borderRadius: '60%',
@@ -80,6 +80,7 @@ const MyComment = ({ requestData, myCommentData, setMyCommentData }) => {
       <CommentModal
         inputs={inputs}
         visible={modal}
+        myCommentData={myCommentData}
         onChange={onChange}
         onCancel={onCancel}
         onConfirm={onConfirm}
