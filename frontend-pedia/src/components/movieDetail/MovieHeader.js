@@ -67,13 +67,13 @@ const MovieHeader = ({
         <img
           className="posterImgg"
           alt="banner"
-          src={movie.movie_info.imageUrl[0]}
+          src={movie.movie_info.imageUrl === "default" ? "../../images/defaultPoster.png" :movie.movie_info.imageUrl[0] }
         ></img>
       </div>
 
       <div className="MovieHeaderBottom">
         <div className="posterImg">
-          <img alt="poster" src={movie.movie_info.posterUrl}></img>
+          <img alt="poster" src={movie.movie_info.posterUrl === "default" ? "../../images/defaultPoster.png" : movie.movie_info.posterUrl}></img>
           <div className="posterDetail">
             <div className="posterTitle">
               {movie.movie_info.title}
