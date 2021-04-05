@@ -5,7 +5,7 @@ import movie, { movieSaga } from './movie';
 import loading from './loading';
 import searchMovies, { searchMoviesSaga, setPageSaga } from './searchMovies';
 import ratingMovies, { ratingMoviesSaga, ratingMoviescountSaga } from './ratingMovies';
-import zzimMovies, { zzimMoviesSaga } from './zzimMovies';
+import zzimMovies, { zzimMoviesSaga, zzimMoviescountSaga } from './zzimMovies';
 import actors, { actorsSaga } from './actors';
 import directors, { directorsSaga } from './directors';
 import countries, { countriesSaga } from './countries';
@@ -44,6 +44,7 @@ export function* rootSaga() {
     ratingMoviesSaga(),
     ratingMoviescountSaga(),
     zzimMoviesSaga(),
+    zzimMoviescountSaga(),
     actorsSaga(),
     directorsSaga(),
     countriesSaga(),

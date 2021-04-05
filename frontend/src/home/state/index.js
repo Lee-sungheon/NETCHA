@@ -208,6 +208,8 @@ const INITIAL_STATE = {
   mbtiMovieLists: [],
   isMbtiLoading: false,
   bufferTime: 0,
+  bannerBufferTime: 0,
+  bannerToggle: true,
 };
 
 const reducer = createReducer(INITIAL_STATE, {

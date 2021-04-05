@@ -1,7 +1,8 @@
-import SmallSlider from "../../components/slider/SmallSlider";
+
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router";
+import UserRatingMovies from "../../components/user/UserRatingMovies";
 import { listRatingMovies, countRatingMovies } from "../../modules/ratingMovies";
 
 const UserRatingMoviesContainer = () => {
@@ -16,19 +17,16 @@ const UserRatingMoviesContainer = () => {
     })
   );
   useEffect(() => {
-    dispatch(listRatingMovies(userId));
+    dispatch(listRatingMovies({page: 0, userId}));
     dispatch(countRatingMovies(userId));
   }, [dispatch, userId]);
 
   movies && movies.forEach((movie) => {
-      movie.isRating = "평가함";
-    });
+    movie.isRating = "평가함";
+  });
 
   return (
-    <>
-      <h3 style={{ display: "inline-block" }}>평가</h3>&nbsp;&nbsp;{count}
-      <SmallSlider movies={movies} error={error} loading={loading} />
-    </>
+    <UserRatingMovies movies={movies} count={count} error={error} loading={loading} />
   );
 };
 

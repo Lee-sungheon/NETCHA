@@ -6,6 +6,8 @@ import SlideButton from './SlideButton'
 import SliderWrapper from './SliderWrapper'
 import useSliding from './useSliding'
 import useSizeElement from './useSizeElement'
+import { useDispatch } from 'react-redux';
+import { actions } from "../../../home/state";
 import './Slider.scss'
 
 const Slider = ({ children, activeSlide, title, idx }) => {
@@ -14,6 +16,7 @@ const Slider = ({ children, activeSlide, title, idx }) => {
   const [escapeLeft, setEscapeLeft] = useState(false);
   const [escapeRight, setEscapeRight] = useState(false);
   const [tabNo, setTabNo] = useState(1);
+  const dispatch = useDispatch();
   const setTabNumber = num => {
     setTabNo(num);
   };
@@ -34,6 +37,7 @@ const Slider = ({ children, activeSlide, title, idx }) => {
 
   const handleClose = () => {
     setCurrentSlide(null);
+    dispatch(actions.setValue('bannerToggle', true));
     setTabNo(1);
   };
 
