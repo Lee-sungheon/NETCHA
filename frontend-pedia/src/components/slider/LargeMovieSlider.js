@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./LargeMovieSlider.scss";
 import { useHistory } from "react-router";
 
-export default function LargeMovieSlider({ user, movies, title }) {
+export default function LargeMovieSlider({ movies, title }) {
   
   var settings = {
     dots: false,
@@ -19,10 +19,10 @@ export default function LargeMovieSlider({ user, movies, title }) {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToShow: 5,
+          slidesToScroll: 5,
           infinite: true,
-          dots: true,
+          dots: false,
         },
       },
       {
@@ -31,6 +31,7 @@ export default function LargeMovieSlider({ user, movies, title }) {
           slidesToShow: 2,
           slidesToScroll: 2,
           initialSlide: 2,
+          dots: false,
         },
       },
       {
@@ -38,6 +39,7 @@ export default function LargeMovieSlider({ user, movies, title }) {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          dots: false,
         },
       },
     ],
@@ -68,9 +70,9 @@ export default function LargeMovieSlider({ user, movies, title }) {
                     <div className="movieInfo">
                       <div className="movieTitle" title={movie.title}>{movie.title}</div>
                       <div className="movieDate">{movie.open.split('-')[0]} · {movie.country}</div>
-                      <div className="movieRate">
-                        <span className="movieScore">평점</span>
-                        <span className="movieScore">&nbsp;★{movie.avgRank === 0 ? 4.2 : movie.avgRank}</span>
+                      <div className="movieRate" style={{"color": movie.userDidRank === 0 ? "#ff0073" : "orange" }}>
+                        <span>{movie.userDidRank === 0 ? "평점" : "평가함" }</span>
+                        <span>&nbsp;★{movie.userDidRank === 0 ?  movie.avgRank === 0? 4.2 : movie.avgRank : movie.userDidRank}</span>
                       </div>
                     </div>
                   </div>

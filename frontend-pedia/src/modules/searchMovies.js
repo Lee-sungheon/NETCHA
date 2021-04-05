@@ -4,10 +4,17 @@ import * as moviesAPI from '../lib/api/movies';
 import createRequestSaga, {
   createRequestActionTypes,
 } from '../lib/createRequestSaga';
-import { takeLatest } from 'redux-saga/effects';
+import { takeLatest, takeEvery } from 'redux-saga/effects';
 
-const INITIALIZE = 'movies/INITIALIZE';
-export const initialize = createAction(INITIALIZE);
+// const INITIALIZE = 'movies/INITIALIZE';
+// export const initialize = createAction(INITIALIZE);
+
+const SET_PAGE = 'searchMovies/SET_PAGE';
+export const setPage = createAction(SET_PAGE, (page) => page);
+
+export function* setPageSaga() {
+  yield takeEvery(SET_PAGE, setPage);
+}
 
 // 검색한 영화 목록
 const [
@@ -32,6 +39,7 @@ export function* searchMoviesSaga() {
 
 const initialState = {
   movies: null,
+  page: 0,
   error: null,
 };
 
@@ -44,6 +52,10 @@ const searchMovies = handleActions(
     [LIST_SEARCH_MOVIES_FAILURE]: (state, { payload: error }) => ({
       ...state,
       error,
+    }),
+    [SET_PAGE]: (state, { payload: page }) => ({
+      ...state,
+      page,
     }),
   },
   initialState

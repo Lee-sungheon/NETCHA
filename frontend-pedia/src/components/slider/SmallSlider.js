@@ -1,59 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./SmallSlider.scss";
 import { useHistory } from "react-router";
 
-export default function SmallSlider({ movies, title, error, loading }) {
+export default function SmallSlider({ movies, error, loading }) {
   const history = useHistory();
-  
+
   if (error) {
     return <h2>에러가 발생했습니다.</h2>;
   }
 
+  const slidesToShow = movies ? (movies.length < 5 ? movies.length : 5) : 5;
+
   var settings = {
     infinite: true,
     speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 5,
+    slidesToShow: slidesToShow,
+    slidesToScroll: slidesToShow,
     initialSlide: 0,
     centerMode: false,
     dots: false,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
   };
   
   return (
     <>
       <div className="smallSlider">
-        <div className="title">
-          <h2> {title} </h2>
-        </div>
         {!loading && movies && (
           <div>
             <Slider {...settings}>
@@ -63,7 +36,7 @@ export default function SmallSlider({ movies, title, error, loading }) {
                     <img
                       className="smallimage" // onClick={goToMovieDetail(movie.title)}
                       alt={movie.title}
-                      src={movie.posterUrl}
+                      src={movie.posterUrl === "default" ? "../../images/defaultPoster.png" : movie.posterUrl}
                     />
                     <div className="smallmovieInfo">
                       <div className="smallmovieTitle">

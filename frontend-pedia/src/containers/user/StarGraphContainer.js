@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { listStars } from '../../modules/stars';
 import StarGraph from '../../components/user/StarGraph';
+import Loader from '../../components/common/Loader';
 
 var highestStar = 0, sum = 0, calc = 0.0, score = 0, avg = 0;
 
@@ -31,9 +32,14 @@ const StarGraphContainer = () => {
   }));
   useEffect(() => {
     dispatch(listStars({ userId }));
+  }, [dispatch, userId]);
+  
+  useEffect(() => {
     if(stars !== null)
       getValues(stars);
-  }, [dispatch, userId, stars]);
+  }, [dispatch, stars])
+
+  if (loading) return <Loader type="spin" color="#ff0073" message="LOADING..." />;
 
   return (
     <StarGraph

@@ -70,6 +70,7 @@ const Graph = ({ rankArr }) => {
     ],
   };
 
+  if (max === 0) return <div> 아직 평가된 별점이 없습니다. </div>;
   return <Bar data={data} options={options} />;
 };
 

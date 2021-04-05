@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router";
 import { listActors } from "../../modules/actors";
+import Loader from '../../components/common/Loader';
 
 const ActorListContainer = () => {
   const dispatch = useDispatch();
@@ -13,11 +14,14 @@ const ActorListContainer = () => {
     loading: loading["actors/LIST_ACTORS"],
   }));
   useEffect(() => {
+    if (actors) return;
     dispatch(listActors({ userId }));
   }, [dispatch, userId]);
 
+  if (loading) return <Loader type="spin" color="#ff0073" message="LOADING..." />;
+
   return (
-    <PeopleList data={actors} error={error} loading={loading} />
+    <PeopleList data={actors? actors.cast : null} error={error} loading={loading} />
   );
 };
 

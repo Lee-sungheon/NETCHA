@@ -22,7 +22,7 @@ export default function SearchInputContainer() {
   // 검색 엔터 이벤트 핸들러
   const onKeyPress = e => {
     if(e.key === 'Enter') {
-      history.push(`/searchMovie?keyword=${keyword.keyword}&page=0`);
+      history.push(`/searchMovie?keyword=${keyword.keyword}`);
     }
   };
   

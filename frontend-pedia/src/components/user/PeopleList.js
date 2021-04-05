@@ -1,13 +1,13 @@
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "./PeopleList.scss";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import './PeopleList.scss';
 
 const settings = {
-  className: "center",
+  className: 'center',
   centerMode: true,
   infinite: true,
-  centerPadding: "5px",
+  centerPadding: '5px',
   slidesToShow: 1,
   arrows: true,
   speed: 500,
@@ -27,10 +27,10 @@ const PeopleList = ({ data, error, loading }) => {
           <Slider {...settings}>
             {data.map((data, index) => {
               return (
-                <div className="actorWrap" key={index}>
-                  <img className="actorImage" src={data.image} alt={data.name} title={data.name} />
-                  <div className="actorName">
-                    <span>{data.name}</span>
+                <div className="peopleWrap" key={index}>
+                  <img className="peopleImage" src="/images/profileIcon.jpg" alt={data} title={data} />
+                  <div className="peoplerName">
+                    <span>{data}</span>
                   </div>
                 </div>
               );

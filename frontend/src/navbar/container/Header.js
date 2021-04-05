@@ -114,7 +114,7 @@ export default function Header({ toggleButton, setToggleButton }) {
     };
     const nowUrl = window.location.href.split("/");
     const nowLocation = nowUrl[nowUrl.length - 1];
-    console.log(nowLocation)
+    console.log(nowLocation);
     if (nowLocation === "eval") {
       setActiveValue("평가하기");
     } else if (nowLocation === "mylike" || nowLocation === "myLike") {
@@ -200,6 +200,14 @@ export default function Header({ toggleButton, setToggleButton }) {
           </div>
 
           <Typography className="title" variant="subtitle2" noWrap></Typography>
+          <Link to="">
+            <img
+              src={"../images/netchapediaTrans.png"}
+              style={{ height: "35px", marginLeft: "20px" }}
+              alt="netcha"
+              onClick={() => setActiveValue("홈")}
+            />
+          </Link>
 
           <Search activeValue={activeValue} setActiveValue={setActiveValue} />
 

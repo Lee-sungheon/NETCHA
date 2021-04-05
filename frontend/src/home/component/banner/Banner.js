@@ -76,6 +76,7 @@ export default function Banner({user}) {
             style={{
               zIndex: "1",
             }}
+            state="play"
             muted
             loop
             hlsConfig={{
