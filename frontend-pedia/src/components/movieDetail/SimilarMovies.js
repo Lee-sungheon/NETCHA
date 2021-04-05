@@ -36,7 +36,7 @@ const SimilarMovies = ({ history, requestData }) => {
                 >
                   <img
                     alt="poster"
-                    src={movie.posterUrl}
+                    src={movie.posterUrl === "default" ? "../../images/defaultPoster.png" : movie.posterUrl}
                     width="150px"
                     height="200px"
                   />
