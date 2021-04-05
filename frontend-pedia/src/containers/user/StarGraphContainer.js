@@ -32,9 +32,12 @@ const StarGraphContainer = () => {
   }));
   useEffect(() => {
     dispatch(listStars({ userId }));
+  }, [dispatch, userId]);
+  
+  useEffect(() => {
     if(stars !== null)
       getValues(stars);
-  }, [dispatch, userId]);
+  }, [dispatch, stars])
 
   if (loading) return <Loader type="spin" color="#ff0073" message="LOADING..." />;
 
