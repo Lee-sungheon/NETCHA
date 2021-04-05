@@ -15,8 +15,9 @@ pipeline {
 			agent any
 			options { skipDefaultCheckout(false) }
 			steps {
-				sh 'gradle jar'
-				sh 'gradle build'
+				sh 'chmod +x ./gradlew'
+				sh './gradlew build'
+				// sh 'gradle build'
 			}
 		}
 		stage('Docker build') {
