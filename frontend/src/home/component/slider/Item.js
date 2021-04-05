@@ -92,40 +92,30 @@ export default function Item({ movie, idx }) {
             onMouseEnter={onMouse}
             onMouseLeave={onMouseLeave}
           >
-            <Card
-              style={isActive === true ? { border: "solid 2px white" } : {}}
-            >
-              <CardActionArea style={{ zIndex: 5 }}>
-                <div className="image-box">
-                  {!isHover && (
-                    <CardMedia
-                      component="img"
-                      image={
-                        movie.imageUrl[0] !== "default"
-                          ? movie.imageUrl[0]
-                          : "/images/netchar2.png"
-                      }
-                      className="movie-image-style"
-                    />
-                  )}
-                  {isHover && (
-                    <ReactHlsPlayer
-                      id="player"
-                      src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-                      autoPlay={true}
-                      muted
-                      width="100%"
-                      style={{
-                        position: "absolute",
-                        zIndex: "1",
-                        top: 0,
-                        left: 0,
-                      }}
-                      hlsConfig={{
-                        startPosition: 0,
-                      }}
-                    ></ReactHlsPlayer>
-                  )}
+            <Card style={isActive === true ? {border: 'solid 2px white'}:{}}>
+              <CardActionArea style={{zIndex: 5}}>
+                <div className='image-box'>
+                  {!isHover && <CardMedia
+                    component="img"
+                    image={ movie.imageUrl[0] !== 'default' ? movie.imageUrl[0] : "/images/netchar2.png" }
+                    className='movie-image-style'
+                  />}
+                  {isHover && <ReactHlsPlayer
+                    id="player"
+                    src={`https://dre3xbpyohrg0.cloudfront.net/MOVIE${movie.no}/MOVIE${movie.no}.m3u8`}
+                    autoPlay={true}
+                    muted
+                    width="100%"
+                    style={{
+                      position: 'absolute',
+                      zIndex: "1",
+                      top: 0,
+                      left: 0,
+                    }}
+                    hlsConfig={{
+                      startPosition: 0,
+                    }}
+                  ></ReactHlsPlayer>}
                 </div>
               </CardActionArea>
               <CardContent

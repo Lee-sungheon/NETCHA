@@ -11,10 +11,10 @@ export default function Movie(props) {
   const classes = useStyles();
   const history = useHistory();
   useEffect(() => {
-    props.toggleIsHeader(false);
-
+    // props.toggleIsHeader(false);
+    console.log(props.match.params.no);
     return () => {
-      props.toggleIsHeader(true);
+      // props.toggleIsHeader(true);
     };
   }, []);
   const goBack = (e) => {
