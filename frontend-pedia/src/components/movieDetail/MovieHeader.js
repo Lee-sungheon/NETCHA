@@ -32,25 +32,19 @@ const MovieHeader = ({
 
   const updateRank = async (e) => {
     let tempRanking = 0;
-    if (parseFloat(e.target.value) === rankData.ranking) {
-      tempRanking = 0;
-    } else {
-      tempRanking = parseFloat(e.target.value);
-    }
     try {
-      // 요청이 시작 할 때에는 error 와 users 를 초기화하고
-      // setError(null);
-      // loading 상태를 true 로 바꿉니다.
-      // setLoading(true);
-      rankApi.updateRank({
-        ...requestData,
-        ranking: tempRanking,
-      });
+      if (parseFloat(e.target.value) === rankData.ranking) {
+        tempRanking = 0;
+        rankApi.deleteRank(requestData);
+      } else {
+        tempRanking = parseFloat(e.target.value);
+        rankApi.updateRank({
+          ...requestData,
+          ranking: tempRanking,
+        });
+      }
       setRankData({ ranking: tempRanking });
-    } catch (e) {
-      // setError(e);
-    }
-    // setLoading(false);
+    } catch (e) {}
   };
   const onClickZzim = () => {
     updateZzim();
@@ -67,13 +61,24 @@ const MovieHeader = ({
         <img
           className="posterImgg"
           alt="banner"
-          src={movie.movie_info.imageUrl === "default" ? "../../images/defaultPoster.png" :movie.movie_info.imageUrl[0] }
+          src={
+            movie.movie_info.imageUrl === 'default'
+              ? '../../images/defaultPoster.png'
+              : movie.movie_info.imageUrl[0]
+          }
         ></img>
       </div>
 
       <div className="MovieHeaderBottom">
         <div className="posterImg">
-          <img alt="poster" src={movie.movie_info.posterUrl === "default" ? "../../images/defaultPoster.png" : movie.movie_info.posterUrl}></img>
+          <img
+            alt="poster"
+            src={
+              movie.movie_info.posterUrl === 'default'
+                ? '../../images/defaultPoster.png'
+                : movie.movie_info.posterUrl
+            }
+          ></img>
           <div className="posterDetail">
             <div className="posterTitle">
               {movie.movie_info.title}

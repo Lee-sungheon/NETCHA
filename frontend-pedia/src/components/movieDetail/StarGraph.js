@@ -4,7 +4,7 @@ import * as rankApi from '../../lib/api/rank';
 
 const StarGraph = ({ requestData }) => {
   const [movieRank, setMovieRank] = useState(null);
-  const [avgRank, setAvgRank] = useState(null);
+  const [avgRank, setAvgRank] = useState(0);
 
   const readRank = () => {
     try {
@@ -31,8 +31,8 @@ const StarGraph = ({ requestData }) => {
           tempSum += data * ((index + 1) * 0.5);
         });
         setMovieRank(arr);
-        setAvgRank(tempSum / count);
-        console.log(arr);
+        if (count !== 0) setAvgRank(tempSum / count);
+        else setAvgRank(0);
       }, 500);
     } catch (e) {}
   };
