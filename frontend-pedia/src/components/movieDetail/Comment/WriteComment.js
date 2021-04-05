@@ -18,10 +18,10 @@ const WriteComment = ({ requestData, myCommentData, setMyCommentData }) => {
         ...requestData,
         content: inputs.content,
       });
+      setMyCommentData({ ...myCommentData, content: inputs.content });
     } catch (e) {
       console.log(e);
     }
-    setMyCommentData({ ...myCommentData, content: inputs.content });
   };
 
   const onCancel = () => {

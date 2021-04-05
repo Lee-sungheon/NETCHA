@@ -48,7 +48,7 @@ export default function Comment({ requestData }) {
   };
   useEffect(() => {
     fetchComments();
-  }, [comments]);
+  }, [requestData]);
 
   return (
     <div className="comment">

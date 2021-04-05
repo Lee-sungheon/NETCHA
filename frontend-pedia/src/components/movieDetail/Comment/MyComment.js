@@ -13,23 +13,23 @@ const MyComment = ({ requestData, myCommentData, setMyCommentData }) => {
   const onDeleteClick = async () => {
     try {
       await commentApi.deleteComment({ ...requestData });
+      setMyCommentData({ ...myCommentData, content: '' });
     } catch (e) {
       console.log(e);
     }
-    setMyCommentData({ ...myCommentData, content: '' });
   };
 
   const onConfirm = async (e) => {
     if (inputs.content.trim()) setModal(false);
     try {
-      await commentApi.insertComment({
+      await commentApi.updateComment({
         ...requestData,
         content: inputs.content,
       });
+      setMyCommentData({ content: inputs.content });
     } catch (e) {
       console.log(e);
     }
-    setMyCommentData({ content: inputs.content });
   };
 
   const onCancel = () => {
