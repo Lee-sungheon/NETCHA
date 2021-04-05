@@ -26,7 +26,7 @@ export default function Banner({user}) {
   };
   const playMovie = () => {
     history.push({
-      pathname: "/movie",
+      pathname: `/movie/${'헤헿?'}`,
     });
   };
   useEffect(async ()=> {
@@ -92,6 +92,7 @@ export default function Banner({user}) {
           position: "absolute",
           marginLeft: "90vw",
           top: "35vw",
+          zIndex: 99,
         }}
       >
         <SoundButton />
@@ -99,7 +100,7 @@ export default function Banner({user}) {
       <div
         style={{
           position: "absolute",
-          bottom: "20vw",
+          bottom: "40vh",
           left: "4vw",
           color: "white",
           textAlign: "left",

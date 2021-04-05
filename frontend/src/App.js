@@ -92,8 +92,8 @@ function App() {
               <Route path="/mbti">
                 <Mbti toggleIsHeader={toggleIsHeader} />
               </Route>
-              <Route path="/movie">
-                <Movie toggleIsHeader={toggleIsHeader} />
+              <Route path="/movie/:no" component={Movie}>
+                {/* <Movie toggleIsHeader={toggleIsHeader} /> */}
               </Route>
               <Route>
                 <EmptyPage />

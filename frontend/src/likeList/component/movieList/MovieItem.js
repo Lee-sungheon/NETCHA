@@ -78,7 +78,7 @@ export default function MovieItem({ movie, idx }) {
                   />}
                   {isHover && <ReactHlsPlayer
                     id="player"
-                    src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+                    src={`https://dre3xbpyohrg0.cloudfront.net/MOVIE${movie.no}/MOVIE${movie.no}.m3u8`}
                     autoPlay={true}
                     muted
                     width="100%"

@@ -21,7 +21,7 @@ const Content = ({ movie, onClose, tabNo, setTabNumber }) => {
       {tabNo === 1 && <div className="content__background_image">
         <ReactHlsPlayer
           id="player"
-          src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+          src={`https://dre3xbpyohrg0.cloudfront.net/MOVIE${movie.no}/MOVIE${movie.no}.m3u8`}
           autoPlay={true}
           muted
           height="99%"
