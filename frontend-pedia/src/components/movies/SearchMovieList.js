@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import './SearchMovieList.scss';
 
