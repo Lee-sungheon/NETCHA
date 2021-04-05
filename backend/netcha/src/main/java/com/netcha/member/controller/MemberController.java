@@ -81,7 +81,6 @@ public class MemberController {
 		try {
 			
 			final Cookie accessToken = cookieUtil.getCookie(req, JwtUtil.ACCESS_TOKEN_NAME);
-			System.out.println(jwtUtil.getUsername(accessToken.getValue()));
 			Member member = authService.findByUserId(jwtUtil.getUsername(accessToken.getValue()));
 			
 			MemberResponseDto userInfo = new MemberResponseDto(member);
