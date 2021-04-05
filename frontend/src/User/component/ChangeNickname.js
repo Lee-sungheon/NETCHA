@@ -1,9 +1,11 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../state";
 import "../../font/font.css";
+import "./ChangeNickname.scss";
+
 export default function ChangeNickname() {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -33,7 +35,7 @@ export default function ChangeNickname() {
       })
       .then((res) => {
         axios
-          .post("netcha/user/info", body.userId, {
+          .get("netcha/user/info", {
             headers: {
               "Content-Type": "application/json",
             },
@@ -75,16 +77,7 @@ export default function ChangeNickname() {
               marginTop: "30px",
             }}
           >
-            <button
-              style={{
-                backgroundColor: "#bdbdbd",
-                border: "none",
-                borderRadius: "3px",
-                color: "white",
-                height: "30px",
-              }}
-              onClick={changeNickname}
-            >
+            <button className="button" style={{}} onClick={changeNickname}>
               닉네임 변경
             </button>
           </div>

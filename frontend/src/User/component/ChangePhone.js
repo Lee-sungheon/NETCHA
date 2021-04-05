@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../state";
 import axios from "axios";
+import "./ChangePhone.scss";
 
 export default function ChangePhone() {
   const history = useHistory();
@@ -32,7 +33,7 @@ export default function ChangePhone() {
       })
       .then((res) => {
         axios
-          .post("netcha/user/info", body.userId, {
+          .get("netcha/user/info", {
             headers: {
               "Content-Type": "application/json",
             },
@@ -75,16 +76,7 @@ export default function ChangePhone() {
               marginTop: "30px",
             }}
           >
-            <button
-              style={{
-                backgroundColor: "#bdbdbd",
-                border: "none",
-                borderRadius: "3px",
-                color: "white",
-                height: "30px",
-              }}
-              onClick={changePhone}
-            >
+            <button className="button" onClick={changePhone}>
               전화번호 변경
             </button>
           </div>
