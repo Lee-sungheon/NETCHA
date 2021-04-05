@@ -31,9 +31,10 @@ export default function Home() {
   const history = useHistory();
   const [pageNum, setPageNum] = useState(1);
   const [isloading, setIsloading] = useState(1);
-  useEffect(async()=>{
-    if (await callApiEvaluation(user.seq) <= 5){
-      alert('영화 추천을 위해서 영화 평가를 해주세요!');
+
+  useEffect(async () => {
+    if ((await callApiEvaluation(user.seq)) <= 5) {
+      alert("영화 추천을 위해서 영화 평가를 해주세요!");
       history.push(`/eval`);
     }
     window.scrollTo(0, 0);
@@ -46,23 +47,23 @@ export default function Home() {
       const clientHeight = document.documentElement.clientHeight;
       if (scrollTop + clientHeight + 1 >= scrollHeight && pageNum < 4) {
         if (!loadingPage) {
-          setPageNum(pageNum+1);
+          setPageNum(pageNum + 1);
         }
         loadingPage = true;
-        setIsloading(isloading+1);
+        setIsloading(isloading + 1);
       }
     }
     window.addEventListener("scroll", handleScroll);
     loadingPage = false;
-    if (pageNum > 3){
+    if (pageNum > 3) {
       return () => {
         window.removeEventListener("scroll", handleScroll);
-      }
+      };
     }
     return () => {
       window.removeEventListener("scroll", handleScroll);
-    }
-  }, [pageNum, isloading])
+    };
+  }, [pageNum, isloading]);
   return (
     <>
       <div className="home__top-bar__container">
@@ -89,69 +90,72 @@ export default function Home() {
         <NewBased loading={loading} idx={"slider-3"} user={user} />
         <PopularBased loading={loading} idx={"slider-4"} user={user} />
         <RankBased loading={loading} idx={"slider-5"} user={user} />
-        { pageNum > 1 &&
-        <>
-          <GanreBased
-            loading={loading}
-            idx={`slider-6`}
-            ganre={GANRES[0]}
-            user={user}
-          />
-          <GanreBased2
-            loading={loading}
-            idx={`slider-7`}
-            ganre={GANRES[1]}
-            user={user}
-          />
-          <GanreBased3
-            loading={loading}
-            idx={`slider-8`}
-            ganre={GANRES[2]}
-            user={user}
-          />
-        </>}
-        { pageNum > 2 &&
-        <>
-          <CountryBased
-            loading={loading}
-            idx={`slider-9`}
-            country={COUNTRYS[0]}
-            user={user}
-          />
-          <CountryBased2
-            loading={loading}
-            idx={`slider-10`}
-            country={COUNTRYS[1]}
-            user={user}
-          />
-          <CountryBased3
-            loading={loading}
-            idx={`slider-11`}
-            country={COUNTRYS[2]}
-            user={user}
-          />
-        </>}
-        { pageNum > 3 &&
-        <>
-        <KeywordBased
-          loading={loading}
-          idx={`slider-12`}
-          keyword={KEYWORDS[0]}
-          user={user}
-        />
-        <KeywordBased2
-          loading={loading}
-          idx={`slider-13`}
-          keyword={KEYWORDS[1]}
-          user={user}
-        />
-        <KeywordBased3
-          loading={loading}
-          idx={`slider-14`}
-          keyword={KEYWORDS[2]}
-          user={user}
-        />
-        </>}
+        {pageNum > 1 && (
+          <>
+            <GanreBased
+              loading={loading}
+              idx={`slider-6`}
+              ganre={GANRES[0]}
+              user={user}
+            />
+            <GanreBased2
+              loading={loading}
+              idx={`slider-7`}
+              ganre={GANRES[1]}
+              user={user}
+            />
+            <GanreBased3
+              loading={loading}
+              idx={`slider-8`}
+              ganre={GANRES[2]}
+              user={user}
+            />
+          </>
+        )}
+        {pageNum > 2 && (
+          <>
+            <CountryBased
+              loading={loading}
+              idx={`slider-9`}
+              country={COUNTRYS[0]}
+              user={user}
+            />
+            <CountryBased2
+              loading={loading}
+              idx={`slider-10`}
+              country={COUNTRYS[1]}
+              user={user}
+            />
+            <CountryBased3
+              loading={loading}
+              idx={`slider-11`}
+              country={COUNTRYS[2]}
+              user={user}
+            />
+          </>
+        )}
+        {pageNum > 3 && (
+          <>
+            <KeywordBased
+              loading={loading}
+              idx={`slider-12`}
+              keyword={KEYWORDS[0]}
+              user={user}
+            />
+            <KeywordBased2
+              loading={loading}
+              idx={`slider-13`}
+              keyword={KEYWORDS[1]}
+              user={user}
+            />
+            <KeywordBased3
+              loading={loading}
+              idx={`slider-14`}
+              keyword={KEYWORDS[2]}
+              user={user}
+            />
+          </>
+        )}
       </div>
     </>
   );

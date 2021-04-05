@@ -8,12 +8,12 @@ import MovieHeader from '../../components/movieDetail/MovieHeader';
 import BasicInfo from '../../components/movieDetail/BasicInfo';
 import Cast from '../../components/movieDetail/Cast';
 import StarGraph from '../../components/movieDetail/StarGraph';
-import Comment from '../../components/movieDetail/Comment/Comment';
+import Comment from '../../components/movieDetail/comment/Comment';
 import SimilarMovies from '../../components/movieDetail/SimilarMovies';
 import Gallery from '../../components/movieDetail/Gallery';
 import Video from '../../components/movieDetail/Video';
-import WriteComment from '../../components/movieDetail/Comment/WriteComment';
-import MyComment from '../../components/movieDetail/Comment/MyComment';
+import WriteComment from '../../components/movieDetail/comment/WriteComment';
+import MyComment from '../../components/movieDetail/comment/MyComment';
 
 const MovieDetailContainer = ({ match }) => {
   // 처음 마운트될 때 무비 읽기 API 요청
@@ -29,12 +29,13 @@ const MovieDetailContainer = ({ match }) => {
       error: movie.error,
       user: user.user,
       requestData: {
-        movieNo: match.params.movieNo,
+        movieNo: parseInt(match.params.movieNo),
         userId: user.user.userId,
       },
       loading: loading['movie/READ_MOVIE'],
     })
   );
+
   useEffect(() => {
     if (requestData.movieNo && requestData.userId)
       dispatch(readMovie(requestData));
@@ -48,6 +49,10 @@ const MovieDetailContainer = ({ match }) => {
     if (movie) {
       setRankData({ ranking: movie.user_rank });
       setZzimData({ isZzim: movie.movie_info.userDidZzim });
+      setMyCommentData({
+        content: movie.user_review,
+        title: movie.movie_info.title,
+      });
     }
   }, [movie]);
 
@@ -104,6 +109,8 @@ const MovieDetailContainer = ({ match }) => {
                 <StarGraph
                   movieRank={movie.movie_rank}
                   avgRank={movie.movie_info.avgRank}
+                  requestData={requestData}
+                  rankData={rankData}
                 />
                 <Comment
                   requestData={requestData}
@@ -118,44 +125,5 @@ const MovieDetailContainer = ({ match }) => {
     </>
   );
 };
-
-const actors = [
-  { id: 1, name: 'sdfsw', role: '감독' },
-  { id: 2, name: '이상진', role: '배우' },
-  { id: 3, name: 'sdfsw', role: '감독' },
-  { id: 4, name: '이상진', role: '배우' },
-  { id: 5, name: 'sdfsw', role: '감독' },
-  { id: 6, name: '이상진', role: '배우' },
-  { id: 7, name: 'sdfsw', role: '감독' },
-  { id: 8, name: '이상진', role: '배우' },
-];
-
-const imgs = [
-  {
-    id: 1,
-    url:
-      'https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_360,q_80,w_640/v1576818817/ob8puocgokh3yj7thpdt.jpg',
-  },
-  {
-    id: 3,
-    url:
-      'https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_360,q_80,w_640/v1576818817/ob8puocgokh3yj7thpdt.jpg',
-  },
-  {
-    id: 4,
-    url:
-      'https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_360,q_80,w_640/v1576818817/ob8puocgokh3yj7thpdt.jpg',
-  },
-  {
-    id: 5,
-    url:
-      'https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_360,q_80,w_640/v1576818817/ob8puocgokh3yj7thpdt.jpg',
-  },
-  {
-    id: 6,
-    url:
-      'https://an2-img.amz.wtchn.net/image/v1/watcha/image/upload/c_fill,h_360,q_80,w_640/v1576818817/ob8puocgokh3yj7thpdt.jpg',
-  },
-];
 
 export default withRouter(MovieDetailContainer);
