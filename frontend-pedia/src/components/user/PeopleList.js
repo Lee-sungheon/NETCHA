@@ -29,12 +29,12 @@ const PeopleList = ({ data, error, loading }) => {
       {!loading && data && (
         <div className="peopleSlider">
           <Slider {...settings}>
-            {data.map((name, index) => {
+            {data.map((data, index) => {
               return (
                 <div className="actorWrap" key={index}>
-                  <img className="actorImage" src="/images/profileIcon.jpg" alt={name} title={name} />
+                  <img className="actorImage" src={imgArr? imgArr[index] : "/images/profileIcon.jpg"} alt={data.name} title={data.name} />
                   <div className="actorName">
-                    <span>{name}</span>
+                    <span>{data.name}</span>
                   </div>
                 </div>
               );

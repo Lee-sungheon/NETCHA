@@ -3,9 +3,10 @@ import qs from 'qs';
 import MovieList from '../../components/movies/MovieList';
 import { withRouter } from 'react-router';
 import * as moviesApi from '../../lib/api/movies';
+import Loader from '../../components/common/Loader';
 
 const SearchMovieListContainer = ({ location }) => {
-  // const dispatch = useDispatch();
+  const [loading, setLoading] = useState(null);
   const [page, setPage] = useState(0);
   const [movies, setMovies] = useState(null);
   const { keyword } = qs.parse(location.search, {
@@ -14,6 +15,7 @@ const SearchMovieListContainer = ({ location }) => {
 
   const getSearchMovies = async (newPage) => {
     try {
+      setLoading(true);
       const response = await moviesApi.listSearchMovies({ keyword, page: newPage });
       if (movies) {
         setMovies([...movies, ...response.data]);
@@ -24,6 +26,7 @@ const SearchMovieListContainer = ({ location }) => {
     } catch (e) {
       console.log(e);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -60,8 +63,10 @@ const SearchMovieListContainer = ({ location }) => {
     
     if(scrollTop + clientHeight === scrollHeight) {
       console.log('fetchMore');
-      setPage(page + 1);
-      setMovies(movies.concat(getSearchMovies(page+1)));
+      if(movies){
+        setPage(page + 1);
+        setMovies(movies.concat(getSearchMovies(page+1)));
+      }
     }
   }, [page, movies]);
 
@@ -69,6 +74,8 @@ const SearchMovieListContainer = ({ location }) => {
     window.addEventListener('scroll', _infiniteScroll, true);
     return () => window.removeEventListener('scroll', _infiniteScroll, true);
   }, [_infiniteScroll]);
+
+  // if (loading) return <Loader type="spin" color="#ff0073" message="LOADING..." />;
 
   return (
     <>
