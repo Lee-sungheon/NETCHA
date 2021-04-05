@@ -2,23 +2,29 @@ import SmallSlider from "../../components/slider/SmallSlider";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router";
-import { listZzimMovies } from "../../modules/zzimMovies";
+import { listZzimMovies, countZzimMovies } from "../../modules/zzimMovies";
 import UserZzimMovies from "../../components/user/UserZzimMovies";
-import SeeMoreButton from '../../components/common/SeeMoreButton';
 
 const UserZzimMoviesContainer = () => {
   const dispatch = useDispatch();
-  const { userId, zzimMovies, ratingMovies, error, loading } = useSelector(
-    ({ user, zzimMovies, ratingMovies, loading }) => ({
-      userId: user.user.userId,
-      ratingMovies: ratingMovies.movies,
-      zzimMovies: zzimMovies.movies,
-      error: zzimMovies.error,
-      loading: loading["zzimMovies/LIST_ZZIM_MOVIES"],
-    })
-  );
+  const {
+    userId,
+    zzimMovies,
+    count,
+    ratingMovies,
+    error,
+    loading,
+  } = useSelector(({ user, zzimMovies, ratingMovies, loading }) => ({
+    userId: user.user.userId,
+    ratingMovies: ratingMovies.movies,
+    zzimMovies: zzimMovies.movies,
+    count: zzimMovies.count,
+    error: zzimMovies.error,
+    loading: loading["zzimMovies/LIST_ZZIM_MOVIES"],
+  }));
   useEffect(() => {
-    dispatch(listZzimMovies({page: 0, userId}));
+    dispatch(listZzimMovies({ page: 0, userId }));
+    dispatch(countZzimMovies(userId));
   }, [dispatch, userId]);
 
   if (zzimMovies && ratingMovies) {
@@ -35,14 +41,17 @@ const UserZzimMoviesContainer = () => {
     });
   }
 
-  const count = zzimMovies ? zzimMovies.length : '';
-
   return (
     <>
-      {/* <UserZzimMovies moviess={zzimMovies} error={error} loading={loading} count={count} /> */}
-      <h3 style={{ display: 'inline-block' }}>보고싶어요</h3>&nbsp;&nbsp;{count}
+      <UserZzimMovies
+        movies={zzimMovies}
+        error={error}
+        loading={loading}
+        count={count}
+      />
+      {/* <h3 style={{ display: 'inline-block' }}>보고싶어요</h3>&nbsp;&nbsp;{count}
       <SeeMoreButton link="/userZzimMoviesList" />
-      <SmallSlider movies={zzimMovies} error={error} loading={loading} />
+      <SmallSlider movies={zzimMovies} error={error} loading={loading} /> */}
     </>
   );
 };

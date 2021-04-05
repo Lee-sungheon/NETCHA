@@ -36,7 +36,7 @@ export const listRatingMovies = ({page, userId}) => {
 // 사용자페이지 별점 준 영화 개수
 export const countRatingMovies = (userId) => {
   console.log('countRatingMovies: ' + userId);
-  return client.get(`/movie/rank_count?pageNum=0&userId=${userId}`);
+  return client.get(`/movie/rank_count?userId=${userId}`);
 };
 
 // 해당 영화와 비슷한 영화 목록
@@ -48,6 +48,12 @@ export const listSimilarMovies = (formData) => {
 export const listZzimMovies = ({page, userId}) => {
   console.log('listZzimMovies ' + userId);
   return client.get(`/movie/zzim_list?pageNum=${page}&userId=${userId}`);
+};
+
+// 사용자페이지 별점 준 영화 개수
+export const countZzimMovies = (userId) => {
+  console.log('countZzimMovies: ' + userId);
+  return client.get(`/movie/zzim_count?userId=${userId}`);
 };
 
 export const updateZzimMovies = (zzimData) => {
