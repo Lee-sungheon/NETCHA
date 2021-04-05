@@ -11,7 +11,6 @@ import java.util.Map.Entry;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -302,7 +301,7 @@ public class MovieService {
 		for(String ganre : ganres) ganreMap.put(ganre, 10);
 		for(String keyword : keywords) keywordMap.put(keyword, 5);
 		
-		List<Movie> movieList = movieRepository.findByNoNot(movieNo);
+		List<Movie> movieList = movieRepository.findByNoNot("2015-01-01", movieNo);
 	    List<int[]> scoreList = new ArrayList<int[]>();
 	    for(Movie movie : movieList) {
 	    	if(movie.getOpen().compareTo("2015-01-01") < 0) continue;
@@ -582,7 +581,7 @@ public class MovieService {
 			movieNos.add(movieRanks.get(i).getMovie().getNo());
 			rankFloat.add(movieRanks.get(i).getRanking());
 		}
-		List<Movie> movieR = movieRepository.findByNoIn(movieNos, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
+		List<Movie> movieR = movieRepository.findByNoIn("2015-01-01", movieNos, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		for(Movie m : movieR) {
 			if(m.getRating().equals("")) {
@@ -610,12 +609,11 @@ public class MovieService {
 		List<Movie> movieR = null;
 		// 평가한적이 없으면 조회수 순
 		if(movieRanks.size() == 0) {
-			Page<Movie> moviePages = movieRepository.findAll(PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
-			movieR = moviePages.getContent();
+			movieR = movieRepository.findByOrderByTotalViewDesc("2015-01-01", PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
 		} else { // 평가한 영화는 제외
 			List<Long> movieNos = new ArrayList<Long>();
 			for(int i=0; i<movieRanks.size(); i++) movieNos.add(movieRanks.get(i).getMovie().getNo());
-			movieR = movieRepository.findByNoNotIn(movieNos, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
+			movieR = movieRepository.findByNoNotIn("2015-01-01", movieNos, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
 		}
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		for(Movie m : movieR) {
@@ -686,7 +684,7 @@ public class MovieService {
 		List<MovieZzim> movieZzims = movieZzimRepository.findAllByMemberSeq(userId);
 		List<Long> movieNos = new ArrayList<Long>();
 		for(int i=0; i<movieZzims.size(); i++) movieNos.add(movieZzims.get(i).getMovie().getNo());
-		List<Movie> movieR = movieRepository.findByNoIn(movieNos, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
+		List<Movie> movieR = movieRepository.findByNoIn("2015-01-01", movieNos, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		for(Movie m : movieR) {
 			if(m.getRating().equals("")) {
@@ -807,6 +805,17 @@ public class MovieService {
 		movieDto.userInfo(mr, ml, mz);
 		result.put("movie_info", movieDto);
 		
+		Map<Float, Integer> userRank = getRankByMovie(movieNo);
+		result.put("movie_rank", userRank);
+		
+		//result.put("similar_movie", recommendMovieBySimilar(userId, movieNo, 0, 16));
+		
+		return result;
+	}
+	
+	// 영화별 평점 현황
+	@Transactional
+	public Map<Float, Integer> getRankByMovie(long movieNo) {
 		List<MovieRank> ranks = movieRankRepository.findAllByMovieNo(movieNo);
 		Map<Float, Integer> userRank = new HashMap<Float, Integer>();
 		userRank.put((float)0.5, 0);
@@ -820,11 +829,7 @@ public class MovieService {
 		userRank.put((float)4.5, 0);
 		userRank.put((float)5, 0);
 		for(MovieRank rank : ranks) userRank.put(rank.getRanking(), userRank.get(rank.getRanking()) + 1);
-		result.put("movie_rank", userRank);
-		
-		//result.put("similar_movie", recommendMovieBySimilar(userId, movieNo, 0, 16));
-		
-		return result;
+		return userRank;
 	}
 	
 	// 사용자 선호 감독, 배우, 국가, 장르, 태그
