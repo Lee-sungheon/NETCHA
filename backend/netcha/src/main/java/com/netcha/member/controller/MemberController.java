@@ -76,10 +76,14 @@ public class MemberController {
 
 
 	@ApiOperation(value = "유저 정보 조회", response = Response.class)
-	@PostMapping("/info")
-	public Response info(@RequestBody String userId) {
+	@GetMapping("/info")
+	public Response info(HttpServletRequest req, HttpServletResponse res) {
 		try {
-			Member member = authService.findByUserId(userId);
+			
+			final Cookie accessToken = cookieUtil.getCookie(req, JwtUtil.ACCESS_TOKEN_NAME);
+			System.out.println(jwtUtil.getUsername(accessToken.getValue()));
+			Member member = authService.findByUserId(jwtUtil.getUsername(accessToken.getValue()));
+			
 			MemberResponseDto userInfo = new MemberResponseDto(member);
 			return new Response("success", "유저정보 조회 성공", userInfo);
 		} catch (Exception e) {
