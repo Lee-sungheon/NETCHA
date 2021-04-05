@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./SmallSlider.scss";
 import { useHistory } from "react-router";
 
-export default function SmallSlider({ movies, title, error, loading }) {
+export default function SmallSlider({ movies, error, loading }) {
   const history = useHistory();
   
   if (error) {
@@ -51,9 +51,6 @@ export default function SmallSlider({ movies, title, error, loading }) {
   return (
     <>
       <div className="smallSlider">
-        <div className="title">
-          <h2> {title} </h2>
-        </div>
         {!loading && movies && (
           <div>
             <Slider {...settings}>
@@ -63,7 +60,7 @@ export default function SmallSlider({ movies, title, error, loading }) {
                     <img
                       className="smallimage" // onClick={goToMovieDetail(movie.title)}
                       alt={movie.title}
-                      src={movie.posterUrl}
+                      src={movie.posterUrl === "default" ? "../../images/defaultPoster.png" : movie.posterUrl}
                     />
                     <div className="smallmovieInfo">
                       <div className="smallmovieTitle">
