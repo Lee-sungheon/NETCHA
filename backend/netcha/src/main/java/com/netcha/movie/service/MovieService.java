@@ -1014,6 +1014,7 @@ public class MovieService {
 			break;
 		case 5: 
 			list_entry = new ArrayList<Entry<String,Integer>>(favorKeyword.entrySet());
+			Map<String, Integer> maps = new HashMap<String, Integer>();
 			Collections.sort(list_entry, new Comparator<Entry<String, Integer>>() {
 				@Override
 				public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
@@ -1024,9 +1025,9 @@ public class MovieService {
 			if(list_entry.size() < 9) size = list_entry.size();
 			for(int i=0; i<size; i++) {
 				Entry<String, Integer> entry = list_entry.get(i);
-				result.add(entry.getKey());
+				maps.put(entry.getKey(), entry.getValue());
 			}
-			answer.put("keyword", result);
+			answer.put("keyword", maps);
 		}
 		return answer;
 	}
