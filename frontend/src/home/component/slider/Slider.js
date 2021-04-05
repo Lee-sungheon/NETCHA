@@ -49,7 +49,8 @@ const Slider = ({ children, activeSlide, title, idx }) => {
     escapeLeft,
     escapeRight,
     setEscapeLeft,
-    setEscapeRight
+    setEscapeRight,
+    
   };
   
   const sliderWrap = document.getElementById(idx)
