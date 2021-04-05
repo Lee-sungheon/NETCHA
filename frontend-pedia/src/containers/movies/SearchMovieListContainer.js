@@ -3,7 +3,6 @@ import qs from 'qs';
 import MovieList from '../../components/movies/MovieList';
 import { withRouter } from 'react-router';
 import * as moviesApi from '../../lib/api/movies';
-import Loader from '../../components/common/Loader';
 
 const SearchMovieListContainer = ({ location }) => {
   const [loading, setLoading] = useState(null);
@@ -75,13 +74,12 @@ const SearchMovieListContainer = ({ location }) => {
     return () => window.removeEventListener('scroll', _infiniteScroll, true);
   }, [_infiniteScroll]);
 
-  // if (loading) return <Loader type="spin" color="#ff0073" message="LOADING..." />;
-
   return (
     <>
       {/* <SearchMovieList loading={loading} error={error} movies={movies} /> */}
       <MovieList movies={movies} headerTitle="영화 검색 결과" />
-      <button>무한스크롤</button>
+      {loading && <img src="/images/Rolling-50px.svg" style={{marginLeft: "50%"}}/>}
+      <button style={{color: "white", backgroundColor: "white"}}>무한스크롤</button>
     </>
   );
 };
