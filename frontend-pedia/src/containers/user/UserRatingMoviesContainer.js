@@ -22,8 +22,8 @@ const UserRatingMoviesContainer = () => {
   }, [dispatch, userId]);
 
   movies && movies.forEach((movie) => {
-      movie.isRating = "평가함";
-    });
+    movie.isRating = "평가함";
+  });
 
   return (
     <UserRatingMovies movies={movies} count={count} error={error} loading={loading} />
