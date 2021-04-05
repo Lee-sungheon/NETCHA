@@ -17,6 +17,11 @@ const ActorListContainer = () => {
     dispatch(listActors({ userId }));
   }, [dispatch, userId, actors]);
 
+  if(actors) {
+    console.log('이거다!!!  ')
+    console.dir(actors);
+  }
+
   return (
     <PeopleList data={actors? actors.cast : null} error={error} loading={loading} />
   );
