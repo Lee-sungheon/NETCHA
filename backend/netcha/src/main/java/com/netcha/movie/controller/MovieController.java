@@ -339,6 +339,22 @@ public class MovieController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "사용자 찜한 영화 개수", notes = "입력값 : userId(유저고유번호)")
+	@GetMapping("/zzim_count")
+	public ResponseEntity<?> getZzimCountByUser(@RequestParam long userId) {
+		long count = movieService.getCountZzimByUser((int)userId);
+		System.out.println("사용자 찜한 영화 개수");
+		return new ResponseEntity<>(count, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "리뷰 상세 보기", notes = "입력값 : userId(유저고유번호), reviewNo(리뷰고유번호)")
+	@GetMapping("/review_detail")
+	public ResponseEntity<?> getZzimCountByUser(@RequestParam long userId, @RequestParam long reviewNo) {
+		MovieReviewDto result = movieService.getMovieReviewByReviewNo((int)userId, reviewNo);
+		System.out.println("리뷰 상세보기 : "+reviewNo);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
 //	@GetMapping("/test")
 //	public ResponseEntity<?> test() {
 //		movieService.test();
