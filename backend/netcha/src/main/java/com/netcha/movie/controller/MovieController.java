@@ -334,7 +334,7 @@ public class MovieController {
 	@ApiOperation(value = "사용자의 영화 평점 현황 (0.5 ~ 5)", notes = "입력값 : userId(유저고유번호)")
 	@GetMapping("/rank_user")
 	public ResponseEntity<?> getRankByUser(@RequestParam long userId) {
-		Map<Float, Integer> result = movieService.getRankByUser((int)userId);
+		int[] result = movieService.getRankByUser((int)userId);
 		System.out.println("사용자 영화 평점 현황");
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
