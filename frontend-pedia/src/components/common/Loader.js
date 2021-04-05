@@ -12,7 +12,7 @@ function Loader({ type, color, message }) {
           transform: "translate(-50%, -50%)",
         }}
       >
-        <h2 style={{marginLeft: "-20px"}}>{message}</h2>
+        <h2 style={{marginLeft: "-20px", color: "white"}}>{message}</h2>
         <ReactLoading type={type} color={color} height={"50%"} width={"50%"} />
       </div>
     </div>

@@ -1,9 +1,9 @@
-import SmallSlider from "../../components/slider/SmallSlider";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router";
 import { listZzimMovies, countZzimMovies } from "../../modules/zzimMovies";
 import UserZzimMovies from "../../components/user/UserZzimMovies";
+import Loader from '../../components/common/Loader';
 
 const UserZzimMoviesContainer = () => {
   const dispatch = useDispatch();
@@ -40,7 +40,9 @@ const UserZzimMoviesContainer = () => {
       if (!movie.isRating) movie.isRating = "평균";
     });
   }
-
+  
+  if (loading) return <Loader type="spin" color="#ff0073" message="LOADING..." />;
+  
   return (
     <>
       <UserZzimMovies
@@ -49,9 +51,6 @@ const UserZzimMoviesContainer = () => {
         loading={loading}
         count={count}
       />
-      {/* <h3 style={{ display: 'inline-block' }}>보고싶어요</h3>&nbsp;&nbsp;{count}
-      <SeeMoreButton link="/userZzimMoviesList" />
-      <SmallSlider movies={zzimMovies} error={error} loading={loading} /> */}
     </>
   );
 };

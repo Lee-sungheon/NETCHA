@@ -5,8 +5,16 @@ import UserMoviesHeader from './UserMoviesHeader';
 const UserRatingMovies = ({ movies, count, error, loading }) => {
   return (
     <>
-      <UserMoviesHeader count={count} title="평가" link="/userRatingMoviesList" />
-      <SmallSlider movies={movies} error={error} loading={loading} />
+      {movies && (
+        <>
+          <UserMoviesHeader
+            count={count}
+            title="평가"
+            link="/userRatingMoviesList"
+          />
+          <SmallSlider movies={movies} error={error} loading={loading} />
+        </>
+      )}
     </>
   );
 };

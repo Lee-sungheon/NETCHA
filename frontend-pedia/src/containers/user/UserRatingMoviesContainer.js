@@ -1,9 +1,9 @@
-
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router";
 import UserRatingMovies from "../../components/user/UserRatingMovies";
 import { listRatingMovies, countRatingMovies } from "../../modules/ratingMovies";
+import Loader from '../../components/common/Loader';
 
 const UserRatingMoviesContainer = () => {
   const dispatch = useDispatch();
@@ -24,6 +24,8 @@ const UserRatingMoviesContainer = () => {
   movies && movies.forEach((movie) => {
     movie.isRating = "평가함";
   });
+
+  if (loading) return <Loader type="spin" color="#ff0073" message="LOADING..." />;
 
   return (
     <UserRatingMovies movies={movies} count={count} error={error} loading={loading} />
