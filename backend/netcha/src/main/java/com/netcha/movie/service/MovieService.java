@@ -1100,6 +1100,27 @@ public class MovieService {
 		return userRank;
 	}
 	
+	// 찜목록 수
+	@Transactional
+	public long getCountZzimByUser(int userId) {
+		return movieZzimRepository.countByMemberSeq(userId);
+	}
+	
+	// 리뷰번호에 해당하는 상세 리뷰
+	@Transactional
+	public MovieReviewDto getMovieReviewByReviewNo(int userId, long reviewNo) {
+		MovieReview movieReview = movieReviewRepository.findById(reviewNo).get();
+		MovieReviewDto result = new MovieReviewDto(movieReview);
+		MovieReviewLike like = movieReviewLikeRepository.findByMemberSeqAndMovieReviewNo(userId, reviewNo);
+		MovieRank rank = movieRankRepository.findByMemberSeqAndMovieNo(userId, movieReview.getMovie().getNo());
+		boolean isMine = false;
+		boolean isMyLike = false;
+		if(movieReview.getMember().getSeq() == userId) isMine = true;
+		if(like != null) isMyLike = true;
+		result.update(isMine, isMyLike, rank.getRanking());
+		return result;
+	}
+	
 	public void test() {
 		List<Movie> movies = movieRepository.findAll();
 		int max = Integer.MIN_VALUE;
