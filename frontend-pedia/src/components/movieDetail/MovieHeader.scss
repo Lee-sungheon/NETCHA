@@ -8,12 +8,7 @@
     height: 300px;
     overflow: hidden;
     filter: brightness(80%);
-    background: linear-gradient(
-      -180deg,
-      rgba(0, 0, 0, 0.35) 2%,
-      rgba(0, 0, 0, 0.2) 70%,
-      rgba(0, 0, 0, 0.5) 100%
-    );
+    background: black;
   }
 
   .MovieHeaderBottom {
@@ -202,4 +197,10 @@
 
 .bookmark {
   color: $pink;
+}
+
+.posterImgg {
+  width: 100%;
+  padding-top: 530px;
+  filter: brightness(60%) blur(4px);
 }

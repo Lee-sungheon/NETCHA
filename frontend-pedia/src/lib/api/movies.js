@@ -56,11 +56,11 @@ export const countZzimMovies = (userId) => {
   return client.get(`/movie/zzim_count?userId=${userId}`);
 };
 
-export const updateZzimMovies = (zzimData) => {
-  return client.post('movie/zzim_update', zzimData);
+export const updateZzimMovies = (formData) => {
+  return client.post('movie/zzim_update', formData);
 };
-export const deleteZzimMovies = (zzimData) => {
-  return client.post('movie/zzim_delete', zzimData);
+export const deleteZzimMovies = (formData) => {
+  return client.delete('movie/zzim_delete', { params: formData });
 };
 
 // 헤더 검색한 영화 자동완성
