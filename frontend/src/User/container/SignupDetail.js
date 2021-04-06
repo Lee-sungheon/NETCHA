@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
   },
   signupDetail_div_div: {
     background: "rgb(0, 0, 0, 0.7)",
-    // height: "650px",
     width: "314px",
     padding: "60px 68px",
   },

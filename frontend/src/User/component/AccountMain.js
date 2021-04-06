@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import img1 from "../../img/icon1.png";
 import img2 from "../../img/icon2.png";
 import { useHistory } from "react-router";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   account_page: {
