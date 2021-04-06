@@ -1264,6 +1264,7 @@ public class MovieService {
 		List<Movie> list = movieRepository.findByOpenAndPosterUrl("2015-01-01", "");
 		for(Movie m : list) {
 			String[] result = crawling(m);
+			System.out.println("("+m.getTitle()+")"+result[0]+" "+result[1]+" "+result[2]);
 			m.updateCrawling(result[0], result[1], result[2]);
 		}
 		System.out.println(list.size());
