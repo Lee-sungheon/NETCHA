@@ -76,7 +76,9 @@ export default function Header({ toggleButton, setToggleButton }) {
     nickname: state.user.userData.member.nickname,
     token: state.user.userData.token,
   }));
-
+  useEffect(() => {
+    return () => {};
+  }, [isHeader_]);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -117,7 +119,6 @@ export default function Header({ toggleButton, setToggleButton }) {
     };
     const nowUrl = window.location.href.split("/");
     const nowLocation = nowUrl[nowUrl.length - 1];
-    console.log(nowLocation);
     if (nowLocation === "eval") {
       setActiveValue("평가하기");
     } else if (nowLocation === "mylike" || nowLocation === "myLike") {
@@ -213,9 +214,16 @@ export default function Header({ toggleButton, setToggleButton }) {
                 variant="subtitle2"
                 noWrap
               ></Typography>
-              <a href={`https://netcha-pedia.netlify.app/${token}`} target="blank">
+              <a
+                href={`https://netcha-pedia.netlify.app/${token}`}
+                target="blank"
+              >
                 <img
-                  src={toggleButton ? "../images/netchapediaTrans.png": "../images/netchapediaTrans_2.png"}
+                  src={
+                    toggleButton
+                      ? "../images/netchapediaTrans.png"
+                      : "../images/netchapediaTrans_2.png"
+                  }
                   style={{ height: "35px", marginLeft: "20px" }}
                   alt="netcha"
                   onClick={() => setActiveValue("홈")}

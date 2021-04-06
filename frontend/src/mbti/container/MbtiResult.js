@@ -69,7 +69,7 @@ export default function MbtiResult(props) {
     return () => {
       dispatch(navActions.headerToggle(true));
     };
-  }, []);
+  }, [dispatch]);
   useEffect(() => {
     setMbtiImg({
       ...mbtiImg,
@@ -100,7 +100,7 @@ export default function MbtiResult(props) {
             dispatch(actions.userInfo(res.data.data));
           });
       });
-  }, [MBTI]);
+  }, [MBTI, dispatch, mbtiImg, userId]);
   useEffect(() => {
     const ChoiceList = location.state.choiceList.choice;
     let N_S = 0;
@@ -172,7 +172,7 @@ export default function MbtiResult(props) {
 
     setMBTI({ ...MBTI, N_S: N_S, E_I: E_I, J_P: J_P, T_F: T_F });
     return () => {};
-  }, []);
+  }, [MBTI, location.state.choiceList.choice]);
   return (
     <div>
       <div className={classes.mbti_back}>
