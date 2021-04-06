@@ -12,7 +12,7 @@ export default function NewBased({ loading, idx, user }) {
     if (movieLists.length === 0) {
       dispatch(actions.requestNewMovieList(0, user.seq));
     }
-  }, []);
+  }, [dispatch, user, movieLists]);
 
   return (
     <div className="home__container" id={idx}>

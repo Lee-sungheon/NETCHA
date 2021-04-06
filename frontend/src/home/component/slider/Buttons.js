@@ -38,7 +38,7 @@ export default function Buttons({ movie, onSelectSlide, isdetail, setIsdetail })
         }
       }
     }
-  }, [])
+  }, [likeList, movie, zzimList])
   function toggleZzim() {
     if(!isZzim) {
       callApiRequestZzim(user.seq, movie.no);

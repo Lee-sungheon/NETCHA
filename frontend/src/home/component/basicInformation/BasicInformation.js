@@ -74,7 +74,7 @@ export default function BasicInformation({ movie }) {
         { movie.scenario.slice(0, 235) }
         { movie.scenario.length > 250 && '...'}
         { movie.scenario.length > 250 && <span style={{color: 'white', cursor: 'pointer'}}>
-        <a style={{color: 'white'}} href={`https://netcha-pedia.netlify.app/movieDetail/${movie.no}/${token}`} target="_blank">더보기</a>
+        <a style={{color: 'white'}} href={`https://netcha-pedia.netlify.app/movieDetail/${movie.no}/${token}`} target="blank">더보기</a>
         </span>}
       </div>
       <div className="content__information">

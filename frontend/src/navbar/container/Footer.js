@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { navActions } from "../../navbar/state";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -9,11 +9,10 @@ export default function Footer() {
   const isHeader_ = useSelector((state) => state.search.isHeader);
   useEffect(() => {
     dispatch(navActions.headerToggle(false));
-
     return () => {
       dispatch(navActions.headerToggle(true));
     };
-  }, []);
+  }, [dispatch]);
   return (
     <>
       {isHeader_ && (

@@ -204,7 +204,7 @@ export function* similarData(action) {
   yield put(actions.setSimilarLoading(false));
 } 
 
-export default function* () {
+export default function* saga() {
   yield all([
     takeLeading(types.REQUEST_MOVIELIST, contentData),
     takeLeading(types.REQUEST_NEWMOVIELIST, newData),

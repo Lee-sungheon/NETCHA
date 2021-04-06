@@ -49,7 +49,7 @@ export default function LikeList() {
       });
       window.removeEventListener("scroll", handleScroll);
     }
-  }, [])
+  }, [dispatch, isInfinite, user])
   
   useEffect(() => {
     repeat = [];

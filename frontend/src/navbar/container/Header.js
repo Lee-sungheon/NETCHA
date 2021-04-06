@@ -16,7 +16,7 @@ import Search from "../component/search/Search";
 import "./Header.scss";
 import axios from "axios";
 import { useHistory } from "react-router";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   Brightness4Icon: {
@@ -67,7 +67,6 @@ const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 export default function Header({ toggleButton, setToggleButton }) {
-  // const [isHeader, setIsHeader] = useState(true);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [activeValue, setActiveValue] = useState("홈");
@@ -78,11 +77,6 @@ export default function Header({ toggleButton, setToggleButton }) {
     token: state.user.userData.token,
   }));
 
-  useEffect(() => {
-    // setIsHeader(isHeader_);
-    // console.log(isHeader_);
-    return () => {};
-  }, [isHeader_]);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -138,9 +132,6 @@ export default function Header({ toggleButton, setToggleButton }) {
     window.sessionStorage.removeItem("userId");
     window.sessionStorage.removeItem("token");
     axios.get("netcha/user/logout").then((res) => {
-      // history.push({
-      //   pathname: "/login",
-      // });
       window.location.href = "/login";
     });
   };
@@ -222,7 +213,7 @@ export default function Header({ toggleButton, setToggleButton }) {
                 variant="subtitle2"
                 noWrap
               ></Typography>
-              <a href={`https://netcha-pedia.netlify.app/${token}`} target="_blank">
+              <a href={`https://netcha-pedia.netlify.app/${token}`} target="blank">
                 <img
                   src={toggleButton ? "../images/netchapediaTrans.png": "../images/netchapediaTrans_2.png"}
                   style={{ height: "35px", marginLeft: "20px" }}

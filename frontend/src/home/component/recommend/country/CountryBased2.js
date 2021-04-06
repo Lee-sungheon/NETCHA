@@ -11,7 +11,7 @@ export default function CountryBased2({ loading, idx, country, user }) {
     if (movieLists.length === 0) {
       dispatch(actions.requestCountryMovieList2(country, 0, user.seq));
     }
-  }, []);
+  }, [dispatch, user, movieLists, country]);
 
   return (
     <div className="home__container" id={idx}>

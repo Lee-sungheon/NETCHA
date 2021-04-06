@@ -45,7 +45,7 @@ const Content = ({ movie, onClose, tabNo, setTabNumber }) => {
           <div className="content__rating_container__rating_box__rating">{movie.avgRank}</div>
         </div>
         <div className="content__rating_container__information">
-          { movie.rating !== "" && movie.rating !== undefined && <img style={{width: '12%', margin: '0 5px'}} src={`/images/${RATING[movie.rating.slice(0,2)]}.svg`} />} 
+          { movie.rating !== "" && movie.rating !== undefined && <img style={{width: '12%', margin: '0 5px'}} src={`/images/${RATING[movie.rating.slice(0,2)]}.svg`} alt="" />} 
           <span>{movie.time}분</span>
         </div>
       </div>

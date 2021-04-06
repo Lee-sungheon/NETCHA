@@ -28,18 +28,14 @@ export default function SimilarMovie({ movie }) {
   }
   useEffect(() => {
     dispatch(actions.requestSimilarMovieList(movie.no, user.seq));
-  }, [])
+  }, [dispatch, movie, user])
   useEffect(() => {
     if (similarMovie.length > 3) {
       const movies = similarMovie.slice((index-1)*4, index*4);
       setSimilarList(movies);
     }
   }, [index, similarMovie])
-  const playMovie = (no) => {
-    history.push({
-      pathname: `/movie/movie-${no}`,
-    });
-  };
+
   return (
     <>
       <div className="similar__container" >
@@ -78,7 +74,7 @@ export default function SimilarMovie({ movie }) {
                   <div className="similar__title">{movie.title}</div>
                   <div className="similar__info">
                     {movie.rating !== "" && movie.rating !== undefined && 
-                    <img style={{width: '7%', margin: '0 3px'}} src={`/images/${RATING[movie.rating.slice(0,2)]}.svg`} id={idx}/>}
+                    <img style={{width: '7%', margin: '0 3px'}} src={`/images/${RATING[movie.rating.slice(0,2)]}.svg`} id={idx} alt=""/>}
                      • {parseInt(movie.time/60)}시간 {movie.time%60}분
                   </div>
                   <div className="similar__description">
