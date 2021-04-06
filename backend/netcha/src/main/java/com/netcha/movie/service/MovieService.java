@@ -1168,7 +1168,7 @@ public class MovieService {
 			for(int i=0; i<arr.length; i++) arr[i] = i;
 			int[] result = null;
 			int size = arr.length;
-			while(searchMovies.isEmpty() || size > arr.length-2) {
+			while(searchMovies.isEmpty() && size > arr.length-2) {
 				size -= 1;
 				result = new int[size];
 				makeComp(0, 0, arr, result, search);
