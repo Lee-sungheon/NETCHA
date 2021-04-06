@@ -1,0 +1,34 @@
+.video {
+  height: 150px;
+
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 20px;
+    color: rgb(150, 150, 150);
+    position: relative;
+    top: -25px;
+  }
+
+  .smallVideoWrap {
+    width: 160px;
+    height: 90px;
+    display: flex;
+
+    a {
+      color: black;
+      text-decoration: none;
+
+      .smallVideoBox {
+        border-radius: 5px;
+        border: 2px solid #e6e6e6;
+        position: relative;
+
+        .thumbnail {
+          width: 160px;
+          object-fit: contain;
+        }
+
+      }
+    }
+  }
+}

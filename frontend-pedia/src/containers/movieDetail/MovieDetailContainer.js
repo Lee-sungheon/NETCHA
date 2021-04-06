@@ -100,7 +100,7 @@ const MovieDetailContainer = ({ movieNo }) => {
               )}
               <div className="sideBlock">
                 <Gallery imgs={movie.movie_info.imageUrl} />
-                <Video />
+                <Video movieNo={movieNo} movieTitle={movie.movie_info.title} />
               </div>
               <div className="contentBlock">
                 <BasicInfo movie={movie} loading={loading} error={error} />
