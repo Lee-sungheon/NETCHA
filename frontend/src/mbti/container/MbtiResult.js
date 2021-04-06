@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { actions } from "../../user/state";
 import axios from "axios";
+import { navActions } from "../../navbar/state";
+
 import "./Mbti.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -61,6 +63,13 @@ export default function MbtiResult(props) {
     T_F: "",
     E_I: "",
   });
+  useEffect(() => {
+    dispatch(navActions.headerToggle(false));
+
+    return () => {
+      dispatch(navActions.headerToggle(true));
+    };
+  }, []);
   useEffect(() => {
     setMbtiImg({
       ...mbtiImg,
