@@ -82,6 +82,18 @@ export const listAutoCompletesMovies = (keyword) => {
   return { data: Array.from(titles) };
 };
 
+
+export const listMovieVideos = (movieNo) => {
+  // return client.get(`/movies/???no=${movieNo}`);
+  return null;
+}
+
+export const updateMovieVideos = (data) => {
+  console.dir(data);
+  // return client.post('/movies/??', data);
+}
+
+
 const movies_title = [
   // {
   // data: [

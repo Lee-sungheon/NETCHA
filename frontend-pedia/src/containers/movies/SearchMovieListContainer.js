@@ -32,28 +32,6 @@ const SearchMovieListContainer = ({ location }) => {
     getSearchMovies(page);
   }, []);
 
-  /*
-  const { movies, page, error, loading } = useSelector(
-    ({ searchMovies, loading }) => ({
-      movies: searchMovies.movies,
-      page: searchMovies.page,
-      error: searchMovies.error,
-      loading: loading['searchMovies/LIST_SEARCH_MOVIES'],
-    })
-  );
-
-  useEffect(() => {
-    const { keyword } = qs.parse(location.search, {
-      ignoreQueryPrefix: true,
-    });
-    console.log('keyword: ' + keyword);
-    console.log('page: ' + page);
-    dispatch(listSearchMovies({ keyword, page }));
-  }, []);
-  // }, [dispatch, page]);
-
-  */
-  
   const _infiniteScroll = useCallback(() => {
     console.log('scroll');
     let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
@@ -76,7 +54,6 @@ const SearchMovieListContainer = ({ location }) => {
 
   return (
     <>
-      {/* <SearchMovieList loading={loading} error={error} movies={movies} /> */}
       <MovieList movies={movies} headerTitle="영화 검색 결과" />
       {loading && <img src="/images/Rolling-50px.svg" style={{marginLeft: "50%"}}/>}
       <button style={{color: "white", backgroundColor: "white"}}>무한스크롤</button>
