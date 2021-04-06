@@ -25,9 +25,13 @@ const User = ({ user }) => {
           </div>
           <div className="user">
             <div>
-              <img src="/images/profileIcon.jpg" className="profileIconImg" alt="" />
+              <img
+                src="/images/profileIcon.jpg"
+                className="profileIconImg"
+                alt=""
+              />
               <div style={{ marginTop: '-20px' }}>
-                <h2>{user.userName}</h2>
+                <h2>{user.username}</h2>
               </div>
             </div>
             <hr />

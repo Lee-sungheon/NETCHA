@@ -12,7 +12,7 @@ export default function HeaderContainer() {
   };
   const onLogin = () => {
     console.log('로그인들어옴');
-    const newUser = { seq: 1, userName: '내가바로이름' };
+    const newUser = { seq: 1, nickname: '내가바로이름' };
     localStorage.setItem('user', JSON.stringify(newUser));
     dispatch(setUser(JSON.parse(localStorage.getItem('user'))));
   };
