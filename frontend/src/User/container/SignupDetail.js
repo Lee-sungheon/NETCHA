@@ -82,14 +82,15 @@ export default function SignupDetail(props) {
       inputData.password &&
       inputData.confirmPassword === inputData.password
     ) {
-      setInputCheck({ ...inputData, confirmPassword: true });
+      setInputCheck({ ...inputCheck, confirmPassword: true });
     } else {
-      setInputCheck({ ...inputData, confirmPassword: false });
+      setInputCheck({ ...inputCheck, confirmPassword: false });
     }
-  }, [inputData]);
+  }, [inputData.password, inputData.confirmPassword]);
 
   useEffect(() => {
     if (inputData.userId) {
+      setTimeout(() => {}, 100);
       const body = inputData.userId;
       const check_Email = function (str) {
         var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -115,14 +116,14 @@ export default function SignupDetail(props) {
         })
         .catch((err) => {});
     }
-  }, [inputData, inputCheck]);
+  }, [inputData.userId]);
 
-  useEffect(() => {
-    if (history.location.state) {
-      setInputData({ ...inputData, userId: history.location.state.userId });
-    }
-    return () => {};
-  }, [history, inputData]);
+  // useEffect(() => {
+  //   if (history.location.state) {
+  //     setInputData({ ...inputData, userId: history.location.state.userId });
+  //   }
+  //   return () => {};
+  // }, [history.location.state]);
 
   const signUp = (e) => {
     e.preventDefault();
