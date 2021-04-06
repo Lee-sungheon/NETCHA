@@ -86,9 +86,12 @@ export default function Evaluation() {
   const token = useSelector(state => state.user.userData.token);
   const dispatch = useDispatch();
 
-  useEffect(async() => {
-    const tmp = await callApiEvaluation(user.seq);
-    setPickNum(tmp);
+  useEffect(() => {
+    async function fetchData() {
+      const tmp = await callApiEvaluation(user.seq);
+      setPickNum(tmp);
+    }
+    fetchData();
     function checkWindowInner() {
       const windowInnerWidth = window.innerWidth;
       if (windowInnerWidth < 600){

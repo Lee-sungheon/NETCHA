@@ -68,7 +68,7 @@ export default function SearchList({location}) {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [location])
+  }, [location, dispatch, search, user.seq, isInfinite])
 
   useEffect(() => {
     repeat = []

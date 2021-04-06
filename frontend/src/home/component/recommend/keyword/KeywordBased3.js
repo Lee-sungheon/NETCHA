@@ -11,7 +11,7 @@ export default function KeywordBased3({loading, idx, keyword, user}) {
     if (movieLists.length === 0) {
       dispatch(actions.requestKeywordMovieList3(keyword, 0, user.seq));
     }
-  }, [])
+  }, [dispatch, user, movieLists, keyword])
   
   return (
     <div className="home__container" id={idx}>

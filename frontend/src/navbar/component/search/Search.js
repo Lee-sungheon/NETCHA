@@ -77,7 +77,7 @@ export default function Search({activeValue, setActiveValue}) {
       setSearchText('')
       dispatch(actions.trySetText(''));
     }
-  }, [activeValue])
+  }, [activeValue, dispatch])
   
   function onChangeText(e) {
     const text = e.target.value;

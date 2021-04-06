@@ -34,7 +34,7 @@ export default function Buttons({ movie }) {
         }
       }
     }
-  }, [])
+  }, [likeList, movie, zzimList])
   function toggleZzim() {
     if(!isZzim) {
       callApiRequestZzim(user.seq, movie.no);
