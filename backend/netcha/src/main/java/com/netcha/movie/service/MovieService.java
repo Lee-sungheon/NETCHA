@@ -1162,51 +1162,83 @@ public class MovieService {
 				searchNos.addAll(movieRepository.findByNoOpenAndCasts("2015-01-01", search));
 				searchNos.addAll(movieRepository.findByNoOpenAndDirectors("2015-01-01", search));				
 			}
+			List<MovieResponseDto> resultMovie = new ArrayList<MovieResponseDto>();
 			
 			int[] arr = new int[search.length()];
 			for(int i=0; i<arr.length; i++) arr[i] = i;
-			int limit = 1;
-			if(searchMovies.size() < 40) limit = 0;
-			for(int i=arr.length-1; i>limit; i--) {
-				int[] result = new int[i];
+			int[] result = null;
+			int size = arr.length;
+			while(searchMovies.isEmpty() || size > arr.length-2) {
+				size -= 1;
+				result = new int[size];
 				makeComp(0, 0, arr, result, search);
 			}
-			
-			List<MovieResponseDto> result = new ArrayList<MovieResponseDto>();
-			int idx = pageNum*40;
-			if(idx >= searchMovies.size()) return null;
-			int last = idx+40;
-			if(last >= searchMovies.size()) last = searchMovies.size();
-			for(int i=idx; i<last; i++) {
-				Movie m = searchMovies.get(i);
-				if(m.getRating().equals("")) {
-					String[] temp = crawling(m);
-					m.updateCrawling(temp[0], temp[1], temp[2]);
+			if(searchMovies.isEmpty()) return null;
+			// 비슷한 영화 찾기
+			if(searchMovies.size() < 40) {
+				for(int i=0; i<searchMovies.size(); i++) {
+					Movie m = searchMovies.get(i);
+					if(m.getRating().equals("")) {
+						String[] temp = crawling(m);
+						m.updateCrawling(temp[0], temp[1], temp[2]);
+					}
+					MovieResponseDto movie = new MovieResponseDto(m);
+					float mr = 0;
+					int ml = 0;
+					boolean mz = false;
+					if(userId != -1) {
+						MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+						if(movieRank != null) mr = movieRank.getRanking();
+						MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+						if(movieLike != null) ml = (int)movieLike.getLikeHate();
+						MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+						if(movieZzim != null) mz = true;
+					}
+					movie.userInfo(mr, ml, mz);
+					resultMovie.add(movie);
 				}
-				MovieResponseDto movie = new MovieResponseDto(m);
-				float mr = 0;
-				int ml = 0;
-				boolean mz = false;
-				if(userId != -1) {
-					MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-					if(movieRank != null) mr = movieRank.getRanking();
-					MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-					if(movieLike != null) ml = (int)movieLike.getLikeHate();
-					MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
-					if(movieZzim != null) mz = true;
+				for(int i=0; i<searchMovies.size(); i++) 
+					resultMovie.addAll(recommendMovieBySimilar(userId, searchMovies.get(i).getNo(), 0, 5));
+				if(pageNum*40 > resultMovie.size()) return null;
+				int idx = pageNum*40;
+				int last = idx+40;
+				if(last >= resultMovie.size()) last = resultMovie.size();
+				return resultMovie.subList(idx, last);
+			} else {
+				int idx = pageNum*40;
+				if(idx >= searchMovies.size()) return null;
+				int last = idx+40;
+				if(last >= searchMovies.size()) last = searchMovies.size();
+				for(int i=idx; i<last; i++) {
+					Movie m = searchMovies.get(i);
+					if(m.getRating().equals("")) {
+						String[] temp = crawling(m);
+						m.updateCrawling(temp[0], temp[1], temp[2]);
+					}
+					MovieResponseDto movie = new MovieResponseDto(m);
+					float mr = 0;
+					int ml = 0;
+					boolean mz = false;
+					if(userId != -1) {
+						MovieRank movieRank = movieRankRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+						if(movieRank != null) mr = movieRank.getRanking();
+						MovieLike movieLike = movieLikeRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+						if(movieLike != null) ml = (int)movieLike.getLikeHate();
+						MovieZzim movieZzim = movieZzimRepository.findByMemberSeqAndMovieNo(userId, m.getNo());
+						if(movieZzim != null) mz = true;
+					}
+					movie.userInfo(mr, ml, mz);
+					resultMovie.add(movie);
 				}
-				movie.userInfo(mr, ml, mz);
-				result.add(movie);
+				return resultMovie;
 			}
-			System.out.println(searchMovies.size());
-			return result;
 		}
 		return null;
 	}
 	
 	public void makeComp(int begin, int cnt, int[] arr, int[] result, String search) {
 		if(cnt == result.length) {
-			if(searchMovies.size() > 200) return;
+			if(searchMovies.size() >= 40) return;
 			String s = "";
 			for(int i=0; i<result.length; i++) s += String.valueOf(search.charAt(result[i]));
 			System.out.println(s);
@@ -1229,9 +1261,8 @@ public class MovieService {
 	}
 	
 	public void test() {
-		List<Movie> movies = movieRepository.findAllByOpens("2015-01-01");
-		for(Movie movie : movies) {
-			System.out.println(movie.getNo()+", "+movie.getTitle());
-		}
+		Movie movie = movieRepository.findById((long)7465).get();
+		MovieResponseDto m = new MovieResponseDto(movie);
+		System.out.println(m.getCasts().length);
 	}
 }
