@@ -11,6 +11,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import { callApiRequestZzim, callApiDeleteZzim, callApiLike } from '../../../common/api';
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../../../navbar/state";
+import { useHistory } from "react-router";
 import { likeactions } from "../../../likeList/state";
 
 
@@ -20,6 +21,7 @@ export default function Buttons({ movie, onSelectSlide, isdetail, setIsdetail })
   const user = useSelector(state => state.user.userData.member);
   const zzimList = useSelector(state => state.search.isZzim);
   const likeList = useSelector(state => state.search.isLike);
+  const history = useHistory();
   const dispatch = useDispatch();
   useEffect(()=>{
     if (zzimList.length > 0) {
@@ -76,10 +78,14 @@ export default function Buttons({ movie, onSelectSlide, isdetail, setIsdetail })
     setIsdetail(!isdetail);
     onSelectSlide(movie);
   }
-
+  const playMovie = () => {
+    history.push({
+      pathname: `/movie/movie-${movie.no}`,
+    });
+  };
   return (
     <div style={{width:'100%', position: 'relative'}} >
-      <PlayArrowIcon className='play-button' />
+      <PlayArrowIcon className='play-button' onClick={playMovie} />
       {!isZzim ? <AddIcon 
         className='common-button'
         onClick={toggleZzim}
