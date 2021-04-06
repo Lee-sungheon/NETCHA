@@ -82,6 +82,13 @@ export const listAutoCompletesMovies = (keyword) => {
   return { data: Array.from(titles) };
 };
 
+
+export const hasVideoURL = (movieNo) => {
+  // return client.get(`/movies/???no=${movieNo}`);
+  return null;
+}
+
+
 const movies_title = [
   // {
   // data: [
