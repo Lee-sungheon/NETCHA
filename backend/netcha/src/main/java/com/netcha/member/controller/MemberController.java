@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.netcha.config.UserRole;
 import com.netcha.member.data.Member;
 import com.netcha.member.data.MemberResponseDto;
 import com.netcha.member.data.Response;
@@ -82,7 +83,22 @@ public class MemberController {
 			
 			final Cookie accessToken = cookieUtil.getCookie(req, JwtUtil.ACCESS_TOKEN_NAME);
 			Member member = authService.findByUserId(jwtUtil.getUsername(accessToken.getValue()));
-			
+			MemberResponseDto userInfo = new MemberResponseDto(member);
+			return new Response("success", "유저정보 조회 성공", userInfo);
+		} catch (Exception e) {
+			return new Response("error", "유저정보 조회 실패", null);
+		}
+	}
+
+	@ApiOperation(value = "토큰 쿠키로 반환", response = Response.class)
+	@PostMapping("/getToken")
+	public Response getToken(@RequestBody String token, HttpServletRequest req, HttpServletResponse res) {
+		try {
+			Member member = authService.findByUserId(jwtUtil.getUsername(token));
+			Cookie accessToken = cookieUtil.createCookie(JwtUtil.ACCESS_TOKEN_NAME, token);
+			Cookie refreshToken = cookieUtil.createCookie(JwtUtil.REFRESH_TOKEN_NAME, redisUtil.getData(member.getUserId()));
+			res.addCookie(accessToken);
+			res.addCookie(refreshToken);
 			MemberResponseDto userInfo = new MemberResponseDto(member);
 			return new Response("success", "유저정보 조회 성공", userInfo);
 		} catch (Exception e) {
@@ -138,11 +154,15 @@ public class MemberController {
 	public Response login(@RequestBody RequestLoginUser user, HttpServletRequest req, HttpServletResponse res) {
 		try {
 			final Member member = authService.loginUser(user.getUserId(), user.getPassword());
+			if(member.getRole().toString().equals("ROLE_NOT_PERMITTED")) {
+				return new Response("authenticationError", "인증되지 않은 사용자입니다.", null);
+			}
 			final String token = jwtUtil.generateToken(member);
 			final String refreshJwt = jwtUtil.generateRefreshToken(member);
 			Cookie accessToken = cookieUtil.createCookie(JwtUtil.ACCESS_TOKEN_NAME, token);
 			Cookie refreshToken = cookieUtil.createCookie(JwtUtil.REFRESH_TOKEN_NAME, refreshJwt);
 			redisUtil.setDataExpire(refreshJwt, member.getUserId(), JwtUtil.REFRESH_TOKEN_VALIDATION_SECOND);
+			redisUtil.setDataExpire(member.getUserId(), refreshJwt, JwtUtil.REFRESH_TOKEN_VALIDATION_SECOND);
 			res.addCookie(accessToken);
 			res.addCookie(refreshToken);
 			MemberResponseDto responseMember = new MemberResponseDto(member);
