@@ -21,6 +21,11 @@ const App = () => {
           path="/user/statics/:id/:token"
           component={UserStaticsPage}
         />
+        <Route
+          exact
+          path="/user/statics/:id"
+          component={UserStaticsPage}
+        />
         <Route exact path="/movieDetail/:movieNo" component={MovieDetail} />
         <Route
           exact
