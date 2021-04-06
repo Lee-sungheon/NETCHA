@@ -28,6 +28,7 @@ const SimilarMovies = ({ history, requestData }) => {
 
           {movies &&
             movies.map((movie, index) => {
+              if (movie.posterUrl === "default") return null;
               return (
                 <div
                   className="similarBlock"
