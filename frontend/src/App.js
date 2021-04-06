@@ -24,6 +24,7 @@ import Movie from "./movie/container/Movie";
 import cx from "classnames";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+import { useSelector } from "react-redux";
 
 const persistor = persistStore(store);
 // const history = createBrowserHistory();
@@ -31,35 +32,35 @@ function App() {
   const [isHeader, setIsHeader] = useState(true);
   const [toggleButton, setToggleButton] = useState(false);
   const [isLogin, setIsLogin] = useState("");
-
+  // const isHeader_ = useSelector((state) => state.search.isHeader);
   const toggleIsHeader = (e) => {
     setIsHeader(e);
   };
 
   return (
-    <BrowserRouter basename = {process.env.PUBLIC_URL}>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <div className={cx("App", { "App--toggle": toggleButton })}>
-            {isHeader && window.sessionStorage.getItem("token") ? (
-              <Header
-                toggleButton={toggleButton}
-                setToggleButton={setToggleButton}
-              />
-            ) : null}
+            {/* {window.sessionStorage.getItem("token") ? ( */}
+            <Header
+              toggleButton={toggleButton}
+              setToggleButton={setToggleButton}
+            />
+            {/* ) : null} */}
             <Route exact path="/">
               {window.sessionStorage.getItem("token") ? (
                 <Redirect to="/home" />
               ) : (
                 <Redirect to="/login" />
               )}
-              <Login toggleIsHeader={toggleIsHeader} />
+              <Login />
             </Route>
             <Route path="/login">
-              <Login toggleIsHeader={toggleIsHeader} />
+              <Login />
             </Route>
             <Route path="/signup">
-              <Signup toggleIsHeader={toggleIsHeader} />
+              <Signup />
             </Route>
             <Switch>
               <Route path="/home" component={Home} />
@@ -78,19 +79,19 @@ function App() {
               </Route>
 
               <Route path="/signupdetail">
-                <SignupDetail toggleIsHeader={toggleIsHeader} />
+                <SignupDetail />
               </Route>
               <Route path="/profilelist">
                 <ProfileList />
               </Route>
               <Route path="/testmbti">
-                <TestMbti toggleIsHeader={toggleIsHeader} />
+                <TestMbti />
               </Route>
               <Route path="/mbtiresult">
-                <MbtiResult toggleIsHeader={toggleIsHeader} />
+                <MbtiResult />
               </Route>
               <Route path="/mbti">
-                <Mbti toggleIsHeader={toggleIsHeader} />
+                <Mbti />
               </Route>
               <Route path="/movie/:no" component={Movie}>
                 {/* <Movie toggleIsHeader={toggleIsHeader} /> */}
