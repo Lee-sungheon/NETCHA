@@ -266,24 +266,24 @@ export default function Header({ toggleButton, setToggleButton }) {
                   onClose={handleClose}
                 >
                   <StyledMenuItem>
-                    <Link
+                    <span
                       style={{
                         color: "white",
                       }}
                       onClick={goAccount}
                     >
                       <ListItemText primary="계정" />
-                    </Link>
+                    </span>
                   </StyledMenuItem>
                   <StyledMenuItem>
-                    <Link
+                    <span
                       style={{
                         color: "white",
                       }}
                       onClick={logout}
                     >
                       <ListItemText primary="로그아웃" />
-                    </Link>
+                    </span>
                   </StyledMenuItem>
                 </StyledMenu>
               </div>
