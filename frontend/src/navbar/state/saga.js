@@ -1,15 +1,18 @@
 import { all, call, put, debounce, takeLeading } from "redux-saga/effects";
 import { actions, types } from "./index";
-import { callApiMovieList, callApiGanreMovieList, callApiCountryMovieList, callApiContentMovieList, callApiCastMovieList, callApiDirectorMovieList } from "../../common/api";
+import { callApiSearchMovieList, callApiGanreMovieList, callApiCountryMovieList, callApiContentMovieList, callApiCastMovieList, callApiDirectorMovieList } from "../../common/api";
 
-export function* fetchData() {
+export function* fetchData(action) {
   yield put(actions.setEnd(false));
   yield put(actions.setLoading(true));
   yield put(actions.setValue("error", ""));
   try {
-    const data = yield call(callApiMovieList);
-    if (data !== undefined) {
+    const data = yield call(callApiSearchMovieList, action.search, action.pageNum, action.userNo);
+    console.log(data)
+    if (data !== undefined && data !== "") {
       yield put(actions.setMovieList(data));
+    } else {
+      yield put(actions.setMovieList([]));
     }
   } catch (error) {
     yield put(actions.setValue("error", error));
@@ -115,9 +118,23 @@ export function* addGanreData(action) {
   yield put(actions.setInfinite(false));
 }
 
+export function* addSearchData(action) {
+  yield put(actions.setInfinite(true));
+  try {
+    const data = yield call(callApiSearchMovieList, action.search, action.pageNum, action.userNo);
+    if (data !== undefined && data !== "") {
+      yield put(actions.addMovieList(data));
+    } else {
+      yield put(actions.setEnd(true));
+    }
+  } catch(error) {
+  }
+  yield put(actions.setInfinite(false));
+}
+
 export default function* saga() {
   yield all([
-    debounce(1000, types.REQUEST_MOVIELIST, fetchData),
+    takeLeading(types.REQUEST_SEARCHMOVIELIST, fetchData),
     takeLeading(types.TRY_SET_TEXT, trySetText),
     takeLeading(types.REQUEST_GANREMOVIELIST, ganreData),
     takeLeading(types.REQUEST_COUNTRYMOVIELIST, countryData),
@@ -126,5 +143,6 @@ export default function* saga() {
     takeLeading(types.REQUEST_ADD_MOVIELIST, addData),
     takeLeading(types.REQUEST_ADD_COUNTRYMOVIELIST, addCountryData),
     takeLeading(types.REQUEST_ADD_GANREMOVIELIST, addGanreData),
+    takeLeading(types.REQUEST_ADD_SEARCHMOVIELIST, addSearchData),
   ]);
 }
