@@ -35,11 +35,11 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	@Query("select m from Movie m where m.open >= :open and m.ganre like %:ganre% and m.country like %:country%")
 	public List<Movie> findByGanreLikeAndCountryLike(@Param("open") String open, @Param("ganre") String ganre, @Param("country") String country, Pageable page);
 	// 감독별 (40개) : 누적 조회수 순으로
-	@Query("select m from Movie m where m.open >= :open and m.directors like %:director% order by m.totalView desc")
-	public List<Movie> findByDirectorLike(@Param("open") String open, @Param("director") String director);
+	@Query("select m from Movie m where m.open >= :open and m.directors like %:director%")
+	public List<Movie> findByDirectorLike(@Param("open") String open, @Param("director") String director, Pageable page);
 	// 배우별 (40개) : 누적 조회수 순으로
-	@Query("select m from Movie m where m.open >= :open and m.casts like %:cast% order by m.totalView desc")
-	public List<Movie> findByCastLike(@Param("open") String open, @Param("cast") String cast);
+	@Query("select m from Movie m where m.open >= :open and m.casts like %:cast%")
+	public List<Movie> findByCastLike(@Param("open") String open, @Param("cast") String cast, Pageable page);
 	// 비슷한 영화 : 입력받은 영화 제외 모든 영화
 	@Query("select m from Movie m where m.open >= :open and m.no <> :no")
 	public List<Movie> findByNoNot(@Param("open") String open, @Param("no") Long no);
@@ -70,4 +70,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	public List<Movie> findByOpenAndTitleAndNotNo(@Param("open") String open, @Param("title") String title, @Param("no") List<Long> no);
 	@Query("select m.no from Movie m where m.open >= :open and m.title like %:title% and m.no not in :no")
 	public List<Long> findByNoOpenAndTitleAndNotNo(@Param("open") String open, @Param("title") String title, @Param("no") List<Long> no);
+	@Query("select m from Movie m where m.open >= :open and m.posterUrl = :poster")
+	public List<Movie> findByOpenAndPosterUrl(@Param("open") String open, @Param("poster") String poster);
 }
