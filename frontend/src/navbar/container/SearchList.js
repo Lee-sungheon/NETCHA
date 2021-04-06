@@ -14,7 +14,7 @@ let loadingPage = false;
 export default function SearchList({location}) {
   const [tabNo, setTabNo] = useState(5);
   const [searchList, setSearchList] = useState([]);
-  const search = location.search.slice(1,).split('=');
+  const [search, setSearch] = useState(location.search.slice(1,).split('='));
   const movieLists = useSelector(state => state.search.movieLists);
   const isLoading = useSelector(state => state.search.isLoading);
   const isInfinite = useSelector((state) => state.search.isInfinite);
@@ -35,7 +35,7 @@ export default function SearchList({location}) {
   }, [])
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    setSearch(location.search.slice(1,).split('='))
     function handleScroll() {
       const scrollHeight = document.documentElement.scrollHeight;
       const scrollTop = document.documentElement.scrollTop;
@@ -46,6 +46,8 @@ export default function SearchList({location}) {
           dispatch(actions.requestAddCountryMovieList(search[1], pageNum, user.seq));
         } else if (search[0] === "ganre") {
           dispatch(actions.requestAddGanreMovieList(search[1], pageNum, user.seq));
+        } else if (search[0] === "q") {
+          dispatch(actions.requestAddSearchMovieList(search[1], pageNum, user.seq));
         }
         if (!loadingPage) {
           pageNum += 1;
@@ -63,12 +65,12 @@ export default function SearchList({location}) {
     } else if (search[0] === 'director'){
       dispatch(actions.requestDirectorMovieList(search[1], 0));
     } else{
-      dispatch(actions.requestMovieList());
+      dispatch(actions.requestSearchMovieList(search[1], 0, user.seq));
     }
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [location, dispatch, search, user.seq, isInfinite])
+  }, [location, dispatch])
 
   useEffect(() => {
     repeat = []

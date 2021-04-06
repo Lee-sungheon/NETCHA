@@ -14,11 +14,10 @@ export default function Movie(props) {
   useEffect(() => {
     dispatch(navActions.headerToggle(false));
     window.scroll(0, 0);
-
     return () => {
       dispatch(navActions.headerToggle(true));
     };
-  }, []);
+  }, [dispatch]);
   useEffect(() => {
     // props.toggleIsHeader(false);
     const params = props.match.params.no.split("-");
@@ -33,10 +32,7 @@ export default function Movie(props) {
     } else {
       setUrl(`https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8`);
     }
-    return () => {
-      // props.toggleIsHeader(true);
-    };
-  }, []);
+  }, [props]);
   const goBack = (e) => {
     e.preventDefault();
     history.goBack();
