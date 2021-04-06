@@ -7,24 +7,20 @@ import axios from "axios";
 import LoginForm from "../component/LoginForm";
 import LoginSection from "../component/LoginSection";
 import Footer from "../../navbar/container/Footer";
-import { useSelector } from "react-redux";
 import "./Login.scss";
 
 export default function Login(props) {
-  const isHeader = useSelector((state) => state.search.isHeader);
   const history = useHistory();
   const dispatch = useDispatch();
   const [inputData, setInputData] = useState({ userId: "", password: "" });
 
   useEffect(() => {
-    console.log(isHeader);
     dispatch(navActions.headerToggle(false));
     if (history.location.state) {
       setInputData({ ...inputData, userId: history.location.state.userId });
     }
-    return () => {
-    };
-  }, []);
+    return () => {};
+  }, [dispatch, inputData, history.location.state]);
 
   const onUserIdHandler = (e) => {
     setInputData({ ...inputData, userId: e.target.value });

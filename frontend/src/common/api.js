@@ -29,7 +29,6 @@ export function callApiPopularMovieList(pageNum, userId) {
   return axios
     .get(url)
     .then((Response) => {
-      console.log(Response.data);
       return Response.data;
     })
     .catch((Error) => {
@@ -63,7 +62,7 @@ export function callApiMbtiMovieList(pageNum, id) {
 
 export function callApiSimilarMovieList(movieNo, id) {
   const url = `netcha/movie/list_similar?movieNo=${movieNo}&userId=${id}`;
-  return axios  
+  return axios
     .get(url)
     .then((Response) => {
       return Response.data;
@@ -188,88 +187,112 @@ export function callApiRequestEvaluation(userId, movieNo, ranking) {
 }
 
 export function callApiDeleteEvaluation(userId, movieNo) {
-  const url = `netcha/movie/rank_delete?userId=${userId}&movieNo=${movieNo}`
-  return axios.delete(url)
-  .then((Response)=>{
-    console.log(Response.data)
-    return Response.data
-  })
-  .catch((Error)=>{console.log(Error)})
+  const url = `netcha/movie/rank_delete?userId=${userId}&movieNo=${movieNo}`;
+  return axios
+    .delete(url)
+    .then((Response) => {
+      console.log(Response.data);
+      return Response.data;
+    })
+    .catch((Error) => {
+      console.log(Error);
+    });
 }
 
 export function callApiRequestZzim(userId, movieNo) {
-  const url = `netcha/movie/zzim_update`
+  const url = `netcha/movie/zzim_update`;
   const data = {
     userId: userId,
-    movieNo: movieNo
-  }
-  return axios.post(url, data)
-    .then((Response)=>{
-      console.log(Response.data)
-      return Response.data
+    movieNo: movieNo,
+  };
+  return axios
+    .post(url, data)
+    .then((Response) => {
+      console.log(Response.data);
+      return Response.data;
     })
-    .catch((Error)=>{console.log(Error)})
+    .catch((Error) => {
+      console.log(Error);
+    });
 }
 
 export function callApiLikeMovieList(pageNum, userId) {
   const url = `netcha/movie/zzim_list?pageNum=${pageNum}&userId=${userId}`;
-  return axios.get(url)
-    .then((Response)=>{
-      return Response.data
+  return axios
+    .get(url)
+    .then((Response) => {
+      return Response.data;
     })
-    .catch((Error)=>{console.log(Error)})
+    .catch((Error) => {
+      console.log(Error);
+    });
 }
 
 export function callApiDeleteZzim(userId, movieNo) {
-  const url = `netcha/movie/zzim_delete?movieNo=${movieNo}&userId=${userId}`
-  return axios.delete(url)
-    .then((Response)=>{
-      console.log(Response.data)
-      return Response.data
+  const url = `netcha/movie/zzim_delete?movieNo=${movieNo}&userId=${userId}`;
+  return axios
+    .delete(url)
+    .then((Response) => {
+      console.log(Response.data);
+      return Response.data;
     })
-    .catch((Error)=>{console.log(Error)})
+    .catch((Error) => {
+      console.log(Error);
+    });
 }
 
 export function callApiLike(userId, movieNo, like) {
-  const url = `netcha/movie/like_update`
+  const url = `netcha/movie/like_update`;
   const data = {
     userId: userId,
     movieNo: movieNo,
-    like: like
-  }
-  return axios.post(url, data)
-    .then((Response)=>{
-      console.log(Response.data)
-      return Response.data
+    like: like,
+  };
+  return axios
+    .post(url, data)
+    .then((Response) => {
+      console.log(Response.data);
+      return Response.data;
     })
-    .catch((Error)=>{console.log(Error)})
+    .catch((Error) => {
+      console.log(Error);
+    });
 }
 
 export function callApiEvaluation(userId) {
   const url = `/netcha/movie/rank_count?userId=${userId}`;
-  return axios.get(url)
-    .then((Response)=>{
-      return Response.data
+  return axios
+    .get(url)
+    .then((Response) => {
+      return Response.data;
     })
-    .catch((Error)=>{console.log(Error)})
+    .catch((Error) => {
+      console.log(Error);
+    });
 }
 
 export function callApiMovieReview(movieNo, userId) {
   const url = `netcha/movie/review_list?movieNo=${movieNo}&userId=${userId}`;
-  return axios.get(url)
-    .then((Response)=>{
-      return Response.data
+  return axios
+    .get(url)
+    .then((Response) => {
+      return Response.data;
     })
-    .catch((Error)=>{console.log(Error)})
+    .catch((Error) => {
+      console.log(Error);
+    });
 }
 
 export function callApiMovieDetail(movieNo, userId) {
   const url = `netcha/movie/movie_detail?movieNo=${movieNo}&userId=${userId}`;
-  return axios.get(url)
-    .then((Response)=>{
-      return Response.data
+  return axios
+    .get(url)
+    .then((Response) => {
+      return Response.data;
     })
-    .catch((Error)=>{console.log(Error)})
+    .catch((Error) => {
+      console.log(Error);
+    });
 }
 
 export function callApiReview(userId, movieNo, content) {
@@ -277,36 +300,43 @@ export function callApiReview(userId, movieNo, content) {
   const data = {
     userId: userId,
     movieNo: movieNo,
-    content: content
-  }
-  return axios.post(url, data)
-    .then((Response)=>{
+    content: content,
+  };
+  return axios
+    .post(url, data)
+    .then((Response) => {
       console.log(Response.data);
-      return Response.data
+      return Response.data;
     })
-    .catch((Error)=>{console.log(Error)})
+    .catch((Error) => {
+      console.log(Error);
+    });
 }
 
 export function callApiReviewLike(userId, reviewNo) {
   const url = `netcha/movie/review_like_insert`;
   const data = {
     userId: userId,
-    reviewNo: reviewNo
-  }
-  return axios.post(url, data)
-    .then((Response)=>{
-      console.log(Response.data)
-      return Response.data
+    reviewNo: reviewNo,
+  };
+  return axios
+    .post(url, data)
+    .then((Response) => {
+      console.log(Response.data);
+      return Response.data;
     })
-    .catch((Error)=>{console.log(Error)})
+    .catch((Error) => {
+      console.log(Error);
+    });
 }
 
 export function callApiReviewDisLike(userId, reviewNo) {
-  const url = `netcha/movie/review_like_delete?reviewNo=${reviewNo}&userId=${userId}`
-  return axios.delete(url)
-    .then((Response)=>{
-      console.log(Response.data)
-      return Response.data
+  const url = `netcha/movie/review_like_delete?reviewNo=${reviewNo}&userId=${userId}`;
+  return axios
+    .delete(url)
+    .then((Response) => {
+      console.log(Response.data);
+      return Response.data;
     })
     .catch((Error)=>{console.log(Error)})
 }
