@@ -1147,7 +1147,7 @@ public class MovieService {
 	public List<MovieResponseDto> searchMovieByTitle(int userId, int pageNum, String search, int ord) {
 		for(int i=0; i<search.length(); i++) {
 			if(search.charAt(i) >= 'ㄱ' && search.charAt(i) <= 'ㅎ') search = search.replace(String.valueOf(search.charAt(i)), "");
-			if(search.charAt(i) >= 'ㅏ' && search.charAt(i) <= 'ㅣ') search = search.replace(String.valueOf(search.charAt(i)), "");
+			else if(search.charAt(i) >= 'ㅏ' && search.charAt(i) <= 'ㅣ') search = search.replace(String.valueOf(search.charAt(i)), "");
 		}
 		
 		if(!search.equals("")) {
