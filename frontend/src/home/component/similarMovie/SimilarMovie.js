@@ -5,6 +5,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { actions } from "../../state";
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from "react-router";
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default function SimilarMovie({ movie }) {
@@ -13,6 +14,7 @@ export default function SimilarMovie({ movie }) {
   const similarMovie = useSelector(state => state.home.similarMovieLists);
   const isLoading = useSelector(state => state.home.isSimilarLoading);
   const user = useSelector((state) => state.user.userData.member);
+  const history = useHistory();
   const dispatch = useDispatch();
   function indexLeft() {
     if (index > 1) {
@@ -33,7 +35,11 @@ export default function SimilarMovie({ movie }) {
       setSimilarList(movies);
     }
   }, [index, similarMovie])
-
+  const playMovie = (no) => {
+    history.push({
+      pathname: `/movie/movie-${no}`,
+    });
+  };
   return (
     <>
       <div className="similar__container" >
@@ -64,7 +70,7 @@ export default function SimilarMovie({ movie }) {
               >
                 <div className="similar__img-box">
                   <div className="similar__background" style={{backgroundImage: `url(${ movie.imageUrl[0] !== 'default' ? movie.imageUrl[0] : "/images/netchar2.png" })`}} />
-                  <div className="similar__play-box">
+                  <div className="similar__play-box" onClick={function(){history.push(`/movie/movie-${movie.no}`)}} >
                     ▶
                   </div>
                 </div>
