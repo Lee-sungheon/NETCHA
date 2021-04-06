@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from "react";
-
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import { useHistory } from "react-router";
@@ -14,7 +10,6 @@ const useStyles = makeStyles((theme) => ({
   signup_back: {
     backgroundImage:
       "url(https://assets.nflxext.com/ffe/siteui/vlv3/33a85845-b76d-4e18-a74c-5859e3978a91/b4d69ed1-965f-49d2-abc2-02d4d0ae6ffb/KR-ko-20210308-popsignuptwoweeks-perspective_alpha_website_large.jpg)",
-    // height: "800px",
     marginTop: "-64px",
   },
   signup_div: {
@@ -81,15 +76,11 @@ export default function Signup(props) {
       return;
     }
     axios
-      .post(
-        "netcha/user/checkId",
-        inputData.userId,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .post("netcha/user/checkId", inputData.userId, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         console.log(res);
         console.log(res.data.data);

@@ -19,12 +19,10 @@ export default function Login(props) {
   useEffect(() => {
     console.log(isHeader);
     dispatch(navActions.headerToggle(false));
-    // props.toggleIsHeader(false);
     if (history.location.state) {
       setInputData({ ...inputData, userId: history.location.state.userId });
     }
     return () => {
-      // props.toggleIsHeader(true);
     };
   }, []);
 
