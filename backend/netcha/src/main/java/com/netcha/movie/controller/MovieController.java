@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001","https://netcha.netlify.app"}, allowCredentials = "true")
+@CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001","https://netcha.netlify.app","https://j4d105.p.ssafy.io", "https://netcha-pedia.netlify.app"}, allowCredentials = "true")
 @RequestMapping("/movie")
 public class MovieController {
 	@Autowired

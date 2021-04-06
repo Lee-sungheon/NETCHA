@@ -70,12 +70,26 @@ export default function Signup(props) {
   };
   const onStart = (e) => {
     e.preventDefault();
+    //이메일 유효성검사
+    const check_Email = function (str) {
+      var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+      return regExp.test(str) ? true : false;
+    };
+
+    if (check_Email(inputData.userId) === false) {
+      alert("이메일 형식이 유효하지 않습니다.");
+      return;
+    }
     axios
-      .post("netcha/user/checkId", inputData.userId, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      .post(
+        "netcha/user/checkId",
+        inputData.userId,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => {
         console.log(res);
         console.log(res.data.data);

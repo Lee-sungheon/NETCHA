@@ -67,13 +67,21 @@ const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 export default function Header({ toggleButton, setToggleButton }) {
+  // const [isHeader, setIsHeader] = useState(true);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [activeValue, setActiveValue] = useState("홈");
   const history = useHistory();
+  const isHeader_ = useSelector((state) => state.search.isHeader);
   const { nickname } = useSelector((state) => ({
     nickname: state.user.userData.member.nickname,
   }));
+
+  useEffect(() => {
+    // setIsHeader(isHeader_);
+    // console.log(isHeader_);
+    return () => {};
+  }, [isHeader_]);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -144,128 +152,145 @@ export default function Header({ toggleButton, setToggleButton }) {
   };
 
   return (
-    <div className="root">
-      <AppBar position="fixed" className="root" id="header">
-        <Toolbar>
-          <Link to={"/home"}>
-            <img
-              src={"../images/netcha.png"}
-              style={{ height: "52px", marginRight: "10px" }}
-              alt="netcha"
-              onClick={() => setActiveValue("홈")}
-            />
-          </Link>
-          <div>
-            <Link to={"/home"}>
-              <Typography
-                className="menu"
-                variant="subtitle2"
-                noWrap
-                style={activeValue === "홈" ? { fontWeight: "bold" } : {}}
-                onClick={handleChange}
-              >
-                홈
-              </Typography>
-            </Link>
-          </div>
-          <div>
-            <Link to={"/mylike"}>
-              <Typography
-                className="menu"
-                variant="subtitle2"
-                noWrap
-                style={
-                  activeValue === "내가 찜한 콘텐츠"
-                    ? { fontWeight: "bold" }
-                    : {}
-                }
-                onClick={handleChange}
-              >
-                내가 찜한 콘텐츠
-              </Typography>
-            </Link>
-          </div>
-          <div>
-            <Link to={"/eval"}>
-              <Typography
-                className="menu"
-                variant="subtitle2"
-                noWrap
-                style={activeValue === "평가하기" ? { fontWeight: "bold" } : {}}
-                onClick={handleChange}
-              >
-                평가하기
-              </Typography>
-            </Link>
-          </div>
-
-          <Typography className="title" variant="subtitle2" noWrap></Typography>
-          <Link to="">
-            <img
-              src={"../images/netchapediaTrans.png"}
-              style={{ height: "35px", marginLeft: "20px" }}
-              alt="netcha"
-              onClick={() => setActiveValue("홈")}
-            />
-          </Link>
-
-          <Search activeValue={activeValue} setActiveValue={setActiveValue} />
-
-          <div className={classes.Brightness4Icon}>
-            <Brightness4Icon className="ld-button" onClick={onClick} />
-          </div>
-          <div className={classes.Brightness4Icon}>
-            <Avatar
-              alt="Travis Howard"
-              className={classes.small}
-              src="https://occ-0-4807-395.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABZAl_RHxQaFudkiao5vPLVFhEyGG1QqTCFxjdy4hEOrxzY9GGUa2IoZyznfP4TitB2zLMNPgY_RK74GZJufj7ek.png?r=a41"
-            />
-            {window.sessionStorage.token ? (
-              <Typography className="title" variant="subtitle2" noWrap>
-                {nickname} 님
-              </Typography>
-            ) : null}
-            <IconButton
-              aria-controls="customized-menu"
-              aria-haspopup="true"
-              variant="contained"
-              color="inherit"
-              onClick={handleClick}
-              style={{ paddingLeft: "0px" }}
-            >
-              <ArrowDropDownIcon className="arrow-icon" />
-            </IconButton>
-            <StyledMenu
-              id="customized-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <StyledMenuItem>
-                <Link
-                  style={{
-                    color: "white",
-                  }}
-                  onClick={goAccount}
-                >
-                  <ListItemText primary="계정" />
+    <>
+      {isHeader_ && (
+        <div className="root">
+          <AppBar
+            position="fixed"
+            className="root"
+            id="header"
+            style={{ backgroundColor: "rgba(255, 255, 255, 0)" }}
+          >
+            <Toolbar>
+              <Link to={"/home"}>
+                <img
+                  src={"../images/netcha.png"}
+                  style={{ height: "52px", marginRight: "10px" }}
+                  alt="netcha"
+                  onClick={() => setActiveValue("홈")}
+                />
+              </Link>
+              <div>
+                <Link to={"/home"}>
+                  <Typography
+                    className="menu"
+                    variant="subtitle2"
+                    noWrap
+                    style={activeValue === "홈" ? { fontWeight: "bold" } : {}}
+                    onClick={handleChange}
+                  >
+                    홈
+                  </Typography>
                 </Link>
-              </StyledMenuItem>
-              <StyledMenuItem>
-                <Link
-                  style={{
-                    color: "white",
-                  }}
-                  onClick={logout}
-                >
-                  <ListItemText primary="로그아웃" />
+              </div>
+              <div>
+                <Link to={"/mylike"}>
+                  <Typography
+                    className="menu"
+                    variant="subtitle2"
+                    noWrap
+                    style={
+                      activeValue === "내가 찜한 콘텐츠"
+                        ? { fontWeight: "bold" }
+                        : {}
+                    }
+                    onClick={handleChange}
+                  >
+                    내가 찜한 콘텐츠
+                  </Typography>
                 </Link>
-              </StyledMenuItem>
-            </StyledMenu>
-          </div>
-        </Toolbar>
-      </AppBar>
-    </div>
+              </div>
+              <div>
+                <Link to={"/eval"}>
+                  <Typography
+                    className="menu"
+                    variant="subtitle2"
+                    noWrap
+                    style={
+                      activeValue === "평가하기" ? { fontWeight: "bold" } : {}
+                    }
+                    onClick={handleChange}
+                  >
+                    평가하기
+                  </Typography>
+                </Link>
+              </div>
+
+              <Typography
+                className="title"
+                variant="subtitle2"
+                noWrap
+              ></Typography>
+              <a href="https://netcha-pedia.netlify.app" target="_blank">
+                <img
+                  src={"../images/netchapediaTrans.png"}
+                  style={{ height: "35px", marginLeft: "20px" }}
+                  alt="netcha"
+                  onClick={() => setActiveValue("홈")}
+                />
+              </a>
+              <Search
+                activeValue={activeValue}
+                setActiveValue={setActiveValue}
+              />
+
+              <div className={classes.Brightness4Icon}>
+                <Brightness4Icon className="ld-button" onClick={onClick} />
+              </div>
+              <div className={classes.Brightness4Icon}>
+                <Avatar
+                  alt="Travis Howard"
+                  className={classes.small}
+                  src="https://occ-0-4807-395.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABZAl_RHxQaFudkiao5vPLVFhEyGG1QqTCFxjdy4hEOrxzY9GGUa2IoZyznfP4TitB2zLMNPgY_RK74GZJufj7ek.png?r=a41"
+                />
+                {window.sessionStorage.token ? (
+                  <Typography className="title" variant="subtitle2" noWrap>
+                    {nickname} 님
+                  </Typography>
+                ) : null}
+                <IconButton
+                  aria-controls="customized-menu"
+                  aria-haspopup="true"
+                  variant="contained"
+                  color="inherit"
+                  onClick={handleClick}
+                  style={{ paddingLeft: "0px" }}
+                >
+                  <ArrowDropDownIcon className="arrow-icon" />
+                </IconButton>
+                <StyledMenu
+                  id="customized-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <StyledMenuItem>
+                    <Link
+                      style={{
+                        color: "white",
+                      }}
+                      onClick={goAccount}
+                    >
+                      <ListItemText primary="계정" />
+                    </Link>
+                  </StyledMenuItem>
+                  <StyledMenuItem>
+                    <Link
+                      style={{
+                        color: "white",
+                      }}
+                      onClick={logout}
+                    >
+                      <ListItemText primary="로그아웃" />
+                    </Link>
+                  </StyledMenuItem>
+                </StyledMenu>
+              </div>
+            </Toolbar>
+          </AppBar>
+        </div>
+      )}
+    </>
   );
 }

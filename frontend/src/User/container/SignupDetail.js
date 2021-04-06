@@ -89,21 +89,33 @@ export default function SignupDetail(props) {
       setInputCheck({ ...inputData, confirmPassword: false });
     }
   }, [inputData.confirmPassword, inputData.password]);
+
   useEffect(() => {
     if (inputData.userId) {
       const body = inputData.userId;
+      const check_Email = function (str) {
+        var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+        return regExp.test(str) ? true : false;
+      };
+
+      if (check_Email(inputData.userId) === false) {
+        setInputCheck({ ...inputCheck, userId: false });
+        return;
+      }
       axios
-        .post("netcha/user/checkId", JSON.stringify(body), {
+        .post("netcha/user/checkId", body, {
           headers: {
             "Content-Type": "application/json",
           },
         })
         .then((res) => {
-          setInputCheck({ ...inputCheck, userId: true });
+          if (res.data.data === 0) {
+            setInputCheck({ ...inputCheck, userId: false });
+          } else {
+            setInputCheck({ ...inputCheck, userId: true });
+          }
         })
-        .catch((err) => {
-          setInputCheck({ ...inputCheck, userId: false });
-        });
+        .catch((err) => {});
     }
   }, [inputData.userId]);
   useEffect(() => {
@@ -128,11 +140,15 @@ export default function SignupDetail(props) {
     };
     if (inputCheck.userId && inputCheck.confirmPassword) {
       axios
-        .post("netcha/user/signup", JSON.stringify(body), {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
+        .post(
+          "netcha/user/signup",
+          JSON.stringify(body),
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
         .then((res) => {
           console.log("계정생성 성공");
           axios
@@ -146,14 +162,15 @@ export default function SignupDetail(props) {
               }
             )
             .then((res) => {
+              alert("인증메일이 발송되었습니다. 확인해주세요");
               console.log("인증메일 발송");
+              history.push({
+                pathname: "/login",
+              });
             })
             .catch((err) => {
               console.log("인증메일 발송 실패");
             });
-          history.push({
-            pathname: "/login",
-          });
         })
         .catch((err) => {
           console.log("계정생성 실패");
