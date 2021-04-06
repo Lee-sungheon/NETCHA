@@ -115,7 +115,7 @@ export function* addGanreData(action) {
   yield put(actions.setInfinite(false));
 }
 
-export default function* () {
+export default function* saga() {
   yield all([
     debounce(1000, types.REQUEST_MOVIELIST, fetchData),
     takeLeading(types.TRY_SET_TEXT, trySetText),

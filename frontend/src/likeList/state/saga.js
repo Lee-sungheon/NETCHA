@@ -34,7 +34,7 @@ export function* addData(action) {
   yield put(likeactions.setInfinite(false));
 }
 
-export default function* () {
+export default function* saga() {
   yield all([
     takeLeading(types.REQUEST_MOVIELIST, likeData),
     takeLeading(types.REQUEST_ADD_MOVIELIST, addData),

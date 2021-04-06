@@ -32,14 +32,17 @@ export default function Home() {
   const [pageNum, setPageNum] = useState(1);
   const [isloading, setIsloading] = useState(1);
 
-  useEffect(async () => {
-    if ((await callApiEvaluation(user.seq)) <= 5) {
-      alert("영화 추천을 위해서 영화 평가를 해주세요!");
-      history.push(`/eval`);
+  useEffect(() => {
+    async function fetchData(){
+      const evalNum = await callApiEvaluation(user.seq);
+      if (evalNum <= 5) {
+        alert("영화 추천을 위해서 영화 평가를 해주세요!");
+        history.push(`/eval`);
+      }
     }
+    fetchData();
     window.scrollTo(0, 0);
-    // CreateReview();
-  }, [])
+  }, [history, user])
   useEffect(()=> {
     function handleScroll() {
       const scrollHeight = document.documentElement.scrollHeight;

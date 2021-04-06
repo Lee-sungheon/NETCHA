@@ -5,7 +5,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import Rating from '@material-ui/lab/Rating';
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { callApiMovieReview } from '../../../common/api';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import SpeakerNotesOffIcon from '@material-ui/icons/SpeakerNotesOff';
@@ -17,16 +16,18 @@ export default function DetailInformation({ movie }) {
   const [ commentList1, setCommentList1 ] = useState([]);
   const [ commentList2, setCommentList2 ] = useState([]);
   const [ isLoading, setIsLoading ] = useState(false);
-  const user = useSelector(state => state.user.userData.member);
   const history = useHistory();
-  useEffect(async()=> {
-    await setIsLoading(true);
-    const tmp_reviews = await callApiMovieReview(movie.no, 1);
-    await setIsLoading(false);
-    if (tmp_reviews) {
-      setReviews(tmp_reviews);
+  useEffect(()=> {
+    async function fetchData() {
+      await setIsLoading(true);
+      const tmp_reviews = await callApiMovieReview(movie.no, 1);
+      await setIsLoading(false);
+      if (tmp_reviews) {
+        setReviews(tmp_reviews);
+      }
     }
-  }, [])
+    fetchData();
+  }, [movie])
   useEffect(() => {
     const comments = reviews.slice((index-1)*4, index*4);
     setCommentList1(comments.slice(0, 2));
@@ -50,7 +51,7 @@ export default function DetailInformation({ movie }) {
     const text = e.target.innerText;
     history.push(`/search?director=${text}`);
   }
-  
+
   return (
     <>
       <div style={{width: '20%'}}>
