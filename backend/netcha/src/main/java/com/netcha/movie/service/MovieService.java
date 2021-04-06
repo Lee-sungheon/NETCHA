@@ -1260,14 +1260,15 @@ public class MovieService {
 		movie.updateView();
 	}
 	
+	@Transactional
 	public void test() {
 		List<Movie> list = movieRepository.findByOpenAndPosterUrl("2015-01-01", "");
-		for(int i=0; i<100; i++) {
-			Movie m = list.get(i);
+		for(Movie m : list) {
 			String[] result = crawling(m);
-			System.out.println("("+m.getTitle()+")"+result[0]+" "+result[1]+" "+result[2]);
+			//System.out.println("("+m.getTitle()+")"+result[0]+" "+result[1]+" "+result[2]);
 			m.updateCrawling(result[0], result[1], result[2]);
 		}
 		System.out.println(list.size());
+		
 	}
 }
