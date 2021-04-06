@@ -12,10 +12,10 @@ const Video = (videoNo) => {
   const [videoInfo, setVideoInfo] = useState(null);
 
   const settings = {
-    className: "center",
+    className: 'center',
     centerMode: true,
     infinite: true,
-    centerPadding: "5px",
+    centerPadding: '5px',
     slidesToShow: 1,
     arrows: true,
     speed: 500,
