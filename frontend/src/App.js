@@ -96,9 +96,9 @@ function App() {
               <Route path="/movie/:no" component={Movie}>
                 {/* <Movie toggleIsHeader={toggleIsHeader} /> */}
               </Route>
-              <Route>
+              {/* <Route>
                 <EmptyPage />
-              </Route>
+              </Route> */}
             </Switch>
             {isHeader ? <Footer /> : null}
           </div>
