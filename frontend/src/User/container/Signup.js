@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import { useHistory } from "react-router";
@@ -54,12 +54,6 @@ export default function Signup(props) {
     userId: "",
   });
 
-  useEffect(() => {
-    props.toggleIsHeader(false);
-    return () => {
-      props.toggleIsHeader(true);
-    };
-  }, []);
   const onUserIdHandler = (e) => {
     setInputData({ ...inputData, userId: e.target.value });
   };

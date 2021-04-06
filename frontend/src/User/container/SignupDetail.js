@@ -57,7 +57,6 @@ export default function SignupDetail(props) {
     confirmPassword: false,
     nickname: true,
     phone: true,
-    nickname: true,
     name: true,
   });
   const onUserIdHandler = (e) => {
@@ -87,7 +86,7 @@ export default function SignupDetail(props) {
     } else {
       setInputCheck({ ...inputData, confirmPassword: false });
     }
-  }, [inputData.confirmPassword, inputData.password]);
+  }, [inputData]);
 
   useEffect(() => {
     if (inputData.userId) {
@@ -116,16 +115,14 @@ export default function SignupDetail(props) {
         })
         .catch((err) => {});
     }
-  }, [inputData.userId]);
+  }, [inputData, inputCheck]);
+
   useEffect(() => {
-    props.toggleIsHeader(false);
     if (history.location.state) {
       setInputData({ ...inputData, userId: history.location.state.userId });
     }
-    return () => {
-      props.toggleIsHeader(true);
-    };
-  }, []);
+    return () => {};
+  }, [history, inputData]);
 
   const signUp = (e) => {
     e.preventDefault();
@@ -139,15 +136,11 @@ export default function SignupDetail(props) {
     };
     if (inputCheck.userId && inputCheck.confirmPassword) {
       axios
-        .post(
-          "netcha/user/signup",
-          JSON.stringify(body),
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        )
+        .post("netcha/user/signup", JSON.stringify(body), {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
         .then((res) => {
           console.log("계정생성 성공");
           axios

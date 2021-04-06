@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TestMbtiList from "../component/TestMbtiItem";
 import { useHistory } from "react-router";
 import { navActions } from "../../navbar/state";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import "./Mbti.css";
 
@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
   mbti_div: {
     background: "rgb(0, 0, 0, 1)",
     height: "35vw",
-    // width: "100%",
     padding: "60px 68px",
   },
   mbti_div_: {
@@ -55,7 +54,7 @@ export default function TestMBTI(props) {
     return () => {
       dispatch(navActions.headerToggle(true));
     };
-  }, []);
+  }, [dispatch]);
   const [choiceList, setChoiceList] = useState({ choice: [] });
   const onChoice = (data) => {
     setChoiceList({ ...choiceList, choice: choiceList.choice.concat(data) });
