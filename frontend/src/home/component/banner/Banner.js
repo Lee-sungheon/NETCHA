@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import "./Banner.scss";
 import ReactHlsPlayer from "react-hls-player";
@@ -9,13 +9,12 @@ import { useDispatch } from "react-redux";
 import { actions } from "../../../home/state";
 import { BANNER } from "../../../common/data";
 
-
 let buffer = null;
 let bufferTime = 0;
-export default function Banner({ user }) {
+export default function Banner() {
   const bannerToggle = useSelector((state) => state.home.bannerToggle);
   const bannerBufferTime = useSelector((state) => state.home.bannerBufferTime);
-  const token = useSelector(state => state.user.userData.token);
+  const token = useSelector((state) => state.user.userData.token);
   const history = useHistory();
   const dispatch = useDispatch();
   const SoundToggle = () => {
@@ -27,11 +26,11 @@ export default function Banner({ user }) {
       pathname: `/movie/banner-${BANNERKEY[0]}`,
     });
   };
-  useEffect(async () => {
+  useEffect(() => {
     buffer = setInterval(function () {
       bufferTime += 1;
     }, 1000);
-    return;
+    return clearInterval(buffer);
   }, []);
   useEffect(() => {
     if (!bannerToggle) {
@@ -39,7 +38,7 @@ export default function Banner({ user }) {
     } else {
       bufferTime = bannerBufferTime;
     }
-  }, [bannerToggle]);
+  }, [bannerToggle, dispatch, bannerBufferTime]);
   return (
     <div
       style={{
@@ -127,8 +126,11 @@ export default function Banner({ user }) {
               ▶ 재생
             </Button>
             <a
-              href={`https://netcha-pedia.netlify.app/movieDetail/${BANNER[BANNERKEY[0]][0]}/${token}`}
+              href={`https://netcha-pedia.netlify.app/movieDetail/${
+                BANNER[BANNERKEY[0]][0]
+              }/${token}`}
               target="_blank"
+              rel="noreferrer"
             >
               <Button
                 variant="contained"
