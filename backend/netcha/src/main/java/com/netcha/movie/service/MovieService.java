@@ -75,7 +75,7 @@ public class MovieService {
 			Elements poster_ele = fieldset.select("div.result-block.pt1").select("div.mList8.type3").select("ul").select("li");
 			if(poster_ele.size() == 0) poster = "default";
 			else poster = poster_ele.select("span.mImg1").select("span").attr("style").split(" ")[1].replace("url(", "").replace(")", "").replace("'","");
-			System.out.println(rating+" "+poster+" "+image);
+			System.out.println("("+m.getTitle()+")"+rating+" "+poster+" "+image);
 			result[0] = rating;
 			result[1] = poster;
 			result[2] = image;
