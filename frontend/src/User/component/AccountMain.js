@@ -4,8 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import img1 from "../../img/icon1.png";
 import img2 from "../../img/icon2.png";
-import { useHistory } from "react-router";
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   account_page: {
@@ -63,7 +62,6 @@ const onButtonClick = () => {
 };
 export default function AccountMain() {
   const classes = useStyles();
-  const history = useHistory();
   const { mbti, userId, phone, nickname, name } = useSelector((state) => ({
     mbti: state.user.userData.member.mbti,
     userId: state.user.userData.member.userId,
