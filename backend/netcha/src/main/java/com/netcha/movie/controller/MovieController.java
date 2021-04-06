@@ -137,6 +137,16 @@ public class MovieController {
 		return new ResponseEntity<>(movies, HttpStatus.OK);
 	}
 	
+	//  조회수 API   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	@ApiOperation(value = "조회수 증가", notes = "입력값 : movieNo(영화고유번호)")
+	@PostMapping("/movie_increaseView")
+	public ResponseEntity<?> updateView(@RequestBody Map<String, String> param) {
+		long movieNo = Long.parseLong(param.get("movieNo"));
+		movieService.updateView(movieNo);
+		System.out.println("조회수 증가 : "+movieNo);
+		return new ResponseEntity<>("success", HttpStatus.OK);
+	}
+	
 	//  평점 관련 API   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	@ApiOperation(value = "평점 매기기(신규, 수정 포함)", notes = "입력값 : userId(유저고유번호), movieNo(영화고유번호), ranking(평점(0~5))")
@@ -360,6 +370,22 @@ public class MovieController {
 	public ResponseEntity<?> getRankByMovie(@RequestParam long movieNo) {
 		Map<Float, Integer> result = movieService.getRankByMovie(movieNo);
 		System.out.println("영화별 평점 현황");
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "검색 : 제목, 감독, 배우 포함 (자음, 모음으로만은 검색 안됨)", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작)), search(검색어)")
+	@GetMapping("/search_total")
+	public ResponseEntity<?> searchMovieByTotal(@RequestParam long userId, @RequestParam long pageNum, @RequestParam String search) {
+		List<MovieResponseDto> result = movieService.searchMovieByTitle((int)userId, (int)pageNum, search, 1);
+		System.out.println("통합검색 : "+search);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "검색 : 제목만 (자음, 모음으로만은 검색 안됨)", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작)), search(검색어)")
+	@GetMapping("/search_title")
+	public ResponseEntity<?> searchMovieByTitle(@RequestParam long userId, @RequestParam long pageNum, @RequestParam String search) {
+		List<MovieResponseDto> result = movieService.searchMovieByTitle((int)userId, (int)pageNum, search, 2);
+		System.out.println("제목검색 : "+search);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
