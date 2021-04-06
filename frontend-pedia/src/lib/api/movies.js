@@ -83,9 +83,14 @@ export const listAutoCompletesMovies = (keyword) => {
 };
 
 
-export const hasVideoURL = (movieNo) => {
+export const listMovieVideos = (movieNo) => {
   // return client.get(`/movies/???no=${movieNo}`);
   return null;
+}
+
+export const updateMovieVideos = (data) => {
+  console.dir(data);
+  // return client.post('/movies/??', data);
 }
 
 

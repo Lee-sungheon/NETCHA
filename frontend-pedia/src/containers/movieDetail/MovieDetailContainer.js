@@ -101,7 +101,7 @@ const MovieDetailContainer = ({ match }) => {
               )}
               <div className="sideBlock">
                 <Gallery imgs={movie.movie_info.imageUrl} />
-                <Video movieNo={movieNo} />
+                <Video movieNo={movieNo} movieTitle={movie.movie_info.title} />
               </div>
               <div className="contentBlock">
                 <BasicInfo movie={movie} loading={loading} error={error} />
