@@ -120,7 +120,7 @@ export default function MovieFilter() {
         checkWindowInner();
       });
     };
-  }, [countryText, ganreText, dispatch, filterText, homeMovieLists, isInfinite, movieLists, user]);
+  }, [countryText, ganreText]);
 
   useEffect(() => {
     repeat = [];
