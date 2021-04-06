@@ -11,7 +11,7 @@ export default function RankBased({loading, idx, user}) {
     if (movieLists.length === 0){
       dispatch(actions.requestRankMovieList(0, user.seq));
     }
-  }, [])
+  }, [dispatch, movieLists, user])
   
   return (
     <div className="home__container" id={idx}>

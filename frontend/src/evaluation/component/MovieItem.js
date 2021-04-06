@@ -68,7 +68,6 @@ export default function MovieItem({ tile, pickNum, setPickNum }) {
   const [isHover, setIsHover] = useState(false);
   const [score, setScore] = useState(null);
   const [isZzim, setIsZzim] = useState(tile.userDidZzim);
-  const zzimList = useSelector(state => state.search.isZzim);
   function setHover() {
     if (isFinish) {
       setIsHover(true);

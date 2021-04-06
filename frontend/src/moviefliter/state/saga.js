@@ -1,16 +1,10 @@
 import { all, call, put, takeLeading } from 'redux-saga/effects';
 import { actions, types } from './index';
 import {
-  callApiNewMovieList,
-  callApiPopularMovieList,
   callApiContentMovieList,
-  callApiRankMovieList,
   callApiGanreMovieList,
   callApiCountryMovieList,
-  callApiKeywordMovieList,
   callApiCountryGanreMovieList,
-  callApiSimilarMovieList,
-  callApiMbtiMovieList
 } from '../../common/api';
 
 export function* contentData(action) {
@@ -128,7 +122,7 @@ export function* addCountryGanreData(action) {
   yield put(actions.setInfinite(false));
 }
 
-export default function* () {
+export default function* saga() {
   yield all([
     takeLeading(types.REQUEST_MOVIELIST, contentData),
     takeLeading(types.REQUEST_FILTERCOUNTRYMOVIELIST, filterCountryData),
