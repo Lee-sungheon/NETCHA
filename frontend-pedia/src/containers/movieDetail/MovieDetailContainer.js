@@ -1,27 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { readMovie, unloadMovie } from "../../modules/movie";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import BasicInfo from '../../components/movieDetail/BasicInfo';
+import Cast from '../../components/movieDetail/Cast';
+import Comment from '../../components/movieDetail/comment/Comment';
+import MyComment from '../../components/movieDetail/comment/MyComment';
+import WriteComment from '../../components/movieDetail/comment/WriteComment';
+import Gallery from '../../components/movieDetail/Gallery';
+import MovieHeader from '../../components/movieDetail/MovieHeader';
+import SimilarMovies from '../../components/movieDetail/SimilarMovies';
+import StarGraph from '../../components/movieDetail/StarGraph';
+import Video from '../../components/movieDetail/Video';
+import { readMovie, unloadMovie } from '../../modules/movie';
+import './MovieDetailContainer.scss';
+import * as authApi from '../../lib/api/auth';
+import { setUser } from '../../modules/user';
 
-import "./MovieDetailContainer.scss";
-import MovieHeader from "../../components/movieDetail/MovieHeader";
-import BasicInfo from "../../components/movieDetail/BasicInfo";
-import Cast from "../../components/movieDetail/Cast";
-import StarGraph from "../../components/movieDetail/StarGraph";
-import Comment from "../../components/movieDetail/comment/Comment";
-import SimilarMovies from "../../components/movieDetail/SimilarMovies";
-import Gallery from "../../components/movieDetail/Gallery";
-import Video from "../../components/movieDetail/Video";
-import WriteComment from "../../components/movieDetail/comment/WriteComment";
-import MyComment from "../../components/movieDetail/comment/MyComment";
-
-const MovieDetailContainer = ({ match }) => {
-  // 처음 마운트될 때 무비 읽기 API 요청
-  const { movieNo, token } = match.params;
+const MovieDetailContainer = ({ movieNo }) => {
   const dispatch = useDispatch();
+
+  // 처음 마운트될 때 무비 읽기 API 요청
+
   const [rankData, setRankData] = useState({ ranking: 0 });
   const [zzimData, setZzimData] = useState({ isZzim: false });
-  const [myCommentData, setMyCommentData] = useState({ content: "" });
+  const [myCommentData, setMyCommentData] = useState({ content: '' });
 
   const { movie, user, requestData, error, loading } = useSelector(
     ({ movie, user, loading }) => ({
@@ -29,13 +31,12 @@ const MovieDetailContainer = ({ match }) => {
       error: movie.error,
       user: user.user,
       requestData: {
-        movieNo: parseInt(match.params.movieNo),
+        movieNo: movieNo,
         userId: user.user.userId,
       },
-      loading: loading["movie/READ_MOVIE"],
+      loading: loading['movie/READ_MOVIE'],
     })
   );
-
   useEffect(() => {
     if (requestData.movieNo && requestData.userId)
       dispatch(readMovie(requestData));
@@ -49,10 +50,7 @@ const MovieDetailContainer = ({ match }) => {
     if (movie) {
       setRankData({ ranking: movie.user_rank });
       setZzimData({ isZzim: movie.movie_info.userDidZzim });
-      setMyCommentData({
-        content: movie.user_review,
-        title: movie.movie_info.title,
-      });
+      setMyCommentData({ content: movie.user_review });
     }
   }, [movie]);
 
@@ -87,6 +85,7 @@ const MovieDetailContainer = ({ match }) => {
                       requestData={requestData}
                       myCommentData={myCommentData}
                       setMyCommentData={setMyCommentData}
+                      nickname={user.username}
                     />
                   </div>
                 )}
@@ -106,12 +105,7 @@ const MovieDetailContainer = ({ match }) => {
               <div className="contentBlock">
                 <BasicInfo movie={movie} loading={loading} error={error} />
                 <Cast actors={movie.movie_info.casts} />
-                <StarGraph
-                  movieRank={movie.movie_rank}
-                  avgRank={movie.movie_info.avgRank}
-                  requestData={requestData}
-                  rankData={rankData}
-                />
+                <StarGraph requestData={requestData} />
                 <Comment
                   requestData={requestData}
                   myCommentData={myCommentData}
@@ -126,4 +120,4 @@ const MovieDetailContainer = ({ match }) => {
   );
 };
 
-export default withRouter(MovieDetailContainer);
+export default MovieDetailContainer;

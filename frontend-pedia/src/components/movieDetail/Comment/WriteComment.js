@@ -2,7 +2,12 @@ import './WriteComment.scss';
 import { useState } from 'react';
 import CommentModal from './CommentModal';
 import * as commentApi from '../../../lib/api/comment';
-const WriteComment = ({ requestData, myCommentData, setMyCommentData }) => {
+const WriteComment = ({
+  requestData,
+  myCommentData,
+  setMyCommentData,
+  nickname,
+}) => {
   const [modal, setModal] = useState(false);
   const [inputs, setInputs] = useState({
     content: myCommentData.content || '',
@@ -46,7 +51,7 @@ const WriteComment = ({ requestData, myCommentData, setMyCommentData }) => {
   return (
     <>
       <div className="commentBlock">
-        이 작품에 대한 강민창 님의 평가를 글로 남겨보세요.
+        이 작품에 대한 {nickname} 님의 평가를 글로 남겨보세요.
         <button onClick={onWriteClick} className="commentButton">
           코멘트 남기기
         </button>

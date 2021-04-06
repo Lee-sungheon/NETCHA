@@ -7,13 +7,14 @@ import MovieDetailContainer from '../containers/movieDetail/MovieDetailContainer
 import * as authApi from '../lib/api/auth';
 import { setUser } from '../modules/user';
 
-const MovieDetailPage = ({ match }) => {
+const MovieDetailPage = ({ match, history }) => {
   const { movieNo, token } = match.params;
   const dispatch = useDispatch();
   const getUserInfo = async () => {
     const response = await authApi.getUserInfo(token);
-    dispatch(setUser(response.data));
-    localStorage.setItem('user', JSON.stringify(response.data));
+    dispatch(setUser(response.data.data));
+    localStorage.setItem('user', JSON.stringify(response.data.data));
+    history.push(`/movieDetail/` + parseInt(movieNo));
   };
 
   if (token) {
@@ -23,7 +24,7 @@ const MovieDetailPage = ({ match }) => {
   return (
     <>
       <HeaderContainer />
-      <MovieDetailContainer movieNo={movieNo} />
+      <MovieDetailContainer movieNo={parseInt(movieNo)} />
       <Footer />
     </>
   );
