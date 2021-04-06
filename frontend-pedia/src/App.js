@@ -43,7 +43,9 @@ const App = () => {
           path="/commentDetail/:commentNo/:token"
           component={CommentDetail}
         />
-        <Route exact path="/searchMovie" component={SearchMovieListPage} />
+        <Route exact path="/searchMovie/:keyword" component={SearchMovieListPage} />
+        {/* <Route path="/searchMovie?" component={SearchMovieListPage} /> */}
+        {/* <Route exact path="/searchMovie?:token" component={SearchMovieListPage} /> */}
         <Route
           exact
           path="/userRatingMoviesList"
