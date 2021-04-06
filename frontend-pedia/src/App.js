@@ -14,12 +14,28 @@ const App = () => {
     <div className="App">
       <BrowserRouter>
         <Route exact path="/" component={MovieRanking} />
-        <Route exact path="/user/:id" component={User} />
-        <Route exact path="/user/statics/:id" component={UserStaticsPage} />
+        <Route exact path="/:token" component={MovieRanking} />
+        <Route exact path="/user/:id/" component={User} />
+        <Route
+          exact
+          path="/user/statics/:id/:token"
+          component={UserStaticsPage}
+        />
         <Route exact path="/movieDetail/:movieNo" component={MovieDetail} />
         <Route
           exact
+          path="/movieDetail/:movieNo/:token"
+          component={MovieDetail}
+        />
+
+        <Route
+          exact
           path="/commentDetail/:commentNo"
+          component={CommentDetail}
+        />
+        <Route
+          exact
+          path="/commentDetail/:commentNo/:token"
           component={CommentDetail}
         />
         <Route exact path="/searchMovie" component={SearchMovieListPage} />
