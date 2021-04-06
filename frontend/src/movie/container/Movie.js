@@ -19,7 +19,6 @@ export default function Movie(props) {
     };
   }, [dispatch]);
   useEffect(() => {
-    // props.toggleIsHeader(false);
     const params = props.match.params.no.split("-");
     if (params[0] === "banner") {
       setUrl(
@@ -41,7 +40,8 @@ export default function Movie(props) {
     <div>
       <div
         style={{
-          height: "100vh",
+          width: "100%",
+          height: "99vh",
           textAlign: "center",
           marginTop: "-64px",
         }}
@@ -50,31 +50,30 @@ export default function Movie(props) {
           className="movie-div"
           style={{
             position: "relative",
-            height: "100%",
+            width: "100%",
+            height: "100%"
           }}
         >
           <ReactHlsPlayer
             id="player"
             src={url}
-            // src="http://j4f002.p.ssafy.io:8082/b"
             autoPlay={true}
-            // height="100%"
+            width="100%"
+            height="100%"
             style={{
               zIndex: "1",
-              // position: "relative",
               top: 0,
               left: 0,
             }}
             controls
             hlsConfig={{
               startPosition: 0,
-              // nextLoadPosition:
             }}
           ></ReactHlsPlayer>
 
           <div
             style={{
-              zIndex: "2",
+              zIndex: "20",
               position: "relative",
               color: "white",
               marginTop: "-90vh",
