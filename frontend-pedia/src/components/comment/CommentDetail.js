@@ -1,5 +1,6 @@
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import * as commentApi from '../../lib/api/comment';
 import './CommentDetail.scss';
 // 폴더명
@@ -71,7 +72,7 @@ const CommentDetail = ({ requestData, history }) => {
                 />
                 {comment.totalLike}
               </div>
-              {!comment.mine && !comment.myLike && (
+              {!comment.myLike && (
                 <div
                   className="commentUnlike"
                   onClick={() => insertLike(comment)}
@@ -79,7 +80,7 @@ const CommentDetail = ({ requestData, history }) => {
                   좋아요
                 </div>
               )}
-              {!comment.mine && comment.myLike && (
+              {comment.myLike && (
                 <div
                   className="commentLike"
                   onClick={() => deleteLike(comment)}
@@ -95,4 +96,4 @@ const CommentDetail = ({ requestData, history }) => {
   );
 };
 
-export default CommentDetail;
+export default withRouter(CommentDetail);
