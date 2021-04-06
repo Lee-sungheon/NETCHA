@@ -46,7 +46,7 @@ const StarGraph = ({ requestData }) => {
       {movieRank && (
         <div className="starGraph">
           <div className="infoHeader">
-            별점 그래프<div>평균 ★{avgRank}</div>
+            별점 그래프<div>평균 ★{avgRank.toFixed(1)}</div>
           </div>
           <Graph rankArr={movieRank} />
         </div>
