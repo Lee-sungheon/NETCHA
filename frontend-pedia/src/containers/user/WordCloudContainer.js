@@ -29,6 +29,7 @@ const WordCloudContainer = () => {
   const setKeywords = () => {
     if (tags) {
       console.dir(tags);
+      keywords = [];
       for (var tag in tags.keyword) {
         keywords.push({ text: tag, value: tags.keyword[tag] });
       }
