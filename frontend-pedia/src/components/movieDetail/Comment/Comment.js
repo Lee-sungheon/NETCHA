@@ -68,10 +68,40 @@ const Comment = ({ requestData, history }) => {
           comments.map((comment, index) => (
             <div key={index} className="commentBox">
               <div className="header">
-                {comment.userNickname}
+                <div
+                  onClick={() => {
+                    history.push('/user/statics/' + requestData.userId);
+                  }}
+                  style={{
+                    display: 'flex',
+                    background: 'inherit',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <img
+                    src="/images/profileIcon.jpg"
+                    className="profileIconImg"
+                    alt="profile"
+                    style={{
+                      display: 'inline-block',
+                      width: '25px',
+                      borderRadius: '60%',
+                      border: '1px solid #e6e6e6',
+                    }}
+                  />
+                  <span
+                    style={{
+                      marginLeft: '5px',
+                      fontWeight: 'bold',
+                      fontSize: '16px',
+                    }}
+                  >
+                    {comment.userNickname}
+                  </span>
+                </div>
                 <div>
                   <span>★</span>
-                  <span className="score">{comment.ranking}</span>
+                  <span className="score">{comment.ranking.toFixed(1)}</span>
                 </div>
               </div>
 

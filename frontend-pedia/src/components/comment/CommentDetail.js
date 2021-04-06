@@ -60,7 +60,7 @@ const CommentDetail = ({ requestData, history }) => {
                 {comment.userNickname}
                 <div>
                   <span>★</span>
-                  <span className="score">{comment.ranking}</span>
+                  <span className="score">{comment.ranking.toFixed(1)}</span>
                 </div>
               </div>
 
