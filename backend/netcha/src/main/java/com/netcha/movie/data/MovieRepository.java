@@ -52,10 +52,10 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	// 2015년 이후 작품
 	@Query("select m from Movie m where m.open >= :open")
 	public List<Movie> findAllByOpens(@Param("open") String open);
-	// 검색어를 포함하는 영화
-	@Query("select m from Movie m where m.open >= :open and m.title like %:title%")
-	public List<Movie> findByTitleLikeAndOpens(@Param("open") String open, @Param("title") String title);
-	// 검색에 포함되는 영화 중 no에 포함 안되는 영화
-	@Query("select m from Movie m where m.open >= :open and m.title regexp :regexp and m.no not in :no")
-	public List<Movie> findByTitleRegexpAndOpens(@Param("open") String open, @Param("regexp") String regexp, @Param("no") List<Long> no);
+//	// 검색어를 포함하는 영화
+//	@Query("select m from Movie m where m.open >= :open and m.title like %:title%")
+//	public List<Movie> findByOpenAndTitle(@Param("open") String open, @Param("title") String title);
+//	// 검색에 포함되는 영화 중 no에 포함 안되는 영화
+//	@Query("select m from Movie m where m.open >= :open and m.title regexp :regexp and m.no not in :no")
+//	public List<Movie> findByOpenAndTitleAndNo(@Param("open") String open, @Param("regexp") String regexp, @Param("no") List<Long> no);
 }
