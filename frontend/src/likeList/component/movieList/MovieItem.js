@@ -28,7 +28,7 @@ export default function MovieItem({ movie, idx }) {
   }, [isdetail])
   return (
     <MovieListContext.Consumer>
-      {function Itemsetup({ onSelectSlide, currentSlide, elementRef, num, setEscapeLeft, setEscapeRight, escapeLeft, escapeRight }) {
+      {function Itemsetup({ onSelectSlide, currentSlide, elementRef, num, setEscapeLeft, setEscapeRight }) {
         function onMouse() {
           if (!isHover && !currentSlide){
             timer = setTimeout(function() {
@@ -39,12 +39,12 @@ export default function MovieItem({ movie, idx }) {
             }, 1000);
           }
           if (!currentSlide) {
-            if (idx % num === 0 && !escapeLeft) {
+            if (idx % num === 0) {
               setEscapeLeft(true)
             } else {
               setEscapeLeft(false)
             }
-            if (idx % num === num-1 && !escapeRight) {
+            if (idx % num === num-1) {
               setEscapeRight(true)
             } else {
               setEscapeRight(false)
