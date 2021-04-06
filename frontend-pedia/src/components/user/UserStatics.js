@@ -8,7 +8,7 @@ import StarGraphContainer from '../../containers/user/StarGraphContainer';
 import CountryListContainer from '../../containers/user/CountryListContainer';
 import GenreListContainer from '../../containers/user/GenreListContainer';
 
-const UserStatics = ({user}) => {
+const UserStatics = ({ user }) => {
   if (!user) {
     return (
       <div className="userWrapper" style={{ paddingBottom: '25%' }}>
@@ -27,9 +27,13 @@ const UserStatics = ({user}) => {
             <img src={netchapediaImg} alt="netchapedia" className="logoImage" />
             <div className="usText">취향분석</div>
             <div className="profile">
-              <img src="/images/profileIcon.jpg" className="profileIconImg" alt="" />
+              <img
+                src="/images/profileIcon.jpg"
+                className="profileIconImg"
+                alt=""
+              />
               <div style={{ display: 'inline-block' }}>
-                <h3 style={{ color: 'white' }}>{user.userName}</h3>
+                <h3 style={{ color: 'white' }}>{user.username}</h3>
               </div>
             </div>
           </div>

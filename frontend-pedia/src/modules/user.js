@@ -17,7 +17,7 @@ const LOGOUT = 'user/LOGOUT';
 
 export const setUser = createAction(SET_USER, ({ userId, nickname, seq }) => ({
   userId: seq,
-  seq,
+  email: userId,
   username: nickname,
 }));
 export const tempSetUser = createAction(TEMP_SET_USER, (user) => user);
