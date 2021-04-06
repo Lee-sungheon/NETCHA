@@ -26,7 +26,7 @@ export default function Banner({user}) {
   };
   const playMovie = () => {
     history.push({
-      pathname: `/movie/${'헤헿?'}`,
+      pathname: `/movie/banner-${BANNERKEY[0]}`,
     });
   };
   useEffect(async ()=> {
