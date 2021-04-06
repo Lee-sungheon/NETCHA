@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Account() {
   const classes = useStyles();
+  window.scroll(0, 0);
   return (
     <div className={classes.account_page}>
       <div className={classes.account_box}>
