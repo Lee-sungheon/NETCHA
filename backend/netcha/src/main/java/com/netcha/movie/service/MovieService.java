@@ -505,9 +505,9 @@ public class MovieService {
 	
 	// 감독별
 	@Transactional
-	public List<MovieResponseDto> findMovieByDirector(int userId, String director) {
+	public List<MovieResponseDto> findMovieByDirector(int userId, String director, int pageNum) {
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
-		List<Movie> movieR = movieRepository.findByDirectorLike("2015-01-01", director);
+		List<Movie> movieR = movieRepository.findByDirectorLike("2015-01-01", director, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
 		for(Movie m : movieR) {
 			if(m.getRating().equals("")) {
 				String[] result = crawling(m);
@@ -533,9 +533,9 @@ public class MovieService {
 	
 	// 배우별
 	@Transactional
-	public List<MovieResponseDto> findMovieByCast(int userId, String cast) {
+	public List<MovieResponseDto> findMovieByCast(int userId, String cast, int pageNum) {
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
-		List<Movie> movieR = movieRepository.findByCastLike("2015-01-01", cast);
+		List<Movie> movieR = movieRepository.findByCastLike("2015-01-01", cast, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
 		for(Movie m : movieR) {
 			if(m.getRating().equals("")) {
 				String[] result = crawling(m);
@@ -1261,8 +1261,11 @@ public class MovieService {
 	}
 	
 	public void test() {
-		Movie movie = movieRepository.findById((long)7465).get();
-		MovieResponseDto m = new MovieResponseDto(movie);
-		System.out.println(m.getCasts().length);
+		List<Movie> list = movieRepository.findByOpenAndPosterUrl("2015-01-01", "");
+		for(Movie m : list) {
+			String[] result = crawling(m);
+			m.updateCrawling(result[0], result[1], result[2]);
+		}
+		System.out.println(list.size());
 	}
 }

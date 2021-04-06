@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({ user, onLogout, onLogin }) => {
+const Header = ({ user, onLogin }) => {
   const classes = useStyles();
 
   return (
@@ -65,8 +65,8 @@ const Header = ({ user, onLogout, onLogin }) => {
             <SearchInputContainer />
           </div>
           {user ? (
-            <Button style={{ margin: "0px 24px 0px 24px", color: "#6A6A6A" }} onClick={onLogout}>
-              로그아웃
+            <Button style={{ margin: "0px 24px 0px 24px", color: "#6A6A6A", width: "180px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+              {user.username}님, 환영합니다!
             </Button>
           ) : (
             <Button style={{ margin: "0px 24px 0px 24px", color: "#6A6A6A" }} onClick={onLogin}>
