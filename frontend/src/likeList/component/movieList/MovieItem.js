@@ -73,7 +73,7 @@ export default function MovieItem({ movie, idx }) {
                 <div className='movie-image-box'>
                   {!isHover && <CardMedia
                     component="img"
-                    image={ movie.imageUrl[0] !== 'default' ? movie.imageUrl[0] : "/images/netchar2.png" }
+                    image={ movie.imageUrl !== undefined && movie.imageUrl[0] !== 'default' ? movie.imageUrl[0] : "/images/netchar2.png" }
                     className='movie-image-style'
                   />}
                   {isHover && <ReactHlsPlayer

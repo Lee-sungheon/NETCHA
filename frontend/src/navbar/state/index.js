@@ -9,11 +9,12 @@ export const types = {
   REQUEST_ADD_MOVIELIST: "search/REQUEST_ADD_MOVIELIST",
   REQUEST_ADD_COUNTRYMOVIELIST: "search/REQUEST_ADD_COUNTRYMOVIELIST",
   REQUEST_ADD_GANREMOVIELIST: "search/REQUEST_ADD_GANREMOVIELIST",
+  REQUEST_ADD_SEARCHMOVIELIST: "search/REQUEST_ADD_SEARCHMOVIELIST",
   ADD_MOVIELIST: "search/ADD_MOVIELIST",
   SET_INFINITE: "search/SET_INFINITE",
   SET_END: "search/SET_END",
 
-  REQUEST_MOVIELIST: "search/REQUEST_MOVIELIST",
+  REQUEST_SEARCHMOVIELIST: "search/REQUEST_SEARCHMOVIELIST",
   SET_MOVIELIST: "search/SET_MOVIELIST",
   SET_LOADING: "search/SET_LOADING",
   SET_VALUE: "search/SET_VALUE",
@@ -41,7 +42,7 @@ export const navActions = {
 };
 
 export const actions = {
-  requestMovieList: () => ({ type: types.REQUEST_MOVIELIST }),
+  requestSearchMovieList: (search, pageNum, userNo) => ({ type: types.REQUEST_SEARCHMOVIELIST, search, pageNum, userNo }),
   setMovieList: (data) => ({ type: types.SET_MOVIELIST, data }),
   setLoading: (isLoading) => ({
     type: types.SET_LOADING,
@@ -77,6 +78,12 @@ export const actions = {
   requestAddGanreMovieList: (ganre, pageNum, userNo) => ({
     type: types.REQUEST_ADD_GANREMOVIELIST,
     ganre,
+    pageNum,
+    userNo,
+  }),
+  requestAddSearchMovieList: (search, pageNum, userNo) => ({
+    type: types.REQUEST_ADD_SEARCHMOVIELIST,
+    search,
     pageNum,
     userNo,
   }),
@@ -128,6 +135,7 @@ const INITIAL_STATE = {
   isZzim: [],
   isHeader: true,
 };
+
 const reducer = createReducer(INITIAL_STATE, {
   // 영화 인피니트 스크롤
   [types.ADD_MOVIELIST]: (state, action) => {
