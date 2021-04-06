@@ -8,7 +8,6 @@ export function* fetchData(action) {
   yield put(actions.setValue("error", ""));
   try {
     const data = yield call(callApiSearchMovieList, action.search, action.pageNum, action.userNo);
-    console.log(data)
     if (data !== undefined && data !== "") {
       yield put(actions.setMovieList(data));
     } else {
@@ -134,7 +133,7 @@ export function* addSearchData(action) {
 
 export default function* saga() {
   yield all([
-    takeLeading(types.REQUEST_SEARCHMOVIELIST, fetchData),
+    debounce(500, types.REQUEST_SEARCHMOVIELIST, fetchData),
     takeLeading(types.TRY_SET_TEXT, trySetText),
     takeLeading(types.REQUEST_GANREMOVIELIST, ganreData),
     takeLeading(types.REQUEST_COUNTRYMOVIELIST, countryData),

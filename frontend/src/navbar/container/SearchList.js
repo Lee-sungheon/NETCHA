@@ -40,7 +40,7 @@ export default function SearchList({location}) {
       const scrollHeight = document.documentElement.scrollHeight;
       const scrollTop = document.documentElement.scrollTop;
       const clientHeight = document.documentElement.clientHeight;
-      if (scrollTop + clientHeight + 1 >= scrollHeight && !isInfinite) {
+      if (scrollTop + clientHeight + 1 >= scrollHeight) {
         // 페이지 끝에 도달하면 추가 데이터를 받아온다
         if (search[0] === "country") {
           dispatch(actions.requestAddCountryMovieList(search[1], pageNum, user.seq));
@@ -70,7 +70,7 @@ export default function SearchList({location}) {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [location, dispatch])
+  }, [location, dispatch, user])
 
   useEffect(() => {
     repeat = []

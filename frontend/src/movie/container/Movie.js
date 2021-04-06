@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactHlsPlayer from "react-hls-player";
 import { useHistory } from "react-router";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { navActions } from "../../navbar/state";
 
 import "./Movie.scss";
