@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Banner from "../component/banner/Banner";
 import DehazeIcon from "@material-ui/icons/Dehaze";
 import ViewModuleIcon from "@material-ui/icons/ViewModule";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./Home.scss";
 import { callApiEvaluation } from "../../common/api";
 import { GANRES, COUNTRYS, KEYWORDS, loading } from "../../common/data";
@@ -22,25 +22,33 @@ import KeywordBased from "../component/recommend/keyword/KeywordBased";
 import KeywordBased2 from "../component/recommend/keyword/KeywordBased2";
 import KeywordBased3 from "../component/recommend/keyword/KeywordBased3";
 import { useHistory } from "react-router-dom";
+import { navActions } from "../../navbar/state";
 // import CreateReview from '../../common/review.js';
-
 
 let loadingPage = false;
 export default function Home() {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.userData.member);
   const history = useHistory();
   const [pageNum, setPageNum] = useState(1);
   const [isloading, setIsloading] = useState(1);
+  useEffect(() => {
+    dispatch(navActions.headerToggle(true));
 
-  useEffect(async () => {
-    if ((await callApiEvaluation(user.seq)) <= 5) {
-      alert("영화 추천을 위해서 영화 평가를 해주세요!");
-      history.push(`/eval`);
+    return () => {};
+  }, [dispatch]);
+  useEffect(() => {
+    async function fetchData() {
+      const evalNum = await callApiEvaluation(user.seq);
+      if (evalNum <= 5) {
+        alert("영화 추천을 위해서 영화 평가를 해주세요!");
+        history.push(`/eval`);
+      }
     }
+    fetchData();
     window.scrollTo(0, 0);
-    // CreateReview();
-  }, [])
-  useEffect(()=> {
+  }, [history, user]);
+  useEffect(() => {
     function handleScroll() {
       const scrollHeight = document.documentElement.scrollHeight;
       const scrollTop = document.documentElement.scrollTop;
@@ -83,7 +91,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Banner user={user}/>
+      <Banner user={user} />
       <div className="home__container">
         <ContentBased loading={loading} idx={"slider-1"} user={user} />
         <MbtiBased loading={loading} idx={"slider-2"} user={user} />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       cursor: "pointer",
       background: "rgb(255,255, 255, 0.2)",
-      // bordercolor: "white !important",
     },
   },
 }));

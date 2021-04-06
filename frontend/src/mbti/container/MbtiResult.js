@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { actions } from "../../user/state";
 import axios from "axios";
+import { navActions } from "../../navbar/state";
+
 import "./Mbti.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -62,6 +64,13 @@ export default function MbtiResult(props) {
     E_I: "",
   });
   useEffect(() => {
+    dispatch(navActions.headerToggle(false));
+
+    return () => {
+      dispatch(navActions.headerToggle(true));
+    };
+  }, [dispatch]);
+  useEffect(() => {
     setMbtiImg({
       ...mbtiImg,
       mbtiimg: "images/" + MBTI.E_I + MBTI.N_S + MBTI.T_F + MBTI.J_P + ".png",
@@ -91,7 +100,7 @@ export default function MbtiResult(props) {
             dispatch(actions.userInfo(res.data.data));
           });
       });
-  }, [MBTI]);
+  }, [MBTI, dispatch, mbtiImg, userId]);
   useEffect(() => {
     const ChoiceList = location.state.choiceList.choice;
     let N_S = 0;
@@ -163,7 +172,7 @@ export default function MbtiResult(props) {
 
     setMBTI({ ...MBTI, N_S: N_S, E_I: E_I, J_P: J_P, T_F: T_F });
     return () => {};
-  }, []);
+  }, [MBTI, location.state.choiceList.choice]);
   return (
     <div>
       <div className={classes.mbti_back}>

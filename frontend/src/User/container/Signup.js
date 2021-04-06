@@ -1,8 +1,4 @@
-import React, { useEffect, useState } from "react";
-
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import { useHistory } from "react-router";
@@ -14,7 +10,6 @@ const useStyles = makeStyles((theme) => ({
   signup_back: {
     backgroundImage:
       "url(https://assets.nflxext.com/ffe/siteui/vlv3/33a85845-b76d-4e18-a74c-5859e3978a91/b4d69ed1-965f-49d2-abc2-02d4d0ae6ffb/KR-ko-20210308-popsignuptwoweeks-perspective_alpha_website_large.jpg)",
-    // height: "800px",
     marginTop: "-64px",
   },
   signup_div: {
@@ -59,17 +54,21 @@ export default function Signup(props) {
     userId: "",
   });
 
-  useEffect(() => {
-    props.toggleIsHeader(false);
-    return () => {
-      props.toggleIsHeader(true);
-    };
-  }, []);
   const onUserIdHandler = (e) => {
     setInputData({ ...inputData, userId: e.target.value });
   };
   const onStart = (e) => {
     e.preventDefault();
+    //이메일 유효성검사
+    const check_Email = function (str) {
+      var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+      return regExp.test(str) ? true : false;
+    };
+
+    if (check_Email(inputData.userId) === false) {
+      alert("이메일 형식이 유효하지 않습니다.");
+      return;
+    }
     axios
       .post("netcha/user/checkId", inputData.userId, {
         headers: {

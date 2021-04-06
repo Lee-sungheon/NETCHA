@@ -14,7 +14,7 @@ let loadingPage = false;
 export default function SearchList({location}) {
   const [tabNo, setTabNo] = useState(5);
   const [searchList, setSearchList] = useState([]);
-  const search = location.search.slice(1,).split('=');
+  const [search, setSearch] = useState(location.search.slice(1,).split('='));
   const movieLists = useSelector(state => state.search.movieLists);
   const isLoading = useSelector(state => state.search.isLoading);
   const isInfinite = useSelector((state) => state.search.isInfinite);
@@ -35,17 +35,19 @@ export default function SearchList({location}) {
   }, [])
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    setSearch(location.search.slice(1,).split('='))
     function handleScroll() {
       const scrollHeight = document.documentElement.scrollHeight;
       const scrollTop = document.documentElement.scrollTop;
       const clientHeight = document.documentElement.clientHeight;
-      if (scrollTop + clientHeight + 1 >= scrollHeight && !isInfinite) {
+      if (scrollTop + clientHeight + 1 >= scrollHeight) {
         // 페이지 끝에 도달하면 추가 데이터를 받아온다
         if (search[0] === "country") {
           dispatch(actions.requestAddCountryMovieList(search[1], pageNum, user.seq));
         } else if (search[0] === "ganre") {
           dispatch(actions.requestAddGanreMovieList(search[1], pageNum, user.seq));
+        } else if (search[0] === "q") {
+          dispatch(actions.requestAddSearchMovieList(search[1], pageNum, user.seq));
         }
         if (!loadingPage) {
           pageNum += 1;
@@ -63,12 +65,12 @@ export default function SearchList({location}) {
     } else if (search[0] === 'director'){
       dispatch(actions.requestDirectorMovieList(search[1], 0));
     } else{
-      dispatch(actions.requestMovieList());
+      dispatch(actions.requestSearchMovieList(search[1], 0, user.seq));
     }
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [location])
+  }, [location, dispatch, user])
 
   useEffect(() => {
     repeat = []
