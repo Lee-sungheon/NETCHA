@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
 import ReactHlsPlayer from "react-hls-player";
 import { useHistory } from "react-router";
-import { makeStyles } from "@material-ui/core/styles";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import "./Movie.scss";
 
-const useStyles = makeStyles((theme) => ({}));
-
 export default function Movie(props) {
-  const classes = useStyles();
+  const [ url, setUrl ] = useState("");
   const history = useHistory();
   useEffect(() => {
     // props.toggleIsHeader(false);
-    console.log(props.match.params.no);
+    const params = props.match.params.no.split('-')
+    if (params[0] === "banner"){
+      setUrl(`https://dre3xbpyohrg0.cloudfront.net/banner${params[1]}/banner${params[1]}.m3u8`)
+    } else if (params[0] === "movie"){
+      setUrl(`https://dre3xbpyohrg0.cloudfront.net/MOVIE${params[1]}/MOVIE${params[1]}.m3u8`)
+    } else {
+      setUrl(`https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8`)
+    }
     return () => {
       // props.toggleIsHeader(true);
     };
@@ -39,7 +43,7 @@ export default function Movie(props) {
         >
           <ReactHlsPlayer
             id="player"
-            src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+            src={url}
             // src="http://j4f002.p.ssafy.io:8082/b"
             autoPlay={true}
             height="100%"
