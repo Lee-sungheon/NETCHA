@@ -80,12 +80,12 @@ export default function LikeList() {
       <div className='like__container'>
         <div className="like__title">내가 찜한 콘텐츠</div>
         { isLoading &&
-          <div style={{height: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+          <div style={{height: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <CircularProgress color="secondary" />
           </div>
         }
         { !isLoading && likeList.map((item, idx) => (
-          <div id={`slider-${idx}`} className='like__container' key={idx}>
+          <div id={`slider-${idx}`} className='like__container' style={{paddingTop: '50px'}} key={idx}>
             <MovieList idx={`slider-${idx}`} num={tabNo}>
               {item.map((movie, index) => (
                 <MovieItem movie={movie} idx={index} key={index}>
@@ -95,7 +95,7 @@ export default function LikeList() {
         </div>
         ))}
       </div>
-      {likeList.length === 0 &&
+      {likeList.length === 1 &&
         <div style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
           <DesktopAccessDisabledIcon/>
         <span style={{marginLeft: '8px'}}>찜한 영화가 없습니다!</span>
@@ -106,7 +106,7 @@ export default function LikeList() {
           <CircularProgress color="secondary" />
         </div>
       )}
-      {isInfiniteEnd && likeList.length !== 0 &&
+      {isInfiniteEnd && likeList.length !== 1 &&
         <div style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '5vh'}}>
           <DesktopAccessDisabledIcon/>
           <span style={{marginLeft: '8px'}}>더이상 불러올 데이터가 없습니다!</span>
