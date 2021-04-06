@@ -15,9 +15,10 @@ const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] = createRequestActionTypes(
 );
 const LOGOUT = 'user/LOGOUT';
 
-export const setUser = createAction(SET_USER, ({ userId, userName }) => ({
-  userId,
-  userName,
+export const setUser = createAction(SET_USER, ({ userId, nickname, seq }) => ({
+  userId: seq,
+  seq,
+  username: nickname,
 }));
 export const tempSetUser = createAction(TEMP_SET_USER, (user) => user);
 export const check = createAction(CHECK);
