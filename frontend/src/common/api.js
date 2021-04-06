@@ -273,13 +273,37 @@ export function callApiMovieDetail(movieNo, userId) {
 }
 
 export function callApiReview(userId, movieNo, content) {
-  const url = `netcha/movie/review_insert`
+  const url = `netcha/movie/review_insert`;
   const data = {
     userId: userId,
     movieNo: movieNo,
     content: content
   }
   return axios.post(url, data)
+    .then((Response)=>{
+      console.log(Response.data);
+      return Response.data
+    })
+    .catch((Error)=>{console.log(Error)})
+}
+
+export function callApiReviewLike(userId, reviewNo) {
+  const url = `netcha/movie/review_like_insert`;
+  const data = {
+    userId: userId,
+    reviewNo: reviewNo
+  }
+  return axios.post(url, data)
+    .then((Response)=>{
+      console.log(Response.data)
+      return Response.data
+    })
+    .catch((Error)=>{console.log(Error)})
+}
+
+export function callApiReviewDisLike(userId, reviewNo) {
+  const url = `netcha/movie/review_like_delete?reviewNo=${reviewNo}&userId=${userId}`
+  return axios.delete(url)
     .then((Response)=>{
       console.log(Response.data)
       return Response.data

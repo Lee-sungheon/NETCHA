@@ -56,7 +56,7 @@ export default function Banner({user}) {
         style={{
           position: "relative",
           textAlign: "right",
-          marginTop: "-64px",
+          marginTop: "-82px",
         }}
       >
         <div
