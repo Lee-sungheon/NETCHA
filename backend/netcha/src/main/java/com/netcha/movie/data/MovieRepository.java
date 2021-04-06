@@ -49,6 +49,15 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	// 장르별 영화 편수
 	@Query("select count(m) from Movie m where m.ganre like %:ganre%")
 	public long countByGanreLike(@Param("ganre") String ganre);
+	// 2015년 이후 작품
 	@Query("select m from Movie m where m.open >= :open")
 	public List<Movie> findAllByOpens(@Param("open") String open);
+//	// 검색어를 포함하는 영화
+//	@Query("select m from Movie m where m.open >= :open and m.title like %:title%")
+//	public List<Movie> findByOpenAndTitle(@Param("open") String open, @Param("title") String title);
+//	// 검색에 포함되는 영화 중 no에 포함 안되는 영화
+//	@Query("select m from Movie m where m.open >= :open and m.title regex :regex and m.no not in :no")
+//	public List<Movie> findByOpenAndTitleAndNo(@Param("open") String open, @Param("regex") String regex, @Param("no") List<Long> no);
+	
+	//public List<Movie> findByTitleRegex(String title);
 }

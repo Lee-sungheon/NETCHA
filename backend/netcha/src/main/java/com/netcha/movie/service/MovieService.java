@@ -1131,6 +1131,22 @@ public class MovieService {
 		return result;
 	}
 	
+	// 검색 1 : 제목, 배우, 감독 포함 검색
+//	@Transactional
+//	public List<MovieResponseDto> searchMovieByTitle(String search) {
+//		String regexp = "";
+//		int[] arr = new int[search.length()];
+//		for(int k=1; k<=search.length(); k++) {
+//			int[] result = new int[k];
+//			for(int i=0; i<arr.length; i++) {
+//				result[0] = arr[i];
+//				for(int j=i+1; j<arr.length; j++) {
+//					result[1] = arr[j];
+//				}
+//			}
+//		}
+//	}
+	
 	public void test() {
 		List<Movie> movies = movieRepository.findAllByOpens("2015-01-01");
 		for(Movie movie : movies) {

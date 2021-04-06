@@ -1,26 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { actions } from "../state";
+import { navActions } from "../../navbar/state";
 import { useHistory } from "react-router";
 import axios from "axios";
 import LoginForm from "../component/LoginForm";
 import LoginSection from "../component/LoginSection";
 import Footer from "../../navbar/container/Footer";
+import { useSelector } from "react-redux";
 import "./Login.scss";
 
 export default function Login(props) {
+  const isHeader = useSelector((state) => state.search.isHeader);
   const history = useHistory();
   const dispatch = useDispatch();
-
   const [inputData, setInputData] = useState({ userId: "", password: "" });
 
   useEffect(() => {
-    props.toggleIsHeader(false);
+    console.log(isHeader);
+    dispatch(navActions.headerToggle(false));
+    // props.toggleIsHeader(false);
     if (history.location.state) {
       setInputData({ ...inputData, userId: history.location.state.userId });
     }
     return () => {
-      props.toggleIsHeader(true);
+      // props.toggleIsHeader(true);
     };
   }, []);
 
@@ -47,6 +51,7 @@ export default function Login(props) {
         if (res.data.response === "success") {
           console.log("로그인성공");
 
+          await dispatch(navActions.headerToggle(true));
           await dispatch(actions.userLogin(res.data.data));
 
           login_(res.data.data);
