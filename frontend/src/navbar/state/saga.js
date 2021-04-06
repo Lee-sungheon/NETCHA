@@ -9,6 +9,7 @@ export function* fetchData(action) {
   try {
     const data = yield call(callApiSearchMovieList, action.search, action.pageNum, action.userNo);
     if (data !== undefined && data !== "") {
+      console.log(action.search)
       yield put(actions.setMovieList(data));
     } else {
       yield put(actions.setMovieList([]));

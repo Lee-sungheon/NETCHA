@@ -35,7 +35,6 @@ export default function SearchList({location}) {
   }, [])
 
   useEffect(() => {
-    setSearch(location.search.slice(1,).split('='))
     function handleScroll() {
       const scrollHeight = document.documentElement.scrollHeight;
       const scrollTop = document.documentElement.scrollTop;
@@ -70,7 +69,11 @@ export default function SearchList({location}) {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [location, dispatch, user])
+  }, [search, dispatch, user])
+
+  useEffect(() => {
+    setSearch(location.search.slice(1,).split('='))
+  }, [location])
 
   useEffect(() => {
     repeat = []
@@ -106,7 +109,7 @@ export default function SearchList({location}) {
           </div>
         }
         { !isLoading && searchList.map((item, idx) => (
-          <div id={`slider-${idx}`} className='like__container' key={idx}>
+          <div id={`slider-${idx}`} className='like__container' style={{paddingTop: '50px'}} key={idx}>
             <MovieList idx={`slider-${idx}`} num={tabNo}>
               {item.map((movie, index) => (
                 <MovieItem movie={movie} idx={index} key={index}>
@@ -116,7 +119,7 @@ export default function SearchList({location}) {
         </div>
         ))}
       </div>
-      {searchList.length === 0 &&
+      {searchList.length === 1 &&
           <div style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <DesktopAccessDisabledIcon/>
           <span style={{marginLeft: '8px'}}>해당 영화가 없습니다!</span>
@@ -127,7 +130,7 @@ export default function SearchList({location}) {
             <CircularProgress color="secondary" />
           </div>
         )}
-        {isInfiniteEnd && searchList.length !== 0 &&
+        {isInfiniteEnd && searchList.length !== 1 &&
           <div style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '5vh'}}>
             <DesktopAccessDisabledIcon/>
             <span style={{marginLeft: '8px'}}>더이상 불러올 데이터가 없습니다!</span>
