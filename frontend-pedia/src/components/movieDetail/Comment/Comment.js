@@ -27,7 +27,7 @@ const Comment = ({ requestData, history }) => {
       } catch (e) {
         console.log(e);
       }
-    }, 500);
+    }, 300);
   };
 
   const insertLike = async (comment) => {
@@ -87,7 +87,7 @@ const Comment = ({ requestData, history }) => {
                 />
                 {comment.totalLike}
               </div>
-              {!comment.mine && !comment.myLike && (
+              {!comment.myLike && (
                 <div
                   className="commentUnlike"
                   onClick={() => insertLike(comment, index)}
@@ -95,7 +95,7 @@ const Comment = ({ requestData, history }) => {
                   좋아요
                 </div>
               )}
-              {!comment.mine && comment.myLike && (
+              {comment.myLike && (
                 <div
                   className="commentLike"
                   onClick={() => deleteLike(comment, index)}
