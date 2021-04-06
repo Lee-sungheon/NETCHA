@@ -1,34 +1,28 @@
 .video {
-  height: 150px;
-
   .slick-prev:before,
   .slick-next:before {
-    font-size: 20px;
+    font-size: 25px;
     color: rgb(150, 150, 150);
     position: relative;
-    top: -25px;
+    top: -10px;
   }
 
   .smallVideoWrap {
-    width: 160px;
-    height: 90px;
-    display: flex;
-
-    a {
-      color: black;
-      text-decoration: none;
-
-      .smallVideoBox {
+    .smallVideoBox {
+      .thumbnail {
         border-radius: 5px;
         border: 2px solid #e6e6e6;
-        position: relative;
-
-        .thumbnail {
-          width: 160px;
-          object-fit: contain;
-        }
-
+        width: 135px;
+        object-fit: contain;
       }
+    }
+    .youtubeTitle {
+      width: 95%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: black;
+      font-weight: bold;
     }
   }
 }

@@ -1,11 +1,11 @@
-import Slider from "react-slick";
-import "./Gallery.scss";
+import Slider from 'react-slick';
+import './Gallery.scss';
 const Gallery = ({ imgs }) => {
   const settings = {
-    className: "center",
+    className: 'center',
     centerMode: true,
     infinite: true,
-    centerPadding: "5px",
+    centerPadding: '5px',
     slidesToShow: 1,
     arrows: true,
     speed: 500,
@@ -21,9 +21,9 @@ const Gallery = ({ imgs }) => {
             <img
               className="galleryImg"
               alt="movieImg"
-              width="140px"
+              width="143px"
               height="90px"
-              src={img === "default" ? "../../images/defaultGallery.png" : img}
+              src={img === 'default' ? '../../images/defaultGallery.png' : img}
             ></img>
           </div>
         ))}
