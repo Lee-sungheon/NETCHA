@@ -171,7 +171,7 @@ export default function Evaluation() {
       setText('이제 웬만한 친구보다 제가 회원님의 취향을 더 잘 알걸요?');
     } else if (pickNum < 100){
       setText('제가 무슨 말을 할지 궁금하지 않으세요??');
-    } else {
+    } else if (pickNum >= 100){
       setText('100개라니! 끈기와 투지에 박수를 보냅니다.');
     }
   }, [pickNum])

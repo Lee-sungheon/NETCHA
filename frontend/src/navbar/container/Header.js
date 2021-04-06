@@ -76,9 +76,6 @@ export default function Header({ toggleButton, setToggleButton }) {
     nickname: state.user.userData.member.nickname,
     token: state.user.userData.token,
   }));
-  useEffect(() => {
-    return () => {};
-  }, [isHeader_]);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -99,17 +96,19 @@ export default function Header({ toggleButton, setToggleButton }) {
   useEffect(() => {
     const header = document.getElementById("header");
     function myFunction() {
-      if (window.pageYOffset > 0) {
-        if (!toggleButton) {
-          header.style.backgroundColor = "black";
+      if (header){
+        if (window.pageYOffset > 0) {
+          if (!toggleButton) {
+            header.style.backgroundColor = "black";
+          } else {
+            header.style.backgroundColor = "white";
+          }
         } else {
-          header.style.backgroundColor = "white";
-        }
-      } else {
-        if (toggleButton) {
-          header.style.backgroundColor = "rgba(255, 255, 255, 1)";
-        } else {
-          header.style.backgroundColor = "rgba(255, 255, 255, 0)";
+          if (toggleButton) {
+            header.style.backgroundColor = "rgba(255, 255, 255, 1)";
+          } else {
+            header.style.backgroundColor = "rgba(255, 255, 255, 0)";
+          }
         }
       }
     }
@@ -126,7 +125,7 @@ export default function Header({ toggleButton, setToggleButton }) {
     } else {
       setActiveValue("홈");
     }
-  }, [toggleButton]);
+  }, [toggleButton, isHeader_]);
 
   const logout = () => {
     window.sessionStorage.removeItem("persist:root");
@@ -138,7 +137,6 @@ export default function Header({ toggleButton, setToggleButton }) {
   };
   const goAccount = () => {
     setAnchorEl(null);
-
     history.push({
       pathname: "/account",
     });
