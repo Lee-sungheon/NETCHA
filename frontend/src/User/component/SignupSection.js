@@ -38,6 +38,7 @@ export default function SignupSection(props) {
                     onStart(e);
                   }
                 }}
+                type="email"
                 variant="filled"
                 style={{
                   backgroundColor: "white",
