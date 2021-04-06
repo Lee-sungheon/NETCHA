@@ -8,19 +8,18 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { actions } from "../../../home/state";
 import { BANNER } from "../../../common/data";
-import { callApiMovieDetail } from "../../../common/api";
+
 
 let buffer = null;
 let bufferTime = 0;
 export default function Banner({ user }) {
   const bannerToggle = useSelector((state) => state.home.bannerToggle);
   const bannerBufferTime = useSelector((state) => state.home.bannerBufferTime);
+  const token = useSelector(state => state.user.userData.token);
   const history = useHistory();
-  // const [ movie, setMovie ] = useState(null);
   const dispatch = useDispatch();
   const SoundToggle = () => {
     const player = document.getElementById("player");
-    // setMuted(!muted);
     player.muted = !player.muted;
   };
   const playMovie = () => {
@@ -32,8 +31,6 @@ export default function Banner({ user }) {
     buffer = setInterval(function () {
       bufferTime += 1;
     }, 1000);
-    // const data = await callApiMovieDetail(BANNER[BANNERKEY[0]], user.seq)
-    // setMovie(data.movie_info);
     return;
   }, []);
   useEffect(() => {
@@ -81,7 +78,6 @@ export default function Banner({ user }) {
               loop
               hlsConfig={{
                 startPosition: bannerBufferTime,
-                // nextLoadPosition:
               }}
             />
           }
@@ -131,9 +127,7 @@ export default function Banner({ user }) {
               ▶ 재생
             </Button>
             <a
-              href={`https://netcha-pedia.netlify.app/movieDetail/${
-                BANNER[BANNERKEY[0]][0]
-              }`}
+              href={`https://netcha-pedia.netlify.app/movieDetail/${BANNER[BANNERKEY[0]][0]}/${token}`}
               target="_blank"
             >
               <Button

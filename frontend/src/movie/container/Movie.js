@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactHlsPlayer from "react-hls-player";
 import { useHistory } from "react-router";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { navActions } from "../../navbar/state";
 
 import "./Movie.scss";
@@ -20,7 +20,6 @@ export default function Movie(props) {
     };
   }, []);
   useEffect(() => {
-    // props.toggleIsHeader(false);
     const params = props.match.params.no.split("-");
     if (params[0] === "banner") {
       setUrl(
@@ -45,6 +44,7 @@ export default function Movie(props) {
     <div>
       <div
         style={{
+          width: "100%",
           height: "100vh",
           textAlign: "center",
           marginTop: "-64px",
@@ -60,19 +60,17 @@ export default function Movie(props) {
           <ReactHlsPlayer
             id="player"
             src={url}
-            // src="http://j4f002.p.ssafy.io:8082/b"
             autoPlay={true}
             height="100%"
+            width="100%"
             style={{
               zIndex: "1",
-              // position: "relative",
               top: 0,
               left: 0,
             }}
             controls
             hlsConfig={{
               startPosition: 0,
-              // nextLoadPosition:
             }}
           ></ReactHlsPlayer>
 
