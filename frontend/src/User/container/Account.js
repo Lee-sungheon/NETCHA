@@ -1,9 +1,5 @@
 import React from "react";
-import { Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
-import img1 from "../../img/icon1.png";
-import img2 from "../../img/icon2.png";
 import { Route } from "react-router-dom";
 import AccountMain from "../component/AccountMain";
 import ChangePassword from "../component/ChangePassword";

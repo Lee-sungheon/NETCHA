@@ -4,9 +4,14 @@ import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import StarIcon from "@material-ui/icons/Star";
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import PropTypes from "prop-types";
-import { callApiRequestEvaluation, callApiDeleteEvaluation, callApiRequestZzim, callApiDeleteZzim } from '../../common/api';
+import {
+  callApiRequestEvaluation,
+  callApiDeleteEvaluation,
+  callApiRequestZzim,
+  callApiDeleteZzim,
+} from "../../common/api";
 import { useSelector } from "react-redux";
 
 MovieItem.propTypes = {
@@ -24,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   itemBox: {
     position: "relative",
     height: "inherit",
-    boxSizing: 'border-box',
+    boxSizing: "border-box",
     "&:hover": {
       border: "white 1px solid",
     },
@@ -56,19 +61,18 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     color: "white",
-    cursor: "pointer"
+    cursor: "pointer",
   },
 }));
 
 let tmpScore = 5;
 export default function MovieItem({ tile, pickNum, setPickNum }) {
   const customClasses = useStyles();
-  const user = useSelector(state => state.user.userData.member);
+  const user = useSelector((state) => state.user.userData.member);
   const [isFinish, setIsFinish] = useState(false);
   const [isHover, setIsHover] = useState(false);
   const [score, setScore] = useState(null);
   const [isZzim, setIsZzim] = useState(tile.userDidZzim);
-  const zzimList = useSelector(state => state.search.isZzim);
   function setHover() {
     if (isFinish) {
       setIsHover(true);
@@ -99,11 +103,10 @@ export default function MovieItem({ tile, pickNum, setPickNum }) {
     }
   }
   function toggleZzim() {
-    if(!isZzim) {
+    if (!isZzim) {
       callApiRequestZzim(user.seq, tile.no);
       setIsZzim(!isZzim);
-    } 
-    else {
+    } else {
       callApiDeleteZzim(user.seq, tile.no);
       setIsZzim(!isZzim);
     }
@@ -114,7 +117,11 @@ export default function MovieItem({ tile, pickNum, setPickNum }) {
       onMouseLeave={setHover}
       className={customClasses.itemBox}
     >
-      <img src={tile.posterUrl} alt={tile.title} style={{ width: "100%", height: "inherit", maxHeight: "50vh" }} />
+      <img
+        src={tile.posterUrl}
+        alt={tile.title}
+        style={{ width: "100%", height: "inherit", maxHeight: "50vh" }}
+      />
       <div
         className={customClasses.customOverlay}
         style={isHover ? { display: "block" } : { display: "none" }}
@@ -129,20 +136,34 @@ export default function MovieItem({ tile, pickNum, setPickNum }) {
             precision={0.5}
             onChangeActive={onChange}
             value={score}
-            emptyIcon={<StarIcon fontSize="large" style={{color: "rgba(255, 255, 255, 0.2)"}}/>}
+            emptyIcon={
+              <StarIcon
+                fontSize="large"
+                style={{ color: "rgba(255, 255, 255, 0.2)" }}
+              />
+            }
             icon={<StarIcon fontSize="large" />}
           />
         </div>
-        {isZzim ? 
-        <div className={customClasses.likeBox} onClick={toggleZzim}>
-          <FavoriteIcon style={{ margin: "0 2px 4px 2px", color: "red", cursor: "pointer" }} />
-          <Typography variant="subtitle2">찜한 영화</Typography>
-        </div>
-        :
-        <div className={customClasses.likeBox} onClick={toggleZzim}>
-          <FavoriteBorderIcon style={{ margin: "0 2px 4px 2px", color: "red"}} />
-          <Typography variant="subtitle2">찜하기</Typography>
-        </div>}
+        {isZzim ? (
+          <div className={customClasses.likeBox} onClick={toggleZzim}>
+            <FavoriteIcon
+              style={{
+                margin: "0 2px 4px 2px",
+                color: "red",
+                cursor: "pointer",
+              }}
+            />
+            <Typography variant="subtitle2">찜한 영화</Typography>
+          </div>
+        ) : (
+          <div className={customClasses.likeBox} onClick={toggleZzim}>
+            <FavoriteBorderIcon
+              style={{ margin: "0 2px 4px 2px", color: "red" }}
+            />
+            <Typography variant="subtitle2">찜하기</Typography>
+          </div>
+        )}
       </div>
     </div>
   );
