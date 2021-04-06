@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import StarIcon from "@material-ui/icons/Star";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import PropTypes from "prop-types";
 import { callApiRequestEvaluation, callApiDeleteEvaluation, callApiRequestZzim, callApiDeleteZzim } from '../../common/api';
@@ -65,7 +66,7 @@ export default function MovieItem({ tile, pickNum, setPickNum }) {
   const user = useSelector(state => state.user.userData.member);
   const [isFinish, setIsFinish] = useState(false);
   const [isHover, setIsHover] = useState(false);
-  const [score, setScore] = useState(7);
+  const [score, setScore] = useState(null);
   const [isZzim, setIsZzim] = useState(tile.userDidZzim);
   const zzimList = useSelector(state => state.search.isZzim);
   function setHover() {
@@ -73,7 +74,7 @@ export default function MovieItem({ tile, pickNum, setPickNum }) {
       setIsHover(true);
     } else {
       setIsHover(false);
-      setScore(5);
+      setScore(0);
     }
   }
   function onChange(e, v) {
@@ -128,6 +129,8 @@ export default function MovieItem({ tile, pickNum, setPickNum }) {
             precision={0.5}
             onChangeActive={onChange}
             value={score}
+            emptyIcon={<StarIcon fontSize="large" style={{color: "rgba(255, 255, 255, 0.2)"}}/>}
+            icon={<StarIcon fontSize="large" />}
           />
         </div>
         {isZzim ? 

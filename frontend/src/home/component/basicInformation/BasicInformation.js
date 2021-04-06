@@ -14,6 +14,7 @@ export default function BasicInformation({ movie }) {
   const [isFinish, setIsFinish] = useState(false);
   const [ scoreText, setScoreText] = useState('이미 본 작품인가요?');
   const user = useSelector(state => state.user.userData.member);
+  const token = useSelector(state => state.user.userData.token);
   const history = useHistory();
   useEffect(()=> {
     if (!isFinish) {
@@ -73,7 +74,7 @@ export default function BasicInformation({ movie }) {
         { movie.scenario.slice(0, 235) }
         { movie.scenario.length > 250 && '...'}
         { movie.scenario.length > 250 && <span style={{color: 'white', cursor: 'pointer'}}>
-          더보기
+        <a style={{color: 'white'}} href={`https://netcha-pedia.netlify.app/movieDetail/${movie.no}/${token}`} target="_blank">더보기</a>
         </span>}
       </div>
       <div className="content__information">

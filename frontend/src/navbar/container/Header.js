@@ -73,8 +73,9 @@ export default function Header({ toggleButton, setToggleButton }) {
   const [activeValue, setActiveValue] = useState("홈");
   const history = useHistory();
   const isHeader_ = useSelector((state) => state.search.isHeader);
-  const { nickname } = useSelector((state) => ({
+  const { nickname, token } = useSelector((state) => ({
     nickname: state.user.userData.member.nickname,
+    token: state.user.userData.token,
   }));
 
   useEffect(() => {
@@ -221,9 +222,9 @@ export default function Header({ toggleButton, setToggleButton }) {
                 variant="subtitle2"
                 noWrap
               ></Typography>
-              <a href="https://netcha-pedia.netlify.app" target="_blank">
+              <a href={`https://netcha-pedia.netlify.app/${token}`} target="_blank">
                 <img
-                  src={"../images/netchapediaTrans.png"}
+                  src={toggleButton ? "../images/netchapediaTrans.png": "../images/netchapediaTrans_2.png"}
                   style={{ height: "35px", marginLeft: "20px" }}
                   alt="netcha"
                   onClick={() => setActiveValue("홈")}
