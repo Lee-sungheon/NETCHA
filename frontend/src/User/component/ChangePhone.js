@@ -69,6 +69,9 @@ export default function ChangePhone() {
             value={inputData.phone}
             onChange={onPhoneHandeler}
           ></input>
+          <br />
+          <br />
+          <div type="tel">'-' 빼고 입력해 주세요.</div>
 
           <br />
           <div

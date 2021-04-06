@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { Select } from "@material-ui/core";
+import { navActions } from "../../navbar/state";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Button from "@material-ui/core/Button";
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 auto",
     width: "60vw",
     maxWidth: "1100px",
-    height: "100vh",
+    height: "100%",
     paddingTop: "10vw",
   },
   mbti_div: {
@@ -53,6 +54,13 @@ export default function Mbti(props) {
   const [state, setState] = useState({
     mbti: mbti,
   });
+  useEffect(() => {
+    dispatch(navActions.headerToggle(false));
+
+    return () => {
+      dispatch(navActions.headerToggle(true));
+    };
+  }, []);
   const handleChange = (event) => {
     setState({
       ...state,
