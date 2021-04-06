@@ -40,15 +40,6 @@ export default function Item({ movie, idx }) {
         escapeRight,
       }) {
         function onMouse(e) {
-          if (!isHover && !currentSlide){
-            timer = setTimeout(function() {
-              dispatch(actions.setValue('bannerToggle', false));
-              setIsHover(true);
-              buffer = setInterval(function () {
-                bufferTime += 1;
-              }, 1000);
-            }, 1000);
-          }
           let num = 6;
           if (e.view.innerWidth > 1280) {
             num = 6;
@@ -62,16 +53,25 @@ export default function Item({ movie, idx }) {
             num = 2;
           }
           if (!currentSlide) {
-            if (idx % num === 0 && !escapeLeft) {
+            if (idx % num === 0) {
               setEscapeLeft(true);
             } else {
               setEscapeLeft(false);
             }
-            if (idx % num === num - 1 && !escapeRight) {
+            if (idx % num === num - 1) {
               setEscapeRight(true);
             } else {
               setEscapeRight(false);
             }
+          }
+          if (!isHover && !currentSlide){
+            timer = setTimeout(function() {
+              dispatch(actions.setValue('bannerToggle', false));
+              setIsHover(true);
+              buffer = setInterval(function () {
+                bufferTime += 1;
+              }, 1000);
+            }, 1000);
           }
         }
         function onMouseLeave(e) {
