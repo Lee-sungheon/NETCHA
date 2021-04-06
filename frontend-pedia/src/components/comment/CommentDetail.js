@@ -9,7 +9,6 @@ const CommentDetail = ({ requestData, history }) => {
 
   const fetchComments = async () => {
     try {
-      console.log(requestData);
       const response = await commentApi.readComment({
         userId: requestData.userId,
         reviewNo: requestData.commentNo,
