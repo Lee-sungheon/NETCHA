@@ -65,16 +65,16 @@ export default function Mbti(props) {
       mbti: state.mbti,
       userId: userId,
     };
+    if (!body.mbti) {
+      alert("MBTI를 선택해주세요.");
+      return;
+    }
     axios
-      .post(
-        "netcha/user/changeUser",
-        JSON.stringify(body),
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .post("netcha/user/changeUser", JSON.stringify(body), {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         axios
           .post("netcha/user/info", body.userId, {
