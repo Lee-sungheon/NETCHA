@@ -61,6 +61,11 @@ export default function BasicInformation({ movie }) {
     const text = e.target.innerText;
     history.push(`/search?country=${text}`);
   }
+  const playMovie = () => {
+    history.push({
+      pathname: `/movie/movie-${movie.no}`,
+    });
+  };
 
   return (
     <>
@@ -105,7 +110,7 @@ export default function BasicInformation({ movie }) {
       </div>
       <div className="content__button_box">
         <div style={{width:'100%', display: "flex"}}>
-          <div className="content__play_box">
+          <div className="content__play_box" onClick={playMovie}>
             <PlayArrowIcon className="content__play_box__play-button"/>
             <div className="content__play_box__text">재생</div>
           </div>
