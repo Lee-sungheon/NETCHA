@@ -33,7 +33,7 @@ export default function LikeList() {
       const scrollHeight = document.documentElement.scrollHeight;
       const scrollTop = document.documentElement.scrollTop;
       const clientHeight = document.documentElement.clientHeight;
-      if (scrollTop + clientHeight + 1 >= scrollHeight && !isInfinite) {
+      if (scrollTop + clientHeight + 1 >= scrollHeight) {
         // 페이지 끝에 도달하면 추가 데이터를 받아온다
         dispatch(likeactions.requestAddMovieList(pageNum, user.seq));
         if (!loadingPage) {
@@ -49,7 +49,7 @@ export default function LikeList() {
       });
       window.removeEventListener("scroll", handleScroll);
     }
-  }, [dispatch, isInfinite, user])
+  }, [])
   
   useEffect(() => {
     repeat = [];
@@ -79,13 +79,14 @@ export default function LikeList() {
     <>
       <div className='like__container'>
         <div className="like__title">내가 찜한 콘텐츠</div>
+        <div style={{paddingTop: '50px'}} />
         { isLoading &&
           <div style={{height: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <CircularProgress color="secondary" />
           </div>
         }
         { !isLoading && likeList.map((item, idx) => (
-          <div id={`slider-${idx}`} className='like__container' style={{paddingTop: '50px'}} key={idx}>
+          <div id={`slider-${idx}`} className='like__container' key={idx}>
             <MovieList idx={`slider-${idx}`} num={tabNo}>
               {item.map((movie, index) => (
                 <MovieItem movie={movie} idx={index} key={index}>
