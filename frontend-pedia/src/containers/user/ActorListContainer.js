@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router";
 import { listActors } from "../../modules/actors";
 import Loader from '../../components/common/Loader';
-import crawlingTest from '../../crawlingTest';
 
 const actorArr = [];
 
