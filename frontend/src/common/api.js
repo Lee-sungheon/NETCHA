@@ -310,3 +310,24 @@ export function callApiReviewDisLike(userId, reviewNo) {
     })
     .catch((Error)=>{console.log(Error)})
 }
+
+export function callApiIncreaseView(movieNo) {
+  const url = `netcha/movie/movie_increaseView`;
+  const data = {
+    movieNo: movieNo
+  }
+  return axios.post(url, data)
+    .then((Response)=>{
+      return Response.data
+    })
+    .catch((Error)=>{console.log(Error)})
+}
+
+export function callApiSearchMovieList(search, pageNum, userId) {
+  const url = `netcha/movie/search_total?pageNum=${pageNum}&search=${search}&userId=${userId}`;
+  return axios.get(url)
+    .then((Response)=>{
+      return Response.data
+    })
+    .catch((Error)=>{console.log(Error)})
+}

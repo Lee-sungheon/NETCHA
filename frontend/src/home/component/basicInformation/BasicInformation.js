@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import Rating from '@material-ui/lab/Rating';
-import { callApiRequestEvaluation, callApiDeleteEvaluation } from '../../../common/api';
+import { callApiRequestEvaluation, callApiDeleteEvaluation, callApiIncreaseView } from '../../../common/api';
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Buttons from './Buttons';
@@ -63,6 +63,7 @@ export default function BasicInformation({ movie }) {
     history.push(`/search?country=${text}`);
   }
   const playMovie = () => {
+    callApiIncreaseView(movie.no);
     history.push({
       pathname: `/movie/movie-${movie.no}`,
     });
