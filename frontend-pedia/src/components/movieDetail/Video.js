@@ -42,7 +42,7 @@ const Video = ({ movieNo, movieTitle }) => {
       const response = await moviesApi.listMovieVideos(movieNo);
       if (response === null) {
         searchYouTube({
-          keyword: '영화 ' + movieTitle,
+          keyword: movieTitle + ' 예고편',
           max: 3,
           key: API_KEY[index],
         });
