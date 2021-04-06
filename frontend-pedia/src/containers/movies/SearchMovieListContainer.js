@@ -3,14 +3,16 @@ import qs from 'qs';
 import MovieList from '../../components/movies/MovieList';
 import { withRouter } from 'react-router';
 import * as moviesApi from '../../lib/api/movies';
+import { useSelector } from 'react-redux';
 
 const SearchMovieListContainer = ({ location }) => {
   const [loading, setLoading] = useState(null);
   const [page, setPage] = useState(0);
   const [movies, setMovies] = useState(null);
-  const { keyword } = qs.parse(location.search, {
-    ignoreQueryPrefix: true,
-  });
+  const { keyword } = useSelector(({ autoCompletesMovies }) => ({ keyword: autoCompletesMovies.keyword }));
+  // const { keyword } = qs.parse(location.search, {
+  //   ignoreQueryPrefix: true,
+  // });
 
   const getSearchMovies = async (newPage) => {
     try {
