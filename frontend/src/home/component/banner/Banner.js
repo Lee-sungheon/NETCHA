@@ -1,27 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import "./Banner.scss";
 import ReactHlsPlayer from "react-hls-player";
 import SoundButton from "./SoundButton";
 import { useHistory } from "react-router";
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { actions } from "../../../home/state";
 import { BANNER } from "../../../common/data";
-import { callApiMovieDetail } from "../../../common/api";
-
 
 let buffer = null;
 let bufferTime = 0;
-export default function Banner({user}) {
+export default function Banner() {
   const bannerToggle = useSelector((state) => state.home.bannerToggle);
   const bannerBufferTime = useSelector((state) => state.home.bannerBufferTime);
+  const token = useSelector((state) => state.user.userData.token);
   const history = useHistory();
-  // const [ movie, setMovie ] = useState(null);
   const dispatch = useDispatch();
   const SoundToggle = () => {
     const player = document.getElementById("player");
-    // setMuted(!muted);
     player.muted = !player.muted;
   };
   const playMovie = () => {
@@ -29,21 +26,19 @@ export default function Banner({user}) {
       pathname: `/movie/banner-${BANNERKEY[0]}`,
     });
   };
-  useEffect(async ()=> {
-    buffer = setInterval(function() {
+  useEffect(() => {
+    buffer = setInterval(function () {
       bufferTime += 1;
     }, 1000);
-    // const data = await callApiMovieDetail(BANNER[BANNERKEY[0]], user.seq)
-    // setMovie(data.movie_info);
-    return;
-  }, [])
-  useEffect(()=> {
-    if (!bannerToggle){
-      dispatch(actions.setValue('bannerBufferTime', bufferTime));
-    } else{
+    return clearInterval(buffer);
+  }, []);
+  useEffect(() => {
+    if (!bannerToggle) {
+      dispatch(actions.setValue("bannerBufferTime", bufferTime));
+    } else {
       bufferTime = bannerBufferTime;
     }
-  }, [bannerToggle])
+  }, [bannerToggle, dispatch, bannerBufferTime]);
   return (
     <div
       style={{
@@ -56,7 +51,7 @@ export default function Banner({user}) {
         style={{
           position: "relative",
           textAlign: "right",
-          marginTop: "-64px",
+          marginTop: "-82px",
         }}
       >
         <div
@@ -67,23 +62,93 @@ export default function Banner({user}) {
             overflow: "hidden",
           }}
         >
-          {<ReactHlsPlayer
-            id="player"
-            src={`https://dre3xbpyohrg0.cloudfront.net/banner${BANNERKEY[0]}/banner${BANNERKEY[0]}.m3u8`}
-            autoPlay={bannerToggle}
-            width="100%"
-            height="auto"
+          {
+            <ReactHlsPlayer
+              id="player"
+              src={`https://dre3xbpyohrg0.cloudfront.net/banner${BANNERKEY[0]}/banner${BANNERKEY[0]}.m3u8`}
+              autoPlay={bannerToggle}
+              width="100%"
+              height="auto"
+              style={{
+                zIndex: "1",
+              }}
+              state="play"
+              muted
+              loop
+              hlsConfig={{
+                startPosition: bannerBufferTime,
+              }}
+            />
+          }
+        </div>
+        <div
+          style={{
+            position: "absolute",
+            top: "15vw",
+            left: "4vw",
+            color: "white",
+            textAlign: "left",
+          }}
+        >
+          <div
             style={{
-              zIndex: "1",
+              fontWeight: "bold",
+
+              fontSize: "2em",
             }}
-            state="play"
-            muted
-            loop
-            hlsConfig={{
-              startPosition: bannerBufferTime,
-              // nextLoadPosition:
+          >
+            오늘 한국에서 콘텐츠 순위 {BANNERKEY[0] === "" && 1}
+            {BANNERKEY[0]}위
+          </div>
+          <div
+            style={{
+              marginTop: "20px",
+              fontSize: "1.3em",
+              width: "33vw",
             }}
-          />}
+          >
+            {BANNER[BANNERKEY[0]][1]}
+          </div>
+          <div>
+            <Button
+              variant="contained"
+              style={{
+                width: "9vw",
+                backgroundColor: "white",
+                color: "black",
+                marginTop: "25px",
+                height: "2.5vw",
+                fontWeight: "bold",
+                fontSize: "1.3em",
+              }}
+              onClick={playMovie}
+            >
+              ▶ 재생
+            </Button>
+            <a
+              href={`https://netcha-pedia.netlify.app/movieDetail/${
+                BANNER[BANNERKEY[0]][0]
+              }/${token}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Button
+                variant="contained"
+                style={{
+                  width: "11vw",
+                  backgroundColor: "gray",
+                  color: "white",
+                  marginTop: "25px",
+                  height: "2.5vw",
+                  fontWeight: "bold",
+                  fontSize: "1.3em",
+                  marginLeft: "10px",
+                }}
+              >
+                상세정보
+              </Button>
+            </a>
+          </div>
         </div>
       </div>
       <div
@@ -98,71 +163,9 @@ export default function Banner({user}) {
       >
         <SoundButton />
       </div>
-      <div
-        style={{
-          position: "absolute",
-          bottom: "40vh",
-          left: "4vw",
-          color: "white",
-          textAlign: "left",
-        }}
-      >
-        <div
-          style={{
-            fontWeight: "bold",
-
-            fontSize: "2em",
-          }}
-        >
-          오늘 한국에서 콘텐츠 순위 {BANNERKEY[0] === '' && 1}{BANNERKEY[0]}위
-        </div>
-        <div
-          style={{
-            marginTop: "20px",
-            fontSize: "1.3em",
-            width: "33vw",
-          }}
-        >
-          {BANNER[BANNERKEY[0]][1]}
-        </div>
-        <div>
-          <Button
-            variant="contained"
-            style={{
-              width: "8vw",
-              backgroundColor: "white",
-              color: "black",
-              marginTop: "25px",
-              height: "45px",
-              fontWeight: "bold",
-              fontSize: "1.3em",
-            }}
-            onClick={playMovie}
-          >
-            ▶ 재생
-          </Button>
-          <Button
-            variant="contained"
-            style={{
-              width: "9vw",
-              backgroundColor: "gray",
-              color: "white",
-              marginTop: "25px",
-              height: "45px",
-              fontWeight: "bold",
-              fontSize: "1.3em",
-              marginLeft: "10px",
-            }}
-          >
-            상세정보
-          </Button>
-        </div>
-      </div>
     </div>
   );
 }
-
-
 
 function shuffle(a) {
   var j, x, i;

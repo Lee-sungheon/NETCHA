@@ -8,7 +8,7 @@ import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CheckIcon from '@material-ui/icons/Check';
-import { callApiRequestZzim, callApiDeleteZzim, callApiLike } from '../../../common/api';
+import { callApiRequestZzim, callApiDeleteZzim, callApiLike, callApiIncreaseView } from '../../../common/api';
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../../../navbar/state";
 import { useHistory } from "react-router";
@@ -38,7 +38,7 @@ export default function Buttons({ movie, onSelectSlide, isdetail, setIsdetail })
         }
       }
     }
-  }, [])
+  }, [likeList, movie, zzimList])
   function toggleZzim() {
     if(!isZzim) {
       callApiRequestZzim(user.seq, movie.no);
@@ -79,6 +79,7 @@ export default function Buttons({ movie, onSelectSlide, isdetail, setIsdetail })
     onSelectSlide(movie);
   }
   const playMovie = () => {
+    callApiIncreaseView(movie.no);
     history.push({
       pathname: `/movie/movie-${movie.no}`,
     });

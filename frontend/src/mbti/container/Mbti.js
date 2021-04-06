@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { Select } from "@material-ui/core";
+import { navActions } from "../../navbar/state";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Button from "@material-ui/core/Button";
@@ -14,8 +14,6 @@ import { actions } from "../../user/state";
 
 const useStyles = makeStyles((theme) => ({
   mbti_back: {
-    // backgroundImage:
-    //   "url(https://assets.nflxext.com/ffe/siteui/vlv3/33a85845-b76d-4e18-a74c-5859e3978a91/b4d69ed1-965f-49d2-abc2-02d4d0ae6ffb/KR-ko-20210308-popsignuptwoweeks-perspective_alpha_website_large.jpg)",
     marginTop: "-64px",
   },
   mbti_page: {
@@ -25,14 +23,11 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 auto",
     width: "60vw",
     maxWidth: "1100px",
-    height: "100vh",
+    height: "100%",
     paddingTop: "10vw",
   },
   mbti_div: {
-    // backgroundColor: "white",
-    // background: "rgb(0, 0, 0, 0.7)",
     height: "35vw",
-    // width: "100%",
     padding: "3vw 3.5vw",
     color: "white",
     textAlign: "center",
@@ -41,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Mbti(props) {
-  const location = useLocation();
   const { mbti, userId } = useSelector((state) => ({
     mbti: state.user.userData.member.mbti,
     userId: state.user.userData.member.userId,
@@ -53,6 +47,13 @@ export default function Mbti(props) {
   const [state, setState] = useState({
     mbti: mbti,
   });
+  useEffect(() => {
+    dispatch(navActions.headerToggle(false));
+
+    return () => {
+      dispatch(navActions.headerToggle(true));
+    };
+  }, [dispatch]);
   const handleChange = (event) => {
     setState({
       ...state,
@@ -65,16 +66,16 @@ export default function Mbti(props) {
       mbti: state.mbti,
       userId: userId,
     };
+    if (!body.mbti) {
+      alert("MBTI를 선택해주세요.");
+      return;
+    }
     axios
-      .post(
-        "netcha/user/changeUser",
-        JSON.stringify(body),
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .post("netcha/user/changeUser", JSON.stringify(body), {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         axios
           .post("netcha/user/info", body.userId, {
@@ -111,7 +112,6 @@ export default function Mbti(props) {
                     height: "15vw",
                     width: "50%",
                     color: "black",
-                    border: "solid white 1px",
                     padding: "3vw",
                     backgroundColor: "white",
                     border: "1px solid black",
@@ -179,9 +179,7 @@ export default function Mbti(props) {
                 <div
                   style={{
                     margin: "2vw",
-                    height: "15vw",
                     width: "50%",
-                    border: "solid 1px white",
                     height: "15vw",
                     padding: "3vw",
                     backgroundColor: "white",

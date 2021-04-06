@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
   progressBox: {
     position: 'fixed',
+    textAlign: 'center',
     paddingTop: '20px',
     zIndex: 100,
     height: '100px',
@@ -82,11 +83,15 @@ export default function Evaluation() {
   const isLoading = useSelector(state => state.evaluation.isLoading);
   const isInfinite = useSelector(state => state.evaluation.isInfinite);
   const user = useSelector(state => state.user.userData.member);
+  const token = useSelector(state => state.user.userData.token);
   const dispatch = useDispatch();
 
-  useEffect(async() => {
-    const tmp = await callApiEvaluation(user.seq);
-    setPickNum(tmp);
+  useEffect(() => {
+    async function fetchData() {
+      const tmp = await callApiEvaluation(user.seq);
+      setPickNum(tmp);
+    }
+    fetchData();
     function checkWindowInner() {
       const windowInnerWidth = window.innerWidth;
       if (windowInnerWidth < 600){
@@ -104,7 +109,7 @@ export default function Evaluation() {
       const scrollHeight = document.documentElement.scrollHeight;
       const scrollTop = document.documentElement.scrollTop;
       const clientHeight = document.documentElement.clientHeight;
-      if (scrollTop + clientHeight + 1 >= scrollHeight && !isInfinite) {
+      if (scrollTop + clientHeight + 1 >= scrollHeight) {
         // 페이지 끝에 도달하면 추가 데이터를 받아온다
         dispatch(actions.requestAddMovieList(pageNum, user.seq));
         if (!loadingPage){
@@ -127,7 +132,7 @@ export default function Evaluation() {
         checkWindowInner()
       });
     };
-  }, [])
+  }, [dispatch, user])
   
   useEffect(() => {
     loadingPage = false;
@@ -189,6 +194,11 @@ export default function Evaluation() {
         </Typography>
         <div className={classes.progressBar}>
           <BorderLinearProgress variant="determinate" value={(pickNum%40)*2.5} />
+        </div>
+        <div className="eval__button">
+          <a style={{color: 'black'}} href={`https://netcha-pedia.netlify.app/user/statics/${user.seq}/${token}`} target="blank">
+            NETCHA PEDIA에서 내 취향분석 결과 보기
+          </a>
         </div>
       </div>
       <div className="eval__root">

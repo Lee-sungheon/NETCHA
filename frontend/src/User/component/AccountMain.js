@@ -4,8 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import img1 from "../../img/icon1.png";
 import img2 from "../../img/icon2.png";
-import { useHistory } from "react-router";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   account_page: {
@@ -58,10 +57,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
+const onButtonClick = () => {
+  alert("서비스 준비중입니다.");
+};
 export default function AccountMain() {
   const classes = useStyles();
-  const history = useHistory();
   const { mbti, userId, phone, nickname, name } = useSelector((state) => ({
     mbti: state.user.userData.member.mbti,
     userId: state.user.userData.member.userId,
@@ -78,7 +78,12 @@ export default function AccountMain() {
           <div className={classes.account_div}>
             <header className={classes.account_div_hd}>
               <div>멤버십 & 결제정보</div>
-              <button className={classes.membershipButton}>멤버십 해지</button>
+              <button
+                className={classes.membershipButton}
+                onClick={onButtonClick}
+              >
+                멤버십 해지
+              </button>
             </header>
             <section className={classes.account_div_section}>
               <div className={classes.account_div_section_div}>
@@ -90,8 +95,10 @@ export default function AccountMain() {
                   <div>{userId}</div>
                   <div>이름 : {name}</div>
                   <div>닉네임 : {nickname}</div>
-                  <div>비밀번호 : ********</div>
-                  <div>전화번호 : {phone}</div>
+                  <div>
+                    전화번호 : {phone.substring(0, 3)}-{phone.substring(3, 7)}-
+                    {phone.substring(7, 11)}
+                  </div>
                   <div>MBTI : {mbti} </div>
                 </div>
 
@@ -110,14 +117,7 @@ export default function AccountMain() {
                       닉네임 변경
                     </Link>
                   </div>
-                  <div>
-                    <Link
-                      to="/account/changepassword"
-                      className={classes.link_}
-                    >
-                      비밀번호 변경
-                    </Link>
-                  </div>
+
                   <div>
                     <Link to="/account/changephone" className={classes.link_}>
                       휴대폰 번호 변경
@@ -138,19 +138,25 @@ export default function AccountMain() {
                     width: "60%",
                   }}
                 >
-                  <div>신용카드 **** **** **** 6096</div>
+                  <div>신용카드 **** **** **** ****</div>
                   <div>다음 결제일은 다음 결제일은 2021년 4월 14일입니다.</div>
                 </div>
 
                 <div className={classes.account_div_section_div2}>
                   <div>
-                    <Link className={classes.link_}>결제 정보 관리</Link>
+                    <Link className={classes.link_} onClick={onButtonClick}>
+                      결제 정보 관리
+                    </Link>
                   </div>
                   <div>
-                    <Link className={classes.link_}>결제 상세 정보</Link>
+                    <Link className={classes.link_} onClick={onButtonClick}>
+                      결제 상세 정보
+                    </Link>
                   </div>
                   <div>
-                    <Link className={classes.link_}>결제일 변경</Link>
+                    <Link className={classes.link_} onClick={onButtonClick}>
+                      결제일 변경
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -159,12 +165,14 @@ export default function AccountMain() {
               <div className={classes.account_div_section_div}>
                 <div account_div_section_div2>
                   <div>
-                    <Link className={classes.link_}>
+                    <Link className={classes.link_} onClick={onButtonClick}>
                       기프트카드 또는 할인 코드 입력
                     </Link>
                   </div>
                   <div>
-                    <Link className={classes.link_}>기프트카드 판매처</Link>
+                    <Link className={classes.link_} onClick={onButtonClick}>
+                      기프트카드 판매처
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -182,7 +190,9 @@ export default function AccountMain() {
                 </div>
                 <div className={classes.account_div_section_div2}>
                   <div>
-                    <Link className={classes.link_}>멤버십 변경</Link>
+                    <Link className={classes.link_} onClick={onButtonClick}>
+                      멤버십 변경
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -195,25 +205,9 @@ export default function AccountMain() {
             </header>
             <section className={classes.account_div_section}>
               <div>
-                <Link className={classes.link_}>Netflix 테스터로 참여</Link>
-              </div>
-              <div>
-                <Link className={classes.link_}>Netflix 테스터로 참여</Link>
-              </div>
-              <div>
-                <Link className={classes.link_}>Netflix 테스터로 참여</Link>
-              </div>
-              <div>
-                <Link className={classes.link_}>Netflix 테스터로 참여</Link>
-              </div>
-              <div>
-                <Link className={classes.link_}>Netflix 테스터로 참여</Link>
-              </div>
-              <div>
-                <Link className={classes.link_}>Netflix 테스터로 참여</Link>
-              </div>
-              <div>
-                <Link className={classes.link_}>Netflix 테스터로 참여</Link>
+                <Link className={classes.link_} onClick={onButtonClick}>
+                  Netcha 테스터로 참여
+                </Link>
               </div>
             </section>
           </div>
@@ -229,6 +223,7 @@ export default function AccountMain() {
                     style={{
                       display: "flex",
                     }}
+                    onClick={onButtonClick}
                   >
                     <div>
                       <img src={img1} alt="" width="60px" height="60px" />
@@ -251,6 +246,7 @@ export default function AccountMain() {
                     style={{
                       display: "flex",
                     }}
+                    onClick={onButtonClick}
                   >
                     <div>
                       <img src={img2} alt="" width="60px" height="60px" />

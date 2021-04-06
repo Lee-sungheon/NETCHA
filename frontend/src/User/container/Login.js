@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { actions } from "../state";
+import { navActions } from "../../navbar/state";
 import { useHistory } from "react-router";
 import axios from "axios";
 import LoginForm from "../component/LoginForm";
@@ -11,18 +12,15 @@ import "./Login.scss";
 export default function Login(props) {
   const history = useHistory();
   const dispatch = useDispatch();
-
   const [inputData, setInputData] = useState({ userId: "", password: "" });
 
   useEffect(() => {
-    props.toggleIsHeader(false);
+    dispatch(navActions.headerToggle(false));
     if (history.location.state) {
       setInputData({ ...inputData, userId: history.location.state.userId });
     }
-    return () => {
-      props.toggleIsHeader(true);
-    };
-  }, []);
+    return () => {};
+  }, [dispatch, inputData, history.location.state]);
 
   const onUserIdHandler = (e) => {
     setInputData({ ...inputData, userId: e.target.value });
@@ -47,6 +45,7 @@ export default function Login(props) {
         if (res.data.response === "success") {
           console.log("로그인성공");
 
+          await dispatch(navActions.headerToggle(true));
           await dispatch(actions.userLogin(res.data.data));
 
           login_(res.data.data);

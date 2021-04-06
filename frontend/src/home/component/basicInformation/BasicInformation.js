@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import Rating from '@material-ui/lab/Rating';
-import { callApiRequestEvaluation, callApiDeleteEvaluation } from '../../../common/api';
+import { callApiRequestEvaluation, callApiDeleteEvaluation, callApiIncreaseView } from '../../../common/api';
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Buttons from './Buttons';
@@ -14,6 +14,7 @@ export default function BasicInformation({ movie }) {
   const [isFinish, setIsFinish] = useState(false);
   const [ scoreText, setScoreText] = useState('이미 본 작품인가요?');
   const user = useSelector(state => state.user.userData.member);
+  const token = useSelector(state => state.user.userData.token);
   const history = useHistory();
   useEffect(()=> {
     if (!isFinish) {
@@ -62,6 +63,7 @@ export default function BasicInformation({ movie }) {
     history.push(`/search?country=${text}`);
   }
   const playMovie = () => {
+    callApiIncreaseView(movie.no);
     history.push({
       pathname: `/movie/movie-${movie.no}`,
     });
@@ -73,7 +75,7 @@ export default function BasicInformation({ movie }) {
         { movie.scenario.slice(0, 235) }
         { movie.scenario.length > 250 && '...'}
         { movie.scenario.length > 250 && <span style={{color: 'white', cursor: 'pointer'}}>
-          더보기
+        <a style={{color: 'white'}} href={`https://netcha-pedia.netlify.app/movieDetail/${movie.no}/${token}`} target="blank">더보기</a>
         </span>}
       </div>
       <div className="content__information">

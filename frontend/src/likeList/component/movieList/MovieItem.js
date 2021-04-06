@@ -25,10 +25,10 @@ export default function MovieItem({ movie, idx }) {
     clearTimeout(timer);
     setIsHover(false);
     bufferTime = 0;
-  }, [isdetail])
+  }, [isdetail, dispatch])
   return (
     <MovieListContext.Consumer>
-      {function Itemsetup({ onSelectSlide, currentSlide, elementRef, num, setEscapeLeft, setEscapeRight, escapeLeft, escapeRight }) {
+      {function Itemsetup({ onSelectSlide, currentSlide, elementRef, num, setEscapeLeft, setEscapeRight }) {
         function onMouse() {
           if (!isHover && !currentSlide){
             timer = setTimeout(function() {
@@ -39,12 +39,12 @@ export default function MovieItem({ movie, idx }) {
             }, 1000);
           }
           if (!currentSlide) {
-            if (idx % num === 0 && !escapeLeft) {
+            if (idx % num === 0) {
               setEscapeLeft(true)
             } else {
               setEscapeLeft(false)
             }
-            if (idx % num === num-1 && !escapeRight) {
+            if (idx % num === num-1) {
               setEscapeRight(true)
             } else {
               setEscapeRight(false)
@@ -73,7 +73,7 @@ export default function MovieItem({ movie, idx }) {
                 <div className='movie-image-box'>
                   {!isHover && <CardMedia
                     component="img"
-                    image={ movie.imageUrl[0] !== 'default' ? movie.imageUrl[0] : "/images/netchar2.png" }
+                    image={ movie.imageUrl !== undefined && movie.imageUrl[0] !== 'default' ? movie.imageUrl[0] : "/images/netchar2.png" }
                     className='movie-image-style'
                   />}
                   {isHover && <ReactHlsPlayer
@@ -96,12 +96,12 @@ export default function MovieItem({ movie, idx }) {
               </CardActionArea>
               <CardContent className="movie-show-card-content" style={{paddingBottom: '10px'}}>
                 <Buttons movie={movie} onSelectSlide={onSelectSlide} isdetail={isdetail} setIsdetail={setIsdetail}/>
-                <h5 style={{textAlign: 'center', margin:'5px', textAlign: 'start'}} >{movie.title}</h5>
+                <h5 style={{margin:'5px', textAlign: 'start'}} >{movie.title}</h5>
                 <div style={{display: 'flex', alignItems: 'center'}} >
-                  { movie.rating !== "" && movie.rating !== undefined && <img style={{width: '12%', margin: '0 5px'}}src={`/images/${RATING[movie.rating.slice(0,2)]}.svg`} />}
+                  { movie.rating !== "" && movie.rating !== undefined && <img style={{width: '12%', margin: '0 5px'}}src={`/images/${RATING[movie.rating.slice(0,2)]}.svg` } alt="" />}
                   <div style={{fontSize: '0.65rem', fontWeight: 900}}>{parseInt(movie.time/60)}시간 {movie.time%60}분</div>
                 </div>
-                <h6 style={{textAlign: 'center', margin:'5px', textAlign: 'start'}} >
+                <h6 style={{margin:'5px', textAlign: 'start'}} >
                   {movie.keywords !== undefined && movie.keywords.slice(0,3).map((keyword, idx) => (
                     <span key={idx} >{idx !== 0 && <span > • </span>}{keyword}</span>
                   ))}

@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import TestMbtiList from "../component/TestMbtiItem";
 import { useHistory } from "react-router";
+import { navActions } from "../../navbar/state";
+import { useDispatch } from "react-redux";
+
 import "./Mbti.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
   mbti_div: {
     background: "rgb(0, 0, 0, 1)",
     height: "35vw",
-    // width: "100%",
     padding: "60px 68px",
   },
   mbti_div_: {
@@ -45,6 +47,14 @@ const useStyles = makeStyles((theme) => ({
 export default function TestMBTI(props) {
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(navActions.headerToggle(false));
+
+    return () => {
+      dispatch(navActions.headerToggle(true));
+    };
+  }, [dispatch]);
   const [choiceList, setChoiceList] = useState({ choice: [] });
   const onChoice = (data) => {
     setChoiceList({ ...choiceList, choice: choiceList.choice.concat(data) });
@@ -132,13 +142,6 @@ export default function TestMBTI(props) {
       choice_2: "아니.. 근데.. 내가 오늘..진짜... (나는야 설명충)",
     },
   ];
-
-  useEffect(() => {
-    props.toggleIsHeader(false);
-    return () => {
-      props.toggleIsHeader(true);
-    };
-  }, []);
 
   return (
     <div>

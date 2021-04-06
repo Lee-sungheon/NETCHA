@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
   },
   signupDetail_div_div: {
     background: "rgb(0, 0, 0, 0.7)",
-    // height: "650px",
     width: "314px",
     padding: "60px 68px",
   },
@@ -58,7 +57,6 @@ export default function SignupDetail(props) {
     confirmPassword: false,
     nickname: true,
     phone: true,
-    nickname: true,
     name: true,
   });
   const onUserIdHandler = (e) => {
@@ -88,33 +86,43 @@ export default function SignupDetail(props) {
     } else {
       setInputCheck({ ...inputData, confirmPassword: false });
     }
-  }, [inputData.confirmPassword, inputData.password]);
+  }, [inputData]);
+
   useEffect(() => {
     if (inputData.userId) {
       const body = inputData.userId;
+      const check_Email = function (str) {
+        var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+        return regExp.test(str) ? true : false;
+      };
+
+      if (check_Email(inputData.userId) === false) {
+        setInputCheck({ ...inputCheck, userId: false });
+        return;
+      }
       axios
-        .post("netcha/user/checkId", JSON.stringify(body), {
+        .post("netcha/user/checkId", body, {
           headers: {
             "Content-Type": "application/json",
           },
         })
         .then((res) => {
-          setInputCheck({ ...inputCheck, userId: true });
+          if (res.data.data === 0) {
+            setInputCheck({ ...inputCheck, userId: false });
+          } else {
+            setInputCheck({ ...inputCheck, userId: true });
+          }
         })
-        .catch((err) => {
-          setInputCheck({ ...inputCheck, userId: false });
-        });
+        .catch((err) => {});
     }
-  }, [inputData.userId]);
+  }, [inputData, inputCheck]);
+
   useEffect(() => {
-    props.toggleIsHeader(false);
     if (history.location.state) {
       setInputData({ ...inputData, userId: history.location.state.userId });
     }
-    return () => {
-      props.toggleIsHeader(true);
-    };
-  }, []);
+    return () => {};
+  }, [history, inputData]);
 
   const signUp = (e) => {
     e.preventDefault();
@@ -146,14 +154,15 @@ export default function SignupDetail(props) {
               }
             )
             .then((res) => {
+              alert("인증메일이 발송되었습니다. 확인해주세요");
               console.log("인증메일 발송");
+              history.push({
+                pathname: "/login",
+              });
             })
             .catch((err) => {
               console.log("인증메일 발송 실패");
             });
-          history.push({
-            pathname: "/login",
-          });
         })
         .catch((err) => {
           console.log("계정생성 실패");

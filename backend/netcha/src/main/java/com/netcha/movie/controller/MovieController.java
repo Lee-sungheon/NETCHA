@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001","https://netcha.netlify.app"}, allowCredentials = "true")
+@CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001","https://netcha.netlify.app","https://j4d105.p.ssafy.io", "https://netcha-pedia.netlify.app"}, allowCredentials = "true")
 @RequestMapping("/movie")
 public class MovieController {
 	@Autowired
@@ -135,6 +135,16 @@ public class MovieController {
 		List<MovieResponseDto> movies = movieService.findMovieByCast((int)userId, cast);
 		System.out.println("배우별 : "+movies.size());
 		return new ResponseEntity<>(movies, HttpStatus.OK);
+	}
+	
+	//  조회수 API   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	@ApiOperation(value = "조회수 증가", notes = "입력값 : movieNo(영화고유번호)")
+	@PostMapping("/movie_increaseView")
+	public ResponseEntity<?> updateView(@RequestBody Map<String, String> param) {
+		long movieNo = Long.parseLong(param.get("movieNo"));
+		movieService.updateView(movieNo);
+		System.out.println("조회수 증가 : "+movieNo);
+		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
 	//  평점 관련 API   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -363,9 +373,25 @@ public class MovieController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
-//	@GetMapping("/test")
-//	public ResponseEntity<?> test() {
-//		movieService.test();
-//		return new ResponseEntity<>("", HttpStatus.OK);
-//	}
+	@ApiOperation(value = "검색 : 제목, 감독, 배우 포함 (자음, 모음으로만은 검색 안됨)", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작)), search(검색어)")
+	@GetMapping("/search_total")
+	public ResponseEntity<?> searchMovieByTotal(@RequestParam long userId, @RequestParam long pageNum, @RequestParam String search) {
+		List<MovieResponseDto> result = movieService.searchMovieByTitle((int)userId, (int)pageNum, search, 1);
+		System.out.println("통합검색 : "+search);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "검색 : 제목만 (자음, 모음으로만은 검색 안됨)", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작)), search(검색어)")
+	@GetMapping("/search_title")
+	public ResponseEntity<?> searchMovieByTitle(@RequestParam long userId, @RequestParam long pageNum, @RequestParam String search) {
+		List<MovieResponseDto> result = movieService.searchMovieByTitle((int)userId, (int)pageNum, search, 2);
+		System.out.println("제목검색 : "+search);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@GetMapping("/test")
+	public ResponseEntity<?> test() {
+		movieService.test();
+		return new ResponseEntity<>("", HttpStatus.OK);
+	}
 }

@@ -11,7 +11,7 @@ export default function GanreBased2({ loading, idx, ganre, user }) {
     if (movieLists.length === 0) {
       dispatch(actions.requestGanreMovieList2(ganre, 0, user.seq));
     }
-  }, []);
+  }, [dispatch, user, movieLists, ganre]);
 
   return (
     <div className="home__container" id={idx}>

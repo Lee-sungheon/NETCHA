@@ -5,6 +5,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { actions } from "../../state";
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from "react-router";
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default function SimilarMovie({ movie }) {
@@ -13,6 +14,7 @@ export default function SimilarMovie({ movie }) {
   const similarMovie = useSelector(state => state.home.similarMovieLists);
   const isLoading = useSelector(state => state.home.isSimilarLoading);
   const user = useSelector((state) => state.user.userData.member);
+  const history = useHistory();
   const dispatch = useDispatch();
   function indexLeft() {
     if (index > 1) {
@@ -26,7 +28,7 @@ export default function SimilarMovie({ movie }) {
   }
   useEffect(() => {
     dispatch(actions.requestSimilarMovieList(movie.no, user.seq));
-  }, [])
+  }, [dispatch, movie, user])
   useEffect(() => {
     if (similarMovie.length > 3) {
       const movies = similarMovie.slice((index-1)*4, index*4);
@@ -64,7 +66,7 @@ export default function SimilarMovie({ movie }) {
               >
                 <div className="similar__img-box">
                   <div className="similar__background" style={{backgroundImage: `url(${ movie.imageUrl[0] !== 'default' ? movie.imageUrl[0] : "/images/netchar2.png" })`}} />
-                  <div className="similar__play-box">
+                  <div className="similar__play-box" onClick={function(){history.push(`/movie/movie-${movie.no}`)}} >
                     ▶
                   </div>
                 </div>
@@ -72,7 +74,7 @@ export default function SimilarMovie({ movie }) {
                   <div className="similar__title">{movie.title}</div>
                   <div className="similar__info">
                     {movie.rating !== "" && movie.rating !== undefined && 
-                    <img style={{width: '7%', margin: '0 3px'}} src={`/images/${RATING[movie.rating.slice(0,2)]}.svg`} id={idx}/>}
+                    <img style={{width: '7%', margin: '0 3px'}} src={`/images/${RATING[movie.rating.slice(0,2)]}.svg`} id={idx} alt=""/>}
                      • {parseInt(movie.time/60)}시간 {movie.time%60}분
                   </div>
                   <div className="similar__description">
