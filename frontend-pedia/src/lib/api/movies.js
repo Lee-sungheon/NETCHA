@@ -6,13 +6,13 @@ export const readMovie = (formData) => {
 };
 
 // 영화 검색 목록
-export const listSearchMovies = ({ page, keyword }) => {
+export const listSearchMovies = ({ page, keyword, userId }) => {
   // console.log('keyword:' + keyword);
   // const queryString = qs.stringify({
   //   keyword,
   // });
   // return (movies);
-  return client.get(`/movie/list_avgRank?pageNum=${page}&userId=1`);
+  return client.get(`/movie/search_total?pageNum=${page}&search=${keyword}&userId=${userId}`);
   // return client.get(`/movie/list_avgRank/${queryString}&page=${page}`)
   // return client.get(`/api/searchMovies/${queryString}&page=${page}`)
 };

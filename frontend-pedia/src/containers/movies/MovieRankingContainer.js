@@ -17,6 +17,8 @@ const MovieRankingContainer = ({title}) => {
     dispatch(listNetChaRankingMovies(user ? user.userId : -1));
   }, [dispatch, user]);
 
+  if(user) console.dir(user);
+
   if (loading) return <Loader type="spin" color="#ff0073" message="LOADING..." />;
 
   return (
