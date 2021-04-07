@@ -9,7 +9,10 @@ const SearchMovieListContainer = ({ location }) => {
   const [loading, setLoading] = useState(null);
   const [page, setPage] = useState(0);
   const [movies, setMovies] = useState(null);
-  const { keyword } = useSelector(({ autoCompletesMovies }) => ({ keyword: autoCompletesMovies.keyword }));
+  const { user, keyword } = useSelector(({ user, autoCompletesMovies }) => ({ 
+    keyword: autoCompletesMovies.keyword,
+    user: user.user
+  }));
   // const { keyword } = qs.parse(location.search, {
   //   ignoreQueryPrefix: true,
   // });
@@ -17,7 +20,7 @@ const SearchMovieListContainer = ({ location }) => {
   const getSearchMovies = async (newPage) => {
     try {
       setLoading(true);
-      const response = await moviesApi.listSearchMovies({ keyword, page: newPage });
+      const response = await moviesApi.listSearchMovies({ keyword, page: newPage, user });
       if (movies) {
         setMovies([...movies, ...response.data]);
       }
