@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import { actions } from "../state";
 import { navActions } from "../../navbar/state";
@@ -50,6 +50,8 @@ export default function Login(props) {
 
           login_(res.data.data);
         } else {
+          console.log(document.cookie);
+          console.log(getCookie("refreshToken"));
           console.log("로그인실패");
           alert("아이디/비밀번호가 틀렸습니다.");
         }
@@ -73,6 +75,11 @@ export default function Login(props) {
     alert("로그인되었습니다.");
   };
 
+  function getCookie(name) {
+    name = new RegExp(name + "=([^;]*)");
+
+    return name.test(document.cookie) ? unescape(RegExp.$1) : "";
+  }
   return (
     <div>
       <div className="login_back">
