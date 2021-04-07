@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.netcha.movie.data.MovieResponseDto;
 import com.netcha.movie.data.MovieReviewDto;
+import com.netcha.movie.data.MovieYoutube;
 import com.netcha.movie.service.MovieService;
 
 import io.swagger.annotations.ApiOperation;
@@ -373,25 +374,41 @@ public class MovieController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "검색 : 제목, 감독, 배우 포함 (자음, 모음으로만은 검색 안됨)", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작)), search(검색어)")
+	@ApiOperation(value = "통합검색 : 제목, 감독, 배우 포함 (자음, 모음으로만은 검색 안됨)", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작)), search(검색어)")
 	@GetMapping("/search_total")
 	public ResponseEntity<?> searchMovieByTotal(@RequestParam long userId, @RequestParam long pageNum, @RequestParam String search) {
-		List<MovieResponseDto> result = movieService.searchMovieByTitle((int)userId, (int)pageNum, search, 1);
+		List<MovieResponseDto> result = movieService.searchTotalMovie((int)userId, (int)pageNum, search);
 		System.out.println("<통합검색> 검색어 : "+search+", 유저고유번호 : "+userId+", 페이지번호 : "+pageNum);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "검색 : 제목만 (자음, 모음으로만은 검색 안됨)", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작)), search(검색어)")
+	@ApiOperation(value = "검색 : 제목만 (자음, 모음으로만은 검색 안됨)", notes = "입력값 : search(검색어)")
 	@GetMapping("/search_title")
-	public ResponseEntity<?> searchMovieByTitle(@RequestParam long userId, @RequestParam long pageNum, @RequestParam String search) {
-		List<MovieResponseDto> result = movieService.searchMovieByTitle((int)userId, (int)pageNum, search, 2);
-		System.out.println("<제목검색> 검색어 : "+search+", 유저고유번호 : "+userId+", 페이지번호 : "+pageNum);
+	public ResponseEntity<?> searchMovieByTitle(@RequestParam String search) {
+		List<String> result = movieService.searchMovieByTitle(search);
+		System.out.println("<제목검색> 검색어 : "+search);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
-	@GetMapping("/test")
-	public ResponseEntity<?> test() {
-		movieService.test();
-		return new ResponseEntity<>("", HttpStatus.OK);
+	@ApiOperation(value = "유튜브 링크 받기 (백 -> 프론트) : 없으면 null", notes = "입력값 : movieNo(영화고유번호)")
+	@GetMapping("/youtube_get")
+	public ResponseEntity<?> getMovieYoutube(@RequestParam long movieNo) {
+		List<Map<String, Object>> result = movieService.getYouTubeLink(movieNo);
+		System.out.println("<유튜브 링크 백 -> 프론트> 영화고유번호 : "+movieNo);
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "유튜브 링크 보내기 (프론트 -> 백)", notes = "입력값 : movieNo(영화고유번호), title(영화제목), thumbnail(썸네일), url(링크)")
+	@PostMapping("/youtube_post")
+	public ResponseEntity<?> postMovieYoutube(@RequestBody List<Map<String, String>> param) {
+		movieService.postYoutubeLike(param);
+		System.out.println("<유튜브 링크 프론트 -> 백> 영화고유번호 : "+param.get(0).get("movieNo")+", 영화제목 : "+param.get(0).get("title"));
+		return new ResponseEntity<>("success", HttpStatus.OK);
+	}
+	
+//	@GetMapping("/test")
+//	public ResponseEntity<?> test() {
+//		movieService.test();
+//		return new ResponseEntity<>("", HttpStatus.OK);
+//	}
 }

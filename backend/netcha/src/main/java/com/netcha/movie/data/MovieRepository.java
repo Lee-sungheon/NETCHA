@@ -55,6 +55,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	// 검색어를 포함하는 영화
 	@Query("select m from Movie m where m.open >= :open and m.title like %:title%")
 	public List<Movie> findByOpenAndTitle(@Param("open") String open, @Param("title") String title);
+	@Query("select m from Movie m where m.open >= :open and m.title like %:title%")
+	public List<Movie> findByOpenAndTitleAndPage(@Param("open") String open, @Param("title") String title, Pageable page);
 	@Query("select m.no from Movie m where m.open >= :open and m.title like %:title%")
 	public List<Long> findByNoAndOpenAndTitle(@Param("open") String open, @Param("title") String title);
 	@Query("select m from Movie m where m.open >= :open and m.casts like %:cast%")
