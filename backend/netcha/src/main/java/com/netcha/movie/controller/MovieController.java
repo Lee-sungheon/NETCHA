@@ -381,11 +381,12 @@ public class MovieController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "검색 : 제목만 (자음, 모음으로만은 검색 안됨)", notes = "입력값 : userId(유저고유번호), search(검색어)")
+	@ApiOperation(value = "검색 : 제목만 (자음, 모음으로만은 검색 안됨)", notes = "입력값 : search(검색어)")
 	@GetMapping("/search_title")
-	public ResponseEntity<?> searchMovieByTitle(@RequestParam long userId, @RequestParam String search) {
-		
-		return null;
+	public ResponseEntity<?> searchMovieByTitle(@RequestParam String search) {
+		List<String> result = movieService.searchMovieByTitle(search);
+		System.out.println("<제목검색> 검색어 : "+search);
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
 //	@GetMapping("/test")
