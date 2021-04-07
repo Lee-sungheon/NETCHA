@@ -78,17 +78,17 @@ export default function Mbti(props) {
       })
       .then((res) => {
         axios
-          .post("netcha/user/info", body.userId, {
+          .get("netcha/user/info", {
             headers: {
               "Content-Type": "application/json",
             },
           })
           .then((res) => {
             dispatch(actions.userInfo(res.data.data));
+            history.push({
+              pathname: "/home",
+            });
           });
-        history.push({
-          pathname: "/home",
-        });
       });
   };
   return (
