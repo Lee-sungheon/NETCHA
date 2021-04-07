@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const SearchMovieListContainer = ({ location }) => {
   const [loading, setLoading] = useState(null);
   const [reqStop, setReqStop] = useState(false);
-  const [page, setPage] = useState(-1);
+  const [page, setPage] = useState(0);
   const [movies, setMovies] = useState(null);
   const { userId, keyword } = useSelector(({ user, autoCompletesMovies }) => ({
     keyword: autoCompletesMovies.keyword.keyword,
@@ -42,10 +42,11 @@ const SearchMovieListContainer = ({ location }) => {
     } catch (e) {
       console.log(e);
     }
-  };
+  };  
 
   useEffect(() => {
     getSearchMovies(page);
+    console.log('들어옴');
   }, []);
 
   const _infiniteScroll = useCallback(() => {
@@ -65,11 +66,9 @@ const SearchMovieListContainer = ({ location }) => {
     if (scrollTop + clientHeight === scrollHeight) {
       console.log("fetchMore");
       setPage(page + 1);
-      const add = getSearchMovies(page + 1);
-      console.dir(add);
-      console.log("page: " + page);
-      if (add) setMovies(movies.concat(add));
-      else setReqStop(true);
+      console.log("page: " + page+1);
+      setMovies(movies.concat(getSearchMovies(page + 1)));
+      // else setReqStop(true);
     }
   }, [page, movies]);
 
