@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.netcha.movie.data.MovieResponseDto;
 import com.netcha.movie.data.MovieReviewDto;
-import com.netcha.movie.data.MovieYoutube;
 import com.netcha.movie.service.MovieService;
 
 import io.swagger.annotations.ApiOperation;
@@ -398,11 +397,11 @@ public class MovieController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "유튜브 링크 보내기 (프론트 -> 백)", notes = "입력값 : movieNo(영화고유번호), title(영화제목), thumbnail(썸네일), url(링크)")
+	@ApiOperation(value = "유튜브 링크 보내기 (프론트 -> 백)", notes = "입력값 : movieNo(영화고유번호), title(제목), thumbnail(썸네일), url(링크)")
 	@PostMapping("/youtube_post")
 	public ResponseEntity<?> postMovieYoutube(@RequestBody List<Map<String, String>> param) {
 		movieService.postYoutubeLike(param);
-		System.out.println("<유튜브 링크 프론트 -> 백> 영화고유번호 : "+param.get(0).get("movieNo")+", 영화제목 : "+param.get(0).get("title"));
+		System.out.println("<유튜브 링크 프론트 -> 백> 영화고유번호 : "+param.get(0).get("movieNo")+", 사이즈 : "+param.size());
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
