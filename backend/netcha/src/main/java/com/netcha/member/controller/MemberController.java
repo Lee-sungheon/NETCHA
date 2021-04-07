@@ -91,13 +91,14 @@ public class MemberController {
 	}
 
 	@ApiOperation(value = "토큰 쿠키로 반환", response = Response.class)
-	   @GetMapping("/getToken/{token}")
-	   public Response getToken(@PathVariable String token, HttpServletRequest req, HttpServletResponse res) {
+	@GetMapping("/getToken/{token}")
+	public Response getToken(@PathVariable String token, HttpServletRequest req, HttpServletResponse res) {
 		try {
-			res.setHeader("Set-Cookie", "JSESSIONID=" + req.getRequestedSessionId() + "; path=/; Secure; SameSite=None");
 			Member member = authService.findByUserId(jwtUtil.getUsername(token));
 			Cookie accessToken = cookieUtil.createCookie(JwtUtil.ACCESS_TOKEN_NAME, token);
 			Cookie refreshToken = cookieUtil.createCookie(JwtUtil.REFRESH_TOKEN_NAME, redisUtil.getData(member.getUserId()));
+			res.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, DELETE");
+			res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
 			res.addCookie(accessToken);
 			res.addCookie(refreshToken);
 			MemberResponseDto userInfo = new MemberResponseDto(member);
