@@ -1278,10 +1278,22 @@ public class MovieService {
 	
 	// 유튜브 링크 보내기
 	@Transactional
-	public List<MovieYoutube> getYouTubeLink(long movieNo) {
-		List<MovieYoutube> movieYoutube = movieYoutubeRepository.findByMovieNo(movieNo);
-		if(movieYoutube.size() == 0) return null;
-		else return movieYoutube;
+	public List<Map<String, Object>> getYouTubeLink(long movieNo) {
+//		List<MovieYoutube> movieYoutube = movieYoutubeRepository.findByMovieNo(movieNo);
+//		if(movieYoutube.size() == 0) return null;
+//		else return movieYoutube;
+		Movie movie = movieRepository.findById(movieNo).get();
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		for(int i=0; i<movie.getMovieYoutube().size(); i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("no", movie.getMovieYoutube().get(i).getNo());
+			map.put("title", movie.getMovieYoutube().get(i).getTitle());
+			map.put("thumbnail", movie.getMovieYoutube().get(i).getThumbnail());
+			map.put("url", movie.getMovieYoutube().get(i).getLinkUrl());
+			map.put("movieNo", movie.getMovieYoutube().get(i).getMovie().getNo());
+			result.add(map);
+		}
+		return result;
 	}
 	
 	// 유튜브 링크 받기
