@@ -1278,20 +1278,25 @@ public class MovieService {
 	
 	// 유튜브 링크 보내기
 	@Transactional
-	public MovieYoutube getYouTubeLink(long movieNo) {
-		MovieYoutube movieYoutube = movieYoutubeRepository.findByMovieNo(movieNo);
-		if(movieYoutube == null) return null;
+	public List<MovieYoutube> getYouTubeLink(long movieNo) {
+		List<MovieYoutube> movieYoutube = movieYoutubeRepository.findByMovieNo(movieNo);
+		if(movieYoutube.size() == 0) return null;
 		else return movieYoutube;
 	}
 	
 	// 유튜브 링크 받기
 	@Transactional
-	public void postYoutubeLike(long movieNo, String title, String thumbnail, String url) {
-		MovieYoutube movieYoutube = movieYoutubeRepository.findByMovieNo(movieNo);
-		if(movieYoutube == null) {
-			Movie movie = movieRepository.findById(movieNo).get();
-			movieYoutube = new MovieYoutube(movie, title, thumbnail, url);
-			movieYoutubeRepository.save(movieYoutube);
+	public void postYoutubeLike(List<Map<String, String>> movieYoutubes) {
+		List<MovieYoutube> temp = movieYoutubeRepository.findByMovieNo(Long.parseLong(movieYoutubes.get(0).get("movieNo")));
+		if(temp.size() == 0) {
+			for(int i=0; i<movieYoutubes.size(); i++) {
+				long movieNo = Long.parseLong(movieYoutubes.get(i).get("movieNo"));
+				String title = movieYoutubes.get(i).get("title");
+				String thumbnail = movieYoutubes.get(i).get("thumbnail");
+				String url = movieYoutubes.get(i).get("url");
+				Movie movie = movieRepository.findById(movieNo).get();
+				movieYoutubeRepository.save(new MovieYoutube(movie, title, thumbnail, url));
+			}
 		}
 	}
 	
