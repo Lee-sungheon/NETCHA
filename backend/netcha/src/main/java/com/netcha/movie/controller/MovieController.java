@@ -393,20 +393,16 @@ public class MovieController {
 	@ApiOperation(value = "유튜브 링크 받기 (백 -> 프론트) : 없으면 null", notes = "입력값 : movieNo(영화고유번호)")
 	@GetMapping("/youtube_get")
 	public ResponseEntity<?> getMovieYoutube(@RequestParam long movieNo) {
-		MovieYoutube result = movieService.getYouTubeLink(movieNo);
+		List<MovieYoutube> result = movieService.getYouTubeLink(movieNo);
 		System.out.println("<유튜브 링크 백 -> 프론트> 영화고유번호 : "+movieNo);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "유튜브 링크 보내기 (프론트 -> 백)", notes = "입력값 : movieNo(영화고유번호), title(영화제목), thumbnail(썸네일), url(링크)")
 	@PostMapping("/youtube_post")
-	public ResponseEntity<?> postMovieYoutube(@RequestBody Map<String, String> param) {
-		long movieNo = Long.parseLong(param.get("movieNo"));
-		String title = param.get("title");
-		String thumbnail = param.get("thumbnail");
-		String url = param.get("url");
-		movieService.postYoutubeLike(movieNo, title, thumbnail, url);
-		System.out.println("<유튜브 링크 프론트 -> 백> 영화고유번호 : "+movieNo+", 영화제목 : "+title);
+	public ResponseEntity<?> postMovieYoutube(@RequestBody List<Map<String, String>> param) {
+		movieService.postYoutubeLike(param);
+		System.out.println("<유튜브 링크 프론트 -> 백> 영화고유번호 : "+param.get(0).get("movieNo")+", 영화제목 : "+param.get(0).get("title"));
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
