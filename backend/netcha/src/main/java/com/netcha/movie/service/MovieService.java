@@ -30,6 +30,8 @@ import com.netcha.movie.data.MovieReviewDto;
 import com.netcha.movie.data.MovieReviewLike;
 import com.netcha.movie.data.MovieReviewLikeRepository;
 import com.netcha.movie.data.MovieReviewRepository;
+import com.netcha.movie.data.MovieYoutube;
+import com.netcha.movie.data.MovieYoutubeRepository;
 import com.netcha.movie.data.MovieZzim;
 import com.netcha.movie.data.MovieZzimRepository;
 
@@ -44,6 +46,7 @@ public class MovieService {
 	private final MovieZzimRepository movieZzimRepository;
 	private final MovieReviewRepository movieReviewRepository;
 	private final MovieReviewLikeRepository movieReviewLikeRepository;
+	private final MovieYoutubeRepository movieYoutubeRepository;
 	private final MemberRepository memberRepository;
 	private List<Long> searchNos = null;
 	private List<Movie> searchMovies = null;
@@ -1275,9 +1278,21 @@ public class MovieService {
 	
 	// 유튜브 링크 보내기
 	@Transactional
-	public Map<String, String> getYouTubeLink(long movieNo) {
-		
-		return null;
+	public MovieYoutube getYouTubeLink(long movieNo) {
+		MovieYoutube movieYoutube = movieYoutubeRepository.findByMovieNo(movieNo);
+		if(movieYoutube == null) return null;
+		else return movieYoutube;
+	}
+	
+	// 유튜브 링크 받기
+	@Transactional
+	public void postYoutubeLike(long movieNo, String title, String thumbnail, String url) {
+		MovieYoutube movieYoutube = movieYoutubeRepository.findByMovieNo(movieNo);
+		if(movieYoutube == null) {
+			Movie movie = movieRepository.findById(movieNo).get();
+			movieYoutube = new MovieYoutube(movie, title, thumbnail, url);
+			movieYoutubeRepository.save(movieYoutube);
+		}
 	}
 	
 //	@Transactional

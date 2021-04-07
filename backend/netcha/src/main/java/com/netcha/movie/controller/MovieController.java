@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.netcha.movie.data.MovieResponseDto;
 import com.netcha.movie.data.MovieReviewDto;
+import com.netcha.movie.data.MovieYoutube;
 import com.netcha.movie.service.MovieService;
 
 import io.swagger.annotations.ApiOperation;
@@ -387,6 +388,26 @@ public class MovieController {
 		List<String> result = movieService.searchMovieByTitle(search);
 		System.out.println("<제목검색> 검색어 : "+search);
 		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "유튜브 링크 받기 (백 -> 프론트) : 없으면 null", notes = "입력값 : movieNo(영화고유번호)")
+	@GetMapping("/youtube_get")
+	public ResponseEntity<?> getMovieYoutube(@RequestParam long movieNo) {
+		MovieYoutube result = movieService.getYouTubeLink(movieNo);
+		System.out.println("<유튜브 링크 백 -> 프론트> 영화고유번호 : "+movieNo);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "유튜브 링크 보내기 (프론트 -> 백)", notes = "입력값 : movieNo(영화고유번호), title(영화제목), thumbnail(썸네일), url(링크)")
+	@PostMapping("/youtube_post")
+	public ResponseEntity<?> postMovieYoutube(@RequestBody Map<String, String> param) {
+		long movieNo = Long.parseLong(param.get("movieNo"));
+		String title = param.get("title");
+		String thumbnail = param.get("thumbnail");
+		String url = param.get("url");
+		movieService.postYoutubeLike(movieNo, title, thumbnail, url);
+		System.out.println("<유튜브 링크 프론트 -> 백> 영화고유번호 : "+movieNo+", 영화제목 : "+title);
+		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
 //	@GetMapping("/test")
