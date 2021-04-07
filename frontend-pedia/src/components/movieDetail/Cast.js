@@ -20,7 +20,7 @@ const ActorList = ({ actors }) => {
     <Slider {...settings}>
       {actors.map((actor, index) => (
         <div className="actorWrapper" key={index}>
-          <div className="actorImage"></div>
+          <div className="actorImage" style={{backgroundImage: `url(${actor.image})`}}></div>
           <div className="actorBlock">
             <div className="actorName">{actor}</div>
             <div className="actorRole">출연자</div>
