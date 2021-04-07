@@ -8,6 +8,7 @@ export const readMovie = (formData) => {
 // 영화 검색 목록
 export const listSearchMovies = ({ page, keyword, userId }) => {
   return client.get(`/movie/search_total?pageNum=${page}&search=${keyword}&userId=${userId}`);
+  // return client.get(`/movie/list_newContents?pageNum=${page}&userId=${userId}`);
 };
 
 // 메인페이지 넷챠 영화 순위 목록
