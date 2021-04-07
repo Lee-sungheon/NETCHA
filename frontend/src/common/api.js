@@ -98,6 +98,7 @@ export function callApiCountryGanreMovieList(country, ganre, pageNum, userId) {
 
 export function callApiGanreMovieList(ganre, pageNum, userId) {
   const url = `netcha/movie/list_ganre?ganre=${ganre}&pageNum=${pageNum}&userId=${userId}`;
+  console.log("??")
   return axios
     .get(url)
     .then((Response) => {
