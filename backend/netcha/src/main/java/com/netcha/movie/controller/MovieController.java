@@ -373,25 +373,24 @@ public class MovieController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "검색 : 제목, 감독, 배우 포함 (자음, 모음으로만은 검색 안됨)", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작)), search(검색어)")
+	@ApiOperation(value = "통합검색 : 제목, 감독, 배우 포함 (자음, 모음으로만은 검색 안됨)", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작)), search(검색어)")
 	@GetMapping("/search_total")
 	public ResponseEntity<?> searchMovieByTotal(@RequestParam long userId, @RequestParam long pageNum, @RequestParam String search) {
-		List<MovieResponseDto> result = movieService.searchMovieByTitle((int)userId, (int)pageNum, search, 1);
+		List<MovieResponseDto> result = movieService.searchTotalMovie((int)userId, (int)pageNum, search);
 		System.out.println("<통합검색> 검색어 : "+search+", 유저고유번호 : "+userId+", 페이지번호 : "+pageNum);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "검색 : 제목만 (자음, 모음으로만은 검색 안됨)", notes = "입력값 : userId(유저고유번호), pageNum(페이지 번호(0번부터 시작)), search(검색어)")
+	@ApiOperation(value = "검색 : 제목만 (자음, 모음으로만은 검색 안됨)", notes = "입력값 : userId(유저고유번호), search(검색어)")
 	@GetMapping("/search_title")
-	public ResponseEntity<?> searchMovieByTitle(@RequestParam long userId, @RequestParam long pageNum, @RequestParam String search) {
-		List<MovieResponseDto> result = movieService.searchMovieByTitle((int)userId, (int)pageNum, search, 2);
-		System.out.println("<제목검색> 검색어 : "+search+", 유저고유번호 : "+userId+", 페이지번호 : "+pageNum);
-		return new ResponseEntity<>(result, HttpStatus.OK);
+	public ResponseEntity<?> searchMovieByTitle(@RequestParam long userId, @RequestParam String search) {
+		
+		return null;
 	}
 	
-	@GetMapping("/test")
-	public ResponseEntity<?> test() {
-		movieService.test();
-		return new ResponseEntity<>("", HttpStatus.OK);
-	}
+//	@GetMapping("/test")
+//	public ResponseEntity<?> test() {
+//		movieService.test();
+//		return new ResponseEntity<>("", HttpStatus.OK);
+//	}
 }
