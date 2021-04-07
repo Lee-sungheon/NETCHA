@@ -10,7 +10,7 @@ for(let idx = 0; idx < 40; idx++) {
     const movieNum = arr[0].trim();
     
     for(let i = 1; i < arr.length; i++) {
-      const url = `https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=${encodeURI("영화감독 " + arr[i])}`;
+      const url = `https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=${encodeURI("영화배우 " + arr[i])}`;
 
       request(url, (error, response, body) => {
         if (error) throw error;
@@ -23,7 +23,7 @@ for(let idx = 0; idx < 40; idx++) {
 
         try {
           fs.appendFile(
-            "test1.csv",
+            "result.csv",
             movieNum + "," + arr[i].trim() + "," + result + "\r\n",
             function (err) {
               if (err) throw err;

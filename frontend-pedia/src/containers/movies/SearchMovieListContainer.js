@@ -9,7 +9,7 @@ const SearchMovieListContainer = ({ location }) => {
   const [loading, setLoading] = useState(null);
   const [reqStop, setReqStop] = useState(false);
   const [page, setPage] = useState(0);
-  const [movies, setMovies] = useState(null);
+  const [movies, setMovies] = useState([]);
   const { userId, keyword } = useSelector(({ user, autoCompletesMovies }) => ({
     keyword: autoCompletesMovies.keyword.keyword,
     userId: user.user.userId,
@@ -18,58 +18,62 @@ const SearchMovieListContainer = ({ location }) => {
   //   ignoreQueryPrefix: true,
   // });
 
-  if (keyword) {
-    console.log("keyword");
-    console.dir(keyword);
+  const getSearchMovies = function(newPage){
+    moviesApi.listSearchMovies({
+      keyword,
+      page: newPage,
+      userId
+    });
   }
-  const getSearchMovies = async (newPage) => {
-    try {
-      setLoading(true);
-      const response = await moviesApi.listSearchMovies({
-        keyword,
-        page: newPage,
-        userId,
-      });
-      // if (movies) {
-      //   setMovies([...movies, ...response.data]);
-      // }
-      // else {
-      //   setMovies(response.data);
-      // }
-      setLoading(false);
-
-      return response.data;
-    } catch (e) {
-      console.log(e);
-    }
-  };  
+  // const getSearchMovies = async (newPage) => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await moviesApi.listSearchMovies({
+  //       keyword,
+  //       page: newPage,
+  //       userId,
+  //     });
+  //     // console.log('response');
+  //     // console.dir(response);
+  //     // // setMovies([...movies, ...response.data]);
+  //     // // setMovies(response.data);
+      
+  //     setLoading(false);
+  //     // if(response.data.length === 0) setReqStop(true);
+  //     return response.datagetSearchMovies;
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };  
 
   useEffect(() => {
-    getSearchMovies(page);
-    console.log('들어옴');
+    getSearchMovies(0);
+    setMovies((page));
   }, []);
-
+  
   const _infiniteScroll = useCallback(() => {
     if (reqStop) return;
     console.log("scroll");
-
+    
     let scrollHeight = Math.max(
       document.documentElement.scrollHeight,
       document.body.scrollHeight
-    );
-    let scrollTop = Math.max(
-      document.documentElement.scrollTop,
-      document.body.scrollTop
-    );
-    let clientHeight = document.documentElement.clientHeight;
-
-    if (scrollTop + clientHeight === scrollHeight) {
-      console.log("fetchMore");
-      setPage(page + 1);
-      console.log("page: " + page+1);
-      setMovies(movies.concat(getSearchMovies(page + 1)));
-      // else setReqStop(true);
+      );
+      let scrollTop = Math.max(
+        document.documentElement.scrollTop,
+        document.body.scrollTop
+        );
+        let clientHeight = document.documentElement.clientHeight;
+        
+        if (scrollTop + clientHeight === scrollHeight) {
+          console.log("fetchMore");
+          setPage(page + 1);
+          console.log("page: " + page+1);
+          setMovies(movies.concat(getSearchMovies(page + 1)));
+          // setMovies([...movies, ...(getSearchMovies(page + 1))]);
+          console.log(movies)
     }
+    else setReqStop(true);
   }, [page, movies]);
 
   useEffect(() => {
