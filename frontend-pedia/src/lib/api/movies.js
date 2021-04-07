@@ -84,14 +84,13 @@ export const listAutoCompletesMovies = (keyword) => {
 
 // 영화 유튜브 정보 받기
 export const listMovieVideos = (movieNo) => {
-  // return client.get(`/movies/???no=${movieNo}`);
-  return null;
+  return client.get(`/movie/youtube_get?movieNo=${movieNo}`);
 }
 
 // 영화 유튜브 정보 보내기
 export const updateMovieVideos = (data) => {
   console.dir(data);
-  // return client.post('/movies/??', data);
+  return client.post('/movie/youtube_post', data);
 }
 
 
