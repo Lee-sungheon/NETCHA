@@ -53,6 +53,10 @@ public class Movie {
 	@OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
 	private List<MovieZzim> movieZzim = new ArrayList<MovieZzim>();
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
+	private List<MovieYoutube> movieYoutube = new ArrayList<MovieYoutube>();
+	
 	public void updateCrawling(String rating, String posterUrl, String imageUrl) {
 		this.rating = rating;
 		this.posterUrl = posterUrl;
