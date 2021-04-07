@@ -30,6 +30,8 @@ import com.netcha.movie.data.MovieReviewDto;
 import com.netcha.movie.data.MovieReviewLike;
 import com.netcha.movie.data.MovieReviewLikeRepository;
 import com.netcha.movie.data.MovieReviewRepository;
+import com.netcha.movie.data.MovieYoutube;
+import com.netcha.movie.data.MovieYoutubeRepository;
 import com.netcha.movie.data.MovieZzim;
 import com.netcha.movie.data.MovieZzimRepository;
 
@@ -44,6 +46,7 @@ public class MovieService {
 	private final MovieZzimRepository movieZzimRepository;
 	private final MovieReviewRepository movieReviewRepository;
 	private final MovieReviewLikeRepository movieReviewLikeRepository;
+	private final MovieYoutubeRepository movieYoutubeRepository;
 	private final MemberRepository memberRepository;
 	private List<Long> searchNos = null;
 	private List<Movie> searchMovies = null;
@@ -92,7 +95,7 @@ public class MovieService {
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		List<Movie> movieR = movieRepository.findByOpenAndTimeAndMovieId(open, time, movieId);
 		for(Movie m : movieR) {
-			if(m.getRating().equals("")) {
+			if(m.getPosterUrl().equals("")) {
 				String[] result = crawling(m);
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
@@ -107,7 +110,7 @@ public class MovieService {
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		List<Movie> movieR = movieRepository.findByOrderByOpenDesc(PageRequest.of(pageNum, 40, Direction.DESC, "open"));
 		for(Movie m : movieR) {
-			if(m.getRating().equals("")) {
+			if(m.getPosterUrl().equals("")) {
 				String[] result = crawling(m);
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
@@ -135,7 +138,7 @@ public class MovieService {
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		List<Movie> movieR = movieRepository.findByOrderByTotalViewDesc("2015-01-01", PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
 		for(Movie m : movieR) {
-			if(m.getRating().equals("")) {
+			if(m.getPosterUrl().equals("")) {
 				String[] result = crawling(m);
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
@@ -203,7 +206,7 @@ public class MovieService {
 		if(last >= scoreList.size()) last = scoreList.size();
 		for(int i=idx; i<last; i++) {
 			Movie m = movieRepository.findById((long)scoreList.get(i)[0]).get();
-			if(m.getRating().equals("")) {
+			if(m.getPosterUrl().equals("")) {
 				String[] temp = crawling(m);
 				m.updateCrawling(temp[0], temp[1], temp[2]);
 			}
@@ -272,7 +275,7 @@ public class MovieService {
 		if(last >= scoreList.size()) last = scoreList.size();
 		for(int i=idx; i<last; i++) {
 			Movie m = movieRepository.findById((long)scoreList.get(i)[0]).get();
-			if(m.getRating().equals("")) {
+			if(m.getPosterUrl().equals("")) {
 				String[] temp = crawling(m);
 				m.updateCrawling(temp[0], temp[1], temp[2]);
 			}
@@ -343,7 +346,7 @@ public class MovieService {
 		if(last >= scoreList.size()) last = scoreList.size();
 		for(int i=idx; i<last; i++) {
 			Movie m = movieRepository.findById((long)scoreList.get(i)[0]).get();
-			if(m.getRating().equals("")) {
+			if(m.getPosterUrl().equals("")) {
 				String[] temp = crawling(m);
 				m.updateCrawling(temp[0], temp[1], temp[2]);
 			}
@@ -369,7 +372,7 @@ public class MovieService {
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		List<Movie> movieR = movieRepository.findByGanreOrderByTotalViewDesc("2015-01-01", ganre, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
 		for(Movie m : movieR) {
-			if(m.getRating().equals("")) {
+			if(m.getPosterUrl().equals("")) {
 				String[] result = crawling(m);
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
@@ -397,7 +400,7 @@ public class MovieService {
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		List<Movie> movieR = movieRepository.findByKeywordOrderByTotalViewDesc("2015-01-01", keyword, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
 		for(Movie m : movieR) {
-			if(m.getRating().equals("")) {
+			if(m.getPosterUrl().equals("")) {
 				String[] result = crawling(m);
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
@@ -425,7 +428,7 @@ public class MovieService {
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		List<Movie> movieR = movieRepository.findByCountryOrderByTotalViewDesc("2015-01-01", country, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
 		for(Movie m : movieR) {
-			if(m.getRating().equals("")) {
+			if(m.getPosterUrl().equals("")) {
 				String[] result = crawling(m);
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
@@ -453,7 +456,7 @@ public class MovieService {
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		List<Movie> movieR = movieRepository.findByOrderByTotalViewDesc("2015-01-01", PageRequest.of(pageNum, 40, Direction.DESC, "avgRank", "totalView"));
 		for(Movie m : movieR) {
-			if(m.getRating().equals("")) {
+			if(m.getPosterUrl().equals("")) {
 				String[] result = crawling(m);
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
@@ -481,7 +484,7 @@ public class MovieService {
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		List<Movie> movieR = movieRepository.findByGanreLikeAndCountryLike("2015-01-01", ganre, country, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
 		for(Movie m : movieR) {
-			if(m.getRating().equals("")) {
+			if(m.getPosterUrl().equals("")) {
 				String[] result = crawling(m);
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
@@ -509,7 +512,7 @@ public class MovieService {
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		List<Movie> movieR = movieRepository.findByDirectorLike("2015-01-01", director, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
 		for(Movie m : movieR) {
-			if(m.getRating().equals("")) {
+			if(m.getPosterUrl().equals("")) {
 				String[] result = crawling(m);
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
@@ -537,7 +540,7 @@ public class MovieService {
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		List<Movie> movieR = movieRepository.findByCastLike("2015-01-01", cast, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
 		for(Movie m : movieR) {
-			if(m.getRating().equals("")) {
+			if(m.getPosterUrl().equals("")) {
 				String[] result = crawling(m);
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
@@ -595,7 +598,7 @@ public class MovieService {
 		List<Movie> movieR = movieRepository.findByNoIn("2015-01-01", movieNos, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		for(Movie m : movieR) {
-			if(m.getRating().equals("")) {
+			if(m.getPosterUrl().equals("")) {
 				String[] result = crawling(m);
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
@@ -628,7 +631,7 @@ public class MovieService {
 		}
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		for(Movie m : movieR) {
-			if(m.getRating().equals("")) {
+			if(m.getPosterUrl().equals("")) {
 				String[] result = crawling(m);
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
@@ -698,7 +701,7 @@ public class MovieService {
 		List<Movie> movieR = movieRepository.findByNoIn("2015-01-01", movieNos, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		for(Movie m : movieR) {
-			if(m.getRating().equals("")) {
+			if(m.getPosterUrl().equals("")) {
 				String[] result = crawling(m);
 				m.updateCrawling(result[0], result[1], result[2]);
 			}
@@ -1142,9 +1145,9 @@ public class MovieService {
 		return result;
 	}
 	
-	// 검색 : ord=1 이면 제목, 배우, 감독 포함 검색, ord=2 이면 제목만
+	// 검색 : 제목, 배우, 감독 포함 검색
 	@Transactional
-	public List<MovieResponseDto> searchMovieByTitle(int userId, int pageNum, String search, int ord) {
+	public List<MovieResponseDto> searchTotalMovie(int userId, int pageNum, String search) {
 		for(int i=0; i<search.length(); i++) {
 			if(search.charAt(i) >= 'ㄱ' && search.charAt(i) <= 'ㅎ') search = search.replace(String.valueOf(search.charAt(i)), "");
 			else if(search.charAt(i) >= 'ㅏ' && search.charAt(i) <= 'ㅣ') search = search.replace(String.valueOf(search.charAt(i)), "");
@@ -1156,12 +1159,12 @@ public class MovieService {
 			searchNos = new ArrayList<Long>();
 			searchNos.add((long) 0);
 			searchNos.addAll(movieRepository.findByNoAndOpenAndTitle("2015-01-01", search));
-			if(ord == 1) {
-				searchMovies.addAll(movieRepository.findByOpenAndCasts("2015-01-01", search));
-				searchMovies.addAll(movieRepository.findByOpenAndDirectors("2015-01-01", search));
-				searchNos.addAll(movieRepository.findByNoOpenAndCasts("2015-01-01", search));
-				searchNos.addAll(movieRepository.findByNoOpenAndDirectors("2015-01-01", search));				
-			}
+			
+			searchMovies.addAll(movieRepository.findByOpenAndCasts("2015-01-01", search));
+			searchMovies.addAll(movieRepository.findByOpenAndDirectors("2015-01-01", search));
+			searchNos.addAll(movieRepository.findByNoOpenAndCasts("2015-01-01", search));
+			searchNos.addAll(movieRepository.findByNoOpenAndDirectors("2015-01-01", search));				
+			
 			List<MovieResponseDto> resultMovie = new ArrayList<MovieResponseDto>();
 			
 			int[] arr = new int[search.length()];
@@ -1178,7 +1181,7 @@ public class MovieService {
 			if(searchMovies.size() < 40) {
 				for(int i=0; i<searchMovies.size(); i++) {
 					Movie m = searchMovies.get(i);
-					if(m.getRating().equals("")) {
+					if(m.getPosterUrl().equals("")) {
 						String[] temp = crawling(m);
 						m.updateCrawling(temp[0], temp[1], temp[2]);
 					}
@@ -1211,7 +1214,7 @@ public class MovieService {
 				if(last >= searchMovies.size()) last = searchMovies.size();
 				for(int i=idx; i<last; i++) {
 					Movie m = searchMovies.get(i);
-					if(m.getRating().equals("")) {
+					if(m.getPosterUrl().equals("")) {
 						String[] temp = crawling(m);
 						m.updateCrawling(temp[0], temp[1], temp[2]);
 					}
@@ -1253,6 +1256,19 @@ public class MovieService {
 		}
 	}
 	
+	// 영화 제목 검색
+	@Transactional
+	public List<String> searchMovieByTitle(String search) {
+		for(int i=0; i<search.length(); i++) {
+			if(search.charAt(i) >= 'ㄱ' && search.charAt(i) <= 'ㅎ') search = search.replace(String.valueOf(search.charAt(i)), "");
+			else if(search.charAt(i) >= 'ㅏ' && search.charAt(i) <= 'ㅣ') search = search.replace(String.valueOf(search.charAt(i)), "");
+		}
+		List<Movie> movies = movieRepository.findByOpenAndTitleAndPage("2015-01-01", search, PageRequest.of(0, 10));
+		List<String> result = new ArrayList<String>();
+		for(int i=0; i<movies.size(); i++) result.add(movies.get(i).getTitle());
+		return result;
+	}
+	
 	// 조회수 증가
 	@Transactional
 	public void updateView(long movieNo) {
@@ -1260,15 +1276,49 @@ public class MovieService {
 		movie.updateView();
 	}
 	
+	// 유튜브 링크 보내기
 	@Transactional
-	public void test() {
-		List<Movie> list = movieRepository.findByOpenAndPosterUrl("2015-01-01", "");
-		for(Movie m : list) {
-			String[] result = crawling(m);
-			//System.out.println("("+m.getTitle()+")"+result[0]+" "+result[1]+" "+result[2]);
-			m.updateCrawling(result[0], result[1], result[2]);
+	public List<Map<String, Object>> getYouTubeLink(long movieNo) {
+//		List<MovieYoutube> movieYoutube = movieYoutubeRepository.findByMovieNo(movieNo);
+//		if(movieYoutube.size() == 0) return null;
+//		else return movieYoutube;
+		Movie movie = movieRepository.findById(movieNo).get();
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		for(int i=0; i<movie.getMovieYoutube().size(); i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("no", movie.getMovieYoutube().get(i).getNo());
+			map.put("title", movie.getMovieYoutube().get(i).getTitle());
+			map.put("thumbnail", movie.getMovieYoutube().get(i).getThumbnail());
+			map.put("url", movie.getMovieYoutube().get(i).getLinkUrl());
+			map.put("movieNo", movie.getMovieYoutube().get(i).getMovie().getNo());
+			result.add(map);
 		}
-		System.out.println(list.size());
-		
+		return result;
 	}
+	
+	// 유튜브 링크 받기
+	@Transactional
+	public void postYoutubeLike(List<Map<String, String>> movieYoutubes) {
+		List<MovieYoutube> temp = movieYoutubeRepository.findByMovieNo(Long.parseLong(movieYoutubes.get(0).get("movieNo")));
+		if(temp.size() == 0) {
+			for(int i=0; i<movieYoutubes.size(); i++) {
+				long movieNo = Long.parseLong(movieYoutubes.get(i).get("movieNo"));
+				String title = movieYoutubes.get(i).get("title");
+				String thumbnail = movieYoutubes.get(i).get("thumbnail");
+				String url = movieYoutubes.get(i).get("url");
+				Movie movie = movieRepository.findById(movieNo).get();
+				movieYoutubeRepository.save(new MovieYoutube(movie, title, thumbnail, url));
+			}
+		}
+	}
+	
+//	@Transactional
+//	public void test() {
+//		List<Movie> list = movieRepository.findAllByOpens("2015-01-01");
+//		for(Movie m : list) {
+//			System.out.println(m.getNo()+", "+m.getTitle());
+//		}
+//		System.out.println(list.size());
+//		
+//	}
 }

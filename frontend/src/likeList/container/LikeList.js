@@ -79,7 +79,6 @@ export default function LikeList() {
     <>
       <div className='like__container'>
         <div className="like__title">내가 찜한 콘텐츠</div>
-        <div style={{paddingTop: '50px'}} />
         { isLoading &&
           <div style={{height: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <CircularProgress color="secondary" />

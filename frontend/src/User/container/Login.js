@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import { actions } from "../state";
 import { navActions } from "../../navbar/state";
@@ -20,7 +20,7 @@ export default function Login(props) {
       setInputData({ ...inputData, userId: history.location.state.userId });
     }
     return () => {};
-  }, [dispatch, inputData, history.location.state]);
+  }, [dispatch, history.location.state]);
 
   const onUserIdHandler = (e) => {
     setInputData({ ...inputData, userId: e.target.value });
@@ -41,16 +41,29 @@ export default function Login(props) {
         },
       })
       .then(async (res) => {
-        console.log(res);
         if (res.data.response === "success") {
-          console.log("로그인성공");
-
           await dispatch(navActions.headerToggle(true));
           await dispatch(actions.userLogin(res.data.data));
-
           login_(res.data.data);
+        } else if (res.data.response === "authenticationError") {
+          alert("인증되지 않은 사용자입니다. 인증메일을 확인해주세요.");
+          axios
+            .post(
+              "netcha/user/verify",
+              JSON.stringify({ userId: body.userId }),
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            )
+            .then((res) => {
+              console.log("인증메일 발송");
+            })
+            .catch((err) => {
+              console.log("인증메일 발송 실패");
+            });
         } else {
-          console.log("로그인실패");
           alert("아이디/비밀번호가 틀렸습니다.");
         }
       })
