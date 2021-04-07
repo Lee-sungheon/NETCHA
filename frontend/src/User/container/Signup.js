@@ -76,8 +76,6 @@ export default function Signup(props) {
         },
       })
       .then((res) => {
-        console.log(res);
-        console.log(res.data.data);
         if (res.data.data === 0) {
           // 로그인화면
           history.push({
