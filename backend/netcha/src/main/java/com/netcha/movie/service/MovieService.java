@@ -88,21 +88,39 @@ public class MovieService {
 		return result;
 	}
 	
-	// 테스트용
-	@Transactional
-	public List<MovieResponseDto> findByOpenAndTimeAndMovieId(String open, long time, String movieId) {
-		System.out.println(open+" "+time+" "+movieId);
-		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
-		List<Movie> movieR = movieRepository.findByOpenAndTimeAndMovieId(open, time, movieId);
-		for(Movie m : movieR) {
-			if(m.getPosterUrl().equals("")) {
-				String[] result = crawling(m);
-				m.updateCrawling(result[0], result[1], result[2]);
-			}
-			movies.add(new MovieResponseDto(m));
-		}
-		return movies;
-	}
+//	// 이미지 크롤링
+//	@Transactional
+//	public void imageCrawling(Movie m) {
+//		//String[] result = new String[3];
+//		try {
+//			String url = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=영화+";
+//			url += m.getTitle();
+//			Document doc = Jsoup.connect(url).get();
+//			Elements divArea = doc.select("div.cm_content_area._cm_content_area_casting");
+//			// if(divArea == null) return null;
+//			Elements list = divArea.select("ul.list").select("li");
+//			
+//			
+//		} catch(Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+	
+//	// 테스트용
+//	@Transactional
+//	public List<MovieResponseDto> findByOpenAndTimeAndMovieId(String open, long time, String movieId) {
+//		System.out.println(open+" "+time+" "+movieId);
+//		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
+//		List<Movie> movieR = movieRepository.findByOpenAndTimeAndMovieId(open, time, movieId);
+//		for(Movie m : movieR) {
+//			if(m.getPosterUrl().equals("")) {
+//				String[] result = crawling(m);
+//				m.updateCrawling(result[0], result[1], result[2]);
+//			}
+//			movies.add(new MovieResponseDto(m));
+//		}
+//		return movies;
+//	}
 	
 	// 새로운 컨텐츠
 	@Transactional
