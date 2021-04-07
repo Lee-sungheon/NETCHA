@@ -22,6 +22,7 @@ import Movie from "./movie/container/Movie";
 import cx from "classnames";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+import TestMBTI from "./mbti/container/TestMbti";
 
 const persistor = persistStore(store);
 function App() {
@@ -44,44 +45,45 @@ function App() {
               )}
               <Login />
             </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/signup">
-              <Signup />
-            </Route>
+            <PublicRoute
+              restricted
+              path="/login"
+              component={Login}
+            ></PublicRoute>
+            <PublicRoute
+              restricted
+              path="/signup"
+              component={Signup}
+            ></PublicRoute>
             <Switch>
-              <Route path="/home" component={Home} />
-              <Route path="/movielist">
-                <MovieFilter />
-              </Route>
-              <Route path="/search" component={SearchList} />
-              <Route path="/mylike">
-                <LikeList />
-              </Route>
-              <Route path="/eval">
-                <Evaluation />
-              </Route>
-              <Route path="/account">
-                <Account />
-              </Route>
-
-              <Route path="/signupdetail">
-                <SignupDetail />
-              </Route>
-              <Route path="/profilelist">
-                <ProfileList />
-              </Route>
-              <Route path="/testmbti">
-                <TestMbti />
-              </Route>
-              <Route path="/mbtiresult">
-                <MbtiResult />
-              </Route>
-              <Route path="/mbti">
-                <Mbti />
-              </Route>
-              <Route path="/movie/:no" component={Movie}></Route>
+              <PrivateRoute path="/home" component={Home} />
+              <PrivateRoute
+                path="/movielist"
+                component={MovieFilter}
+              ></PrivateRoute>
+              <PrivateRoute path="/search" component={SearchList} />
+              <PrivateRoute path="/mylike" component={LikeList}></PrivateRoute>
+              <PrivateRoute path="/eval" component={Evaluation}></PrivateRoute>
+              <PrivateRoute path="/account" component={Account}></PrivateRoute>
+              <PublicRoute
+                restricted
+                path="/signupdetail"
+                component={SignupDetail}
+              ></PublicRoute>
+              <PrivateRoute
+                path="/profilelist"
+                component={ProfileList}
+              ></PrivateRoute>
+              <PrivateRoute
+                path="/testmbti"
+                component={TestMBTI}
+              ></PrivateRoute>
+              <PrivateRoute
+                path="/mbtiresult"
+                component={MbtiResult}
+              ></PrivateRoute>
+              <PrivateRoute path="/mbti" component={Mbti}></PrivateRoute>
+              <PrivateRoute path="/movie/:no" component={Movie}></PrivateRoute>
             </Switch>
             <Footer />
           </div>
@@ -92,3 +94,33 @@ function App() {
 }
 
 export default App;
+
+const PublicRoute = ({ component: Component, restricted, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        !!window.sessionStorage.getItem("token") && restricted ? (
+          <Redirect to="/home" />
+        ) : (
+          <Component {...props} />
+        )
+      }
+    />
+  );
+};
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        !!window.sessionStorage.getItem("token") ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/login" />
+        )
+      }
+    />
+  );
+};
