@@ -17,10 +17,10 @@ const store = createStore(
 function loadUser() {
   try {
     const user = JSON.parse(localStorage.getItem('user'));
-    if (!user) return;
+    if (!user) store.dispatch(setUser({ seq: 1, nickname: 'guest' }));
+    else store.dispatch(setUser(user));
     // console.log('user!!!!!!')
     // console.dir(user);
-    store.dispatch(setUser(user));
   } catch (e) {
     console.log('로그인 에러');
   }
