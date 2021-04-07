@@ -108,7 +108,6 @@ export default function SearchList({location}) {
             <CircularProgress color="secondary" />
           </div>
         }
-        <div style={{paddingTop: '50px'}} />
         { !isLoading && searchList.map((item, idx) => (
           <div id={`slider-${idx}`} className='like__container' key={idx}>
             <MovieList idx={`slider-${idx}`} num={tabNo}>
