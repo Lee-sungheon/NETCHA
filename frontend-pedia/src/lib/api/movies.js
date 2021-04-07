@@ -6,15 +6,9 @@ export const readMovie = (formData) => {
 };
 
 // 영화 검색 목록
-export const listSearchMovies = ({ page, keyword }) => {
-  // console.log('keyword:' + keyword);
-  // const queryString = qs.stringify({
-  //   keyword,
-  // });
-  // return (movies);
-  return client.get(`/movie/list_avgRank?pageNum=${page}&userId=1`);
-  // return client.get(`/movie/list_avgRank/${queryString}&page=${page}`)
-  // return client.get(`/api/searchMovies/${queryString}&page=${page}`)
+export const listSearchMovies = ({ page, keyword, userId }) => {
+  return client.get(`/movie/search_total?pageNum=${page}&search=${keyword}&userId=${userId}`);
+  // return client.get(`/movie/list_newContents?pageNum=${page}&userId=${userId}`);
 };
 
 // 메인페이지 넷챠 영화 순위 목록
@@ -55,6 +49,7 @@ export const countZzimMovies = (userId) => {
 export const updateZzimMovies = (formData) => {
   return client.post('movie/zzim_update', formData);
 };
+
 export const deleteZzimMovies = (formData) => {
   return client.delete('movie/zzim_delete', { params: formData });
 };
@@ -63,34 +58,34 @@ export const deleteZzimMovies = (formData) => {
 export const listAutoCompletesMovies = (keyword) => {
   if (!keyword || keyword.length === 0) return { data: [] };
 
-  const titles = new Set();
+  return client.get(`movie/search_title?search=${keyword}`);
+  // const titles = new Set();
 
-  movies_title.forEach((title) => {
-    var titleArray = title.split('');
-    var keywordArray = keyword.split('');
+  // movies_title.forEach((title) => {
+  //   var titleArray = title.split('');
+  //   var keywordArray = keyword.split('');
 
-    titleArray.forEach((c) => {
-      keywordArray.forEach((k) => {
-        if (k === c) {
-          titles.add(title);
-        }
-      });
-    });
-  });
+  //   titleArray.forEach((c) => {
+  //     keywordArray.forEach((k) => {
+  //       if (k === c) {
+  //         titles.add(title);
+  //       }
+  //     });
+  //   });
+  // });
 
-  // return client.get(`/movie/listautoCompletesMovies?${keyword}`);
-  return { data: Array.from(titles) };
+  // return { data: Array.from(titles) };
 };
 
-
+// 영화 유튜브 정보 받기
 export const listMovieVideos = (movieNo) => {
-  // return client.get(`/movies/???no=${movieNo}`);
-  return null;
+  return client.get(`/movie/youtube_get?movieNo=${movieNo}`);
 }
 
+// 영화 유튜브 정보 보내기
 export const updateMovieVideos = (data) => {
   console.dir(data);
-  // return client.post('/movies/??', data);
+  return client.post('/movie/youtube_post', data);
 }
 
 

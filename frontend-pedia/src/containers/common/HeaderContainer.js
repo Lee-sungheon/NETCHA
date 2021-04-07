@@ -7,7 +7,7 @@ export default function HeaderContainer() {
   const { user } = useSelector(({ user }) => ({ user }.user));
   const dispatch = useDispatch();
   const onLogin = () => {
-    const newUser = { seq: 1, nickname: 'guest' };
+    const newUser = { seq: 11, nickname: 'guest' };
     localStorage.setItem('user', JSON.stringify(newUser));
     dispatch(setUser(JSON.parse(localStorage.getItem('user'))));
   };
