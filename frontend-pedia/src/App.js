@@ -1,13 +1,13 @@
-import { BrowserRouter, Route } from "react-router-dom";
-import MovieRanking from "./pages/MovieRankingPage";
-import User from "./pages/User";
-import UserStaticsPage from "./pages/UserStaticsPage";
-import MovieDetail from "./pages/MovieDetailPage";
-import CommentDetail from "./pages/CommentDetailPage";
-import "./App.scss";
-import SearchMovieListPage from "./pages/SearchMovieListPage";
-import UserRatingMoviesListPage from "./pages/UserRatingMoviesListPage";
-import UserZzimMoviesListPage from "./pages/UserZzimMoviesListPage";
+import { BrowserRouter, Route } from 'react-router-dom';
+import MovieRanking from './pages/MovieRankingPage';
+import User from './pages/User';
+import UserStaticsPage from './pages/UserStaticsPage';
+import MovieDetail from './pages/MovieDetailPage';
+import CommentDetail from './pages/CommentDetailPage';
+import './App.scss';
+import SearchMovieListPage from './pages/SearchMovieListPage';
+import UserRatingMoviesListPage from './pages/UserRatingMoviesListPage';
+import UserZzimMoviesListPage from './pages/UserZzimMoviesListPage';
 
 const App = () => {
   return (
@@ -21,11 +21,7 @@ const App = () => {
           path="/user/statics/:id/:token"
           component={UserStaticsPage}
         />
-        <Route
-          exact
-          path="/user/statics/:id"
-          component={UserStaticsPage}
-        />
+        <Route exact path="/user/statics/:id" component={UserStaticsPage} />
         <Route exact path="/movieDetail/:movieNo" component={MovieDetail} />
         <Route
           exact
