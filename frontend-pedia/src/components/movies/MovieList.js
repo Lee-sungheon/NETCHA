@@ -31,6 +31,10 @@ const MovieItem = ({ movie }) => {
 const MovieList = ({ movies, headerTitle }) => {
   const history = useHistory();
 
+  if(movies) {
+    console.log('movies');
+    console.dir(movies);
+  }
   return (
     <>
       <div className="searchMovieListWrap">
@@ -45,7 +49,7 @@ const MovieList = ({ movies, headerTitle }) => {
           <div className="movieHeader">{headerTitle}</div>
         </div>
         <hr />
-        {movies && (
+        {movies && movies.length > 0 && (
           <div className="movieListWrap">
             {movies.map((movie, index) => {
               return <MovieItem movie={movie} key={index} />;

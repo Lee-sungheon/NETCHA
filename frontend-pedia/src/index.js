@@ -18,7 +18,7 @@ const store = createStore(
 function loadUser() {
   try {
     const user = JSON.parse(localStorage.getItem('user'));
-    if (!user) store.dispatch(setUser({ seq: 1, nickname: 'guest' }));
+    if (!user) store.dispatch(setUser({ seq: 11, nickname: 'guest' }));
     else store.dispatch(setUser(user));
     // console.log('user!!!!!!')
     // console.dir(user);

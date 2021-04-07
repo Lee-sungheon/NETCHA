@@ -5,6 +5,7 @@ import * as moviesApi from '../../lib/api/movies';
 import './Video.scss';
 
 const API_KEY = [
+  'AIzaSyBdpUamxH0rDlC-AO_HJCLM8xtPJypugXg',  // 얘는 할당량 초과 킨데 확인용임 
   'AIzaSyCu17720nhALyT7pA4npHg2RBWCzLPyQd8',
   'AIzaSyAF-_uQIzruH-iViU7EJXBvFhQrh39iDDU',
   'AIzaSyAOlnLY5aF3MRjLUt7ypOpPYKSMH77AqLs',
@@ -14,6 +15,7 @@ const API_KEY = [
 
 const Video = ({ movieNo, movieTitle }) => {
   const [loading, setLoading] = useState(null);
+  const [index, setIndex] = useState(0);
   const [videoInfo, setVideoInfo] = useState(null);
 
   const settings = {
@@ -35,12 +37,12 @@ const Video = ({ movieNo, movieTitle }) => {
     return str;
   };
 
-  let index = 0;
   const getVideoInfo = async () => {
     try {
       setLoading(true);
       const response = await moviesApi.listMovieVideos(movieNo);
-      if (response === null) {
+      console.dir(response);
+      if (response.data.length === 0) {
         searchYouTube({
           keyword: movieTitle + ' 예고편',
           max: 3,
@@ -49,42 +51,51 @@ const Video = ({ movieNo, movieTitle }) => {
       } else {
         setVideoInfo(response.data);
       }
+      setLoading(false);
     } catch (e) {
-      if (index < API_KEY.length) {
-        getVideoInfo(index + 1);
-      }
       console.log(e);
     }
-    setLoading(false);
   };
-
+  
   useEffect(() => {
     getVideoInfo();
-  }, []);
-
+  }, [index]);
+  
   const searchYouTube = async ({ keyword, max, key }, callback) => {
+    console.log('유튜브 API 요청');
     await axios
       .get(
         `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${key}&q=${keyword}&maxResults=${max}&type=video&videoEmbeddable=true`
       )
       .then((response) => {
+        console.log('유튜브 API 성공');
         var arr = [];
         response.data.items.forEach((info) => {
           arr.push({
             url: `https://www.youtube.com/watch?v=${info.id.videoId}`,
             thumbnail: info.snippet.thumbnails.default.url,
             title: info.snippet.title,
-            movieNo: movieNo,
+            movieNo: movieNo.toString(),
           });
         });
         setVideoInfo(arr);
-
         // 백엔드로 유튜브 데이터 전송
         try {
+          console.log('백엔드로 전송');
           moviesApi.updateMovieVideos(arr);
         } catch (e) {
           console.log(e);
         }
+      })
+      .catch((e) => {
+        console.log(e);
+        console.log('index: ' + index);
+        if (index < API_KEY.length) {
+          console.log('다음 API 키 사용');
+          setIndex(index+1);
+          getVideoInfo(index+1);
+        }
+
       });
   };
 
