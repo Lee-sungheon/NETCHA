@@ -97,9 +97,9 @@ public class MemberController {
 			Cookie accessToken = cookieUtil.createCookie(JwtUtil.ACCESS_TOKEN_NAME, token);
 			Cookie refreshToken = cookieUtil.createCookie(JwtUtil.REFRESH_TOKEN_NAME,
 					redisUtil.getData(member.getUserId()));
-			ResponseCookie at = ResponseCookie.from("accessToken", accessToken.getValue()).sameSite("None").secure(true)
+			ResponseCookie at = ResponseCookie.from("accessToken", accessToken.getValue()).sameSite("None").domain("netcha-pedia.netlify.app").secure(true)
 					.path(accessToken.getPath()).maxAge(accessToken.getMaxAge()).httpOnly(true).build();
-			ResponseCookie rt = ResponseCookie.from("refreshToken", refreshToken.getValue()).sameSite("None")
+			ResponseCookie rt = ResponseCookie.from("refreshToken", refreshToken.getValue()).sameSite("None").domain("netcha-pedia.netlify.app")
 					.secure(true).path(refreshToken.getPath()).maxAge(refreshToken.getMaxAge()).httpOnly(true).build();
 			res.addHeader("Set-Cookie", at.toString());
 			res.addHeader("Set-Cookie", rt.toString());
