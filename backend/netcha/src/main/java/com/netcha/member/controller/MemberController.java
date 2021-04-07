@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.netcha.config.UserRole;
 import com.netcha.member.data.Member;
 import com.netcha.member.data.MemberResponseDto;
 import com.netcha.member.data.Response;
@@ -36,7 +36,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:3001","https://netcha.netlify.app","https://j4d105.p.ssafy.io","https://netcha-pedia.netlify.app"}, allowCredentials = "true")
+@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:3001", "https://netcha.netlify.app",
+		"https://j4d105.p.ssafy.io", "https://netcha-pedia.netlify.app" }, allowCredentials = "true")
 @RestController
 @RequestMapping("/user")
 public class MemberController {
@@ -51,7 +52,6 @@ public class MemberController {
 	private CookieUtil cookieUtil;
 	@Autowired
 	private RedisUtil redisUtil;
-
 
 	@ApiOperation(value = "회원 가입을 한다.", response = Response.class)
 	@PostMapping("/signup")
@@ -75,12 +75,11 @@ public class MemberController {
 		}
 	}
 
-
 	@ApiOperation(value = "유저 정보 조회", response = Response.class)
 	@GetMapping("/info")
 	public Response info(HttpServletRequest req, HttpServletResponse res) {
 		try {
-			
+
 			final Cookie accessToken = cookieUtil.getCookie(req, JwtUtil.ACCESS_TOKEN_NAME);
 			Member member = authService.findByUserId(jwtUtil.getUsername(accessToken.getValue()));
 			MemberResponseDto userInfo = new MemberResponseDto(member);
@@ -91,15 +90,21 @@ public class MemberController {
 	}
 
 	@ApiOperation(value = "토큰 쿠키로 반환", response = Response.class)
-	   @GetMapping("/getToken/{token}")
-	   public Response getToken(@PathVariable String token, HttpServletRequest req, HttpServletResponse res) {
+	@GetMapping("/getToken/{token}")
+	public Response getToken(@PathVariable String token, HttpServletRequest req, HttpServletResponse res) {
 		try {
-			res.setHeader("Set-Cookie", "JSESSIONID=" + req.getRequestedSessionId() + "; path=/; Secure; SameSite=None");
 			Member member = authService.findByUserId(jwtUtil.getUsername(token));
 			Cookie accessToken = cookieUtil.createCookie(JwtUtil.ACCESS_TOKEN_NAME, token);
-			Cookie refreshToken = cookieUtil.createCookie(JwtUtil.REFRESH_TOKEN_NAME, redisUtil.getData(member.getUserId()));
-			res.addCookie(accessToken);
-			res.addCookie(refreshToken);
+			Cookie refreshToken = cookieUtil.createCookie(JwtUtil.REFRESH_TOKEN_NAME,
+					redisUtil.getData(member.getUserId()));
+			ResponseCookie at = ResponseCookie.from("accessToken", accessToken.getValue()).sameSite("None").secure(true)
+					.path(accessToken.getPath()).maxAge(accessToken.getMaxAge()).httpOnly(true).build();
+			ResponseCookie rt = ResponseCookie.from("refreshToken", refreshToken.getValue()).sameSite("None")
+					.secure(true).path(refreshToken.getPath()).maxAge(refreshToken.getMaxAge()).httpOnly(true).build();
+			res.addHeader("Set-Cookie", at.toString());
+			res.addHeader("Set-Cookie", rt.toString());
+//        res.addCookie(accessToken);
+//        res.addCookie(refreshToken);
 			MemberResponseDto userInfo = new MemberResponseDto(member);
 			return new Response("success", "유저정보 조회 성공", userInfo);
 		} catch (Exception e) {
@@ -107,7 +112,6 @@ public class MemberController {
 		}
 	}
 
-	
 	@ApiOperation(value = "Id 중복체크", response = Response.class)
 	@PostMapping("/checkId")
 	public Response checkId(@RequestBody String userId) {
@@ -155,7 +159,7 @@ public class MemberController {
 	public Response login(@RequestBody RequestLoginUser user, HttpServletRequest req, HttpServletResponse res) {
 		try {
 			final Member member = authService.loginUser(user.getUserId(), user.getPassword());
-			if(member.getRole().toString().equals("ROLE_NOT_PERMITTED")) {
+			if (member.getRole().toString().equals("ROLE_NOT_PERMITTED")) {
 				return new Response("authenticationError", "인증되지 않은 사용자입니다.", null);
 			}
 			final String token = jwtUtil.generateToken(member);
