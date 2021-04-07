@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { actions } from "../state";
 import { navActions } from "../../navbar/state";
@@ -20,7 +20,7 @@ export default function Login(props) {
       setInputData({ ...inputData, userId: history.location.state.userId });
     }
     return () => {};
-  }, [dispatch, history.location.state]);
+  }, [dispatch]);
 
   const onUserIdHandler = (e) => {
     setInputData({ ...inputData, userId: e.target.value });
