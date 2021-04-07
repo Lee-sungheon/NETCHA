@@ -3,18 +3,6 @@ const cheerio = require("cheerio");
 const { doesNotThrow } = require("assert");
 const fs = require("fs");
 
-// const arr = [
-//   '장영남',
-//   '박보검',
-//   '윤희선',
-//   '마크페란슨',
-//   '강태우',
-//   '조우진',
-//   '김민희',
-//   '정진영',
-//   '이자벨위페르',
-// ];
-
 for(let idx = 0; idx < 40; idx++) {
   fs.readFile("result" + idx + ".txt", "utf8", function (err, data) {
     if (err) throw err;
@@ -31,7 +19,7 @@ for(let idx = 0; idx < 40; idx++) {
         if (result === undefined) {
           result = $("div#main_pack div.same_people li a img").attr("src");
         }
-        result === undefined ? (result = `''`) : "";
+        if(result === undefined) result = 'none';
 
         try {
           fs.appendFile(
