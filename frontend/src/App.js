@@ -41,7 +41,7 @@ function App() {
               {window.sessionStorage.getItem("token") ? (
                 <Redirect to="/home" />
               ) : (
-                <Redirect to="/login" />
+                <Redirect to="/signup" />
               )}
               <Login />
             </Route>
