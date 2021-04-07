@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Buttons from '../../../home/component/slider/Buttons';
 import ReactHlsPlayer from "react-hls-player";
+import SoundButton from "../../../home/component/slider/SoundButton";
 import { actions } from "../../../home/state";
 import { useDispatch } from 'react-redux';
 
@@ -58,7 +59,11 @@ export default function MovieItem({ movie, idx }) {
             clearInterval(buffer);
             bufferTime = 0;
           }
-        }
+        };
+        const SoundToggle = () => {
+          const player = document.getElementById("player");
+          player.muted = !player.muted;
+        };
         const isActive = currentSlide && currentSlide.no === movie.no;
         return (
           <div
@@ -76,7 +81,7 @@ export default function MovieItem({ movie, idx }) {
                     image={ movie.imageUrl !== undefined && movie.imageUrl[0] !== 'default' ? movie.imageUrl[0] : "/images/netchar2.png" }
                     className='movie-image-style'
                   />}
-                  {isHover && <ReactHlsPlayer
+                  {isHover && <><ReactHlsPlayer
                     id="player"
                     src={`https://dre3xbpyohrg0.cloudfront.net/MOVIE${movie.no}/MOVIE${movie.no}.m3u8`}
                     autoPlay={true}
@@ -84,14 +89,27 @@ export default function MovieItem({ movie, idx }) {
                     width="100%"
                     style={{
                       position: 'absolute',
-                      zIndex: "1",
+                      zIndex: 1,
                       top: 0,
                       left: 0,
                     }}
                     hlsConfig={{
                       startPosition: 0,
                     }}
-                  ></ReactHlsPlayer>}
+                  ></ReactHlsPlayer>
+                  <div
+                    onClick={SoundToggle}
+                    style={{
+                      color: "black",
+                      position: "absolute",
+                      right: 3,
+                      bottom: 5,
+                      zIndex: 200,
+                    }}
+                  >
+                    <SoundButton />
+                  </div></>
+                  }
                 </div>
               </CardActionArea>
               <CardContent className="movie-show-card-content" style={{paddingBottom: '10px'}}>
