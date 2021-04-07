@@ -7,7 +7,6 @@ import rootReducer, { rootSaga } from './modules';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from '@redux-saga/core';
 import { setUser } from './modules/user';
-import { CookiesProvider } from 'react-cookie';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
@@ -31,10 +30,8 @@ sagaMiddleware.run(rootSaga);
 loadUser();
 
 ReactDOM.render(
-  <CookiesProvider>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </CookiesProvider>,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
