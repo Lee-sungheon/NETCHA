@@ -1281,7 +1281,7 @@ public class MovieService {
 			if(search.charAt(i) >= 'ㄱ' && search.charAt(i) <= 'ㅎ') search = search.replace(String.valueOf(search.charAt(i)), "");
 			else if(search.charAt(i) >= 'ㅏ' && search.charAt(i) <= 'ㅣ') search = search.replace(String.valueOf(search.charAt(i)), "");
 		}
-		List<Movie> movies = movieRepository.findByOpenAndTitleAndPage("2015-01-01", search, PageRequest.of(0, 10));
+		List<Movie> movies = movieRepository.findByOpenAndTitleAndPage("2015-01-01", search, PageRequest.of(0, 5));
 		List<String> result = new ArrayList<String>();
 		for(int i=0; i<movies.size(); i++) result.add(movies.get(i).getTitle());
 		return result;
