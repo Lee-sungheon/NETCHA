@@ -57,23 +57,23 @@ export const deleteZzimMovies = (formData) => {
 export const listAutoCompletesMovies = (keyword) => {
   if (!keyword || keyword.length === 0) return { data: [] };
 
-  const titles = new Set();
+  return client.get(`movie/search_title?search=${keyword}`);
+  // const titles = new Set();
 
-  movies_title.forEach((title) => {
-    var titleArray = title.split('');
-    var keywordArray = keyword.split('');
+  // movies_title.forEach((title) => {
+  //   var titleArray = title.split('');
+  //   var keywordArray = keyword.split('');
 
-    titleArray.forEach((c) => {
-      keywordArray.forEach((k) => {
-        if (k === c) {
-          titles.add(title);
-        }
-      });
-    });
-  });
+  //   titleArray.forEach((c) => {
+  //     keywordArray.forEach((k) => {
+  //       if (k === c) {
+  //         titles.add(title);
+  //       }
+  //     });
+  //   });
+  // });
 
-  // return client.get(`/movie/listautoCompletesMovies?${keyword}`);
-  return { data: Array.from(titles) };
+  // return { data: Array.from(titles) };
 };
 
 // 영화 유튜브 정보 받기

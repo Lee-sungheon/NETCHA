@@ -18,63 +18,55 @@ const SearchMovieListContainer = ({ location }) => {
   //   ignoreQueryPrefix: true,
   // });
 
-  const getSearchMovies = function(newPage){
-    moviesApi.listSearchMovies({
-      keyword,
-      page: newPage,
-      userId
-    });
-  }
-  // const getSearchMovies = async (newPage) => {
-  //   try {
-  //     setLoading(true);
-  //     const response = await moviesApi.listSearchMovies({
-  //       keyword,
-  //       page: newPage,
-  //       userId,
-  //     });
-  //     // console.log('response');
-  //     // console.dir(response);
-  //     // // setMovies([...movies, ...response.data]);
-  //     // // setMovies(response.data);
-      
-  //     setLoading(false);
-  //     // if(response.data.length === 0) setReqStop(true);
-  //     return response.datagetSearchMovies;
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };  
+  const getSearchMovies = async (newPage) => {
+    setLoading(true);
+
+    await moviesApi
+      .listSearchMovies({ keyword, page: newPage, userId })
+      .then((response) => {
+        const fetchedData = response.data;
+
+        const mergedData = movies.concat(...fetchedData);
+        setMovies(mergedData);
+      });
+
+    // const response = await moviesApi.listSearchMovies({ keyword, page: newPage, userId });
+    // // if (movies) {
+    //   console.dir(movies);
+    //   console.dir(response.data);
+    //   // setMovies([...movies, ...response.data]);
+    //   setMovies(movies.concat(...response.data.data));
+    // }
+    // else {
+    //   setMovies(response.data);
+    // }
+    setLoading(false);
+  };
 
   useEffect(() => {
-    getSearchMovies(0);
-    setMovies((page));
+    getSearchMovies(page + 1);
   }, []);
-  
+
   const _infiniteScroll = useCallback(() => {
-    if (reqStop) return;
     console.log("scroll");
-    
     let scrollHeight = Math.max(
       document.documentElement.scrollHeight,
       document.body.scrollHeight
-      );
-      let scrollTop = Math.max(
-        document.documentElement.scrollTop,
-        document.body.scrollTop
-        );
-        let clientHeight = document.documentElement.clientHeight;
-        
-        if (scrollTop + clientHeight === scrollHeight) {
-          console.log("fetchMore");
-          setPage(page + 1);
-          console.log("page: " + page+1);
-          setMovies(movies.concat(getSearchMovies(page + 1)));
-          // setMovies([...movies, ...(getSearchMovies(page + 1))]);
-          console.log(movies)
+    );
+    let scrollTop = Math.max(
+      document.documentElement.scrollTop,
+      document.body.scrollTop
+    );
+    let clientHeight = document.documentElement.clientHeight;
+
+    if (scrollTop + clientHeight === scrollHeight) {
+      console.log("fetchMore");
+      setPage(page + 1);
+      getSearchMovies(page+1);
+      
+        // setMovies(movies.concat(getSearchMovies(page+1)));
     }
-    else setReqStop(true);
-  }, [page, movies]);
+  }, [page]);
 
   useEffect(() => {
     window.addEventListener("scroll", _infiniteScroll, true);
