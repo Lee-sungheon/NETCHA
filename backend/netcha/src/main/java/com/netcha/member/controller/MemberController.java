@@ -89,27 +89,19 @@ public class MemberController {
 		}
 	}
 
-	@ApiOperation(value = "토큰 쿠키로 반환", response = Response.class)
+	@ApiOperation(value = "토큰 반환", response = Response.class)
 	@GetMapping("/getToken/{token}")
 	public Response getToken(@PathVariable String token, HttpServletRequest req, HttpServletResponse res) {
 		try {
 			Member member = authService.findByUserId(jwtUtil.getUsername(token));
 
-			Cookie accessToken = cookieUtil.createCookie(JwtUtil.ACCESS_TOKEN_NAME, token);
-			Cookie refreshToken = cookieUtil.createCookie(JwtUtil.REFRESH_TOKEN_NAME,
-					redisUtil.getData(member.getUserId()));
-			ResponseCookie at = ResponseCookie.from("accessToken", accessToken.getValue()).sameSite("None")
-					.maxAge(accessToken.getMaxAge()).httpOnly(true).secure(true).build();
-			ResponseCookie rt = ResponseCookie.from("refreshToken", refreshToken.getValue()).sameSite("None")
-					.maxAge(refreshToken.getMaxAge()).httpOnly(true).secure(true).build();
-
-			res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
-			res.setHeader("Access-Control-Allow-Headers",
-					"Origin, X-Requested-With, Content-Type, Accept, Authorization");
-			res.addHeader("Set-Cookie", at.toString());
-			res.addHeader("Set-Cookie", rt.toString());
 			MemberResponseDto userInfo = new MemberResponseDto(member);
-			return new Response("success", "유저정보 조회 성공", userInfo);
+
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("accessToken", token);
+			map.put("refreshToken", redisUtil.getData(member.getUserId()));
+			map.put("userInfo", userInfo);
+			return new Response("success", "유저정보 조회 성공", map);
 		} catch (Exception e) {
 			return new Response("error", "유저정보 조회 실패", null);
 		}
