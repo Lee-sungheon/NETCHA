@@ -269,7 +269,7 @@ export default function MovieFilter() {
             <CircularProgress color="secondary" />
           </div>
         )}
-        {!isLoading && filterList.length !== 0 &&
+        {!isLoading && filterList.length !== 1 &&
           filterList.map((item, idx) => (
             <div id={`slider-${idx}`} className="like__container" key={idx}>
               <MovieList idx={`slider-${idx}`} num={tabNo}>
@@ -279,8 +279,8 @@ export default function MovieFilter() {
               </MovieList>
             </div>
           ))}
-        {filterList.length === 0 &&
-          <div style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        {filterList.length === 1 &&
+          <div style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '40vh'}}>
             <DesktopAccessDisabledIcon/>
           <span style={{marginLeft: '8px'}}>해당 영화가 없습니다!</span>
         </div>
@@ -290,16 +290,16 @@ export default function MovieFilter() {
             <CircularProgress color="secondary" />
           </div>
         )}
-        {isInfiniteEnd && filterList.length !== 0 &&
+        {isInfiniteEnd && filterList.length !== 1 &&
           <div style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '5vh'}}>
             <DesktopAccessDisabledIcon/>
             <span style={{marginLeft: '8px'}}>더이상 불러올 데이터가 없습니다!</span>
           </div>
         }
-        {filterList.length < 3 &&
-          <div style={{height: '40vh'}}></div>
-        }
       </div>
+      {filterList.length < 4 &&
+        <div style={{height: '40vh'}}></div>
+      }
     </>
   );
 }
