@@ -393,7 +393,7 @@ public class MovieController {
 	@ApiOperation(value = "유튜브 링크 받기 (백 -> 프론트) : 없으면 null", notes = "입력값 : movieNo(영화고유번호)")
 	@GetMapping("/youtube_get")
 	public ResponseEntity<?> getMovieYoutube(@RequestParam long movieNo) {
-		List<MovieYoutube> result = movieService.getYouTubeLink(movieNo);
+		List<Map<String, Object>> result = movieService.getYouTubeLink(movieNo);
 		System.out.println("<유튜브 링크 백 -> 프론트> 영화고유번호 : "+movieNo);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
