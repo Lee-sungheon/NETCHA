@@ -6,8 +6,8 @@ const useStyles = makeStyles((theme) => ({
   button_div: {
     border: "2px solid white",
     borderRadius: "50%",
-    height: "3.5vw",
-    width: "3.5vw",
+    height: "1.5vw",
+    width: "1.5vw",
     color: "white",
     "&:hover": {
       cursor: "pointer",

@@ -6,10 +6,15 @@ import SimilarMovie from '../similarMovie/SimilarMovie';
 import IconCross from '../Icons/IconCross';
 import ReactHlsPlayer from "react-hls-player";
 import { useSelector } from 'react-redux';
+import SoundButton from "../banner/SoundButton";
 
 
 const Content = ({ movie, onClose, tabNo, setTabNumber }) => {
   const bufferTime = useSelector(state => state.home.bufferTime);
+  const SoundToggle = () => {
+    const player = document.getElementById("player3");
+    player.muted = !player.muted;
+  };
   return (
   <div className="content">
     <div className="content__background">
@@ -20,7 +25,7 @@ const Content = ({ movie, onClose, tabNo, setTabNumber }) => {
       />}
       {tabNo === 1 && <div className="content__background_image">
         <ReactHlsPlayer
-          id="player"
+          id="player3"
           src={`https://dre3xbpyohrg0.cloudfront.net/MOVIE${movie.no}/MOVIE${movie.no}.m3u8`}
           autoPlay={true}
           muted
@@ -35,6 +40,18 @@ const Content = ({ movie, onClose, tabNo, setTabNumber }) => {
             startPosition: bufferTime,
           }}
         ></ReactHlsPlayer>
+        <div
+          onClick={SoundToggle}
+          style={{
+            color: "black",
+            position: "absolute",
+            bottom: "7vw",
+            right: "2vw",
+            zIndex: 99,
+          }}
+        >
+          <SoundButton />
+        </div>
       </div>}
     </div>
     <div className="content__area">

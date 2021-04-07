@@ -10,6 +10,7 @@ import Buttons from "./Buttons";
 import ReactHlsPlayer from "react-hls-player";
 import { actions } from "../../../home/state";
 import { useDispatch } from "react-redux";
+import SoundButton from './SoundButton';
 
 let timer = null;
 let buffer = null;
@@ -18,6 +19,10 @@ export default function Item({ movie, idx }) {
   const [isHover, setIsHover] = useState(false);
   const [isdetail, setIsdetail] = useState(false);
   const dispatch = useDispatch();
+  const SoundToggle = () => {
+    const player = document.getElementById("player2");
+    player.muted = !player.muted;
+  };
   useEffect(() => {
     dispatch(actions.setValue("bufferTime", bufferTime));
     clearInterval(buffer);
@@ -36,8 +41,6 @@ export default function Item({ movie, idx }) {
         elementRef,
         setEscapeLeft,
         setEscapeRight,
-        escapeLeft,
-        escapeRight,
       }) {
         function onMouse(e) {
           let num = 6;
@@ -93,15 +96,15 @@ export default function Item({ movie, idx }) {
             onMouseLeave={onMouseLeave}
           >
             <Card style={isActive === true ? {border: 'solid 2px white'}:{}}>
-              <CardActionArea style={{zIndex: 5}}>
+              <CardActionArea style={{zIndex: 1}}>
                 <div className='image-box'>
                   {!isHover && <CardMedia
                     component="img"
                     image={ movie.imageUrl[0] !== 'default' ? movie.imageUrl[0] : "/images/netchar2.png" }
                     className='movie-image-style'
                   />}
-                  {isHover && <ReactHlsPlayer
-                    id="player"
+                  {isHover && <><ReactHlsPlayer
+                    id="player2"
                     src={`https://dre3xbpyohrg0.cloudfront.net/MOVIE${movie.no}/MOVIE${movie.no}.m3u8`}
                     autoPlay={true}
                     muted
@@ -115,7 +118,20 @@ export default function Item({ movie, idx }) {
                     hlsConfig={{
                       startPosition: 0,
                     }}
-                  ></ReactHlsPlayer>}
+                  ></ReactHlsPlayer>
+                  <div
+                    onClick={SoundToggle}
+                    style={{
+                      color: "white",
+                      position: "absolute",
+                      right: 3,
+                      bottom: 5,
+                      zIndex: 200,
+                    }}
+                  >
+                    <SoundButton />
+                  </div></>
+                  }
                 </div>
               </CardActionArea>
               <CardContent
