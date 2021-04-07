@@ -100,7 +100,7 @@ export default function MbtiResult(props) {
             dispatch(actions.userInfo(res.data.data));
           });
       });
-  }, [MBTI, dispatch, mbtiImg, userId]);
+  }, []);
   useEffect(() => {
     const ChoiceList = location.state.choiceList.choice;
     let N_S = 0;
