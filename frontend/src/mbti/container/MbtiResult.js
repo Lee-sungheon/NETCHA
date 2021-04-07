@@ -95,6 +95,7 @@ export default function MbtiResult(props) {
             },
           })
           .then((res) => {
+            console.log(res.data.data);
             dispatch(actions.userInfo(res.data.data));
           });
       });
