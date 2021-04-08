@@ -95,7 +95,7 @@ export default function LikeList() {
         </div>
         ))}
       </div>
-      {likeList.length === 1 &&
+      {movieLists.length === 0 &&
         <div style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
           <DesktopAccessDisabledIcon/>
         <span style={{marginLeft: '8px'}}>찜한 영화가 없습니다!</span>
@@ -106,13 +106,13 @@ export default function LikeList() {
           <CircularProgress color="secondary" />
         </div>
       )}
-      {isInfiniteEnd && likeList.length !== 1 &&
+      {isInfiniteEnd && movieLists.length > 0 &&
         <div style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '5vh'}}>
           <DesktopAccessDisabledIcon/>
           <span style={{marginLeft: '8px'}}>더이상 불러올 데이터가 없습니다!</span>
         </div>
       }
-      {likeList.length < 3 &&
+      {movieLists.length < tabNo &&
         <div style={{height: '40vh'}}></div>
       }
     </>

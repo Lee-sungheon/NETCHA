@@ -72,11 +72,11 @@ export default function BasicInformation({ movie }) {
   return (
     <>
       <div className="content__description">
-        { movie.scenario.slice(0, 235) }
-        { movie.scenario.length > 250 && '...'}
-        { movie.scenario.length > 250 && <span style={{color: 'white', cursor: 'pointer'}}>
-        <a style={{color: 'white'}} href={`https://netcha-pedia.netlify.app/movieDetail/${movie.no}/${token}`} target="blank">더보기</a>
-        </span>}
+        { movie.scenario.slice(0, 200) }
+        '...'
+        <span style={{color: 'white', cursor: 'pointer'}}>
+          <a style={{color: 'white'}} href={`https://netcha-pedia.netlify.app/movieDetail/${movie.no}/${token}`} target="blank">더보기</a>
+        </span>
       </div>
       <div className="content__information">
         <div className="content__information__title">

@@ -279,7 +279,7 @@ export default function MovieFilter() {
               </MovieList>
             </div>
           ))}
-        {filterList.length === 1 &&
+        {movieLists.length === 0 &&
           <div style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '40vh'}}>
             <DesktopAccessDisabledIcon/>
           <span style={{marginLeft: '8px'}}>해당 영화가 없습니다!</span>
@@ -290,14 +290,14 @@ export default function MovieFilter() {
             <CircularProgress color="secondary" />
           </div>
         )}
-        {isInfiniteEnd && filterList.length !== 1 &&
+        {isInfiniteEnd && movieLists.length > 0 &&
           <div style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '5vh'}}>
             <DesktopAccessDisabledIcon/>
             <span style={{marginLeft: '8px'}}>더이상 불러올 데이터가 없습니다!</span>
           </div>
         }
       </div>
-      {filterList.length < 4 &&
+      {movieLists.length < tabNo &&
         <div style={{height: '40vh'}}></div>
       }
     </>
