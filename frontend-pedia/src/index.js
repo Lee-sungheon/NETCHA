@@ -17,13 +17,14 @@ const store = createStore(
 function loadUser() {
   try {
     const user = JSON.parse(localStorage.getItem('user'));
-    if (!user) store.dispatch(setUser({ seq: 11, nickname: 'guest' }));
-    else store.dispatch(setUser(user));
+    if (!user) {
+      store.dispatch(setUser({ seq: 11, nickname: 'Guest' }));
+      alert('넷차로 로그인 후 이용해주세요');
+    } else store.dispatch(setUser(user));
+
     // console.log('user!!!!!!')
     // console.dir(user);
-  } catch (e) {
-    console.log('로그인 에러');
-  }
+  } catch (e) {}
 }
 
 sagaMiddleware.run(rootSaga);
