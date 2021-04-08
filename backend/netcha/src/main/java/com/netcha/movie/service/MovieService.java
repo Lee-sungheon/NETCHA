@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
@@ -88,23 +89,30 @@ public class MovieService {
 		return result;
 	}
 	
-//	// 이미지 크롤링
-//	@Transactional
-//	public void imageCrawling(Movie m) {
-//		//String[] result = new String[3];
-//		try {
-//			String url = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=영화+";
-//			url += m.getTitle();
-//			Document doc = Jsoup.connect(url).get();
-//			Elements divArea = doc.select("div.cm_content_area._cm_content_area_casting");
-//			// if(divArea == null) return null;
-//			Elements list = divArea.select("ul.list").select("li");
-//			
-//			
-//		} catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
+	// 이미지 크롤링
+	@Transactional
+	public List<String[]> imageCrawling(Movie m) {
+		List<String[]> result = new ArrayList<String[]>();
+		try {
+			String url = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=영화+";
+			url += m.getTitle();
+			Document doc = Jsoup.connect(url).get();
+			Elements divArea = doc.select("div.cm_content_area._cm_content_area_casting");
+			if(divArea == null) return null;
+			Elements list = divArea.select("ul.list").select("li");
+			
+			for(Element li : list) {
+				String name = li.select("img").attr("alt");
+				String image = "default";
+				if(!name.equals("이미지 준비중")) image = li.select("img").attr("src");
+				else name = li.select("div.title_box").select("strong.name.type_ell_2._html_ellipsis").select("span").text();
+				result.add(new String[] {name, image});
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 //	// 테스트용
 //	@Transactional
@@ -841,6 +849,8 @@ public class MovieService {
 		Map<Float, Integer> userRank = getRankByMovie(movieNo);
 		result.put("movie_rank", userRank);
 		
+		List<String[]> actors = imageCrawling(movie);
+		result.put("actors", actors);
 		//result.put("similar_movie", recommendMovieBySimilar(userId, movieNo, 0, 16));
 		
 		return result;
@@ -1332,13 +1342,61 @@ public class MovieService {
 		}
 	}
 	
-//	@Transactional
-//	public void test() {
-//		List<Movie> list = movieRepository.findAllByOpens("2015-01-01");
-//		for(Movie m : list) {
-//			System.out.println(m.getNo()+", "+m.getTitle());
-//		}
-//		System.out.println(list.size());
-//		
-//	}
+	
+	
+	@Transactional
+	public void DBdump(List<MovieResponseDto> lists) {
+		Map<Float, String[]> doReview = new HashMap<Float, String[]>();
+		doReview.put((float)0.5, new String[] {"이건 안보는게 더 낫겠다 ㅋㅋ", "시간아까움..", "시간 버리고 싶은 사람한테 강추!"});
+		doReview.put((float)1, new String[] {"넘 별로;", "최하점은 아닌거같아서 1점줌", "안본 눈 삽니다~"});
+		doReview.put((float)1.5, new String[] {"2점까진 아니고 1점보단 낫다 ㅋㅋ","제작비 어디로 감~","스토리 누가씀?"});
+		doReview.put((float)2, new String[] {"딱 이정도 영화","두번 볼 정도는 아닌듯 ㅋㅋ","재밌을려고 하면 재미없어지는 영화"});
+		doReview.put((float)2.5, new String[] {"CG가 너무 티나..","스토리가 너무 빈약함","이 배우진으로 이정도 밖에.."});
+		doReview.put((float)3, new String[] {"개연성이 부족한데 나름 볼만함","시간 때우기에 적합","두번은 볼만한듯 ㅋㅋ"});
+		doReview.put((float)3.5, new String[] {"재밌지만 조금 아쉬운 영화","제작비 조금만 더쓰지 ㅜ","배우들이 좋아서 이정도 준다.."});
+		doReview.put((float)4, new String[] {"배우들 연기력 대박 ㄷㄷ","결말 조금만 더 좋았으면 5점 줬을듯","간만에 재밌었네 ㅋㅋ"});
+		doReview.put((float)4.5, new String[] {"감동적이야 ㅜㅜ","나중에 한번더 봐야지!!","스토리 개연성이 너무 좋다!"});
+		doReview.put((float)5, new String[] {"진짜 최고의 영화!!","6점있었으면 6점 줬다 ㄷㄷ","10번째 보는중인데 아직도 재밌음ㅋㅋ"});
+		
+		Float[] doRank = {(float) 0.5, (float)1, (float)1.5, (float)2, (float)2.5, (float)3, (float)3.5, (float)4, (float)4.5, (float)5};
+		
+		List<Member> memberList = memberRepository.findAll();
+		for(Member member : memberList) {
+			for(MovieResponseDto movie : lists) {
+				if(movie.getUserDidRank() == 0) {
+					int idx = (int)(Math.random()*10);
+					updateRank(member.getSeq(), movie.getNo(), doRank[idx]);
+				}
+				MovieRank rank = movieRankRepository.findByMemberSeqAndMovieNo(member.getSeq(), movie.getNo());
+				
+				if(!movie.isUserDidZzim()) 
+					if(rank.getRanking() >= 3) 
+						updateZzim(member.getSeq(), movie.getNo());
+				
+				if(movie.getUserDidLike() == 0) {
+					if(rank.getRanking() >= 4) updateLike(member.getSeq(), movie.getNo(), 1);
+					else if(rank.getRanking() <=1.5) updateLike(member.getSeq(), movie.getNo(), -1);
+				}
+				
+				MovieReview review = movieReviewRepository.findByMemberSeqAndMovieNo(member.getSeq(), movie.getNo());
+				if(review == null) {
+					int randoms = (int)(Math.random()*3);
+					insertReview(member.getSeq(), movie.getNo(), doReview.get(rank.getRanking())[randoms]);
+				}
+				
+				List<MovieReview> reviews = movieReviewRepository.findByMovieNo(movie.getNo());
+				for(MovieReview r : reviews) {
+					int randoms = (int)(Math.random()*2);
+					MovieReviewLike rl = movieReviewLikeRepository.findByMemberSeqAndMovieReviewNo(member.getSeq(), r.getNo());
+					if(rl == null && randoms == 1) insertReviewLike(member.getSeq(), r.getNo());
+				}
+			}
+		}
+	}
+	
+	@Transactional
+	public void test() {
+		Movie movie = movieRepository.findById((long)7761).get();
+		imageCrawling(movie);
+	}
 }
