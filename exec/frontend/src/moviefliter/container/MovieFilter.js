@@ -16,8 +16,7 @@ import { actions } from "../state";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import GanreFilter from "../component/GanreFilter.js";
 import CountryFilter from "../component/CountryFilter.js";
-import DesktopAccessDisabledIcon from '@material-ui/icons/DesktopAccessDisabled';
-
+import DesktopAccessDisabledIcon from "@material-ui/icons/DesktopAccessDisabled";
 
 const StyledMenu = withStyles({
   paper: {
@@ -68,7 +67,7 @@ export default function MovieFilter() {
   const isInfinite = useSelector((state) => state.filter.isInfinite);
   const isLoading = useSelector((state) => state.filter.isLoading);
   const isInfiniteEnd = useSelector((state) => state.filter.infiniteEnd);
-  const user = useSelector(state => state.user.userData.member);
+  const user = useSelector((state) => state.user.userData.member);
   const dispatch = useDispatch();
 
   const handleClick = (event) => {
@@ -87,11 +86,22 @@ export default function MovieFilter() {
       if (scrollTop + clientHeight + 1 >= scrollHeight && !isInfinite) {
         // 페이지 끝에 도달하면 추가 데이터를 받아온다
         if (countryText !== "국가" && ganreText !== "장르") {
-          dispatch(actions.requestAddCountryGanreMovieList(countryText, ganreText, pageNum, user.seq));
+          dispatch(
+            actions.requestAddCountryGanreMovieList(
+              countryText,
+              ganreText,
+              pageNum,
+              user.seq
+            )
+          );
         } else if (countryText !== "국가") {
-          dispatch(actions.requestAddCountryMovieList(countryText, pageNum, user.seq));
+          dispatch(
+            actions.requestAddCountryMovieList(countryText, pageNum, user.seq)
+          );
         } else if (ganreText !== "장르") {
-          dispatch(actions.requestAddGanreMovieList(ganreText, pageNum, user.seq));
+          dispatch(
+            actions.requestAddGanreMovieList(ganreText, pageNum, user.seq)
+          );
         } else {
           dispatch(actions.requestAddMovieList(pageNum, user.seq));
         }
@@ -102,10 +112,10 @@ export default function MovieFilter() {
       }
     }
     checkWindowInner();
-    if (movieLists.length === 0 && filterText === "추천 콘텐츠"){
+    if (movieLists.length === 0 && filterText === "추천 콘텐츠") {
       if (homeMovieLists.length > 0) {
         dispatch(actions.setMovieList(homeMovieLists));
-      } else{
+      } else {
         dispatch(actions.requestMovieList(0, user.seq));
       }
     }
@@ -181,11 +191,11 @@ export default function MovieFilter() {
       <div className="movie-filter__top-bar__container">
         <div className="movie-filter__top-bar__area">
           <div className="movie-filter__top-bar__left">
-            <GanreFilter 
-              ganreText={ganreText} 
-              setGanreText={setGanreText} 
-              countryText={countryText} 
-              user={user} 
+            <GanreFilter
+              ganreText={ganreText}
+              setGanreText={setGanreText}
+              countryText={countryText}
+              user={user}
             />
             <CountryFilter
               countryText={countryText}
@@ -195,7 +205,7 @@ export default function MovieFilter() {
             />
           </div>
           <div className="movie-filter__top-bar__right">
-            <Link to={"/"}>
+            <Link to={"/home"}>
               <div className="movie-filter__top-bar__right__button1">
                 <DehazeIcon />
               </div>
@@ -269,7 +279,8 @@ export default function MovieFilter() {
             <CircularProgress color="secondary" />
           </div>
         )}
-        {!isLoading && filterList.length !== 1 &&
+        {!isLoading &&
+          filterList.length !== 1 &&
           filterList.map((item, idx) => (
             <div id={`slider-${idx}`} className="like__container" key={idx}>
               <MovieList idx={`slider-${idx}`} num={tabNo}>
@@ -279,27 +290,43 @@ export default function MovieFilter() {
               </MovieList>
             </div>
           ))}
-        {movieLists.length === 0 &&
-          <div style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '40vh'}}>
-            <DesktopAccessDisabledIcon/>
-          <span style={{marginLeft: '8px'}}>해당 영화가 없습니다!</span>
-        </div>
-        }
+        {movieLists.length === 0 && (
+          <div
+            style={{
+              color: "white",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "40vh",
+            }}
+          >
+            <DesktopAccessDisabledIcon />
+            <span style={{ marginLeft: "8px" }}>해당 영화가 없습니다!</span>
+          </div>
+        )}
         {isInfinite && !isLoading && !isInfiniteEnd && (
           <div style={{ display: "flex", justifyContent: "center" }}>
             <CircularProgress color="secondary" />
           </div>
         )}
-        {isInfiniteEnd && movieLists.length > 0 &&
-          <div style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '5vh'}}>
-            <DesktopAccessDisabledIcon/>
-            <span style={{marginLeft: '8px'}}>더이상 불러올 데이터가 없습니다!</span>
+        {isInfiniteEnd && movieLists.length > 0 && (
+          <div
+            style={{
+              color: "white",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "5vh",
+            }}
+          >
+            <DesktopAccessDisabledIcon />
+            <span style={{ marginLeft: "8px" }}>
+              더이상 불러올 데이터가 없습니다!
+            </span>
           </div>
-        }
+        )}
       </div>
-      {movieLists.length < tabNo &&
-        <div style={{height: '40vh'}}></div>
-      }
+      {movieLists.length < tabNo && <div style={{ height: "40vh" }}></div>}
     </>
   );
 }
