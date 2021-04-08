@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -247,7 +246,7 @@ public class MovieController {
 	}
 	
 	@ApiOperation(value = "리뷰 수정", notes = "입력값 : userId(유저고유번호), movieNo(영화고유번호), content(내용)")
-	@PatchMapping("/review_update")
+	@PostMapping("/review_update")
 	public ResponseEntity<?> updateReview(@RequestBody Map<String, String> param) {
 		int userId = Integer.parseInt(param.get("userId"));
 		long movieNo = Long.parseLong(param.get("movieNo"));

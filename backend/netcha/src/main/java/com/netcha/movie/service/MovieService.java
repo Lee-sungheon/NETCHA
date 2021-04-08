@@ -798,7 +798,8 @@ public class MovieService {
 			boolean like = false;
 			if(mr.getMember().getSeq() == userId) mine = true;
 			if(movieLike != null) like = true; 
-			mrd.update(mine, like, movieRank.getRanking());
+			if(movieRank != null) mrd.update(mine, like, movieRank.getRanking());
+			else mrd.update(mine, like, 0);
 			result.add(mrd);
 		}
 		return result;
