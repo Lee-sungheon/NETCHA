@@ -134,7 +134,7 @@ export default function Evaluation() {
         checkWindowInner()
       });
     };
-  }, [dispatch, user])
+  }, [dispatch])
   
   useEffect(() => {
     loadingPage = false;
