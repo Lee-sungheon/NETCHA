@@ -24,7 +24,6 @@ export default function SearchInputContainer() {
     if (e.key === 'Enter') {
       dispatch(initialize());
       history.push(`/searchMovie/${keyword.keyword}`);
-      // history.push(`/searchMovie?keyword=${keyword.keyword}`);
     }
   };
 
@@ -34,7 +33,6 @@ export default function SearchInputContainer() {
   };
   
   useEffect(() => {
-    // dispatch(listAutoCompletesMovies(keyword))
     return() => {
       dispatch(initialize());
     };

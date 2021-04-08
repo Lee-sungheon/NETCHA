@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import qs from 'qs';
 import MovieList from '../../components/movies/MovieList';
 import { withRouter } from 'react-router';
 import * as moviesApi from '../../lib/api/movies';

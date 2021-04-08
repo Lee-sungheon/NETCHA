@@ -5,8 +5,6 @@ import { withRouter } from "react-router";
 import { listActors } from "../../modules/actors";
 import Loader from '../../components/common/Loader';
 
-const actorArr = [];
-
 const ActorListContainer = () => {
   const dispatch = useDispatch();
   const { userId, actors, error, loading } = useSelector(({ user, actors, loading }) => ({
