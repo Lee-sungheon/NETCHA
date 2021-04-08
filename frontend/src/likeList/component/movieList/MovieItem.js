@@ -115,7 +115,7 @@ export default function MovieItem({ movie, idx }) {
               <CardContent className="movie-show-card-content" style={{paddingBottom: '10px'}}>
                 <Buttons movie={movie} onSelectSlide={onSelectSlide} isdetail={isdetail} setIsdetail={setIsdetail}/>
                 <h5 style={{margin:'5px', textAlign: 'start'}} >{movie.title}</h5>
-                <div style={{display: 'flex', alignItems: 'center'}} >
+                <div className="movie-rating-image" >
                   { movie.rating !== "" && movie.rating !== undefined && <img style={{width: '12%', margin: '0 5px'}}src={`/images/${RATING[movie.rating.slice(0,2)]}.svg` } alt="" />}
                   <div style={{fontSize: '0.65rem', fontWeight: 900}}>{parseInt(movie.time/60)}시간 {movie.time%60}분</div>
                 </div>
