@@ -1,5 +1,4 @@
 import client from './client';
-// import qs from 'qs';
 
 export const readMovie = (formData) => {
   return client.get('/movie/movie_detail', { params: { ...formData } });
@@ -8,7 +7,6 @@ export const readMovie = (formData) => {
 // 영화 검색 목록
 export const listSearchMovies = ({ page, keyword, userId }) => {
   return client.get(`/movie/search_total?pageNum=${page}&search=${keyword}&userId=${userId}`);
-  // return client.get(`/movie/list_newContents?pageNum=${page}&userId=${userId}`);
 };
 
 // 메인페이지 넷챠 영화 순위 목록
@@ -59,22 +57,6 @@ export const listAutoCompletesMovies = (keyword) => {
   if (!keyword || keyword.length === 0) return { data: [] };
 
   return client.get(`movie/search_title?search=${keyword}`);
-  // const titles = new Set();
-
-  // movies_title.forEach((title) => {
-  //   var titleArray = title.split('');
-  //   var keywordArray = keyword.split('');
-
-  //   titleArray.forEach((c) => {
-  //     keywordArray.forEach((k) => {
-  //       if (k === c) {
-  //         titles.add(title);
-  //       }
-  //     });
-  //   });
-  // });
-
-  // return { data: Array.from(titles) };
 };
 
 // 영화 유튜브 정보 받기
@@ -88,21 +70,4 @@ export const updateMovieVideos = (data) => {
   return client.post('/movie/youtube_post', data);
 }
 
-
-const movies_title = [
-  // {
-  // data: [
-  '고질라 VS. 콩',
-  '극장판 귀멸의 칼날 무한열차편',
-  '자산어보',
-  '미나리',
-  '최면',
-  '파이터',
-  '디 아더 사이드',
-  '국카스텐 콘서트 실황 : 해프닝',
-  '더 박스',
-  '스파이의 아내',
-  // ]
-  // };
-];
 

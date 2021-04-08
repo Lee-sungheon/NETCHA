@@ -21,7 +21,8 @@ export default function SearchInputContainer() {
   
   // 검색 엔터 이벤트 핸들러
   const onKeyPress = e => {
-    if(e.key === 'Enter') {
+    if (e.key === 'Enter') {
+      dispatch(initialize());
       history.push(`/searchMovie/${keyword.keyword}`);
       // history.push(`/searchMovie?keyword=${keyword.keyword}`);
     }
@@ -38,12 +39,6 @@ export default function SearchInputContainer() {
       dispatch(initialize());
     };
   }, [dispatch]);
-
-  useEffect(() => {
-    if (keyword === '') {
-      changeSearchKeyword({keyword: null});
-    }
-  }, [keyword]);
 
   return <SearchInput keyword={keyword} movies={autoCompletesMovies} onChange={onChange} onKeyPress={onKeyPress} onBlur={onBlur} error={error} />;
 }
