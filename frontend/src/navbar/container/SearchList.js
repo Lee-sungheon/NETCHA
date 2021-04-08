@@ -102,7 +102,7 @@ export default function SearchList({location}) {
   return (
     <>
       <div className='like__container'>
-        <div className="like__title"> {search[1]}<span style={{color: 'gray'}}> 검색 결과</span></div>
+        <div className="like__title"> {decodeURI(decodeURIComponent(search[1]))}<span style={{color: 'gray'}}> 검색 결과</span></div>
         { isLoading &&
           <div style={{height: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
             <CircularProgress color="secondary" />

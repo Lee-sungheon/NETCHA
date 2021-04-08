@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { actions } from "../state";
 import { useSelector, useDispatch } from 'react-redux';
 import { callApiEvaluation } from '../../common/api';
+import { homeActions } from "../../home/state";
 import './Evaluation.scss';
 
 const BorderLinearProgress = withStyles((theme) => ({
@@ -126,6 +127,7 @@ export default function Evaluation() {
       checkWindowInner()
     });
     window.addEventListener("scroll", handleScroll);
+    dispatch(homeActions.setMovieList([]));
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", function(){
