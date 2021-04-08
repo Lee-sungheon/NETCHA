@@ -21,10 +21,16 @@ export default function SearchInputContainer() {
   
   // 검색 엔터 이벤트 핸들러
   const onKeyPress = e => {
-    if(e.key === 'Enter') {
+    if (e.key === 'Enter') {
+      dispatch(initialize());
       history.push(`/searchMovie/${keyword.keyword}`);
       // history.push(`/searchMovie?keyword=${keyword.keyword}`);
     }
+  };
+
+  // 인풋 블러
+  const onBlur = e => {
+    dispatch(initialize());
   };
   
   useEffect(() => {
@@ -34,6 +40,5 @@ export default function SearchInputContainer() {
     };
   }, [dispatch]);
 
-
-  return <SearchInput keyword={keyword} movies={autoCompletesMovies} onChange={onChange} onKeyPress={onKeyPress} error={error} />;
+  return <SearchInput keyword={keyword} movies={autoCompletesMovies} onChange={onChange} onKeyPress={onKeyPress} onBlur={onBlur} error={error} />;
 }

@@ -3,10 +3,12 @@ import qs from 'qs';
 import MovieList from '../../components/movies/MovieList';
 import { withRouter } from 'react-router';
 import * as moviesApi from '../../lib/api/movies';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { initialize } from "../../modules/autoCompletesMovies";
 
-// let page = 0;
 const SearchMovieListContainer = ({ location, keyword }) => {
+  const dispatch = useDispatch();
+
   const [stop, setStop] = useState(false);
   const [loading, setLoading] = useState(null);
   const [page, setPage] = useState(0);
@@ -39,8 +41,9 @@ const SearchMovieListContainer = ({ location, keyword }) => {
   };
 
   useEffect(() => {
+    dispatch(initialize());
     initSearchMovies();
-  }, []);
+  }, [keyword]);
 
   const _infiniteScroll = useCallback(() => {
     if(stop) return;
