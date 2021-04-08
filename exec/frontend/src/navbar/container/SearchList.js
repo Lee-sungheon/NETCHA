@@ -119,7 +119,7 @@ export default function SearchList({location}) {
         </div>
         ))}
       </div>
-      {searchList.length === 1 &&
+      {searchList.movieLists === 0 &&
           <div style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <DesktopAccessDisabledIcon/>
           <span style={{marginLeft: '8px'}}>해당 영화가 없습니다!</span>
@@ -130,13 +130,13 @@ export default function SearchList({location}) {
             <CircularProgress color="secondary" />
           </div>
         )}
-        {isInfiniteEnd && searchList.length !== 1 &&
+        {isInfiniteEnd && movieLists.length > 0 &&
           <div style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '5vh'}}>
             <DesktopAccessDisabledIcon/>
             <span style={{marginLeft: '8px'}}>더이상 불러올 데이터가 없습니다!</span>
           </div>
         }
-        {searchList.length < 3 &&
+        {movieLists.length < tabNo &&
           <div style={{height: '40vh'}}></div>
         }
     </>

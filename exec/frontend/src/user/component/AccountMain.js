@@ -234,7 +234,7 @@ export default function AccountMain() {
                           marginLeft: "10px",
                         }}
                       >
-                        손동민
+                        {name}
                       </span>
                     </div>
                   </div>
