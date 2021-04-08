@@ -28,7 +28,11 @@ const UserRatingMoviesContainer = () => {
   if (loading) return <Loader type="spin" color="#ff0073" message="LOADING..." />;
 
   return (
-    <UserRatingMovies movies={movies} count={count} error={error} loading={loading} />
+    <>
+    {userId &&
+      (<UserRatingMovies movies={movies} count={count} error={error} loading={loading} />)
+    }
+    </>
   );
 };
 

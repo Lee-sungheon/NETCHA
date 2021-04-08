@@ -5,8 +5,6 @@ import { withRouter } from "react-router";
 import * as moviesApi from "../../lib/api/movies";
 
 const UserZzimMoviesListContainer = () => {
-  const dispatch = useDispatch();
-
   const [stop, setStop] = useState(false);
   const [loading, setLoading] = useState(null);
   const [page, setPage] = useState(0);
@@ -62,6 +60,7 @@ const UserZzimMoviesListContainer = () => {
   return (
     <>
       <MovieList movies={movies} headerTitle="보고싶어요" />
+      {loading && <img src="/images/Rolling-50px.svg" style={{marginLeft: "50%"}}/>}
       <button style={{ color: "white", backgroundColor: "white" }}>
         무한스크롤
       </button>

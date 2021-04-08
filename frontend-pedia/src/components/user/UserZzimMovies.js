@@ -10,7 +10,7 @@ const UserZzimMovies = ({ movies, count, error, loading }) => {
           <UserMoviesHeader
             count={count}
             title="보고싶어요"
-            link="/userZzimMoviesList"
+            link="/userPage/userZzimMoviesList"
           />
           <SmallSlider movies={movies} error={error} loading={loading} />
         </>

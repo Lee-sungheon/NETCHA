@@ -10,7 +10,7 @@ const UserRatingMovies = ({ movies, count, error, loading }) => {
           <UserMoviesHeader
             count={count}
             title="평가"
-            link="/userRatingMoviesList"
+            link="/userPage/userRatingMoviesList"
           />
           <SmallSlider movies={movies} error={error} loading={loading} />
         </>
