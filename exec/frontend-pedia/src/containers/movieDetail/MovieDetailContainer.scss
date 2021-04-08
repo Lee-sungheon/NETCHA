@@ -1,0 +1,115 @@
+.movieDetail {
+  .contentWrapper {
+    background-color: rgb(240, 240, 240);
+    padding: 30px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .contentBox {
+      width: 1050px;
+      .contentBlock {
+        display: inline-block;
+        padding: 10px 24px;
+        width: 650px;
+        background-color: white;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+      }
+      .commentWrapper {
+        display: inline-block;
+        padding: 10px 24px;
+        min-width: 650px;
+        max-width: 650px;
+        background-color: white;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+        margin-bottom: 10px;
+      }
+      .myCommentWrapper {
+        display: inline-block;
+        padding: 10px 0px;
+        padding-left: 20px;
+        min-width: 650px;
+        max-width: 650px;
+        background-color: white;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+        margin-bottom: 10px;
+      }
+      .basicInfo {
+        margin: 0px 0px 15px 0;
+
+        padding: 5px 5px 15px 5px;
+        border-bottom: 1px solid rgb(235, 233, 233);
+
+        .infoContent {
+          font-size: 15px;
+        }
+      }
+      .actors {
+        margin: 0px 0px 15px 0;
+        padding: 5px 5px 15px 5px;
+        border-bottom: 1px solid rgb(235, 233, 233);
+      }
+
+      .starGraph {
+        margin: 0px 0px 15px 0;
+        padding: 5px 5px 15px 5px;
+        border-bottom: 1px solid rgb(235, 233, 233);
+      }
+
+      .comment {
+        margin: 0px 0px 15px 0;
+        padding: 5px 5px 15px 5px;
+        border-bottom: 1px solid rgb(235, 233, 233);
+      }
+
+      .similarMovies {
+        margin: 0px 0px 15px 0;
+        padding: 5px 5px 15px 5px;
+        border-bottom: 1px solid rgb(235, 233, 233);
+      }
+    }
+  }
+}
+
+.infoHeader {
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 19px;
+  font-weight: bold;
+  div {
+    font-weight: 500;
+    font-size: 17px;
+  }
+  span {
+    font-size: 17px;
+    color: hotpink;
+    cursor: pointer;
+  }
+}
+
+.sideBlock {
+  float: right;
+  margin-left: 20px;
+  padding: 10px 24px;
+  width: 360px;
+  height: 350px;
+  background-color: white;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+}
+
+.gallery {
+  margin: 0px 0px 15px 0;
+  padding: 5px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(235, 233, 233);
+}
+.video {
+  margin: 0px 0px 15px 0;
+  padding: 5px 5px 15px 5px;
+  // border-bottom: 1px solid rgb(235, 233, 233);
+}

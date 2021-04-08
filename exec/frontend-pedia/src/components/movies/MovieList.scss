@@ -1,0 +1,97 @@
+.searchMovieListWrap {
+  padding: 62px 0px 20px 10px;
+  
+  hr {
+    border: 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .movieHeaderWrap {
+    position: fixed;
+    left: 0px;
+    box-sizing: border-box;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    height: 85px;
+    width: 100%;
+    padding: 10px 16px;
+    border-bottom: 1px solid rgb(227, 227, 227);
+    top: 62px;
+    text-align: left;
+    transform: translate3d(0px, 0px, 0px);
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    margin: 0 4px 10px;
+    opacity: 1;
+    transition: all 150ms ease 0s;
+    background-color: white;
+    
+    .beforeArrow {
+      border: none;
+      cursor: pointer;
+      background-color: white;
+      margin: 0 0 10px -5px;
+      .beforeArrowImage {
+        width: 18px;
+        height: 18px;
+      }
+    }
+    
+    .movieHeader {
+      height: 25px;
+      font-weight: 700;
+      letter-spacing: -1.2px;
+      font-size: 22px;
+      // line-height: 29px;
+      width: 100%;
+    }
+  }
+  .movieListWrap {
+    padding: 100px 0 20px 10px;
+    
+    .movieWrap {
+      margin-bottom: 20px;
+      
+      hr {
+        width: 90%;
+      }
+
+      .moviePoster {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        object-position: center;
+      }
+      
+      .movieInfo {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 3px;
+        
+        .movieTitle {
+          color: black;
+          margin-left: 10px;
+          font-size: 17px;
+          font-weight: 400;
+          letter-spacing: -0.7px;
+          line-height: 22px;
+          margin-bottom: 2px;
+        }
+        
+        .movieInfo {
+          margin-left: 10px;
+          color: rgb(140, 140, 140);
+          font-size: 14px;
+          font-weight: 400;
+          letter-spacing: -0.3px;
+          line-height: 19px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+.ld-button {
+  color: white;
+  
+}
+.root {
+  flex-grow: 1;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 0 10px;
+  box-shadow: none !important;
+  z-index: 3;
+}
+
+.title {
+  padding: 0 0 0 14px;
+  flex-grow: 1;
+  display: block;
+  color: white;
+}
+
+.menu {
+  padding: 0 0 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
