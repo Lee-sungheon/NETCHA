@@ -106,7 +106,13 @@
 ## ⚙ 설치 방법
 - **백엔드**
 
-
+  ```bash
+  cd /home/ubuntu/s04p23d105/exec/backend/netcha
+  sudo gradle jar
+  sudo gradle build
+  cd build/libs
+  sudo java -jar netcha-0.0.1-SNAPSHOT.jar
+  ```
 
 - **프론트엔드**
 
