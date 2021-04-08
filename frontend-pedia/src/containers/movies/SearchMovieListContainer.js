@@ -46,13 +46,11 @@ const SearchMovieListContainer = ({ location, keyword }) => {
 
   const _infiniteScroll = useCallback(() => {
     if(stop) return;
-    console.log('scroll');
     let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
     let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
     let clientHeight = document.documentElement.clientHeight;
     
     if(scrollTop + clientHeight === scrollHeight) {
-      console.log('fetchMore');
       setPage(page+1);
       getSearchMovies(page+1);
     }

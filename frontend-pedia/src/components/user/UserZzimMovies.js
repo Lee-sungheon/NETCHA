@@ -3,9 +3,6 @@ import SmallSlider from '../slider/SmallSlider';
 import UserMoviesHeader from './UserMoviesHeader';
 
 const UserZzimMovies = ({ movies, count, error, loading }) => {
-  if (count) {
-    console.log('count: ' + count);
-  }
   return (
     <>
       {movies && (
