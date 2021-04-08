@@ -68,7 +68,7 @@ export default function MovieFilter() {
   const isInfinite = useSelector((state) => state.filter.isInfinite);
   const isLoading = useSelector((state) => state.filter.isLoading);
   const isInfiniteEnd = useSelector((state) => state.filter.infiniteEnd);
-  const user = useSelector(state => state.user.userData.member)
+  const user = useSelector(state => state.user.userData.member);
   const dispatch = useDispatch();
 
   const handleClick = (event) => {
