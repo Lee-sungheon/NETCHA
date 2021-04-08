@@ -103,10 +103,14 @@ public class MovieService {
 			
 			for(Element li : list) {
 				String name = li.select("img").attr("alt");
+				String role = "";
 				String image = "default";
 				if(!name.equals("이미지 준비중")) image = li.select("img").attr("src");
 				else name = li.select("div.title_box").select("strong.name.type_ell_2._html_ellipsis").select("span").text();
-				result.add(new String[] {name, image});
+				Elements sub = li.select("div.title_box").select("span.sub_text.type_ell_2._html_ellipsis");
+				if(sub != null) role = sub.select("._text").html();
+				
+				result.add(new String[] {name, role, image});
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
