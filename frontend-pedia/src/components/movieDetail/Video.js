@@ -5,7 +5,7 @@ import * as moviesApi from '../../lib/api/movies';
 import './Video.scss';
 
 const API_KEY = [
-  'AIzaSyBdpUamxH0rDlC-AO_HJCLM8xtPJypugXg',  // 얘는 할당량 초과 킨데 확인용임 
+  'AIzaSyBdpUamxH0rDlC-AO_HJCLM8xtPJypugXg', // 얘는 할당량 초과 킨데 확인용임
   'AIzaSyCu17720nhALyT7pA4npHg2RBWCzLPyQd8',
   'AIzaSyAF-_uQIzruH-iViU7EJXBvFhQrh39iDDU',
   'AIzaSyAOlnLY5aF3MRjLUt7ypOpPYKSMH77AqLs',
@@ -41,7 +41,7 @@ const Video = ({ movieNo, movieTitle }) => {
     try {
       setLoading(true);
       const response = await moviesApi.listMovieVideos(movieNo);
-      console.dir(response);
+      // console.dir(response);
       if (response.data.length === 0) {
         searchYouTube({
           keyword: movieTitle + ' 예고편',
@@ -56,11 +56,11 @@ const Video = ({ movieNo, movieTitle }) => {
       console.log(e);
     }
   };
-  
+
   useEffect(() => {
     getVideoInfo();
   }, [index]);
-  
+
   const searchYouTube = async ({ keyword, max, key }, callback) => {
     console.log('유튜브 API 요청');
     await axios
@@ -92,10 +92,9 @@ const Video = ({ movieNo, movieTitle }) => {
         console.log('index: ' + index);
         if (index < API_KEY.length) {
           console.log('다음 API 키 사용');
-          setIndex(index+1);
-          getVideoInfo(index+1);
+          setIndex(index + 1);
+          getVideoInfo(index + 1);
         }
-
       });
   };
 
