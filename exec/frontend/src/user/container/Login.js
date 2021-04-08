@@ -58,7 +58,6 @@ export default function Login(props) {
               }
             )
             .then((res) => {
-              console.log("인증메일 발송");
             })
             .catch((err) => {
               console.log("인증메일 발송 실패");
@@ -78,12 +77,14 @@ export default function Login(props) {
       history.push({
         pathname: "/home",
       });
+      alert("로그인되었습니다.");
     } else {
       history.push({
         pathname: "/mbti",
       });
+      alert("로그인되었습니다.");
+      alert("MBTI 설정을 해주세요.");
     }
-    alert("로그인되었습니다.");
   };
 
   return (

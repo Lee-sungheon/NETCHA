@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import BasicInfo from '../../components/movieDetail/BasicInfo';
 import Cast from '../../components/movieDetail/Cast';
-import Comment from '../../components/movieDetail/comment/Comment';
-import MyComment from '../../components/movieDetail/comment/MyComment';
-import WriteComment from '../../components/movieDetail/comment/WriteComment';
+import Comment from '../../components/movieDetail/Comment/Comment';
+import MyComment from '../../components/movieDetail/Comment/MyComment';
+import WriteComment from '../../components/movieDetail/Comment/WriteComment';
 import Gallery from '../../components/movieDetail/Gallery';
 import MovieHeader from '../../components/movieDetail/MovieHeader';
 import SimilarMovies from '../../components/movieDetail/SimilarMovies';
@@ -12,6 +12,7 @@ import StarGraph from '../../components/movieDetail/StarGraph';
 import Video from '../../components/movieDetail/Video';
 import { readMovie, unloadMovie } from '../../modules/movie';
 import './MovieDetailContainer.scss';
+import Loader from '../../components/common/Loader';
 
 const MovieDetailContainer = ({ movieNo }) => {
   const dispatch = useDispatch();
@@ -53,7 +54,8 @@ const MovieDetailContainer = ({ movieNo }) => {
       });
     }
   }, [movie]);
-  
+  if (loading)
+    return <Loader type="spin" color="#ff0073" message="LOADING..." />;
   return (
     <>
       {movie && (
@@ -100,7 +102,7 @@ const MovieDetailContainer = ({ movieNo }) => {
               </div>
               <div className="contentBlock">
                 <BasicInfo movie={movie} loading={loading} error={error} />
-                <Cast actors={movie.movie_info.casts} people={movie.actors} />
+                <Cast people={movie.actors} actors={movie.movie_info.casts} />
                 <StarGraph requestData={requestData} />
                 <Comment
                   requestData={requestData}

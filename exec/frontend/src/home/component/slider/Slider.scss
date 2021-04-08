@@ -55,7 +55,6 @@
 
   &:not(&--open) .item:hover .show-card-title {
     transition-delay: 0.5s;
-    visibility: hidden;
   }
 
   &:not(&--open) .item:hover .rating-image {

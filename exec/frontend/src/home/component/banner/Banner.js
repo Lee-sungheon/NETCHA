@@ -74,6 +74,7 @@ export default function Banner() {
               }}
               state="play"
               muted
+              disablePictureInPicture
               loop
               hlsConfig={{
                 startPosition: bannerBufferTime,

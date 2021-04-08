@@ -483,12 +483,29 @@ public class MovieService {
 	// 평점 순 
 	@Transactional
 	public List<MovieResponseDto> findMovieByAvgRank(int userId, int pageNum) {
-		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
-		List<Movie> movieR = movieRepository.findByOrderByTotalViewDesc("2015-01-01", PageRequest.of(pageNum, 40, Direction.DESC, "avgRank", "totalView"));
+		List<Movie> movieR = movieRepository.findAllByOpens("2015-01-01");
+		List<float[]> scoreList = new ArrayList<float[]>();
 		for(Movie m : movieR) {
+			if(m.getMovieRank().size() == 0) scoreList.add(new float[] {(float)m.getNo(), 0});
+			else scoreList.add(new float[] {(float)m.getNo(), m.getAvgRank()*m.getMovieRank().size()});
+		}
+		
+		scoreList.sort(new Comparator<float[]>() {
+			@Override
+			public int compare(float[] o1, float[] o2) {
+				return Float.compare(o2[1], o1[1]);
+			}
+		});
+		List<MovieResponseDto> result = new ArrayList<MovieResponseDto>();
+		int idx = (int)pageNum*40;
+		if(idx >= scoreList.size()) return null;
+		int last = idx+40;
+		if(last >= scoreList.size()) last = scoreList.size();
+		for(int i=idx; i<last; i++) {
+			Movie m = movieRepository.findById((long)scoreList.get(i)[0]).get();
 			if(m.getPosterUrl().equals("")) {
-				String[] result = crawling(m);
-				m.updateCrawling(result[0], result[1], result[2]);
+				String[] temp = crawling(m);
+				m.updateCrawling(temp[0], temp[1], temp[2]);
 			}
 			MovieResponseDto movie = new MovieResponseDto(m);
 			float mr = 0;
@@ -503,9 +520,9 @@ public class MovieService {
 				if(movieZzim != null) mz = true;
 			}
 			movie.userInfo(mr, ml, mz);
-			movies.add(movie);
+			result.add(movie);
 		}
-		return movies;
+		return result;
 	}
 	
 	// 장르, 나라별
@@ -653,11 +670,11 @@ public class MovieService {
 		List<Movie> movieR = null;
 		// 평가한적이 없으면 조회수 순
 		if(movieRanks.size() == 0) {
-			movieR = movieRepository.findByOrderByTotalViewDesc("2015-01-01", PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
+			movieR = movieRepository.findByOrderByTotalViewDesc("2015-01-01", PageRequest.of(pageNum, 40));
 		} else { // 평가한 영화는 제외
 			List<Long> movieNos = new ArrayList<Long>();
 			for(int i=0; i<movieRanks.size(); i++) movieNos.add(movieRanks.get(i).getMovie().getNo());
-			movieR = movieRepository.findByNoNotIn("2015-01-01", movieNos, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
+			movieR = movieRepository.findByNoNotIn("2015-01-01", movieNos, PageRequest.of(pageNum, 40));
 		}
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		for(Movie m : movieR) {
@@ -1194,10 +1211,11 @@ public class MovieService {
 			searchNos.add((long) 0);
 			searchNos.addAll(movieRepository.findByNoAndOpenAndTitle("2015-01-01", search));
 			
-			searchMovies.addAll(movieRepository.findByOpenAndCasts("2015-01-01", search));
-			searchMovies.addAll(movieRepository.findByOpenAndDirectors("2015-01-01", search));
-			searchNos.addAll(movieRepository.findByNoOpenAndCasts("2015-01-01", search));
-			searchNos.addAll(movieRepository.findByNoOpenAndDirectors("2015-01-01", search));				
+			searchMovies.addAll(movieRepository.findByOpenAndCasts("2015-01-01", search, searchNos));
+			searchNos.addAll(movieRepository.findByNoOpenAndCasts("2015-01-01", search, searchNos));
+			
+			searchMovies.addAll(movieRepository.findByOpenAndDirectors("2015-01-01", search, searchNos));
+			searchNos.addAll(movieRepository.findByNoOpenAndDirectors("2015-01-01", search, searchNos));				
 			
 			List<MovieResponseDto> resultMovie = new ArrayList<MovieResponseDto>();
 			
@@ -1234,8 +1252,15 @@ public class MovieService {
 					movie.userInfo(mr, ml, mz);
 					resultMovie.add(movie);
 				}
-				for(int i=0; i<searchMovies.size(); i++) 
-					resultMovie.addAll(recommendMovieBySimilar(userId, searchMovies.get(i).getNo(), 0, 5));
+				for(int i=0; i<searchMovies.size(); i++) {
+					List<MovieResponseDto> similar = recommendMovieBySimilar(userId, searchMovies.get(i).getNo(), 0, 5);
+					for(int j=similar.size()-1; j>=0; j--) {
+						if(searchNos.contains(similar.get(j).getNo())) similar.remove(j);
+						else searchNos.add(similar.get(j).getNo());
+					}
+					resultMovie.addAll(similar);
+				}
+				
 				if(pageNum*40 > resultMovie.size()) return null;
 				int idx = pageNum*40;
 				int last = idx+40;
@@ -1367,10 +1392,48 @@ public class MovieService {
 		
 		List<Member> memberList = memberRepository.findAll();
 		for(Member member : memberList) {
+			if(member.getMbti().equals("") || member.getUserId().substring(0, 4).equals("test")) continue;
 			List<MovieResponseDto> newContents = findMovieByNewContents(member.getSeq(), 0);
 			for(MovieResponseDto movie : newContents) {
 				if(movie.getUserDidRank() == 0) {
-					int idx = (int)(Math.random()*10);
+					int r = (int)(Math.random()*3);
+					int idx = 0;
+					if(r == 0) idx = (int)(Math.random()*5);
+					else idx = (int)(Math.random()*5)+5;
+					updateRank(member.getSeq(), movie.getNo(), doRank[idx]);
+				}
+				MovieRank rank = movieRankRepository.findByMemberSeqAndMovieNo(member.getSeq(), movie.getNo());
+				
+				if(!movie.isUserDidZzim()) 
+					if(rank.getRanking() >= 3) 
+						updateZzim(member.getSeq(), movie.getNo());
+				
+				if(movie.getUserDidLike() == 0) {
+					if(rank.getRanking() >= 4) updateLike(member.getSeq(), movie.getNo(), 1);
+					else if(rank.getRanking() <=1.5) updateLike(member.getSeq(), movie.getNo(), -1);
+				}
+				
+				MovieReview review = movieReviewRepository.findByMemberSeqAndMovieNo(member.getSeq(), movie.getNo());
+				if(review == null) {
+					int randoms = (int)(Math.random()*3);
+					insertReview(member.getSeq(), movie.getNo(), doReview.get(rank.getRanking())[randoms]);
+				}
+				
+				List<MovieReview> reviews = movieReviewRepository.findByMovieNo(movie.getNo());
+				for(MovieReview r : reviews) {
+					int randoms = (int)(Math.random()*2);
+					MovieReviewLike rl = movieReviewLikeRepository.findByMemberSeqAndMovieReviewNo(member.getSeq(), r.getNo());
+					if(rl == null && randoms == 1) insertReviewLike(member.getSeq(), r.getNo());
+				}
+			}
+			
+			List<MovieResponseDto> totalViews = findMovieByTotalView(member.getSeq(), 0);
+			for(MovieResponseDto movie : totalViews) {
+				if(movie.getUserDidRank() == 0) {
+					int r = (int)(Math.random()*3);
+					int idx = 0;
+					if(r == 0) idx = (int)(Math.random()*5);
+					else idx = (int)(Math.random()*5)+5;
 					updateRank(member.getSeq(), movie.getNo(), doRank[idx]);
 				}
 				MovieRank rank = movieRankRepository.findByMemberSeqAndMovieNo(member.getSeq(), movie.getNo());

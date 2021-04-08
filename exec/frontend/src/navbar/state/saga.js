@@ -54,7 +54,7 @@ export function* directorData(action) {
   yield put(actions.setEnd(false));
   yield put(actions.setLoading(true));
   try {
-    const data = yield call(callApiDirectorMovieList, action.director, action.userNo);
+    const data = yield call(callApiDirectorMovieList, action.director, action.pageNum, action.userNo);
     if (data !== undefined) {
       yield put(actions.setMovieList(data));
     }
@@ -67,7 +67,7 @@ export function* castData(action) {
   yield put(actions.setEnd(false));
   yield put(actions.setLoading(true));
   try {
-    const data = yield call(callApiCastMovieList, action.cast, action.userNo);
+    const data = yield call(callApiCastMovieList, action.cast, action.pageNum, action.userNo);
     if (data !== undefined) {
       yield put(actions.setMovieList(data));
     }
@@ -132,9 +132,37 @@ export function* addSearchData(action) {
   yield put(actions.setInfinite(false));
 }
 
+export function* addCastData(action) {
+  yield put(actions.setInfinite(true));
+  try {
+    const data = yield call(callApiCastMovieList, action.cast, action.pageNum, action.userNo);
+    if (data !== undefined && data !== "") {
+      yield put(actions.addMovieList(data));
+    } else {
+      yield put(actions.setEnd(true));
+    }
+  } catch(error) {
+  }
+  yield put(actions.setInfinite(false));
+}
+
+export function* addDirectorData(action) {
+  yield put(actions.setInfinite(true));
+  try {
+    const data = yield call(callApiDirectorMovieList, action.director, action.pageNum, action.userNo);
+    if (data !== undefined && data !== "") {
+      yield put(actions.addMovieList(data));
+    } else {
+      yield put(actions.setEnd(true));
+    }
+  } catch(error) {
+  }
+  yield put(actions.setInfinite(false));
+}
+
 export default function* saga() {
   yield all([
-    debounce(500, types.REQUEST_SEARCHMOVIELIST, fetchData),
+    debounce(1500, types.REQUEST_SEARCHMOVIELIST, fetchData),
     takeLeading(types.TRY_SET_TEXT, trySetText),
     takeLeading(types.REQUEST_GANREMOVIELIST, ganreData),
     takeLeading(types.REQUEST_COUNTRYMOVIELIST, countryData),
@@ -144,5 +172,7 @@ export default function* saga() {
     takeLeading(types.REQUEST_ADD_COUNTRYMOVIELIST, addCountryData),
     takeLeading(types.REQUEST_ADD_GANREMOVIELIST, addGanreData),
     takeLeading(types.REQUEST_ADD_SEARCHMOVIELIST, addSearchData),
+    takeLeading(types.REQUEST_ADD_CASTMOVIELIST, addCastData),
+    takeLeading(types.REQUEST_ADD_DIRECTORMOVIELIST, addDirectorData),
   ]);
 }

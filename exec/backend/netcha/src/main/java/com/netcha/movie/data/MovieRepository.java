@@ -59,14 +59,14 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	public List<Movie> findByOpenAndTitleAndPage(@Param("open") String open, @Param("title") String title, Pageable page);
 	@Query("select m.no from Movie m where m.open >= :open and m.title like %:title%")
 	public List<Long> findByNoAndOpenAndTitle(@Param("open") String open, @Param("title") String title);
-	@Query("select m from Movie m where m.open >= :open and m.casts like %:cast%")
-	public List<Movie> findByOpenAndCasts(@Param("open") String open, @Param("cast") String cast);
-	@Query("select m.no from Movie m where m.open >= :open and m.casts like %:cast%")
-	public List<Long> findByNoOpenAndCasts(@Param("open") String open, @Param("cast") String cast);
-	@Query("select m from Movie m where m.open >= :open and m.directors like %:director%")
-	public List<Movie> findByOpenAndDirectors(@Param("open") String open, @Param("director") String director);
-	@Query("select m.no from Movie m where m.open >= :open and m.directors like %:director%")
-	public List<Long> findByNoOpenAndDirectors(@Param("open") String open, @Param("director") String director);
+	@Query("select m from Movie m where m.open >= :open and m.casts like %:cast% and m.no not in :no")
+	public List<Movie> findByOpenAndCasts(@Param("open") String open, @Param("cast") String cast, @Param("no") List<Long> no);
+	@Query("select m.no from Movie m where m.open >= :open and m.casts like %:cast% and m.no not in :no")
+	public List<Long> findByNoOpenAndCasts(@Param("open") String open, @Param("cast") String cast, @Param("no") List<Long> no);
+	@Query("select m from Movie m where m.open >= :open and m.directors like %:director% and m.no not in :no")
+	public List<Movie> findByOpenAndDirectors(@Param("open") String open, @Param("director") String director, @Param("no") List<Long> no);
+	@Query("select m.no from Movie m where m.open >= :open and m.directors like %:director% and m.no not in :no")
+	public List<Long> findByNoOpenAndDirectors(@Param("open") String open, @Param("director") String director, @Param("no") List<Long> no);
 	// 검색에 포함되는 영화 중 no에 포함 안되는 영화
 	@Query("select m from Movie m where m.open >= :open and m.title like %:title% and m.no not in :no")
 	public List<Movie> findByOpenAndTitleAndNotNo(@Param("open") String open, @Param("title") String title, @Param("no") List<Long> no);
