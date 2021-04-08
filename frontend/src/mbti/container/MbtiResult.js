@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { actions } from "../../user/state";
 import axios from "axios";
 import { navActions } from "../../navbar/state";
+import { homeActions } from "../../home/state";
 
 import "./Mbti.css";
 
@@ -95,7 +96,7 @@ export default function MbtiResult(props) {
             },
           })
           .then((res) => {
-            console.log(res.data.data);
+            dispatch(homeActions.setMbtiMovieList([]));
             dispatch(actions.userInfo(res.data.data));
           });
       });

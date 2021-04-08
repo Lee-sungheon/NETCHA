@@ -11,6 +11,7 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { actions } from "../../user/state";
+import { homeActions } from "../../home/state";
 
 const useStyles = makeStyles((theme) => ({
   mbti_back: {
@@ -84,6 +85,7 @@ export default function Mbti(props) {
             },
           })
           .then((res) => {
+            dispatch(homeActions.setMbtiMovieList([]));
             dispatch(actions.userInfo(res.data.data));
             history.push({
               pathname: "/home",

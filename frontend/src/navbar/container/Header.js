@@ -122,8 +122,10 @@ export default function Header({ toggleButton, setToggleButton }) {
       setActiveValue("평가하기");
     } else if (nowLocation === "mylike" || nowLocation === "myLike") {
       setActiveValue("내가 찜한 콘텐츠");
-    } else {
+    } else if (nowLocation === "home") {
       setActiveValue("홈");
+    } else {
+      setActiveValue("");
     }
   }, [toggleButton, isHeader_]);
 
