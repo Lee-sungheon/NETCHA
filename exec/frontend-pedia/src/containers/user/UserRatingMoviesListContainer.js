@@ -4,13 +4,16 @@ import MovieList from '../../components/movies/MovieList';
 import { withRouter } from 'react-router';
 import * as moviesApi from '../../lib/api/movies';
 
-const UserRatingMoviesListContainer = ({ userId }) => {
+const UserRatingMoviesListContainer = () => {
   const dispatch = useDispatch();
 
   const [stop, setStop] = useState(false);
   const [loading, setLoading] = useState(null);
   const [page, setPage] = useState(0);
   const [movies, setMovies] = useState([]);
+  const { userId } = useSelector(({ user }) => ({
+    userId: user.user.userId,
+  }));
 
   const initUserRatingMovies = async () => {
     setLoading(true);

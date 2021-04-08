@@ -15,15 +15,14 @@ const ActorList = ({ actors, people }) => {
     rows: 3,
     slidesPerRow: 2,
   };
-  console.log(people);
-
   return (
     <Slider {...settings}>
-      {people &&
+      {people.length !== 0 &&
         people.map((arr, index) => (
           <div className="actorWrapper" key={index}>
             <div className="actorImage">
               <img
+                className="actorImg"
                 src={arr[2] === 'default' ? '/images/profileIcon.jpg' : arr[2]}
                 width="53px"
               />
@@ -34,7 +33,7 @@ const ActorList = ({ actors, people }) => {
             </div>
           </div>
         ))}
-      {!people &&
+      {people.length === 0 &&
         actors.map((actor, index) => (
           <div className="actorWrapper" key={index}>
             <div className="actorImage">

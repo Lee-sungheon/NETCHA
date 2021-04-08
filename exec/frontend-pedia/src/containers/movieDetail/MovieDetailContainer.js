@@ -12,6 +12,7 @@ import StarGraph from '../../components/movieDetail/StarGraph';
 import Video from '../../components/movieDetail/Video';
 import { readMovie, unloadMovie } from '../../modules/movie';
 import './MovieDetailContainer.scss';
+import Loader from '../../components/common/Loader';
 
 const MovieDetailContainer = ({ movieNo }) => {
   const dispatch = useDispatch();
@@ -34,7 +35,6 @@ const MovieDetailContainer = ({ movieNo }) => {
       loading: loading['movie/READ_MOVIE'],
     })
   );
-  if (movie) console.log(movie.actors);
   useEffect(() => {
     if (requestData.movieNo && requestData.userId)
       dispatch(readMovie(requestData));
@@ -54,7 +54,8 @@ const MovieDetailContainer = ({ movieNo }) => {
       });
     }
   }, [movie]);
-
+  if (loading)
+    return <Loader type="spin" color="#ff0073" message="LOADING..." />;
   return (
     <>
       {movie && (

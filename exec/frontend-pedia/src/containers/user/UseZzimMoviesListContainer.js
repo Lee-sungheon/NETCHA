@@ -4,11 +4,14 @@ import MovieList from '../../components/movies/MovieList';
 import { withRouter } from 'react-router';
 import * as moviesApi from '../../lib/api/movies';
 
-const UserZzimMoviesListContainer = ({ userId }) => {
+const UserZzimMoviesListContainer = () => {
   const [stop, setStop] = useState(false);
   const [loading, setLoading] = useState(null);
   const [page, setPage] = useState(0);
   const [movies, setMovies] = useState([]);
+  const { userId } = useSelector(({ user }) => ({
+    userId: user.user.userId,
+  }));
 
   const initUserZzimMovies = async () => {
     setLoading(true);

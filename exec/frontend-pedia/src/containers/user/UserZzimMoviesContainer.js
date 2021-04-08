@@ -5,10 +5,11 @@ import { listZzimMovies, countZzimMovies } from '../../modules/zzimMovies';
 import UserZzimMovies from '../../components/user/UserZzimMovies';
 import Loader from '../../components/common/Loader';
 
-const UserZzimMoviesContainer = ({ userId }) => {
+const UserZzimMoviesContainer = () => {
   const dispatch = useDispatch();
-  const { zzimMovies, count, error, loading } = useSelector(
-    ({ zzimMovies, loading }) => ({
+  const { userId, zzimMovies, count, error, loading } = useSelector(
+    ({ user, zzimMovies, loading }) => ({
+      userId: user.user.userId,
       zzimMovies: zzimMovies.movies,
       count: zzimMovies.count,
       error: zzimMovies.error,
