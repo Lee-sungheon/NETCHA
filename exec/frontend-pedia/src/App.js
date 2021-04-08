@@ -15,13 +15,13 @@ const App = () => {
       <BrowserRouter>
         <Route exact path="/" component={MovieRanking} />
         <Route exact path="/:token" component={MovieRanking} />
-        <Route exact path="/user/:id/" component={User} />
+        <Route exact path="/user/:userId/" component={User} />
         <Route
           exact
           path="/user/statics/:id/:token"
           component={UserStaticsPage}
         />
-        <Route exact path="/user/statics/:id" component={UserStaticsPage} />
+        <Route exact path="/user/statics/:userId" component={UserStaticsPage} />
         <Route exact path="/movieDetail/:movieNo" component={MovieDetail} />
         <Route
           exact

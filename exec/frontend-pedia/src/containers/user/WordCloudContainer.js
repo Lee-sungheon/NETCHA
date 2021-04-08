@@ -7,24 +7,21 @@ import Loader from '../../components/common/Loader';
 
 var keywords = [];
 
-const WordCloudContainer = () => {
+const WordCloudContainer = ({ userId }) => {
   const dispatch = useDispatch();
-  const { userId, tags, error, loading } = useSelector(
-    ({ user, tags, loading }) => ({
-      userId: user.user.userId,
-      tags: tags.tags,
-      error: tags.error,
-      loading: loading['tags/LIST_TAGS'],
-    })
-  );
+  const { tags, error, loading } = useSelector(({ tags, loading }) => ({
+    tags: tags.tags,
+    error: tags.error,
+    loading: loading['tags/LIST_TAGS'],
+  }));
 
   useEffect(() => {
     dispatch(listTags({ userId }));
   }, [dispatch, userId]);
-  
+
   useEffect(() => {
     setKeywords();
-  }, [dispatch, tags])
+  }, [dispatch, tags]);
 
   const setKeywords = () => {
     if (tags) {
@@ -33,7 +30,7 @@ const WordCloudContainer = () => {
         keywords.push({ text: tag, value: tags.keyword[tag] });
       }
     }
-  }
+  };
 
   if (loading)
     return <Loader type="spin" color="#ff0073" message="LOADING..." />;

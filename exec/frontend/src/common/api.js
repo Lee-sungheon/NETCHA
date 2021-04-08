@@ -120,8 +120,8 @@ export function callApiCountryMovieList(country, pageNum, userId) {
     });
 }
 
-export function callApiCastMovieList(cast, userId) {
-  const url = `netcha/movie/list_cast?cast=${cast}&userId=${userId}`;
+export function callApiCastMovieList(cast, pageNum, userId) {
+  const url = `netcha/movie/list_cast?cast=${cast}&pageNum=${pageNum}&userId=${userId}`;
   return axios
     .get(url)
     .then((Response) => {
@@ -132,8 +132,9 @@ export function callApiCastMovieList(cast, userId) {
     });
 }
 
-export function callApiDirectorMovieList(director, userId) {
-  const url = `netcha/movie/list_director?director=${director}&userId=${userId}`;
+export function callApiDirectorMovieList(director, pageNum, userId) {
+  const url = `netcha/movie/list_director?director=${director}&pageNum=${pageNum}&userId=${userId}`;
+  console.log(director, userId)
   return axios
     .get(url)
     .then((Response) => {

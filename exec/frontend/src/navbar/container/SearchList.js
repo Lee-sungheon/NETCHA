@@ -47,6 +47,10 @@ export default function SearchList({location}) {
           dispatch(actions.requestAddGanreMovieList(search[1], pageNum, user.seq));
         } else if (search[0] === "q") {
           dispatch(actions.requestAddSearchMovieList(search[1], pageNum, user.seq));
+        } else if (search[0] === "cast") {
+          dispatch(actions.requestAddCastMovieList(search[1], pageNum, user.seq));
+        } else if (search[0] === "director") {
+          dispatch(actions.requestAddDirectorMovieList(search[1], pageNum, user.seq));
         }
         if (!loadingPage) {
           pageNum += 1;
@@ -55,14 +59,20 @@ export default function SearchList({location}) {
       }
     }
     window.addEventListener("scroll", handleScroll);
+    window.scrollTo(0, 0);
+    dispatch(actions.setMovieList([]));
     if (search[0] === 'ganre'){
       dispatch(actions.requestGanreMovieList(search[1], 0, user.seq));
+      dispatch(actions.trySetText(''));
     } else if (search[0] === 'country'){
       dispatch(actions.requestCountryMovieList(search[1], 0, user.seq));
+      dispatch(actions.trySetText(''));
     } else if (search[0] === 'cast'){
-      dispatch(actions.requestCastMovieList(search[1], 0));
+      dispatch(actions.requestCastMovieList(search[1], 0, user.seq));
+      dispatch(actions.trySetText(''));
     } else if (search[0] === 'director'){
-      dispatch(actions.requestDirectorMovieList(search[1], 0));
+      dispatch(actions.requestDirectorMovieList(search[1], 0, user.seq));
+      dispatch(actions.trySetText(''));
     } else{
       dispatch(actions.requestSearchMovieList(search[1], 0, user.seq));
     }
@@ -136,7 +146,7 @@ export default function SearchList({location}) {
             <span style={{marginLeft: '8px'}}>더이상 불러올 데이터가 없습니다!</span>
           </div>
         }
-        {movieLists.length < tabNo &&
+        {movieLists.length <= tabNo &&
           <div style={{height: '40vh'}}></div>
         }
     </>

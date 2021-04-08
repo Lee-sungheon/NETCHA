@@ -32,4 +32,6 @@ public interface AuthService {
     void requestChangePassword(Member member) throws NotFoundException;
     
     long size();
+    
+    String getName(int seq) throws Exception;
 }

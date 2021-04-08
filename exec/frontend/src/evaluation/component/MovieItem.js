@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
@@ -65,8 +65,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-let tmpScore = 5;
-export default function MovieItem({ tile, pickNum, setPickNum }) {
+let tmpScore = 7;
+export default function MovieItem({ tile, pickNum, setPickNum, idx }) {
   const customClasses = useStyles();
   const user = useSelector((state) => state.user.userData.member);
   const [isFinish, setIsFinish] = useState(false);
@@ -87,7 +87,7 @@ export default function MovieItem({ tile, pickNum, setPickNum }) {
     }
   }
   function onClick(e) {
-    if (e.target.name !== "size-large") {
+    if (e.target.name !== `size-large-${idx}`) {
       if (tmpScore === score && isFinish) {
         callApiDeleteEvaluation(user.seq, tile.no);
         setPickNum(pickNum - 1);
@@ -124,14 +124,14 @@ export default function MovieItem({ tile, pickNum, setPickNum }) {
       />
       <div
         className={customClasses.customOverlay}
-        style={isHover ? { display: "block" } : { display: "none" }}
+        style={isHover ? { visibility: "visible" } : { visibility: "hidden" }}
       >
         <Typography variant="subtitle1" className={customClasses.title}>
           {tile.title}
         </Typography>
         <div className={customClasses.rating} onClick={onClick}>
           <Rating
-            name="size-large"
+            name={`size-large-${idx}`}
             size="large"
             precision={0.5}
             onChangeActive={onChange}
