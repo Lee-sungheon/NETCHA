@@ -64,13 +64,9 @@ const Header = ({ user, onLogin }) => {
           <div className={classes.search}>
             <SearchInputContainer />
           </div>
-          {user ? (
+          {user && (
             <Button style={{ margin: "0px 24px 0px 24px", color: "#6A6A6A", width: "180px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
               {user.username}님, 환영합니다!
-            </Button>
-          ) : (
-            <Button style={{ margin: "0px 24px 0px 24px", color: "#6A6A6A" }} onClick={onLogin}>
-              로그인
             </Button>
           )}
           {user ? (

@@ -1,54 +1,56 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MovieList from "../../components/movies/MovieList";
 import { withRouter } from "react-router";
 import * as moviesApi from "../../lib/api/movies";
 
 const UserZzimMoviesListContainer = () => {
-  const { userId } = useSelector(({ user }) => ({
-    userId: user.user.userId,
-  }));
+  const dispatch = useDispatch();
+
+  const [stop, setStop] = useState(false);
+  const [loading, setLoading] = useState(null);
   const [page, setPage] = useState(0);
-  const [movies, setMovies] = useState(null);
+  const [movies, setMovies] = useState([]);
+  const { userId } = useSelector(({ user }) => ({
+    userId: user.user.userId
+  }));
+
+  const initUserZzimMovies = async () => {
+    setLoading(true);
+    const response = await moviesApi.listZzimMovies({page, userId});
+    
+    setMovies(response.data);
+    
+    setLoading(false);
+  };
 
   const getUserZzimMovies = async (newPage) => {
-    try {
-      const response = await moviesApi.listZzimMovies({
-        page: newPage,
-        userId,
-      });
-      if (movies) {
-        setMovies([...movies, ...response.data]);
-      } else {
-        setMovies(response.data);
-      }
-    } catch (e) {
-      console.log(e);
+    setLoading(true);
+    const response = await moviesApi.listZzimMovies({page: newPage, userId});
+    
+    if(response.data.length === 0) {
+      setStop(true);
+      setLoading(false);
+      return;
     }
+      setMovies(movies.concat(...response.data));
+      
+    setLoading(false);
   };
 
   useEffect(() => {
-    getUserZzimMovies(page);
-  }, []);
+    initUserZzimMovies();
+  }, [userId]);
 
   const _infiniteScroll = useCallback(() => {
-    console.log("scroll");
-    let scrollHeight = Math.max(
-      document.documentElement.scrollHeight,
-      document.body.scrollHeight
-    );
-    let scrollTop = Math.max(
-      document.documentElement.scrollTop,
-      document.body.scrollTop
-    );
+    if(stop) return;
+    let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+    let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
     let clientHeight = document.documentElement.clientHeight;
-
-    if (scrollTop + clientHeight === scrollHeight) {
-      console.log("fetchMore");
-      if (movies) {
-        setPage(page + 1);
-        setMovies(movies.concat(getUserZzimMovies(page + 1)));
-      }
+    
+    if(scrollTop + clientHeight === scrollHeight) {
+      setPage(page+1);
+      getUserZzimMovies(page+1);
     }
   }, [page, movies]);
 
