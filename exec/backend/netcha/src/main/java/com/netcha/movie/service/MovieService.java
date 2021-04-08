@@ -1390,7 +1390,7 @@ public class MovieService {
 				if(movie.getUserDidRank() == 0) {
 					int r = (int)(Math.random()*3);
 					int idx = 0;
-					if(r == 0) idx = (int)(Math.random()*4);
+					if(r == 0) idx = (int)(Math.random()*5);
 					else idx = (int)(Math.random()*5)+5;
 					updateRank(member.getSeq(), movie.getNo(), doRank[idx]);
 				}
@@ -1424,7 +1424,7 @@ public class MovieService {
 				if(movie.getUserDidRank() == 0) {
 					int r = (int)(Math.random()*3);
 					int idx = 0;
-					if(r == 0) idx = (int)(Math.random()*4);
+					if(r == 0) idx = (int)(Math.random()*5);
 					else idx = (int)(Math.random()*5)+5;
 					updateRank(member.getSeq(), movie.getNo(), doRank[idx]);
 				}
