@@ -6,11 +6,14 @@ import 'tippy.js/animations/scale.css';
 const options = {
   colors: ['rgb(255, 47, 110)'],
   fontStyle: 'Noto Sans KR',
-  fontSizes: [10, 30],
+  fontSizes: [15, 30],
   fontWeight: 'bold',
-  padding: 10,
-  rotationAngles: [0, 0],
+  padding: 25,
+  enableTooltip: false,
+  deterministic: false,
   rotations: 0,
+  rotationAngles: [0, 0],
+  transitionDuration: 1000,
 };
 
 const Wordcloud = ({ tags, error, loading }) => {
