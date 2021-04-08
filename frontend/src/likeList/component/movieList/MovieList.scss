@@ -58,4 +58,9 @@
     display: hidden;
     transition-delay: 0.5s;
   }
+
+  &:not(&--open) .movie-item:hover .movie-rating-image {
+    visibility: visible;
+    transition-delay: 0.5s;
+  }
 }

@@ -113,3 +113,9 @@
 .movie-end-button:hover {
   border: 2px solid white;
 }
+
+.movie-rating-image {
+  display: flex;
+  visibility: hidden;
+  align-items: center;
+}
