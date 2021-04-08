@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import BasicInfo from '../../components/movieDetail/BasicInfo';
 import Cast from '../../components/movieDetail/Cast';
 import Comment from '../../components/movieDetail/comment/Comment';
@@ -13,8 +12,6 @@ import StarGraph from '../../components/movieDetail/StarGraph';
 import Video from '../../components/movieDetail/Video';
 import { readMovie, unloadMovie } from '../../modules/movie';
 import './MovieDetailContainer.scss';
-import * as authApi from '../../lib/api/auth';
-import { setUser } from '../../modules/user';
 
 const MovieDetailContainer = ({ movieNo }) => {
   const dispatch = useDispatch();
@@ -53,10 +50,6 @@ const MovieDetailContainer = ({ movieNo }) => {
       setMyCommentData({ content: movie.user_review });
     }
   }, [movie]);
-
-  // ranking: null,
-  // isZzim: false,
-  // content: '',
 
   return (
     <>
