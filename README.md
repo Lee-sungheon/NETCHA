@@ -42,6 +42,12 @@
 
 ​	사용자별 영화 취향 분석을 보여줍니다.
 
+​	보고싶은영화를 찜해두어 언제든 바로 찾을수 있어요.
+
+​	영화를 평가하면서 사용자 취향에 맞는 영화를 추천받을수 있어요.
+
+​	MBTI성향을 기반으로 영화를 추천받을수 있어요.
+
 - **기능 명세 바로가기**
 
   [기능 명세](https://www.notion.so/4ec97bb09b314fd29ef90ff0e13d31a3)
@@ -54,6 +60,68 @@
 
 - 추후 업데이트 예정
 
+- Netcha
+
+  - 시작페이지
+
+      ![(null)](README.assets/cif00001-1617870899200.png)  
+
+  - 회원가입페이지
+
+      ![(null)](README.assets/cif00001-1617871024252.png)  
+
+  - 로그인페이지
+
+      ![(null)](README.assets/cif00001-1617871041046.png)  
+
+  - 메인페이지(배너)
+
+      ![(null)](README.assets/cif00001-1617871057152.png)  
+
+  - 메인페이지(추천영화리스트)
+
+      ![(null)](README.assets/cif00001-1617871076247.png) 
+
+      ![(null)](README.assets/cif00001-1617871088867.png)  
+
+      ![(null)](README.assets/cif00001-1617871094002.png)  
+
+      ![(null)](README.assets/cif00001-1617871098844.png)  
+
+      ![(null)](README.assets/cif00001-1617871126240.png)  
+
+  - 찜한영화목록
+
+      ![(null)](README.assets/cif00001-1617871152700.png)  
+
+  - 영화평가하기 페이지
+
+      ![(null)](README.assets/cif00001-1617871172596.png)  
+
+  - 검색결과페이지
+
+      ![(null)](README.assets/cif00001-1617871188128.png)  
+
+  - MBTI 설정 페이지
+
+      ![(null)](README.assets/cif00001-1617871214331.png)  
+
+  - MBTI테스트 페이지
+
+      ![(null)](README.assets/cif00001-1617871235739.png)  
+
+  - MBTI테스트결과 페이지
+
+      ![(null)](README.assets/cif00001-1617871254338.png)  
+
+  - 계정관리 페이지
+
+      ![(null)](README.assets/cif00001-1617871267870.png)  
+
+    
+
+  
+
 ## 🗓️ 개발 일정
 
 - **개발 일정 바로가기**
@@ -63,28 +131,25 @@
 ## 📚 기술 스택
 
 - **Back-End**
-  - Java 11
+  - Java 8
   - Spring Boot
   - Spring Security
   - JPA Hibernate & Spring Data JPA
-  - Netflix OSS (Zuul, Eureka, Histrix, Ribbon)
-  - Docker
-  - GoLang & grpc
-  - MySQL
-  - AWS EC2
-  - AWS S3
-  - 추가예정
 - **Front-End**
   - React.js
   - Redux
   - Redux-saga
   - Material-UI
-  - 추가 예정
+  - chart.js
+  - ReactHlsPlayer
 - **Devops & Tools**
-  - Docker
-  - Jenkins
+  - MySQL
+  - AWS EC2
+  - AWS S3
+  - AWS CloudFron
   - git-flow
   - Jira
+  - notion
 
 ## 🎲 개발 규칙
 
@@ -98,3 +163,14 @@
 
 
 - **프론트엔드**
+
+  ```bash
+  npm install
+  npm start
+  ```
+
+  
+
+  
+
+  
