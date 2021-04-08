@@ -134,7 +134,7 @@ export function* addSearchData(action) {
 
 export default function* saga() {
   yield all([
-    debounce(500, types.REQUEST_SEARCHMOVIELIST, fetchData),
+    debounce(1500, types.REQUEST_SEARCHMOVIELIST, fetchData),
     takeLeading(types.TRY_SET_TEXT, trySetText),
     takeLeading(types.REQUEST_GANREMOVIELIST, ganreData),
     takeLeading(types.REQUEST_COUNTRYMOVIELIST, countryData),
