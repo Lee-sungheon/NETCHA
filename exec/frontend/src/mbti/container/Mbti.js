@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "10vw",
   },
   mbti_div: {
-    height: "35vw",
+    height: "90vh",
     padding: "3vw 3.5vw",
     color: "white",
     textAlign: "center",
