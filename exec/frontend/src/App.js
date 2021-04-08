@@ -100,6 +100,7 @@ const PublicRoute = ({ component: Component, restricted, ...rest }) => {
       {...rest}
       render={(props) =>
         !!window.sessionStorage.getItem("token") && restricted ? (
+          
           <Redirect to="/home" />
         ) : (
           <Component {...props} />
