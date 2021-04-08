@@ -206,9 +206,9 @@ export default function Evaluation() {
       <div className="eval__root">
         {!isLoading &&
           <GridList cellHeight={'auto'} className={classes.gridList} cols={colsNum} spacing={35}>
-            {movieLists.map((tile, idx) => (tile.posterUrl !== 'default' &&
+            {movieLists.map((tile, idx) => (
               <GridListTile key={idx}>
-                <MovieItem tile={tile} pickNum={pickNum} setPickNum={setPickNum}/>
+                <MovieItem tile={tile} pickNum={pickNum} setPickNum={setPickNum} idx={idx}/>
               </GridListTile>
             ))}
           </GridList>
