@@ -133,5 +133,11 @@ public class AuthServiceImpl implements AuthService {
 		redisUtil.setDataExpire(key, member.getUserId(), 60 * 30L);
 		emailService.sendMail(member.getUserId(), "[넷챠] 사용자 비밀번호 안내 메일", CHANGE_PASSWORD_LINK + key);
 	}
-
+	
+	@Transactional
+	@Override
+	public String getName(int seq) {
+		Member member = memberRepository.findById(seq).get();
+		return member.getNickname();
+	}
 }
