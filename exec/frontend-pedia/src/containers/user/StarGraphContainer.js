@@ -22,7 +22,8 @@ function getValues(arr) {
     }
   }
 
-  avg = calc / sum;
+  if(sum === 0) avg = 0.0;
+  else avg = calc / sum;
 }
 
 const StarGraphContainer = () => {
