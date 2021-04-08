@@ -143,6 +143,11 @@ export default function SignupDetail(props) {
           },
         })
         .then((res) => {
+          alert("회원가입이 완료되었습니다.");
+          alert("인증메일이 발송되었습니다. 확인해주세요");
+          history.push({
+            pathname: "/login",
+          });
           console.log("계정생성 성공");
           axios
             .post(
@@ -155,11 +160,7 @@ export default function SignupDetail(props) {
               }
             )
             .then((res) => {
-              alert("인증메일이 발송되었습니다. 확인해주세요");
               console.log("인증메일 발송");
-              history.push({
-                pathname: "/login",
-              });
             })
             .catch((err) => {
               console.log("인증메일 발송 실패");
