@@ -653,11 +653,11 @@ public class MovieService {
 		List<Movie> movieR = null;
 		// 평가한적이 없으면 조회수 순
 		if(movieRanks.size() == 0) {
-			movieR = movieRepository.findByOrderByTotalViewDesc("2015-01-01", PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
+			movieR = movieRepository.findByOrderByTotalViewDesc("2015-01-01", PageRequest.of(pageNum, 40));
 		} else { // 평가한 영화는 제외
 			List<Long> movieNos = new ArrayList<Long>();
 			for(int i=0; i<movieRanks.size(); i++) movieNos.add(movieRanks.get(i).getMovie().getNo());
-			movieR = movieRepository.findByNoNotIn("2015-01-01", movieNos, PageRequest.of(pageNum, 40, Direction.DESC, "totalView"));
+			movieR = movieRepository.findByNoNotIn("2015-01-01", movieNos, PageRequest.of(pageNum, 40));
 		}
 		List<MovieResponseDto> movies = new ArrayList<MovieResponseDto>();
 		for(Movie m : movieR) {
@@ -1367,8 +1367,40 @@ public class MovieService {
 		
 		List<Member> memberList = memberRepository.findAll();
 		for(Member member : memberList) {
+			if(member.getMbti().equals("") || member.getUserId().substring(0, 4).equals("test")) continue;
 			List<MovieResponseDto> newContents = findMovieByNewContents(member.getSeq(), 0);
 			for(MovieResponseDto movie : newContents) {
+				if(movie.getUserDidRank() == 0) {
+					int idx = (int)(Math.random()*10);
+					updateRank(member.getSeq(), movie.getNo(), doRank[idx]);
+				}
+				MovieRank rank = movieRankRepository.findByMemberSeqAndMovieNo(member.getSeq(), movie.getNo());
+				
+				if(!movie.isUserDidZzim()) 
+					if(rank.getRanking() >= 3) 
+						updateZzim(member.getSeq(), movie.getNo());
+				
+				if(movie.getUserDidLike() == 0) {
+					if(rank.getRanking() >= 4) updateLike(member.getSeq(), movie.getNo(), 1);
+					else if(rank.getRanking() <=1.5) updateLike(member.getSeq(), movie.getNo(), -1);
+				}
+				
+				MovieReview review = movieReviewRepository.findByMemberSeqAndMovieNo(member.getSeq(), movie.getNo());
+				if(review == null) {
+					int randoms = (int)(Math.random()*3);
+					insertReview(member.getSeq(), movie.getNo(), doReview.get(rank.getRanking())[randoms]);
+				}
+				
+				List<MovieReview> reviews = movieReviewRepository.findByMovieNo(movie.getNo());
+				for(MovieReview r : reviews) {
+					int randoms = (int)(Math.random()*2);
+					MovieReviewLike rl = movieReviewLikeRepository.findByMemberSeqAndMovieReviewNo(member.getSeq(), r.getNo());
+					if(rl == null && randoms == 1) insertReviewLike(member.getSeq(), r.getNo());
+				}
+			}
+			
+			List<MovieResponseDto> totalViews = findMovieByTotalView(member.getSeq(), 0);
+			for(MovieResponseDto movie : totalViews) {
 				if(movie.getUserDidRank() == 0) {
 					int idx = (int)(Math.random()*10);
 					updateRank(member.getSeq(), movie.getNo(), doRank[idx]);
