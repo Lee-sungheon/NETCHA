@@ -12,12 +12,15 @@
 .actorImage {
   display: inline-block;
   position: relative;
-  top: 0px;
+  top: -2px;
   height: 56px;
   width: 56px;
-  border: 1px solid #e6e6e6;
   border-radius: 5px;
   position: relative;
+}
+.actorImg {
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
 }
 
 .peopleImage {

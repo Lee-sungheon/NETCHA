@@ -10,6 +10,8 @@ import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 const MovieRanking = ({ match, history }) => {
+  window.scrollTo(0, 0);
+
   const { token } = match.params;
   const dispatch = useDispatch();
   const getUserInfo = async () => {

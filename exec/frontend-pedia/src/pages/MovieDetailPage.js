@@ -8,6 +8,8 @@ import * as authApi from '../lib/api/auth';
 import { setUser } from '../modules/user';
 
 const MovieDetailPage = ({ match, history }) => {
+  window.scrollTo(0, 0);
+
   const { movieNo, token } = match.params;
   const dispatch = useDispatch();
   const getUserInfo = async () => {
@@ -24,7 +26,9 @@ const MovieDetailPage = ({ match, history }) => {
   return (
     <>
       <HeaderContainer />
-      <MovieDetailContainer movieNo={parseInt(movieNo)} />
+      <div style={{ minHeight: '1000px' }}>
+        <MovieDetailContainer movieNo={parseInt(movieNo)} />
+      </div>
       <Footer />
     </>
   );

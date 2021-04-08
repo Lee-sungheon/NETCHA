@@ -8,6 +8,8 @@ import { withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 const MovieDetailPage = ({ match, history }) => {
+  window.scrollTo(0, 0);
+
   const { commentNo, token } = match.params;
   const dispatch = useDispatch();
   const getUserInfo = async () => {

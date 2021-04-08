@@ -8,6 +8,8 @@ import * as authApi from '../lib/api/auth';
 import { setUser } from '../modules/user';
 
 const UserStatics = ({ match, history }) => {
+  window.scrollTo(0, 0);
+
   const { id, token } = match.params;
   const dispatch = useDispatch();
   const getUserInfo = async () => {

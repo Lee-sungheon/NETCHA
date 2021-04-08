@@ -8,10 +8,11 @@ import {
 } from '../../modules/ratingMovies';
 import Loader from '../../components/common/Loader';
 
-const UserRatingMoviesContainer = ({ userId }) => {
+const UserRatingMoviesContainer = () => {
   const dispatch = useDispatch();
-  const { movies, count, error, loading } = useSelector(
-    ({ ratingMovies, loading }) => ({
+  const { userId, movies, count, error, loading } = useSelector(
+    ({ user, ratingMovies, loading }) => ({
+      userId: user.user.userId,
       movies: ratingMovies.movies,
       count: ratingMovies.count,
       error: ratingMovies.error,
