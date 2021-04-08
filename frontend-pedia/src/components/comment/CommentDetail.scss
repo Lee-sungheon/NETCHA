@@ -34,10 +34,7 @@
     .commentContent {
       padding: 13px 0;
       border-bottom: 1px solid rgb(235, 233, 233);
-      display: -webkit-box;
-      -webkit-line-clamp: 7;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      white-space: pre;
     }
     .footer1 {
       padding: 10px 0;

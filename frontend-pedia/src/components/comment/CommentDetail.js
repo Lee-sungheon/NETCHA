@@ -58,10 +58,12 @@ const CommentDetail = ({ requestData, history }) => {
             <div className="commentBox">
               <div className="header">
                 {comment.userNickname}
-                <div>
-                  <span>★</span>
-                  <span className="score">{comment.ranking.toFixed(1)}</span>
-                </div>
+                {comment.ranking !== 0 && (
+                  <div>
+                    <span>★</span>
+                    <span className="score">{comment.ranking.toFixed(1)}</span>
+                  </div>
+                )}
               </div>
 
               <div className="commentContent">{comment.content}</div>

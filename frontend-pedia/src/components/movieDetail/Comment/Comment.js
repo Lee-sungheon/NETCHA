@@ -99,10 +99,12 @@ const Comment = ({ requestData, history }) => {
                     {comment.userNickname}
                   </span>
                 </div>
-                <div>
-                  <span>★</span>
-                  <span className="score">{comment.ranking.toFixed(1)}</span>
-                </div>
+                {comment.ranking !== 0 && (
+                  <div>
+                    <span>★</span>
+                    <span className="score">{comment.ranking.toFixed(1)}</span>
+                  </div>
+                )}
               </div>
 
               <div
