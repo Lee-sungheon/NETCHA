@@ -55,14 +55,19 @@ export default function SearchList({location}) {
       }
     }
     window.addEventListener("scroll", handleScroll);
+    window.scrollTo(0, 0);
     if (search[0] === 'ganre'){
       dispatch(actions.requestGanreMovieList(search[1], 0, user.seq));
+      dispatch(actions.trySetText(''));
     } else if (search[0] === 'country'){
       dispatch(actions.requestCountryMovieList(search[1], 0, user.seq));
+      dispatch(actions.trySetText(''));
     } else if (search[0] === 'cast'){
       dispatch(actions.requestCastMovieList(search[1], 0));
+      dispatch(actions.trySetText(''));
     } else if (search[0] === 'director'){
       dispatch(actions.requestDirectorMovieList(search[1], 0));
+      dispatch(actions.trySetText(''));
     } else{
       dispatch(actions.requestSearchMovieList(search[1], 0, user.seq));
     }
