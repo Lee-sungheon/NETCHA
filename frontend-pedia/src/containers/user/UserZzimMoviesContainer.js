@@ -11,12 +11,10 @@ const UserZzimMoviesContainer = () => {
     userId,
     zzimMovies,
     count,
-    ratingMovies,
     error,
     loading,
-  } = useSelector(({ user, zzimMovies, ratingMovies, loading }) => ({
+  } = useSelector(({ user, zzimMovies, loading }) => ({
     userId: user.user.userId,
-    ratingMovies: ratingMovies.movies,
     zzimMovies: zzimMovies.movies,
     count: zzimMovies.count,
     error: zzimMovies.error,
@@ -27,18 +25,17 @@ const UserZzimMoviesContainer = () => {
     dispatch(countZzimMovies(userId));
   }, [dispatch, userId]);
 
-  if (zzimMovies && ratingMovies) {
+  if (zzimMovies) {
     for (let i = 0; i < zzimMovies.length; i++) {
-      for (let j = 0; j < ratingMovies.length; j++) {
-        if (zzimMovies[i].no === ratingMovies[j].no) {
+      if (zzimMovies[i].userDidRank > 0) {
           zzimMovies[i].isRating = "평가함";
-          break;
-        }
+          zzimMovies[i].score = zzimMovies[i].userDidRank;
+      }
+      else {
+        zzimMovies[i].isRating = "평균";
+        zzimMovies[i].score = zzimMovies[i].avgRank;
       }
     }
-    zzimMovies.forEach((movie) => {
-      if (!movie.isRating) movie.isRating = "평균";
-    });
   }
   
   if (loading) return <Loader type="spin" color="#ff0073" message="LOADING..." />;
