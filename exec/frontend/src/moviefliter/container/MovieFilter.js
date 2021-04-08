@@ -326,7 +326,7 @@ export default function MovieFilter() {
           </div>
         )}
       </div>
-      {movieLists.length < tabNo && <div style={{ height: "40vh" }}></div>}
+      {movieLists.length <= tabNo && <div style={{ height: "40vh" }}></div>}
     </>
   );
 }
