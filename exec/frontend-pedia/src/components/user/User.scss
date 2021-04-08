@@ -1,0 +1,38 @@
+.userWrapper {
+  width: 100%;
+  padding: 95px 0 30px 0;
+  border: 1px solid #e3e3e3;
+
+  hr {
+    border: 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .userBox {
+    width: 600px;
+    border: 1px solid rgb(192, 192, 192);
+    border-radius: 6px;
+    margin: 0 auto;
+
+    .wallPaper {
+      width: 100%;
+      height: 200px;
+      margin: 0 0 -20px -0.0145px;
+      background: linear-gradient(to right, #141130, #1481a7);
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+    }
+
+    .user {
+      padding: 0 20px 0 20px;
+
+      .profileIconImg {
+        width: 60px;
+        border-radius: 60%;
+        border: 1px solid #e6e6e6;
+      }
+      .smallSliderWrap {
+        height: 300px;
+      }
+    }
+  }
+}

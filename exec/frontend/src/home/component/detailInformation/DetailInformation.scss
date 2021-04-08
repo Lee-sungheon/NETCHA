@@ -1,0 +1,57 @@
+.detail {
+  &__title {
+    font-size: 1.2vw;
+    font-weight: 600;
+    margin: 0.1vw 0px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  &__people {
+    font-size: 1vw;
+    font-weight: 600;
+    margin: 0.1vw 0;
+    color: rgba(255, 255, 255, 0.5);
+    &__member {
+      cursor: pointer;
+      &:hover {
+        color: rgba(255, 255, 255, 1) !important;
+      }
+    }
+  }
+
+  &__comment {
+    font-size: 1vw;
+    font-weight: 600;
+    margin: 0.1vw 0;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  &__more {
+    color: white;
+    cursor: pointer;
+    margin-left: 0.3vw;
+  }
+
+  &__thumb {
+    display: flex;
+    color: white;
+    font-size: 1vw;
+    margin-top: 0.2vw;
+  }
+
+  &__chevron-box {
+    width: 5%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  &__chevron {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.5);
+    width: 4vw !important;
+    height: 4vw !important;
+  }
+}
+
+.detail__chevron-box:hover .detail__chevron {
+  color: white;
+}

@@ -1,0 +1,71 @@
+.movie-filter {
+  &__container {
+    width: 100%;
+    margin-top: 60px;
+    position: relative;
+    overflow: visible;
+  }
+  &__top-bar {
+    &__container {
+      position: absolute; 
+      left: 0;
+      top: 70px;
+      width: 98vw; 
+      height: 53px; 
+      z-index: 10;
+    }
+    &__area {
+      display: flex;
+      height: 100%; 
+      align-items: center;
+    }
+    &__left {
+      width: 70%;
+      margin-left: 50px;
+      display: flex; 
+      justify-content: flex-start; 
+      &__filter1 {
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 1);
+        color: rgba(255, 255, 255, 1); 
+        display: flex; 
+        align-items: center; 
+        width: 280px;
+        height: 25px;
+      }
+    }
+    &__right {
+      width: 30%;
+      display: flex; 
+      justify-content: flex-end; 
+      margin-right: 4%;
+      &__button1 {
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        color: rgba(255, 255, 255, 0.7); 
+        display: flex; 
+        align-items: center;
+        justify-content: center; 
+        width: 35px;
+        height: 25px;
+      }
+      &__button1:hover {
+        border: 1px solid rgba(255, 255, 255, 1);
+        color: rgba(255, 255, 255, 1);
+      }
+      &__button2 {
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 1);
+        color: rgba(255, 255, 255, 1); 
+        display: flex; 
+        align-items: center; 
+        width: 280px;
+        height: 25px;
+      }
+    }
+  }
+}
+
+.MuiTypography-body1 {
+  font-size: 0.6rem !important;
+}
