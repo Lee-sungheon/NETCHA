@@ -69,6 +69,10 @@ export const types = {
   SET_VALUE: "home/SET_VALUE",
 };
 
+export const homeActions = {
+  setMovieList: (data) => ({ type: types.SET_MOVIELIST, data }),
+  setMbtiMovieList: (data) => ({ type: types.SET_MBTIMOVIELIST, data }),
+}
 export const actions = {
   // 추천 영화
   requestMovieList: (pageNum, userNo) => ({

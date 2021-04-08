@@ -57,4 +57,9 @@
     transition-delay: 0.5s;
     visibility: hidden;
   }
+
+  &:not(&--open) .item:hover .rating-image {
+    transition-delay: 0.5s;
+    visibility: visible;
+  }
 }
