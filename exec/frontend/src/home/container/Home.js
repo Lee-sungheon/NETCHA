@@ -34,19 +34,18 @@ export default function Home() {
   const [isloading, setIsloading] = useState(1);
   useEffect(() => {
     dispatch(navActions.headerToggle(true));
-
     return () => {};
   }, [dispatch]);
   useEffect(() => {
+    window.scrollTo(0, 0);
     async function fetchData() {
       const evalNum = await callApiEvaluation(user.seq);
-      if (evalNum <= 5) {
+      if (evalNum < 10) {
         alert("영화 추천을 위해서 영화 평가를 해주세요!");
         history.push(`/eval`);
       }
     }
     fetchData();
-    window.scrollTo(0, 0);
   }, [history, user]);
   useEffect(() => {
     function handleScroll() {
