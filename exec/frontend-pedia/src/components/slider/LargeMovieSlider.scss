@@ -1,0 +1,115 @@
+.largeSlider {
+  .slick-prev:before,
+  .slick-next:before {
+    opacity: 1;
+    font-size: 33px;
+    color: rgb(150, 150, 150);
+    position: relative;
+    top: -50px;
+    // background: white center;
+    // border-radius: 50%;
+  }
+
+  .title {
+    position: relative;
+    left: 20px;
+    bottom: -10px;
+    font-weight: 700;
+  }
+
+  .MovieBox {
+    width: 260px;
+    height: 450px;
+
+    .movieAllWrap {
+      display: flex;
+      padding: 0 6px 0 6px;
+
+      .moviePosterInside {
+        height: 456px;
+        width: 250px;
+        position: relative;
+        cursor: pointer;
+
+        .image {
+          border: 1px solid #f0f0f0;
+          margin: 0 10px 0 10px;
+          width: 240px;
+          height: 345px;
+          border-radius: 6px;
+        }
+
+        .rankingNumber {
+          position: absolute;
+          top: 6px;
+          left: 15px;
+          width: 28px;
+          height: 28px;
+          line-height: 27px;
+          font-size: 16px;
+          font-weight: 700;
+          text-align: center;
+          color: rgb(255, 255, 255);
+          background-color: rgba(0, 0, 0, 0.77);
+          border-radius: 4px;
+          opacity: 1;
+          transition: opacity 300ms ease 0s;
+        }
+
+        .movieRank {
+          // @include rankIcon;
+          position: absolute;
+          top: 6px;
+          bottom: 6px;
+          right: 183.797px;
+          left: 6px;
+          color: white;
+        }
+
+        .movieInfo {
+          height: 5.438em;
+          width: 13.05em;
+          margin: 0 10px 0 10px;
+
+          .movieTitle {
+            font-weight: bold;
+            font-size: 16px;
+            letter-spacing: -0.3px;
+            line-height: 22px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 22px;
+            margin: 10px 0 3px 0;
+            outline: none;
+          }
+
+          .movieDate {
+            font-size: 14px;
+            outline: none;
+            padding-bottom: 1px;
+            height: 22px;
+            padding: 0 0 1px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .movieRate {
+            display: flex;
+            margin-top: 2px;
+            height: 12px;
+            font-size: 13px;
+            
+            .movieScorePink {
+              color: #ff0073;
+            }
+            .movieScoreOrange {
+              color: orange;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+.banner {
+  &:before {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    background-image: linear-gradient(to top, rgb(20, 21, 23), transparent);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 70px;
+  }
+}
