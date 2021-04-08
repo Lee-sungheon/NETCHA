@@ -12,7 +12,6 @@ import "./App.scss";
 import Evaluation from "./evaluation/container/Evaluation";
 import Account from "./user/container/Account";
 import Login from "./user/container/Login";
-import TestMbti from "./mbti/container/TestMbti";
 import Mbti from "./mbti/container/Mbti";
 import Signup from "./user/container/Signup";
 import SignupDetail from "./user/container/SignupDetail";
