@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import { useHistory } from "react-router";
 import SignupHeader from "../component/SignupHeader";
 import SignupSection from "../component/SignupSection";
 import SignupSubSection from "../component/SignupSubSection";
+import { useDispatch } from "react-redux";
+import { navActions } from "../../navbar/state";
 
 const useStyles = makeStyles((theme) => ({
   signup_back: {
@@ -49,11 +51,15 @@ const useStyles = makeStyles((theme) => ({
 export default function Signup(props) {
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const [inputData, setInputData] = useState({
     userId: "",
   });
-
+  useEffect(() => {
+    dispatch(navActions.headerToggle(false));
+    return () => {};
+  }, [dispatch]);
   const onUserIdHandler = (e) => {
     setInputData({ ...inputData, userId: e.target.value });
   };
