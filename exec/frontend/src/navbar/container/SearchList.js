@@ -146,7 +146,7 @@ export default function SearchList({location}) {
             <span style={{marginLeft: '8px'}}>더이상 불러올 데이터가 없습니다!</span>
           </div>
         }
-        {movieLists.length <= tabNo &&
+        {movieLists.length <= tabNo*2 &&
           <div style={{height: '40vh'}}></div>
         }
     </>
