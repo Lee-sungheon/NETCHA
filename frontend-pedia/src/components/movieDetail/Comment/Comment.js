@@ -53,7 +53,7 @@ const Comment = ({ requestData, history }) => {
     fetchComments();
   }, [requestData]);
 
-  if (comments.length == 0)
+  if (comments.length === 0)
     return (
       <div className="comment">
         <div className="infoHeader">코멘트</div>
