@@ -1211,10 +1211,11 @@ public class MovieService {
 			searchNos.add((long) 0);
 			searchNos.addAll(movieRepository.findByNoAndOpenAndTitle("2015-01-01", search));
 			
-			searchMovies.addAll(movieRepository.findByOpenAndCasts("2015-01-01", search));
-			searchMovies.addAll(movieRepository.findByOpenAndDirectors("2015-01-01", search));
-			searchNos.addAll(movieRepository.findByNoOpenAndCasts("2015-01-01", search));
-			searchNos.addAll(movieRepository.findByNoOpenAndDirectors("2015-01-01", search));				
+			searchMovies.addAll(movieRepository.findByOpenAndCasts("2015-01-01", search, searchNos));
+			searchNos.addAll(movieRepository.findByNoOpenAndCasts("2015-01-01", search, searchNos));
+			
+			searchMovies.addAll(movieRepository.findByOpenAndDirectors("2015-01-01", search, searchNos));
+			searchNos.addAll(movieRepository.findByNoOpenAndDirectors("2015-01-01", search, searchNos));				
 			
 			List<MovieResponseDto> resultMovie = new ArrayList<MovieResponseDto>();
 			
@@ -1251,8 +1252,11 @@ public class MovieService {
 					movie.userInfo(mr, ml, mz);
 					resultMovie.add(movie);
 				}
-				for(int i=0; i<searchMovies.size(); i++) 
+				for(int i=0; i<searchMovies.size(); i++) {
+					// 비슷한 영화내에서 뺄거 빼야함!!!!
 					resultMovie.addAll(recommendMovieBySimilar(userId, searchMovies.get(i).getNo(), 0, 5));
+				}
+				
 				if(pageNum*40 > resultMovie.size()) return null;
 				int idx = pageNum*40;
 				int last = idx+40;
