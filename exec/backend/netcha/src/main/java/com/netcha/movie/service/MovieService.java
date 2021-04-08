@@ -1253,8 +1253,12 @@ public class MovieService {
 					resultMovie.add(movie);
 				}
 				for(int i=0; i<searchMovies.size(); i++) {
-					// 비슷한 영화내에서 뺄거 빼야함!!!!
-					resultMovie.addAll(recommendMovieBySimilar(userId, searchMovies.get(i).getNo(), 0, 5));
+					List<MovieResponseDto> similar = recommendMovieBySimilar(userId, searchMovies.get(i).getNo(), 0, 5);
+					for(int j=similar.size()-1; j>=0; j--) {
+						if(searchNos.contains(similar.get(j).getNo())) similar.remove(j);
+						else searchNos.add(similar.get(j).getNo());
+					}
+					resultMovie.addAll(similar);
 				}
 				
 				if(pageNum*40 > resultMovie.size()) return null;
