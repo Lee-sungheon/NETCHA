@@ -23,6 +23,7 @@ export default function Buttons({ movie, onSelectSlide, isdetail, setIsdetail })
   const likeList = useSelector(state => state.search.isLike);
   const history = useHistory();
   const dispatch = useDispatch();
+  let isOne = true;
   useEffect(()=>{
     if (zzimList.length > 0) {
       for (let zzim of zzimList){
@@ -52,7 +53,8 @@ export default function Buttons({ movie, onSelectSlide, isdetail, setIsdetail })
       setIsZzim(!isZzim);
     }
   }
-  function toggleLike() {
+  function toggleLike(e) {
+    e.preventDefault();
     if (isLike !== 1){
       callApiLike(user.seq, movie.no, 1);
       dispatch(actions.setIsLike(movie.no, 1));
@@ -64,15 +66,18 @@ export default function Buttons({ movie, onSelectSlide, isdetail, setIsdetail })
     }
   }
   function toggleDislike() {
-    if (isLike !== -1){
-      callApiLike(user.seq, movie.no, -1);
-      dispatch(actions.setIsLike(movie.no, -1));
-      setIsLike(-1);
-    } else {
-      callApiLike(user.seq, movie.no, -1);
-      dispatch(actions.setIsLike(movie.no, 0));
-      setIsLike(0);
+    if (isOne) {
+      if (isLike !== -1){
+        callApiLike(user.seq, movie.no, -1);
+        dispatch(actions.setIsLike(movie.no, -1));
+        setIsLike(-1);
+      } else {
+        callApiLike(user.seq, movie.no, -1);
+        dispatch(actions.setIsLike(movie.no, 0));
+        setIsLike(0);
+      }
     }
+    isOne = !isOne;
   }
   function onClick() {
     setIsdetail(!isdetail);
