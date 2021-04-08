@@ -5,11 +5,10 @@ import { withRouter } from 'react-router';
 import { listDirectors } from '../../modules/directors';
 import Loader from '../../components/common/Loader';
 
-const DirectorListContainer = () => {
+const DirectorListContainer = ({ userId }) => {
   const dispatch = useDispatch();
-  const { userId, directors, error, loading } = useSelector(
-    ({ user, directors, loading }) => ({
-      userId: user.user.userId,
+  const { directors, error, loading } = useSelector(
+    ({ directors, loading }) => ({
       directors: directors.directors,
       error: directors.error,
       loading: loading['directors/LIST_DIRECTORS'],
@@ -19,10 +18,15 @@ const DirectorListContainer = () => {
     dispatch(listDirectors({ userId }));
   }, [dispatch, userId]);
 
-  if (loading) return <Loader type="spin" color="#ff0073" message="LOADING..." />;
+  if (loading)
+    return <Loader type="spin" color="#ff0073" message="LOADING..." />;
 
   return (
-    <PeopleList data={directors? directors.director : null} error={error} loading={loading} />
+    <PeopleList
+      data={directors ? directors.director : null}
+      error={error}
+      loading={loading}
+    />
   );
 };
 

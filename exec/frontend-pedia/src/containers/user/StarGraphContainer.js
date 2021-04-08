@@ -5,7 +5,11 @@ import { listStars } from '../../modules/stars';
 import StarGraph from '../../components/user/StarGraph';
 import Loader from '../../components/common/Loader';
 
-var highestStar = 0, sum = 0, calc = 0.0, score = 0, avg = 0;
+var highestStar = 0,
+  sum = 0,
+  calc = 0.0,
+  score = 0,
+  avg = 0;
 
 function getValues(arr) {
   var max = 0;
@@ -22,14 +26,13 @@ function getValues(arr) {
     }
   }
 
-  if(sum === 0) avg = 0.0;
+  if (sum === 0) avg = 0.0;
   else avg = calc / sum;
 }
 
-const StarGraphContainer = () => {
+const StarGraphContainer = ({ userId }) => {
   const dispatch = useDispatch();
-  const { userId, stars, error, loading } = useSelector(({ user, stars, loading }) => ({
-    userId: user.user.userId,
+  const { stars, error, loading } = useSelector(({ stars, loading }) => ({
     stars: stars.stars,
     error: stars.error,
     loading: loading['stars/LIST_STARS'],
@@ -37,13 +40,13 @@ const StarGraphContainer = () => {
   useEffect(() => {
     dispatch(listStars({ userId }));
   }, [dispatch, userId]);
-  
-  useEffect(() => {
-    if(stars !== null)
-      getValues(stars);
-  }, [dispatch, stars])
 
-  if (loading) return <Loader type="spin" color="#ff0073" message="LOADING..." />;
+  useEffect(() => {
+    if (stars !== null) getValues(stars);
+  }, [dispatch, stars]);
+
+  if (loading)
+    return <Loader type="spin" color="#ff0073" message="LOADING..." />;
 
   return (
     <StarGraph

@@ -34,6 +34,7 @@ const MovieDetailContainer = ({ movieNo }) => {
       loading: loading['movie/READ_MOVIE'],
     })
   );
+  if (movie) console.log(movie.actors);
   useEffect(() => {
     if (requestData.movieNo && requestData.userId)
       dispatch(readMovie(requestData));
@@ -53,7 +54,7 @@ const MovieDetailContainer = ({ movieNo }) => {
       });
     }
   }, [movie]);
-  
+
   return (
     <>
       {movie && (
@@ -100,7 +101,7 @@ const MovieDetailContainer = ({ movieNo }) => {
               </div>
               <div className="contentBlock">
                 <BasicInfo movie={movie} loading={loading} error={error} />
-                <Cast actors={movie.movie_info.casts} people={movie.actors} />
+                <Cast people={movie.actors} actors={movie.movie_info.casts} />
                 <StarGraph requestData={requestData} />
                 <Comment
                   requestData={requestData}
