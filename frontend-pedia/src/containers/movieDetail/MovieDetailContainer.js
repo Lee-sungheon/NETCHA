@@ -47,7 +47,10 @@ const MovieDetailContainer = ({ movieNo }) => {
     if (movie) {
       setRankData({ ranking: movie.user_rank });
       setZzimData({ isZzim: movie.movie_info.userDidZzim });
-      setMyCommentData({ content: movie.user_review });
+      setMyCommentData({
+        title: movie.movie_info.title,
+        content: movie.user_review,
+      });
     }
   }, [movie]);
 
