@@ -26,6 +26,11 @@ export default function SearchInputContainer() {
       // history.push(`/searchMovie?keyword=${keyword.keyword}`);
     }
   };
+
+  // 인풋 블러
+  const onBlur = e => {
+    dispatch(initialize());
+  };
   
   useEffect(() => {
     // dispatch(listAutoCompletesMovies(keyword))
@@ -34,6 +39,11 @@ export default function SearchInputContainer() {
     };
   }, [dispatch]);
 
+  useEffect(() => {
+    if (keyword === '') {
+      changeSearchKeyword({keyword: null});
+    }
+  }, [keyword]);
 
-  return <SearchInput keyword={keyword} movies={autoCompletesMovies} onChange={onChange} onKeyPress={onKeyPress} error={error} />;
+  return <SearchInput keyword={keyword} movies={autoCompletesMovies} onChange={onChange} onKeyPress={onKeyPress} onBlur={onBlur} error={error} />;
 }

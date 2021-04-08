@@ -5,7 +5,6 @@ import { withRouter } from 'react-router';
 import * as moviesApi from '../../lib/api/movies';
 import { useSelector } from 'react-redux';
 
-// let page = 0;
 const SearchMovieListContainer = ({ location, keyword }) => {
   const [stop, setStop] = useState(false);
   const [loading, setLoading] = useState(null);
@@ -40,7 +39,7 @@ const SearchMovieListContainer = ({ location, keyword }) => {
 
   useEffect(() => {
     initSearchMovies();
-  }, []);
+  }, [keyword]);
 
   const _infiniteScroll = useCallback(() => {
     if(stop) return;
