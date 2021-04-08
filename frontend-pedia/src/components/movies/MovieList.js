@@ -31,10 +31,6 @@ const MovieItem = ({ movie }) => {
 const MovieList = ({ movies, headerTitle }) => {
   const history = useHistory();
 
-  if(movies) {
-    console.log('movies');
-    console.dir(movies);
-  }
   return (
     <>
       <div className="searchMovieListWrap">
