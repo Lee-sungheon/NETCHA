@@ -148,7 +148,6 @@ export default function SignupDetail(props) {
           history.push({
             pathname: "/login",
           });
-          console.log("계정생성 성공");
           axios
             .post(
               "netcha/user/verify",
@@ -160,7 +159,6 @@ export default function SignupDetail(props) {
               }
             )
             .then((res) => {
-              console.log("인증메일 발송");
             })
             .catch((err) => {
               console.log("인증메일 발송 실패");
