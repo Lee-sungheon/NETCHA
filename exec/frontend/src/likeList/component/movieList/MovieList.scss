@@ -1,0 +1,66 @@
+.slider {
+  display: flex;
+  position: relative;
+
+  &__container {
+    display: flex;
+    padding: 0 4%;
+    transition: transform 400ms ease 100ms;
+    z-index: 3;
+    width: 100%;
+  }
+
+  &:not(&--open) .movie-item:hover {
+    transform: scale(1.5) translateY(-50%) !important;
+    z-index: 10;
+    transition-delay: 0.5s;
+  }
+
+  &:not(&--left) .movie-item:hover {
+    transform: scale(1.5) translateY(-50%) translateX(16.5%) !important;
+    z-index: 10;
+    transition-delay: 0.5s;
+  }
+
+  &:not(&--right) .movie-item:hover {
+    transform: scale(1.5) translateY(-50%) translateX(-16.5%) !important;
+    z-index: 10;
+    transition-delay: 0.5s;
+  }
+
+  &:not(&--open):hover .movie-item {
+    transform: translateX(-25%);
+    transition-delay: 0.5s;
+  }
+
+  &:not(&--right):hover .movie-item {
+    transform: translateX(-50%);
+    transition-delay: 0.5s;
+  }
+
+  &:not(&--open) .movie-item:hover ~ .movie-item {
+    transform: translateX(25%);
+    transition-delay: 0.5s;
+  }
+
+  &:not(&--left) .movie-item:hover ~ .movie-item {
+    transform: translateX(50%);
+    transition-delay: 0.5s;
+  }
+  
+  &:not(&--open) .movie-item:hover .movie-show-card-content {
+    visibility: visible;
+    border: 0.01px solid rgba(255, 255, 255, 0.2);
+    transition-delay: 0.5s;
+  }
+
+  &:not(&--open) .movie-item:hover .movie-show-card-title {
+    display: hidden;
+    transition-delay: 0.5s;
+  }
+
+  &:not(&--open) .movie-item:hover .movie-rating-image {
+    visibility: visible;
+    transition-delay: 0.5s;
+  }
+}

@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+.App {
+  background-color: rgb(20, 21, 23);
+  padding-top: 64px;
+  overflow: hidden;
+  &--toggle {
+    color: black;
+    background-color: white;
+    .ld-button {
+      color: black;
+    }
+    h4 {
+      color: black !important;
+    }
+    .root {
+      color: white !important;
+      background-color: rgba(255, 255, 255, 0);
+      z-index: 15;
+      border-bottom: 1px solid gray;
+    }
+    .menu {
+      color: black;
+      font-weight: 700;
+    }
+    .title {
+      color: black;
+      font-weight: 700;
+    }
+    .arrow-icon {
+      color: black;
+    }
+    .eval__root {
+      background-color: white;
+    }
+    .search-icon {
+      color: black;
+    }
+    .show-card-title {
+      color: black;
+      font-weight: 700;
+    }
+    .movie-show-card-title {
+      color: black;
+      font-weight: 700;
+    }
+    .like__title {
+      color: black;
+      background-color: white;
+      font-weight: 900;
+    }
+    .home__top-bar__button1 {
+      border: 1px solid rgba(0, 0, 0, 1);
+      color: rgba(0, 0, 0, 1); 
+    }
+    .home__top-bar__button2 {
+      border: 1px solid rgba(0, 0, 0, 1);
+      color: rgba(0, 0, 0, 1); 
+    }
+    .movie-filter__top-bar__right__button1 {
+      border: 1px solid rgba(0, 0, 0, 1);
+      color: rgba(0, 0, 0, 1); 
+    }
+    .movie-filter__top-bar__right__button2 {
+      border: 1px solid rgba(0, 0, 0, 1);
+      color: rgba(0, 0, 0, 1); 
+    }
+    .movie-filter__top-bar__left__filter1 {
+      border: 1px solid rgba(0, 0, 0, 1);
+      color: rgba(0, 0, 0, 1); 
+    }
+    .arrowBackButton {
+      color: black;
+    }
+  }
+}

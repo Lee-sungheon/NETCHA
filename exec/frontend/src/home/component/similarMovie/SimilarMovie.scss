@@ -1,0 +1,112 @@
+.similar {
+  &__container {
+    width: 100%;
+    height: 300px;
+    position: relative;
+    z-index: 101;
+  }
+  &__area {
+    position: relative;
+  }
+  &__list {
+    display: inline-block;
+    vertical-align: top;
+    width: 22%;
+    height: 22vw;
+  }
+  &__index {
+    margin-left: 4%;
+  }
+  &__img-box {
+    display: block;
+    position: relative;
+    height: 11.5vw;
+  }
+  &__play-box {
+    width: 5vw;
+    height: 5vw;
+    top: 30%;
+    left: 37%;
+    position: absolute;
+    color: white;
+    font-size: 2.5vw;
+    text-align: center;
+    line-height: 4.2vw;
+    border-radius: 50%;
+    border: 3px solid gray;
+    background-color: rgba(0, 0, 0, 0.5);
+    visibility: hidden;
+    cursor: pointer;
+  }
+  &__play-icon {
+    color: white;
+    width: 4vw;
+    height: 4vw;
+    position: relative;
+  }
+  &__background {
+    display: inline-block;
+    position: absolute;
+    inset: 0px;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 1;
+    transition: all 420ms ease 0s;
+  }
+  &__text-box {
+    display: block;
+    position: relative;
+    height: 10.5vw;
+    overflow: hidden;
+  }
+  &__title {
+    font-size: 1.35vw;
+    font-weight: 700;
+    margin: 0.3vw 0;
+    color: rgb(255, 255, 255);
+  }
+
+  &__info {
+    display: flex;
+    font-size: 1vw;
+    margin: 0.2vw 0;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  &__description {
+    font-size: 1vw;
+    margin: 0.4vw 0;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.3vw;
+  }
+
+  &__chevron-box-left {
+    position: absolute;
+    left: -3vw;
+    width: 4vw;
+    height: 100%;
+    cursor: pointer;
+    z-index: 102;
+  }
+  &__chevron-box-right {
+    position: absolute;
+    right: -3vw;
+    width: 4vw;
+    height: 100%;
+    cursor: pointer;
+    z-index: 102;
+  }
+  &__chevron {
+    position: absolute;
+    top: 9vw;
+    color: rgba(255, 255, 255, 0.5);
+    width: 4vw !important;
+    height: 4vw !important;
+    z-index: 301;
+  }
+}
+
+.similar__img-box:hover .similar__play-box {
+  visibility: visible;
+}
