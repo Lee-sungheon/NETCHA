@@ -1349,7 +1349,7 @@ public class MovieService {
 	
 	
 	@Transactional
-	public void DBdump(List<MovieResponseDto> lists) {
+	public void DBdump() {
 		Map<Float, String[]> doReview = new HashMap<Float, String[]>();
 		doReview.put((float)0.5, new String[] {"이건 안보는게 더 낫겠다 ㅋㅋ", "시간아까움..", "시간 버리고 싶은 사람한테 강추!"});
 		doReview.put((float)1, new String[] {"넘 별로;", "최하점은 아닌거같아서 1점줌", "안본 눈 삽니다~"});
@@ -1364,9 +1364,11 @@ public class MovieService {
 		
 		Float[] doRank = {(float) 0.5, (float)1, (float)1.5, (float)2, (float)2.5, (float)3, (float)3.5, (float)4, (float)4.5, (float)5};
 		
+		
 		List<Member> memberList = memberRepository.findAll();
 		for(Member member : memberList) {
-			for(MovieResponseDto movie : lists) {
+			List<MovieResponseDto> newContents = findMovieByNewContents(member.getSeq(), 0);
+			for(MovieResponseDto movie : newContents) {
 				if(movie.getUserDidRank() == 0) {
 					int idx = (int)(Math.random()*10);
 					updateRank(member.getSeq(), movie.getNo(), doRank[idx]);
@@ -1400,7 +1402,6 @@ public class MovieService {
 	
 	@Transactional
 	public void test() {
-		Movie movie = movieRepository.findById((long)7761).get();
-		imageCrawling(movie);
+		DBdump();
 	}
 }

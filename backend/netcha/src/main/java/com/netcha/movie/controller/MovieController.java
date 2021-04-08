@@ -404,9 +404,9 @@ public class MovieController {
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
-//	@GetMapping("/test")
-//	public ResponseEntity<?> test() {
-//		movieService.test();
-//		return new ResponseEntity<>("", HttpStatus.OK);
-//	}
+	@GetMapping("/test")
+	public ResponseEntity<?> test() {
+		movieService.test();
+		return new ResponseEntity<>("", HttpStatus.OK);
+	}
 }
