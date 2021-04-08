@@ -121,7 +121,7 @@
     
 - **넷차피디아 바로가기**
 
-  (https://www.notion.so/bd8693c94a1d4ce4a826cd55bea22302)
+  [상세화면 및 테스트케이스](https://www.notion.so/bd8693c94a1d4ce4a826cd55bea22302)
   
 
 ## 🗓️ 개발 일정
