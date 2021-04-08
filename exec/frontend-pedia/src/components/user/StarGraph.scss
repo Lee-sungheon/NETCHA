@@ -1,0 +1,31 @@
+
+.starGraphWrap {
+    margin: 0 auto;
+  
+    .starGraph {
+      width: 100%;
+      margin: 0 0 0 15px;
+    }
+  
+    .starGraphInfo {
+      .starGraphLi {
+        list-style-type: none;
+        display: inline-block;
+        width: 33%;
+        margin: 0 -6px;
+        text-align: center;
+        vertical-align: top;
+        box-sizing: border-box;
+      }
+  
+      .starGraphNum {
+        font-weight: bold;
+      }
+  
+      .starGraphTitle {
+        font-size: 13px;
+        color: gray;
+      }
+    }
+  }
+  

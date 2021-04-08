@@ -1,0 +1,28 @@
+.video {
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 25px;
+    color: rgb(150, 150, 150);
+    position: relative;
+    top: -10px;
+  }
+
+  .smallVideoWrap {
+    .smallVideoBox {
+      .thumbnail {
+        border-radius: 5px;
+        border: 2px solid #e6e6e6;
+        width: 135px;
+        object-fit: contain;
+      }
+    }
+    .youtubeTitle {
+      width: 95%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: black;
+      font-weight: bold;
+    }
+  }
+}

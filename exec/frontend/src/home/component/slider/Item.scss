@@ -1,0 +1,126 @@
+
+.item {
+  flex: 0 0 16.37%;
+  transition: transform 300ms ease 100ms;
+  margin-right: 0.3%;
+  :hover {
+    transition-delay: 0.5s;
+    transition: transform 300ms ease 100ms;
+  }
+}
+@media ( max-width: 1280px ) {
+  .item {
+    flex: 0 0 19.7%;
+  }
+}
+@media ( max-width: 1023px ) {
+  .item {
+    flex: 0 0 24.7%;
+  }
+}
+
+@media ( max-width: 767px ) {
+  .item {
+    flex: 0 0 33.1%;
+  }
+}
+
+@media ( max-width: 600px ) {
+  .item {
+    flex: 0 0 49.7%;
+  }
+}
+
+.image-box {
+  width: 100%;
+  height: 0;
+  position: relative;
+  overflow: hidden;
+  padding: 28.125% 0;
+  border-radius: 3px;
+}
+
+.image-style {
+  vertical-align: center;
+  object-fit: cover;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.show-card-content {
+  transition-delay: 0.4s;
+  position: absolute;
+  background-color: rgb(25, 25, 25);
+  visibility: hidden;
+  color: white;
+  border-radius: 4%;
+  top: 98%;
+  z-index: 1;
+  right: 0;
+  left: 0;
+}
+
+.show-card-title {
+  width: 100%;
+  color: white;
+  position: absolute;
+  height: 20px;
+  overflow: hidden;
+  font-weight: 500;
+}
+
+.play-button {
+  cursor: pointer;
+  color: black;
+  margin-right: 3px;
+  background-color: white; 
+  border-radius: 50%; 
+  width: 15px !important; 
+  height: 15px !important;
+  padding: 3px; 
+  border: 2px solid white;
+}
+
+.play-button:hover {
+  background-color: rgb(230, 230, 230); 
+}
+
+.common-button {
+  cursor: pointer;
+  border-radius: 50%;
+  margin-right: 3px;
+  border: 2px solid gray;
+  width: 15px !important; 
+  height: 15px !important;
+  padding: 3px;
+}
+
+.common-button:hover {
+  border: 2px solid white;
+}
+
+.end-button {
+  cursor: pointer;
+  border-radius: 50%;
+  margin-right: 3px;
+  border: 2px solid gray;
+  width: 15px !important; 
+  height: 15px !important;
+  padding: 3px;
+  position: absolute;
+  right: 0;
+}
+
+.end-button:hover {
+  border: 2px solid white;
+}
+
+.rating-image {
+  display: flex;
+  visibility: hidden;
+  align-items: center;
+}
