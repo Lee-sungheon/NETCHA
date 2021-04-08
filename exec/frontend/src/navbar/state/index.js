@@ -10,6 +10,8 @@ export const types = {
   REQUEST_ADD_COUNTRYMOVIELIST: "search/REQUEST_ADD_COUNTRYMOVIELIST",
   REQUEST_ADD_GANREMOVIELIST: "search/REQUEST_ADD_GANREMOVIELIST",
   REQUEST_ADD_SEARCHMOVIELIST: "search/REQUEST_ADD_SEARCHMOVIELIST",
+  REQUEST_ADD_CASTMOVIELIST: "search/REQUEST_ADD_CASTMOVIELIST",
+  REQUEST_ADD_DIRECTORMOVIELIST: "search/REQUEST_ADD_DIRECTORMOVIELIST",
   ADD_MOVIELIST: "search/ADD_MOVIELIST",
   SET_INFINITE: "search/SET_INFINITE",
   SET_END: "search/SET_END",
@@ -87,6 +89,18 @@ export const actions = {
     pageNum,
     userNo,
   }),
+  requestAddCastMovieList: (cast, pageNum, userNo) => ({
+    type: types.REQUEST_ADD_SEARCHMOVIELIST,
+    cast,
+    pageNum,
+    userNo,
+  }),
+  requestAddDirectorMovieList: (director, pageNum, userNo) => ({
+    type: types.REQUEST_ADD_SEARCHMOVIELIST,
+    director,
+    pageNum,
+    userNo,
+  }),
   addMovieList: (data) => ({ type: types.ADD_MOVIELIST, data }),
   setInfinite: (isInfinite) => ({
     type: types.SET_INFINITE,
@@ -111,16 +125,18 @@ export const actions = {
     userNo,
   }),
   // 감독 영화
-  requestDirectorMovieList: (director, userNo) => ({
+  requestDirectorMovieList: (director, pageNum, userNo) => ({
     type: types.REQUEST_DIRECTORMOVIELIST,
     director,
     userNo,
+    pageNum, 
   }),
   // 배우 영화
-  requestCastMovieList: (cast, userNo) => ({
+  requestCastMovieList: (cast, pageNum, userNo) => ({
     type: types.REQUEST_CASTMOVIELIST,
     cast,
     userNo,
+    pageNum, 
   }),
 };
 
