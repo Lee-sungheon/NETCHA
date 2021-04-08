@@ -34,6 +34,9 @@ export default function Movie(props) {
   }, [props]);
   const goBack = (e) => {
     e.preventDefault();
+    if (document.pictureInPictureElement) {
+      document.exitPictureInPicture();
+    }
     history.goBack();
   };
   return (
@@ -51,7 +54,7 @@ export default function Movie(props) {
           style={{
             position: "relative",
             width: "100%",
-            height: "100%"
+            height: "100%",
           }}
         >
           <ReactHlsPlayer
