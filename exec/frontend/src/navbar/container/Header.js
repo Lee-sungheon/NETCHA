@@ -86,7 +86,6 @@ export default function Header({ toggleButton, setToggleButton }) {
 
   const onClick = () => {
     setToggleButton(!toggleButton);
-    console.log(toggleButton);
   };
 
   function handleChange(event) {

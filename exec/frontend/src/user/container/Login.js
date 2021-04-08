@@ -58,7 +58,6 @@ export default function Login(props) {
               }
             )
             .then((res) => {
-              console.log("인증메일 발송");
             })
             .catch((err) => {
               console.log("인증메일 발송 실패");
