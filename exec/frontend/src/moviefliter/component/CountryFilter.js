@@ -58,8 +58,10 @@ export default function CountryFilter({countryText, ganreText, setCountryText, u
     handleClose();
     if (e.target.innerText!=='국가'){
       if (ganreText !== '장르'){
+        dispatch(actions.setMovieList([]));
         dispatch(actions.requestFilterCountryGanreMovieList(e.target.innerText, ganreText, 0, user.seq));
       } else{
+        dispatch(actions.setMovieList([]));
         dispatch(actions.requestFilterCountryMovieList(e.target.innerText, 0, user.seq));
       }
     }
