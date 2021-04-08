@@ -78,7 +78,11 @@ export default function Search({activeValue, setActiveValue}) {
       dispatch(actions.trySetText(''));
     }
   }, [activeValue, dispatch])
-  
+  useEffect(()=> {
+    if (text === '') {
+      setSearchText('')
+    }
+  }, [text])
   function onChangeText(e) {
     const text = e.target.value;
     dispatch(actions.trySetText(text));
