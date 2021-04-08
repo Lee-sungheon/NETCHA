@@ -53,7 +53,7 @@ const MovieDetailContainer = ({ movieNo }) => {
       });
     }
   }, [movie]);
-
+  
   return (
     <>
       {movie && (
@@ -100,7 +100,7 @@ const MovieDetailContainer = ({ movieNo }) => {
               </div>
               <div className="contentBlock">
                 <BasicInfo movie={movie} loading={loading} error={error} />
-                <Cast actors={movie.movie_info.casts} />
+                <Cast actors={movie.movie_info.casts} people={movie.actors} />
                 <StarGraph requestData={requestData} />
                 <Comment
                   requestData={requestData}
