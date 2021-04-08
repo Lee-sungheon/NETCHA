@@ -69,8 +69,9 @@ const Comment = ({ requestData, history }) => {
             <div key={index} className="commentBox">
               <div className="header">
                 <div
+                  className="profileBox"
                   onClick={() => {
-                    history.push('/user/statics/' + requestData.userId);
+                    history.push('/user/statics/' + comment.userId);
                   }}
                   style={{
                     display: 'flex',
@@ -84,8 +85,10 @@ const Comment = ({ requestData, history }) => {
                     alt="profile"
                     style={{
                       display: 'inline-block',
-                      width: '25px',
+                      width: '30px',
                       borderRadius: '60%',
+                      position: 'relative',
+                      top: '-3px',
                       border: '1px solid #e6e6e6',
                     }}
                   />
@@ -100,7 +103,7 @@ const Comment = ({ requestData, history }) => {
                   </span>
                 </div>
                 {comment.ranking !== 0 && (
-                  <div>
+                  <div style={{ width: '50px' }}>
                     <span>★</span>
                     <span className="score">{comment.ranking.toFixed(1)}</span>
                   </div>

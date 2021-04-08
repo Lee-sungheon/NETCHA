@@ -12,7 +12,6 @@
 
     div {
       padding-left: 5px;
-      width: 50px;
       font-weight: 400;
       border-radius: 13px;
       color: rgb(58, 58, 58);
@@ -62,4 +61,11 @@
 }
 .commentBox:nth-child(even) {
   margin-left: 10px;
+}
+
+.profileBox {
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
