@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import './MovieList.scss';
 
 const MovieItem = ({ movie }) => {
-  const { posterUrl, title, open, country, no } = movie;
+  const { posterUrl, title, open, country, no, avgRank } = movie;
   return (
     <Link to={`/movieDetail/${no}`}>
       <div className="movieWrap">

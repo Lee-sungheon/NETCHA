@@ -44,7 +44,7 @@ export default function SmallSlider({ movies, error, loading }) {
                       </div>
                       <div className="smallmovieRate" style={movie.isRating === '평균'? {color: "#ff0073"} : {}}>
                         <span className="smallmovieScore">{movie.isRating}&nbsp;</span>
-                        <span className="smallmovieScore">★&nbsp;5.0</span>
+                        <span className="smallmovieScore">★&nbsp;{movie.score? movie.score : movie.avgRank}</span>
                       </div>
                     </div>
                   </div>
