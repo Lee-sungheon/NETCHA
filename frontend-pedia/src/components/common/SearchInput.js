@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchInput = ({ keyword, movies, onChange, onKeyPress, error }) => {
+const SearchInput = ({ keyword, movies, onChange, onKeyPress,onBlur, error }) => {
   // console.log('movies_title: ' + movies);
 
   const classes = useStyles();
@@ -80,6 +80,7 @@ const SearchInput = ({ keyword, movies, onChange, onKeyPress, error }) => {
           inputProps={{ "aria-label": "search" }}
           onKeyPress={onKeyPress}
           onChange={onChange}
+          onBlur={onBlur}
         />
       </div>
       {!error && movies && movies.length > 0 ? (
