@@ -32,12 +32,14 @@ export default function Home() {
   const history = useHistory();
   const [pageNum, setPageNum] = useState(1);
   const [isloading, setIsloading] = useState(1);
-  useEffect(() => {
-    dispatch(navActions.headerToggle(true));
-    return () => {};
-  }, [dispatch]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    if (!user.mbti) {
+      history.push("/mbti");
+      alert("MBTI 설정을 해주세요.");
+      return;
+    }
     async function fetchData() {
       const evalNum = await callApiEvaluation(user.seq);
       if (evalNum < 10) {
