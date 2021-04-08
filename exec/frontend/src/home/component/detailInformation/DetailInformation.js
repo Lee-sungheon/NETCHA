@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import { callApiMovieReview } from '../../../common/api';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import SpeakerNotesOffIcon from '@material-ui/icons/SpeakerNotesOff';
+import { useSelector } from "react-redux";
 import Comment from './Comment';
 
 export default function DetailInformation({ movie }) {
@@ -16,11 +17,12 @@ export default function DetailInformation({ movie }) {
   const [ commentList1, setCommentList1 ] = useState([]);
   const [ commentList2, setCommentList2 ] = useState([]);
   const [ isLoading, setIsLoading ] = useState(false);
+  const user = useSelector(state => state.user.userData.member);
   const history = useHistory();
   useEffect(()=> {
     async function fetchData() {
       await setIsLoading(true);
-      const tmp_reviews = await callApiMovieReview(movie.no, 1);
+      const tmp_reviews = await callApiMovieReview(movie.no, user.seq);
       await setIsLoading(false);
       if (tmp_reviews) {
         setReviews(tmp_reviews);
