@@ -1,0 +1,30 @@
+$pink: #ff006d;
+$grey: #74747b;
+$lightgrey: #f8f8f8;
+$yellow: #ffa136;
+$lightyellow: #ffdd64;
+$navy: #292a32;
+$white: #fff;
+$black: #000;
+$blue: #558af6;
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&family=Roboto:wght@400;500&display=swap');
+
+* {
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+html {
+  color: #000;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  outline: none;
+}
+
+button,
+input {
+  outline: none;
+  border: none;
+}

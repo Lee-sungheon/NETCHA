@@ -1,0 +1,85 @@
+.commentDetailWrapper {
+  justify-content: center;
+  min-height: 700px;
+  .commentBox {
+    margin: 0 auto;
+    padding: 10px;
+    width: 600px;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    .header {
+      display: flex;
+      font-weight: bold;
+      font-size: 18px;
+      justify-content: space-between;
+      padding-top: 5px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgb(235, 233, 233);
+
+      div {
+        padding-left: 5px;
+        width: 50px;
+        font-weight: 400;
+        border-radius: 13px;
+        color: rgb(58, 58, 58);
+        background-color: white;
+        span {
+          font-size: 18px;
+        }
+        .score {
+          font-size: 15px;
+        }
+      }
+    }
+    .commentContent {
+      padding: 13px 0;
+      border-bottom: 1px solid rgb(235, 233, 233);
+      white-space: pre-wrap;
+    }
+    .footer1 {
+      padding: 10px 0;
+      border-bottom: 1px solid rgb(235, 233, 233);
+    }
+    .commentUnlike {
+      margin-top: 8px;
+      width: 50px;
+      border-radius: 8px;
+      cursor: pointer;
+      padding: 5px 5px;
+      font-weight: 500;
+      color: rgb(255, 58, 156);
+    }
+    .commentLike {
+      margin-top: 8px;
+      width: 50px;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: rgb(255, 58, 156);
+      padding: 5px 5px;
+      font-weight: 500;
+      color: white;
+    }
+  }
+  .commentBox:nth-child(even) {
+    margin-left: 10px;
+  }
+}
+
+.commentDiv1 {
+  margin-top: 30px;
+  display: inline-block;
+  cursor: pointer;
+  padding-top: 5px;
+  color: rgb(255, 58, 156);
+  font-weight: bold;
+  font-size: 25px;
+  padding-left: 15px;
+}
+.commentDiv2 {
+  padding-left: 15px;
+  padding-bottom: 15px;
+  font-size: 23px;
+  font-weight: bold;
+  border-bottom: 1px solid rgb(235, 233, 233);
+  margin-bottom: 20px;
+}

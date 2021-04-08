@@ -1,0 +1,10 @@
+.arrowBackButton {
+  visibility: hidden;
+}
+.arrowBackButton:hover {
+  cursor: pointer;
+}
+
+.movie-div:hover .arrowBackButton {
+  visibility: visible !important;
+}

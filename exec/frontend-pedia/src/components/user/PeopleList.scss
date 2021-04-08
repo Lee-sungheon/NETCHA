@@ -1,0 +1,45 @@
+.peopleSlider {
+
+  .slick-prev:before {
+    left: 7px;
+  }
+  
+  .slick-next:before {
+    right: 9px;
+  }
+
+  .slick-prev:before,
+  .slick-next:before {
+    color: #ddd !important;
+    font-size: 23px;
+    position: relative;
+    top: -10px;
+  }
+  .peopleWrap {
+    margin: 0 0 10px 0;
+    height: 76px;
+    position: relative;
+
+    .peopleImage {
+      display: inline-block;
+      align-items: center;
+      height: 56px;
+      width: 56px;
+      border: 1px solid #e6e6e6;
+      border-radius: 50%;
+      position: relative;
+    }
+    
+    .peoplerName {
+      display: inline-block;
+      padding: 0 0 20px 10px;
+      width: 440px;
+      border-bottom: 1px solid #f0f0f0;
+      color: #1e1e1e;
+      font-size: 17px;
+      font-weight: 400;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
