@@ -61,68 +61,12 @@
 - 추후 업데이트 예정
 
 - Netcha
+ [상세화면 및 테스트케이스](https://www.notion.so/bd8693c94a1d4ce4a826cd55bea22302)
 
-  - 시작페이지
 
-      ![(null)](README.assets/cif00001-1617870899200.png)  
-
-  - 회원가입페이지
-
-      ![(null)](README.assets/cif00001-1617871024252.png)  
-
-  - 로그인페이지
-
-      ![(null)](README.assets/cif00001-1617871041046.png)  
-
-  - 메인페이지(배너)
-
-      ![(null)](README.assets/cif00001-1617871057152.png)  
-
-  - 메인페이지(추천영화리스트)
-
-      ![(null)](README.assets/cif00001-1617871076247.png) 
-
-      ![(null)](README.assets/cif00001-1617871088867.png)  
-
-      ![(null)](README.assets/cif00001-1617871094002.png)  
-
-      ![(null)](README.assets/cif00001-1617871098844.png)  
-
-      ![(null)](README.assets/cif00001-1617871126240.png)  
-
-  - 찜한영화목록
-
-      ![(null)](README.assets/cif00001-1617871152700.png)  
-
-  - 영화평가하기 페이지
-
-      ![(null)](README.assets/cif00001-1617871172596.png)  
-
-  - 검색결과페이지
-
-      ![(null)](README.assets/cif00001-1617871188128.png)  
-
-  - MBTI 설정 페이지
-
-      ![(null)](README.assets/cif00001-1617871214331.png)  
-
-  - MBTI테스트 페이지
-
-      ![(null)](README.assets/cif00001-1617871235739.png)  
-
-  - MBTI테스트결과 페이지
-
-      ![(null)](README.assets/cif00001-1617871254338.png)  
-
-  - 계정관리 페이지
-
-      ![(null)](README.assets/cif00001-1617871267870.png)  
-
-    
 - **넷차피디아 바로가기**
 
   [상세화면 및 테스트케이스](https://www.notion.so/bd8693c94a1d4ce4a826cd55bea22302)
-  
 
 ## 🗓️ 개발 일정
 
