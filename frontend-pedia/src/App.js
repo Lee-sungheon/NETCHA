@@ -44,16 +44,14 @@ const App = () => {
           path="/searchMovie/:keyword"
           component={SearchMovieListPage}
         />
-        {/* <Route path="/searchMovie?" component={SearchMovieListPage} /> */}
-        {/* <Route exact path="/searchMovie?:token" component={SearchMovieListPage} /> */}
         <Route
           exact
-          path="/userRatingMoviesList"
+          path="/userPage/userRatingMoviesList"
           component={UserRatingMoviesListPage}
         />
         <Route
           exact
-          path="/userZzimMoviesList"
+          path="/userPage/userZzimMoviesList"
           component={UserZzimMoviesListPage}
         />
       </BrowserRouter>
