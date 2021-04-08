@@ -798,7 +798,8 @@ public class MovieService {
 			boolean like = false;
 			if(mr.getMember().getSeq() == userId) mine = true;
 			if(movieLike != null) like = true; 
-			mrd.update(mine, like, movieRank.getRanking());
+			if(movieRank != null) mrd.update(mine, like, movieRank.getRanking());
+			else mrd.update(mine, like, 0);
 			result.add(mrd);
 		}
 		return result;
@@ -1159,7 +1160,8 @@ public class MovieService {
 		boolean isMyLike = false;
 		if(movieReview.getMember().getSeq() == userId) isMine = true;
 		if(like != null) isMyLike = true;
-		result.update(isMine, isMyLike, rank.getRanking());
+		if(rank != null) result.update(isMine, isMyLike, rank.getRanking());
+		else result.update(isMine, isMyLike, 0);
 		return result;
 	}
 	
