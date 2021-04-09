@@ -274,7 +274,7 @@ public class MovieService {
 	    mbti.put("ISFJ", new String[] {"멜로/로맨스", "애니메이션"});
 	    mbti.put("ISFP", new String[] {"멜로/로맨스", "판타지"}); 
 	    mbti.put("INTJ", new String[] {"SF", "판타지"});
-	    mbti.put("INFJ", new String[] {"SF", "미스터리"});
+	    mbti.put("INTP", new String[] {"SF", "미스터리"});
 	    mbti.put("INFJ", new String[] {"드라마", "역사"});
 	    mbti.put("INFP", new String[] {"공포", "스릴러"});
 	    
