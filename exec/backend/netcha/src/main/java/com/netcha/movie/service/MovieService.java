@@ -298,6 +298,7 @@ public class MovieService {
 				return Integer.compare(o2[1], o1[1]);
 			}
 		});
+	    
 		List<MovieResponseDto> result = new ArrayList<MovieResponseDto>();
 		int idx = (int)pageNum*40;
 		if(idx >= scoreList.size()) return null;
